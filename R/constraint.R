@@ -12,6 +12,15 @@
 #'    exclamation point added. As a side effect, this function also prints out
 #'    the phrase. 
 #'
+#'@references
+#'
+#' Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.
+#' Everett, M.G., Borgatti, S., 2020. Unpacking Burt's constraint measure. Social Networks 62, pp. 50-57. doi: \url{https://doi.org/10.1016/j.socnet.2020.02.001}
+#'
+#' @importFrom
+#'
+#' 
+#' 
 #' @examples
 #' 
 #' A <- matrix(c(0,1,1,0,0,1,
