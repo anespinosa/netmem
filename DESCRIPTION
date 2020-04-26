@@ -1,0 +1,12 @@
+Package:  netmem
+Version:  1.0-3
+Date:  2020-XX-X
+Depends:  R (>= 3.0.0)
+Imports: igraph
+Title:  Social Network Measures from Matrices
+Author:  Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
+Maintainer:  Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
+Description:  Measures to descriptive social networks from matrices.  
+License:  GPL (>= 2)
+URL: https://github.com/anespinosa/netmem
+
