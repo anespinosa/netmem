@@ -2,7 +2,7 @@
 % Please edit documentation in R/degree.R
 \name{gen_degree}
 \alias{gen_degree}
-\title{Degree centrality for one-mode and bipartite networks.}
+\title{Generalized degree centrality for one-mode and bipartite networks.}
 \usage{
 gen_degree(
   A,
@@ -37,7 +37,7 @@ This function returns term 1, 2 and 3, the normalization and the maximum value o
 and the constraint of Burt (1992).
 }
 \description{
-Degree centrality for one-mode and bipartite networks.
+Generalized degree centrality for one-mode and bipartite networks.
 }
 \examples{
 
@@ -53,6 +53,7 @@ gen_degree(A)
 }
 \references{
 Borgatti, S. P., and Everett, M. G. (1997). Network analysis of 2-mode data. Social Networks, 19(3), 243–269.
+
 
 Freeman, L. C. (1978). Centrality in social networks conceptual clarification. Social Networks, 1(3), 215–239.
 
