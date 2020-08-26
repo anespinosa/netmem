@@ -15,6 +15,7 @@
 #'
 #' @import NetData
 #' @import igraph
+#' @import sna
 #'
 #' @examples
 #' 
