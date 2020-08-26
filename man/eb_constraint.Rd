@@ -29,8 +29,7 @@ A <- matrix(c(0,1,1,0,0,1,
 1,1,0,0,0,1,
 0,0,0,0,1,1,
 0,0,0,1,0,1,
-1,1,1,1,1,0), ncol=6, nrow=6,
-byrow=TRUE)
+1,1,1,1,1,0), ncol=6, byrow=TRUE)
 
 eb_constraint(A, ego=6)
 

@@ -15,8 +15,6 @@
 #'
 #' @import igraph
 #'
-#' 
-#' 
 #' @examples
 #' 
 #' A <- matrix(c(0,1,1,0,0,1,
@@ -24,8 +22,7 @@
 #' 1,1,0,0,0,1,
 #' 0,0,0,0,1,1,
 #' 0,0,0,1,0,1,
-#' 1,1,1,1,1,0), ncol=6, nrow=6,
-#' byrow=TRUE)
+#' 1,1,1,1,1,0), ncol=6, byrow=TRUE)
 #' 
 #' eb_constraint(A, ego=6)
 #' 
@@ -54,11 +51,10 @@ eb_constraint <- function(A, ego=NULL, digraph=FALSE, weighted=FALSE){
     term1 <- (1/N) 
     A_ego <- A[-ego,-ego] 
     term2 <- (2/(N^2))*sum(rowSums(A_ego)/(rowSums(A_ego)+1))
-    require(igraph)
-    gA_ego <- igraph::graph.adjacency(A_ego, mode=c("undirected"))
+    gA_ego <- graph.adjacency(A_ego, mode=c("undirected"))
     pq <- list()
     for(q in 1:ncol(A_ego)){
-      q1 <- as.vector(igraph::neighborhood(gA_ego)[[q]]) 
+      q1 <- as.vector(neighborhood(gA_ego)[[q]]) 
       q1 <- rowSums(A_ego)[q1]
       q1 <- q1[-1]
       pq[[q]] <- q1 

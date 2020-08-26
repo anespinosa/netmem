@@ -14,7 +14,6 @@
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications (Vol. 8). Cambridge university press.
 #'
 #' @import stats
-#' @import igraph
 #'
 #' @examples
 #' 
@@ -25,15 +24,30 @@
 # results: W-F: -18.4; here: 7.06
 # 300-030T: original: -0.01; here:0.011
 #' 
-#' library(NetData)
-#' data(kracknets, package = "NetData")
-#' friend <- subset(friendship_data_frame, friendship_tie==1)
+#' A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
+#'              1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,
+#'              0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,
+#'              1,1,0,0,0,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,
+#'              0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,
+#'              0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,1,
+#'              0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'              0,0,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,1,0,
+#'              1,1,1,1,1,0,1,0,0,1,1,0,1,0,1,1,1,0,0,1,0,
+#'              1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,
+#'              0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+#'              0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,
+#'              1,0,1,0,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,
+#'              1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'              1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,
+#'              0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'              1,1,1,0,1,0,0,0,1,1,0,1,1,0,0,0,0,1,0,0,0,
+#'              0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,
+#'              0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,
+#'              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
+#'              ncol=21, byrow=TRUE)
 #' 
-#' library(igraph)
-#' g1 <- graph.data.frame(friend)
-#' krackhardt <- get.adjacency(g1, sparse = FALSE)
-#' 
-#' triadCensusExp <- hollandLeinhardt(krackhardt)
+#' triadCensusExp <- hollandLeinhardt(A)
 #' triadCensusExp
 #' 
 #' \dontrun{
@@ -45,11 +59,10 @@
 
 hollandLeinhardt <- function(A, ztest=FALSE, covar=FALSE){
   A <- as.matrix(A)
-  dyad <- sna::dyad.census(network::as.network(A))
-  m <- dyad[1] #(1/2)*sum(diag(x%*%x)) # mutual
-  a <- dyad[2] #sum(diag(x%*%t(x)))-sum(diag(x%*%x)) # asymmetric
-  n <- dyad[3] #((g*(g-1))/2)-(sum(diag(x%*%t(x)))-sum(diag(x%*%x)))-((1/2)*sum(diag(x%*%x))) # null
   g <- dim(A)[1]
+  m <- (1/2)*sum(diag(A%*%A)) # mutual
+  a <- sum(diag(A%*%t(A)))-sum(diag(A%*%A)) # asymmetric
+  n <- ((g*(g-1))/2)-(sum(diag(A%*%t(A)))-sum(diag(A%*%A)))-((1/2)*sum(diag(A%*%A))) # null
   g2 <- (1/2)*(g*(g-1))
   g3 <- (1/6)*(g*(g-1)*(g-2))
   
