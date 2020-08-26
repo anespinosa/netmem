@@ -10,7 +10,9 @@
 #' @references
 #'
 #' Holland, P. W. and Leinhardt, S. (1975). The statistical analysis of local structure in social networks. In D. R. Heise (Ed.), Sociological Methodology, 1976 (Jossey-Bass, pp. 1–45).
+#' 
 #' Holland, P. W. and Leinhardt, S. (1976). Local Structure in Social Networks. Sociological Methodology, 7, 1–45.  doi: \url{https://doi.org/10.2307/270703}
+#' 
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications (Vol. 8). Cambridge university press.
 #'
 #' @import stats
@@ -18,11 +20,11 @@
 #' @examples
 #' 
 #' # COVARIANCE ARE WRONG IN W-F 1994? 
-# (i.e. TRIADS computer program of Walker and Wasserman, 1987)
-# 201-102: we use the equation of Leinhardt and Holland (1975)
-# P0(u,v): 9m^(3)n^(3); P1(u,v): 2m^(2)m^(2)(m+4-n)
-# results: W-F: -18.4; here: 7.06
-# 300-030T: original: -0.01; here:0.011
+#' # (i.e. TRIADS computer program of Walker and Wasserman, 1987)
+#' # 201-102: we use the equation of Leinhardt and Holland (1975)
+#' # P0(u,v): 9m^(3)n^(3); P1(u,v): 2m^(2)m^(2)(m+4-n)
+#' # results: W-F: -18.4; here: 7.06
+#' # 300-030T: original: -0.01; here:0.011
 #' 
 #' A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
 #'              1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,
@@ -47,17 +49,17 @@
 #'              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
 #'              ncol=21, byrow=TRUE)
 #' 
-#' triadCensusExp <- hollandLeinhardt(A)
+#' triadCensusExp <- triad_uman(A)
 #' triadCensusExp
 #' 
 #' \dontrun{
-#' triadCensusExp <- hollandLeinhardt(krackhardt, ztest=TRUE, covar=TRUE)
+#' triadCensusExp <- triad_uman(A, ztest=TRUE, covar=TRUE)
 #' triadCensusExp
 #' }
 #' 
 #' @export
 
-hollandLeinhardt <- function(A, ztest=FALSE, covar=FALSE){
+triad_uman <- function(A, ztest=FALSE, covar=FALSE){
   A <- as.matrix(A)
   g <- dim(A)[1]
   m <- (1/2)*sum(diag(A%*%A)) # mutual

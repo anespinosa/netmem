@@ -25,16 +25,17 @@ Everett and Borgatti specification of the constraint measure for binary matrixes
 \examples{
 
 A <- matrix(c(0,1,1,0,0,1,
-1,0,1,0,0,1,
-1,1,0,0,0,1,
-0,0,0,0,1,1,
-0,0,0,1,0,1,
-1,1,1,1,1,0), ncol=6, byrow=TRUE)
+             1,0,1,0,0,1,
+             1,1,0,0,0,1,
+             0,0,0,0,1,1,
+             0,0,0,1,0,1,
+             1,1,1,1,1,0), ncol=6, byrow=TRUE)
 
 eb_constraint(A, ego=6)
 
 }
 \references{
 Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.
+
 Everett, M.G. and Borgatti, S., 2020. Unpacking Burt's constraint measure. Social Networks 62, pp. 50-57. doi: \url{https://doi.org/10.1016/j.socnet.2020.02.001}
 }
