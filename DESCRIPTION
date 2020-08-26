@@ -6,7 +6,7 @@ Imports: igraph
 Title: Social Network Measures from Matrices
 Author: Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
 Maintainer: Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
-Description: Measures to descriptive social networks from matrices.  
+Description: Measures to describe social networks using matrices.  
 License: GPL (>= 2)
 URL: https://github.com/anespinosa/netmem
 Suggests: 
