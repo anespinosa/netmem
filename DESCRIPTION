@@ -1,6 +1,6 @@
 Package: netmem
 Version: 1.0-3
-Date: 2020-XX-X
+Date: 2020-09-26
 Depends: R (>= 3.0.0)
 Imports: igraph
 Title: Social Network Measures using Matrices
