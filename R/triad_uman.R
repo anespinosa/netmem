@@ -18,13 +18,6 @@
 #'
 #' @examples
 #' 
-#' # COVARIANCE ARE WRONG IN W-F 1994? 
-#' # (i.e. TRIADS computer program of Walker and Wasserman, 1987)
-#' # 201-102: we use the equation of Leinhardt and Holland (1975)
-#' # P0(u,v): 9m^(3)n^(3); P1(u,v): 2m^(2)m^(2)(m+4-n)
-#' # results: W-F: -18.4; here: 7.06
-#' # 300-030T: original: -0.01; here:0.011
-#' 
 #' A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
 #'              1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,
 #'              0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,
