@@ -94,12 +94,12 @@ We can also check the triad census assuming **U|MAN**
 triad_uman(A1)
 ```
 
-Also, we would calculate the level of constraint of one particular actor (e.g. actor `5`) 
+Also, we would calculate the level of the constraint of one particular actor (e.g. actor `5`) 
 ```{r results='hide'}
 eb_constraint(A1, ego=5)
 ```
 
-Now, we can calculate the degree centrality of the entire stucture
+Now, we can calculate the degree centrality of the entire structure
 ```{r results='hide'}
 multilevel_degree(A1, B1, A2, B2, A3, B3, complete = TRUE)
 ```
