@@ -20,7 +20,12 @@ knitr::opts_chunk$set(
 
 The goal of `netmem` is to make available different measures to describe social networks using matrices.
 
-- Author/mantainer: [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html) 
+`r emo::ji("pen")` Author/mantainer: [Alejandro Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html) 
+
+`r emo::ji("school")` [The Mitchell Centre for Social Network Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/), The University of Manchester
+
+[![Follow me on Twitter](https://img.shields.io/badge/Follow me on Twitter-9cf.svg)](https://twitter.com/aesp08)
+
 
 ## Installation
 
@@ -31,12 +36,17 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("anespinosa/netmem")
 ```
 
+-----
+
 ## Example
 
-```{r warning=FALSE}
+### Data
+
+```r
 library(netmem)
 ```
 
+<div class="alert alert-info">
 Let's assume that we have a multilevel network with three adjacency matrices and two incident matrices between them.
 
 - `A1`: Adjacency Matrix of the level 1
@@ -44,9 +54,10 @@ Let's assume that we have a multilevel network with three adjacency matrices and
 - `A2`: Adjacency Matrix of the level 2
 - `B2`: Incident Matrix between level 2 and level 3
 - `A3`: Adjacency Matrix of the leve 3
+</div>
 
 Create the data
-```{r}
+```r
 A1 <- matrix(c(0,1,0,0,1,
               1,0,0,1,1,
               0,0,0,1,1,
@@ -79,8 +90,12 @@ B3 <- matrix(c(1,0,0,0,0,
 
 ```
 
+-----
+
+### Degree centrality
+
 Explore the degree centrality of an adjacency matrix and a bipartite matrix
-```{r results='hide'}
+```r
 # Degree centrality of the first matrix
 gen_degree(A1, digraph = FALSE)
 
@@ -89,17 +104,28 @@ gen_degree(B1, bipartite = TRUE)
 
 ```
 
+Now, we can calculate the degree centrality of the entire structure
+```r
+multilevel_degree(A1, B1, A2, B2, A3, B3, complete = TRUE)
+```
+
+-----
+
+### Census triad
+
 We can also check the triad census assuming **U|MAN**
-```{r results='hide'}
+```r
 triad_uman(A1)
 ```
 
+-----
+
+### Ego measures
+
 Also, we would calculate the level of the constraint of one particular actor (e.g. actor `5`) 
-```{r results='hide'}
+```r
 eb_constraint(A1, ego=5)
 ```
 
-Now, we can calculate the degree centrality of the entire structure
-```{r results='hide'}
-multilevel_degree(A1, B1, A2, B2, A3, B3, complete = TRUE)
-```
+
+
