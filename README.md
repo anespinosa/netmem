@@ -104,7 +104,8 @@ Now, we can calculate the degree centrality of the entire structure
 
 ### Census triad
 
-We can also check the triad census assuming **U\|MAN**
+We can also check the triad census assuming conditional uniform
+distribution considering different types of dyads **(U\|MAN)**
 
     triad_uman(A1)
 

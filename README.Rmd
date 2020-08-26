@@ -113,7 +113,7 @@ multilevel_degree(A1, B1, A2, B2, A3, B3, complete = TRUE)
 
 ### Census triad
 
-We can also check the triad census assuming **U|MAN**
+We can also check the triad census assuming conditional uniform distribution considering different types of dyads **(U|MAN)**
 ```r
 triad_uman(A1)
 ```
