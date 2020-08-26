@@ -43,8 +43,7 @@ multilevel_degree(
 
 \item{B3}{The incident matrix of the ties between the actors of the third level and the actors of the first level}
 
-\item{complete}{Add the degree of bipartite and tripartite networks for B1, B2 and/or B3,
-and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree}
+\item{complete}{Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree}
 
 \item{digraphA1}{Wheter A1 is a directed network}
 
@@ -64,7 +63,7 @@ and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) an
 
 \item{loopsA3}{Wheter the loops of the edges are considered in matrix A3}
 
-\item{normalized}{If TRUE then the result is divided by $(n-1)+k+m$ for the first level, $(m-1)+n+k$ for the second level, and $(k-1)+m+n$ according to Espinosa-Rada (2021)}
+\item{normalized}{If TRUE then the result is divided by (n-1)+k+m for the first level, (m-1)+n+k for the second level, and (k-1)+m+n according to Espinosa-Rada et al. (2021)}
 
 \item{weightedA1}{Wheter A1 is weighted}
 

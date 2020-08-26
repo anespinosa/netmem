@@ -6,8 +6,7 @@
 #' @param B2  The incident matrix of the ties between the actors of the second level and the actors of the third level
 #' @param A3  The adjacent square of the third level
 #' @param B3  The incident matrix of the ties between the actors of the third level and the actors of the first level
-#' @param complete  Add the degree of bipartite and tripartite networks for B1, B2 and/or B3,
-#' and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree
+#' @param complete  Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree
 #' @param digraphA1  Wheter A1 is a directed network
 #' @param digraphA2  Wheter A2 is a directed network
 #' @param digraphA3  Wheter A3 is a directed network
@@ -17,7 +16,7 @@
 #' @param loopsA1  Wheter the loops of the edges are considered in matrix A1
 #' @param loopsA2  Wheter the loops of the edges are considered in matrix A2
 #' @param loopsA3  Wheter the loops of the edges are considered in matrix A3
-#' @param normalized If TRUE then the result is divided by $(n-1)+k+m$ for the first level, $(m-1)+n+k$ for the second level, and $(k-1)+m+n$ according to Espinosa-Rada (2021)
+#' @param normalized If TRUE then the result is divided by (n-1)+k+m for the first level, (m-1)+n+k for the second level, and (k-1)+m+n according to Espinosa-Rada et al. (2021)
 #' @param weightedA1  Wheter A1 is weighted
 #' @param weightedA2  Wheter A2 is weighted
 #' @param weightedA3  Wheter A3 is weighted
