@@ -12,7 +12,7 @@
 #' 
 #' Holland, P. W. and Leinhardt, S. (1976). Local Structure in Social Networks. Sociological Methodology, 7, 1–45.  doi: \url{https://doi.org/10.2307/270703}
 #' 
-#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications (Vol. 8). Cambridge university press.
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge university press.
 #'
 #' @author Alejandro Espinosa-Rada
 #'
