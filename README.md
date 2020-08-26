@@ -1,14 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-netmem: Social Network Measures using Matrices
-==============================================
+netmem: Network Measures using Matrices
+=======================================
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 The goal of `netmem` is to make available different measures to describe
-social networks using matrices.
+networks using matrices.
 
 🖊 Author/mantainer: [Alejandro
 Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
