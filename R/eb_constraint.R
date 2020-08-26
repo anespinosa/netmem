@@ -15,6 +15,8 @@
 #' Everett, M.G. and Borgatti, S., 2020. Unpacking Burt's constraint measure. Social Networks 62, pp. 50-57. doi: \url{https://doi.org/10.1016/j.socnet.2020.02.001}
 #'
 #' @import igraph
+#' 
+#' @author Alejandro Espinosa-Rada
 #'
 #' @examples
 #' 

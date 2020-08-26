@@ -59,3 +59,6 @@ Freeman, L. C. (1978). Centrality in social networks conceptual clarification. S
 
 Opsahl, T., Agneessens, F., and Skvoretz, J. (2010). Node centrality in weighted networks: Generalizing degree and shortest paths. Social Networks, 32(3), 245–251.
 }
+\author{
+Alejandro Espinosa-Rada
+}

@@ -37,6 +37,9 @@
 #'
 #' Opsahl, T., Agneessens, F., and Skvoretz, J. (2010). Node centrality in weighted networks: Generalizing degree and shortest paths. Social Networks, 32(3), 245–251.
 #'
+#' @import utils
+#'
+#' @author Alejandro Espinosa-Rada
 #'
 #' @examples
 #' 

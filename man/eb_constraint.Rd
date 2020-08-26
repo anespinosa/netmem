@@ -39,3 +39,6 @@ Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard
 
 Everett, M.G. and Borgatti, S., 2020. Unpacking Burt's constraint measure. Social Networks 62, pp. 50-57. doi: \url{https://doi.org/10.1016/j.socnet.2020.02.001}
 }
+\author{
+Alejandro Espinosa-Rada
+}

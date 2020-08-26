@@ -4,12 +4,10 @@
 \alias{triad_uman}
 \title{Triad census analysis assuming U|MAN}
 \usage{
-triad_uman(A, ztest = FALSE, covar = FALSE)
+triad_uman(A, covar = FALSE)
 }
 \arguments{
 \item{A}{A symmetric matrix object.}
-
-\item{ztest}{Whether to perform a z-test.}
 
 \item{covar}{Whether to return the covarianc matrix for triadic analysis.}
 }
@@ -56,7 +54,7 @@ triadCensusExp <- triad_uman(A)
 triadCensusExp
 
 \dontrun{
-triadCensusExp <- triad_uman(A, ztest=TRUE, covar=TRUE)
+triadCensusExp <- triad_uman(A, covar=TRUE)
 triadCensusExp
 }
 
@@ -67,4 +65,7 @@ Holland, P. W. and Leinhardt, S. (1975). The statistical analysis of local struc
 Holland, P. W. and Leinhardt, S. (1976). Local Structure in Social Networks. Sociological Methodology, 7, 1–45.  doi: \url{https://doi.org/10.2307/270703}
 
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications (Vol. 8). Cambridge university press.
+}
+\author{
+Alejandro Espinosa-Rada
 }

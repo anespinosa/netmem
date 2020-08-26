@@ -7,7 +7,7 @@ netmem: Social Network Measures using Matrices
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of netmem is to make available different measures to describe
+The goal of `netmem` is to make available different measures to describe
 social networks using matrices.
 
 -   Author/mantainer: [Alejandro
@@ -36,7 +36,7 @@ matrices and two incident matrices between them.
 -   `B2`: Incident Matrix between level 2 and level 3
 -   `A3`: Adjacency Matrix of the leve 3
 
-We could create the data using matrices
+Create the data
 
     A1 <- matrix(c(0,1,0,0,1,
                   1,0,0,1,1,
@@ -68,15 +68,20 @@ We could create the data using matrices
                   0,0,0,0,0,
                   0,0,0,0,0), byrow=TRUE, ncol=5)
 
-We could first explore a bit the data
+Explore the degree centrality of an adjacency matrix and a bipartite
+matrix
 
     # Degree centrality of the first matrix
     gen_degree(A1, digraph = FALSE)
 
-    # Degree centrality of one of bipartite network
+    # Degree centrality of one of the incident matrices
     gen_degree(B1, bipartite = TRUE)
 
-We can also calculate the level of constraint of one particular actor
+We can also check the triad census assuming **U\|MAN**
+
+    triad_uman(A1)
+
+Also, we would calculate the level of constraint of one particular actor
 (e.g. actor `5`)
 
     eb_constraint(A1, ego=5)

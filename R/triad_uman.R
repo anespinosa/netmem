@@ -1,7 +1,6 @@
 #' Triad census analysis assuming U|MAN
 #'
 #' @param A   A symmetric matrix object.
-#' @param ztest   Whether to perform a z-test.
 #' @param covar   Whether to return the covarianc matrix for triadic analysis.
 #' 
 #' @return This function gives the counts of the triad census, the expected counts, 
@@ -15,7 +14,7 @@
 #' 
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications (Vol. 8). Cambridge university press.
 #'
-#' @import stats
+#' @author Alejandro Espinosa-Rada
 #'
 #' @examples
 #' 
@@ -53,13 +52,13 @@
 #' triadCensusExp
 #' 
 #' \dontrun{
-#' triadCensusExp <- triad_uman(A, ztest=TRUE, covar=TRUE)
+#' triadCensusExp <- triad_uman(A, covar=TRUE)
 #' triadCensusExp
 #' }
 #' 
 #' @export
 
-triad_uman <- function(A, ztest=FALSE, covar=FALSE){
+triad_uman <- function(A, covar=FALSE){
   A <- as.matrix(A)
   g <- dim(A)[1]
   m <- (1/2)*sum(diag(A%*%A)) # mutual
@@ -1501,36 +1500,9 @@ triad_uman <- function(A, ztest=FALSE, covar=FALSE){
   colnames(mempty) <- label
   mempty <- round(mempty, 3)
   
-  z <- (sum(results$OBS)-sum(results$EXP))/(sqrt(sum(results$VAR)+(2*(sum(COVAR)))))
-  p <- 2*pnorm(-abs(z))
-  res = c(z = z,p = p)
-  res <- round(res, 3)
-  
-  if(ztest & covar){
-    results$Z <- (results$OBS-results$EXP)/results$STD
-    results$Z <- as.numeric(as.character(results$Z))
-    results$Z <- round(results$Z, 3)
-    results$P <- 2*pnorm(-abs(results$Z))
-    results$P <- as.numeric(as.character(results$P))
-    results$P <- round(results$P, 3)
-    newlist <- list(results=results, z_test=res, covariance=mempty)
-    return(newlist)
-  }
-  
   if(covar){
     newlist <- list(results=results, covariance=mempty)
     return(newlist)
-  }
-
-  if(ztest){
-    results$Z <- (results$OBS-results$EXP)/results$STD
-    results$Z <- as.numeric(as.character(results$Z))
-    results$Z <- round(results$Z, 3)
-    results$P <- 2*pnorm(-abs(results$Z))
-    results$P <- as.numeric(as.character(results$P))
-    results$P <- round(results$P, 3)
-  newlist <- list(results=results, z_test=res)
-  return(newlist)
   }
   
   else{
