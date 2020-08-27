@@ -4,7 +4,7 @@
 #' @param weighted    Wheter the matrix is weighted or not
 #' @param type    Character string, \dQuote{out} (outdegree), \dQuote{in} (indegree) and \dQuote{all} (degree)
 #' @param normalized    Wheter normalize the measure for the one-mode network (Freeman, 1978) or a bipartite network (Borgatti and Everett, 1997)
-#' @param loops   Wheter if the diagonal of the matrix is considered or not
+#' @param loops   Wheter the diagonal of the matrix is considered or not
 #' @param digraph   Wheter the  matrix is directed or undirected
 #' @param alpha   Sets the alpha parameter in the generalised measures from Opsahl et al. (2010)
 #' @param bipartite   Wheter the matrix is bipartite or not.
@@ -16,7 +16,6 @@
 #' @references
 #'
 #' Borgatti, S. P., and Everett, M. G. (1997). Network analysis of 2-mode data. Social Networks, 19(3), 243–269.
-#'
 #'
 #' Freeman, L. C. (1978). Centrality in social networks conceptual clarification. Social Networks, 1(3), 215–239.
 #'
@@ -42,7 +41,7 @@ gen_degree <- function(A,
                        normalized=FALSE, loops=TRUE, 
                        digraph=TRUE,
                        alpha=0.5, bipartite=FALSE){
-  A <- as.matrix(A) # matrix
+  A <- as.matrix(A)
   W <- A # weighted
   A[A > 0] <- 1 # binary
   n <- nrow(A) 

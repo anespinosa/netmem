@@ -31,6 +31,10 @@
 #' 
 #' @export
 
+# TO DO:
+# - Extend for digraphs
+# - Extend for weighted graphs
+
 eb_constraint <- function(A, ego=NULL, digraph=FALSE, weighted=FALSE){
   A <- as.matrix(A)
   A <- ifelse(A>0, 1, 0) # Binarize
