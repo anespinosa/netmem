@@ -17,7 +17,7 @@ citation_norm(A1, A2, citation = "citation")
 Return a type of citation network.
 }
 \description{
-Citation networks
+Matrix transformation from incident matrices to a citation, fractional counting for co-citation or fractional counting for bibliographic coupling.
 }
 \examples{
 

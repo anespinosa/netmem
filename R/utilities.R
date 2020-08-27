@@ -1,5 +1,7 @@
 #' Citation networks
 #'
+#' Matrix transformation from incident matrices to a citation, fractional counting for co-citation or fractional counting for bibliographic coupling.
+#'
 #' @param A1   From incident matrix of paper and author.
 #' @param A2   To incident matrix of author to paper.
 #' @param citation    Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}
