@@ -47,7 +47,7 @@ matrices and two incident matrices between them.
 -   `B1`: Incident Matrix between level 1 and level 2
 -   `A2`: Adjacency Matrix of the level 2
 -   `B2`: Incident Matrix between level 2 and level 3
--   `A3`: Adjacency Matrix of the leve 3
+-   `A3`: Adjacency Matrix of the level 3
 
 </div>
 
@@ -87,14 +87,14 @@ Create the data
 
 ### Degree centrality
 
-Explore the degree centrality of an adjacency matrix and a bipartite
-matrix
+Explore the normalized degree centrality of one of the adjacency
+matrices and the normalized degree of the bipartite matrices
 
     # Degree centrality of the first matrix
-    gen_degree(A1, digraph = FALSE)
+    gen_degree(A1, digraph = FALSE, normalized=TRUE)
 
     # Degree centrality of one of the incident matrices
-    gen_degree(B1, bipartite = TRUE)
+    gen_degree(B1, bipartite = TRUE, normalized=TRUE)
 
 Now, we can calculate the degree centrality of the entire structure
 

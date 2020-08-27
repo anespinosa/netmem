@@ -53,7 +53,7 @@ Let's assume that we have a multilevel network with three adjacency matrices and
 - `B1`: Incident Matrix between level 1 and level 2
 - `A2`: Adjacency Matrix of the level 2
 - `B2`: Incident Matrix between level 2 and level 3
-- `A3`: Adjacency Matrix of the leve 3
+- `A3`: Adjacency Matrix of the level 3
 </div>
 
 Create the data
@@ -94,13 +94,13 @@ B3 <- matrix(c(1,0,0,0,0,
 
 ### Degree centrality
 
-Explore the degree centrality of an adjacency matrix and a bipartite matrix
+Explore the normalized degree centrality of one of the adjacency matrices and the normalized degree of the bipartite matrices
 ```r
 # Degree centrality of the first matrix
-gen_degree(A1, digraph = FALSE)
+gen_degree(A1, digraph = FALSE, normalized=TRUE)
 
 # Degree centrality of one of the incident matrices
-gen_degree(B1, bipartite = TRUE)
+gen_degree(B1, bipartite = TRUE, normalized=TRUE)
 
 ```
 
