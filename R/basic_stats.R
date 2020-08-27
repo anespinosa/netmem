@@ -13,6 +13,32 @@
 #'
 #' @author Alejandro Espinosa-Rada
 #' 
+#' @examples 
+#' A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
+#'               1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,
+#'               0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,
+#'               1,1,0,0,0,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,
+#'               0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,
+#'               0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,1,
+#'               0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               0,0,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,1,0,
+#'               1,1,1,1,1,0,1,0,0,1,1,0,1,0,1,1,1,0,0,1,0,
+#'               1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,
+#'               0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,
+#'               1,0,1,0,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,
+#'               1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,
+#'               0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               1,1,1,0,1,0,0,0,1,1,0,1,1,0,0,0,0,1,0,0,0,
+#'               0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,
+#'               0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
+#'             ncol=21, byrow=TRUE)
+#' 
+#' pkp(A, fixed=TRUE, d=5)
+#' 
 #' @importFrom stats pnorm
 #' 
 #' @export
@@ -37,11 +63,13 @@ pkp <- function(G, fixed=FALSE, d=NULL, dichotomic=TRUE)
   }
 }
 
-#' Z test for Arcs in Uniform Distribution
+#' Z test of the number of arcs
 #'
 #' @param G   A symmetric matrix object.
+#' @param p   Constant probability p.
+#' @param interval    Return a 95 percent confidence interval.
 #' 
-#' @return This function gives a Z test and p-value for arcs in uniform distribution
+#' @return This function gives a Z test and p-value for the number of lines or arcs present in a directed graph
 #'
 #' @references
 #'
@@ -49,41 +77,38 @@ pkp <- function(G, fixed=FALSE, d=NULL, dichotomic=TRUE)
 #'
 #' @author Alejandro Espinosa-Rada
 #' 
-#' @importFrom stats pnorm
+#' @examples 
+#' A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
+#'               1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,
+#'               0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,
+#'               1,1,0,0,0,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,
+#'               0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,
+#'               0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,1,
+#'               0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               0,0,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,1,0,
+#'               1,1,1,1,1,0,1,0,0,1,1,0,1,0,1,1,1,0,0,1,0,
+#'               1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,
+#'               0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,
+#'               1,0,1,0,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,
+#'               1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,
+#'               0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               1,1,1,0,1,0,0,0,1,1,0,1,1,0,0,0,0,1,0,0,0,
+#'               0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,
+#'               0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
+#'             ncol=21, byrow=TRUE)
 #' 
-#' @export
-#' 
-
-zarc <- function(G){
-  G <- as.matrix(G)
-  G <- ifelse(G>0, 1, 0) # assumed dichotomic!
-  l <- sum(G)
-  g <- dim(G)[1]
-  z <- ((l - ((g*(g-1))/2)))/(sqrt((g*(g-1))/4))
-  p <- 2*pnorm(-abs(z))
-  res = c(z = z,p = p)
-  res
-}
-
-#' Z test for Generalized Bernoulli Models
-#'
-#' @param G   A symmetric matrix object.
-#' @param p   p-value
-#' 
-#' @return This function gives a Z test and p-value for arcs in uniform distribution
-#'
-#' @references
-#'
-#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge university press.
-#'
-#' @author Alejandro Espinosa-Rada
+#' zarc(A)
 #' 
 #' @importFrom stats pnorm
 #' 
 #' @export
 #' 
 
-ZBarc <- function(G, p=0.5){
+zarc <- function(G, p=0.5, interval=FALSE){
   G <- as.matrix(G)
   G <- ifelse(G>0, 1, 0) # assumed dichotomic!
   l <- sum(G)
@@ -91,35 +116,16 @@ ZBarc <- function(G, p=0.5){
   q = 1-p
   z <- ((l - ((g*(g-1))*p)))/(sqrt((g*(g-1))*p*q))
   p <- 2*pnorm(-abs(z))
-  res = c(z = z,p = p)
-  res
-}
+  res = round(c(z = z,p = p), 3)
+  
+  if(interval){
+    p_maxlike <- l/(g*(g-1))
+    p_lower <- p_maxlike-1.96*(sqrt((p_maxlike*(1-p_maxlike))/(g*(g-1))))
+    p_upper <- p_maxlike+1.96*(sqrt((p_maxlike*(1-p_maxlike))/(g*(g-1))))
+    res = round(c(z = z,p = p, 
+                  p_maxlike = p_maxlike, p_lower = p_lower, p_upper=p_upper), 3)
+    res
+  }
 
-#' Z test for Generalized Bernoulli Models
-#'
-#' @param G   A symmetric matrix object.
-#' 
-#' @return This function gives a confident interval for Bernoulli distribution
-#'
-#' @references
-#'
-#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge university press.
-#'
-#' @author Alejandro Espinosa-Rada
-#' 
-#' @importFrom stats pnorm
-#'
-#' @export
-#' 
-
-zIntervals <- function(G){
-  G <- as.matrix(G)
-  G <- ifelse(G>0, 1, 0) # assumed dichotomic!
-  l <- sum(G)
-  g <- dim(G)[1]
-  p_maxlike <- l/(g*(g-1))
-  p_lower <- p_maxlike-1.96*(sqrt((p_maxlike*(1-p_maxlike))/(g*(g-1))))
-  p_upper <- p_maxlike+1.96*(sqrt((p_maxlike*(1-p_maxlike))/(g*(g-1))))
-  res = c(p_maxlike = p_maxlike, p_lower = p_lower, p_upper=p_upper)
   res
 }

@@ -4,12 +4,14 @@
 \alias{triad_uman}
 \title{Triad census analysis assuming U|MAN}
 \usage{
-triad_uman(A, covar = FALSE)
+triad_uman(A, ztest = FALSE, covar = FALSE)
 }
 \arguments{
 \item{A}{A symmetric matrix object.}
 
-\item{covar}{Whether to return the covarianc matrix for triadic analysis.}
+\item{ztest}{Return Z and p-value}
+
+\item{covar}{Return the covarianc matrix for triadic analysis (EXPERIMENTAL).}
 }
 \value{
 This function gives the counts of the triad census, the expected counts, 
@@ -43,12 +45,10 @@ A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
              ncol=21, byrow=TRUE)
 
-triadCensusExp <- triad_uman(A)
-triadCensusExp
+triad_uman(A)
 
 \dontrun{
-triadCensusExp <- triad_uman(A, covar=TRUE)
-triadCensusExp
+triad_uman(A, ztest=TRUE)
 }
 
 }

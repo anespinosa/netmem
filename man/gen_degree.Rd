@@ -24,7 +24,7 @@ gen_degree(
 
 \item{normalized}{Wheter normalize the measure for the one-mode network (Freeman, 1978) or a bipartite network (Borgatti and Everett, 1997)}
 
-\item{loops}{Wheter if the diagonal of the matrix is considered or not}
+\item{loops}{Wheter the diagonal of the matrix is considered or not}
 
 \item{digraph}{Wheter the  matrix is directed or undirected}
 
@@ -53,7 +53,6 @@ gen_degree(A)
 }
 \references{
 Borgatti, S. P., and Everett, M. G. (1997). Network analysis of 2-mode data. Social Networks, 19(3), 243–269.
-
 
 Freeman, L. C. (1978). Centrality in social networks conceptual clarification. Social Networks, 1(3), 215–239.
 

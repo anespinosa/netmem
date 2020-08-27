@@ -2,18 +2,49 @@
 % Please edit documentation in R/basic_stats.R
 \name{zarc}
 \alias{zarc}
-\title{Z test for Arcs in Uniform Distribution}
+\title{Z test of the number of arcs}
 \usage{
-zarc(G)
+zarc(G, p = 0.5, interval = FALSE)
 }
 \arguments{
 \item{G}{A symmetric matrix object.}
+
+\item{p}{Constant probability p.}
+
+\item{interval}{Return a 95 percent confidence interval.}
 }
 \value{
-This function gives a Z test and p-value for arcs in uniform distribution
+This function gives a Z test and p-value for the number of lines or arcs present in a directed graph
 }
 \description{
-Z test for Arcs in Uniform Distribution
+Z test of the number of arcs
+}
+\examples{
+A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
+              1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,
+              1,1,0,0,0,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,
+              0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,
+              0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,1,
+              0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,1,0,
+              1,1,1,1,1,0,1,0,0,1,1,0,1,0,1,1,1,0,0,1,0,
+              1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,
+              0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,
+              1,0,1,0,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,
+              1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,
+              0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              1,1,1,0,1,0,0,0,1,1,0,1,1,0,0,0,0,1,0,0,0,
+              0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,
+              0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
+            ncol=21, byrow=TRUE)
+
+zarc(A)
+
 }
 \references{
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge university press.

@@ -33,15 +33,15 @@ multilevel_degree(
 \arguments{
 \item{A1}{The adjacent square matrix of the lowest level}
 
-\item{B1}{The incident matrix of the ties between the actors of first level and the actors of the second level}
+\item{B1}{The incident matrix of the ties between the nodes of first level and the nodes of the second level}
 
 \item{A2}{The adjacent square of the second level}
 
-\item{B2}{The incident matrix of the ties between the actors of the second level and the actors of the third level}
+\item{B2}{The incident matrix of the ties between the nodes of the second level and the nodes of the third level}
 
 \item{A3}{The adjacent square of the third level}
 
-\item{B3}{The incident matrix of the ties between the actors of the third level and the actors of the first level}
+\item{B3}{The incident matrix of the ties between the nodes of the third level and the nodes of the first level}
 
 \item{complete}{Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree}
 

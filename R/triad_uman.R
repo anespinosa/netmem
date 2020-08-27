@@ -1,7 +1,8 @@
 #' Triad census analysis assuming U|MAN
 #'
 #' @param A   A symmetric matrix object.
-#' @param covar   Whether to return the covarianc matrix for triadic analysis.
+#' @param ztest   Return Z and p-value
+#' @param covar   Return the covarianc matrix for triadic analysis (EXPERIMENTAL).
 #' 
 #' @return This function gives the counts of the triad census, the expected counts, 
 #' assuming that U|MAN distribution is operating, and the standard deviations of these counts.
@@ -15,6 +16,8 @@
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge university press.
 #'
 #' @author Alejandro Espinosa-Rada
+#'
+#' @importFrom stats pnorm
 #'
 #' @examples
 #' 
@@ -41,17 +44,15 @@
 #'              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
 #'              ncol=21, byrow=TRUE)
 #' 
-#' triadCensusExp <- triad_uman(A)
-#' triadCensusExp
+#' triad_uman(A)
 #' 
 #' \dontrun{
-#' triadCensusExp <- triad_uman(A, covar=TRUE)
-#' triadCensusExp
+#' triad_uman(A, ztest=TRUE)
 #' }
 #' 
 #' @export
 
-triad_uman <- function(A, covar=FALSE){
+triad_uman <- function(A, ztest=FALSE, covar=FALSE){
   A <- as.matrix(A)
   g <- dim(A)[1]
   m <- (1/2)*sum(diag(A%*%A)) # mutual
@@ -1067,8 +1068,8 @@ triad_uman <- function(A, covar=FALSE){
       3*(g-3)*g3*(man201_man012b-man201_man012)+
       g3*(g3-1)*(man201_man012-(d1p1t201*d1p1t012)),
     
-    
-    # COVARIANCE ARE WRONG IN W-F 1994? 
+    # COVARIANCE DIFFER WITH WASSERMAN AND FAUST 
+    # 1994 (pp. 582-583) 
     # (i.e. TRIADS computer program of Walker and Wasserman, 1987)
     # 201-102: we use the equation of Leinhardt and Holland (1975)
     # P0(u,v): 9m^(3)n^(3); P1(u,v): 2m^(2)m^(2)(m+4-n)
@@ -1414,7 +1415,8 @@ triad_uman <- function(A, covar=FALSE){
       3*(g-3)*g3*(man300_man111Ub-man300_man111U)+
       g3*(g3-1)*(man300_man111U-(d1p1t300*d1p1t111U)),
     
-    # COVARIANCE ARE WRONG IN W-F 1994? 
+    # COVARIANCE DIFFER WITH WASSERMAN AND FAUST 
+    # 1994 (pp. 582-583) 
     # (i.e. TRIADS computer program of Walker and Wasserman, 1987)
     # 201-102: we use the equation of Leinhardt and Holland (1975)
     # P0(u,v): 9m^(3)n^(3); P1(u,v): 2m^(2)m^(2)(m+4-n)
@@ -1467,22 +1469,22 @@ triad_uman <- function(A, covar=FALSE){
   t021D=sum(t(C)%*%C*Eb) # null dyad in an 021D triad  
   t021U=sum(C%*%t(C)*Eb) # null dyad in an 021U triad
   triad <- c(
-    "003" = sum(diag(Eb%*%Eb%*%Eb))/6, # T003
-    "012" = sum((Eb%*%Eb)*(C+t(C)))/2, # T012
-    "102" = sum((Eb%*%Eb*M))/2, # T102
-    "021D" = sum(t(C)%*%C*Eb)/2, # T021D
-    "021U" = sum(C%*%t(C)*Eb)/2, # T021U 
-    "021C" = sum(C%*%C*Eb), # T021C
-    "111D" = (sum(A%*%t(A)*Eb)-t201-t021U)/2, # T111D
-    "111U" = (sum(t(A)%*%A*Eb)-t201-t021D)/2, # T111U
-    "030T" = sum((C%*%C)*C), # T030T
-    "030C" = sum(diag(C%*%C%*%C))/3, # T030C
-    "201" = sum(M%*%M*Eb)/2, # T201
-    "120D" = sum(t(C)%*%C*M)/2, # T120D
-    "120U" = sum(C%*%t(C)*M)/2, # T120U
-    "120C" = sum(C%*%C*M), # T120C
-    "210" = sum(M%*%M*(C+t(C)))/2, # T210
-    "300" = sum(diag(M%*%M%*%M))/6 # T300
+    "003" = sum(diag(Eb%*%Eb%*%Eb))/6, 
+    "012" = sum((Eb%*%Eb)*(C+t(C)))/2, 
+    "102" = sum((Eb%*%Eb*M))/2,
+    "021D" = sum(t(C)%*%C*Eb)/2,
+    "021U" = sum(C%*%t(C)*Eb)/2, 
+    "021C" = sum(C%*%C*Eb),
+    "111D" = (sum(A%*%t(A)*Eb)-t201-t021U)/2, 
+    "111U" = (sum(t(A)%*%A*Eb)-t201-t021D)/2, 
+    "030T" = sum((C%*%C)*C), 
+    "030C" = sum(diag(C%*%C%*%C))/3, 
+    "201" = sum(M%*%M*Eb)/2, 
+    "120D" = sum(t(C)%*%C*M)/2,
+    "120U" = sum(C%*%t(C)*M)/2, 
+    "120C" = sum(C%*%C*M), 
+    "210" = sum(M%*%M*(C+t(C)))/2, 
+    "300" = sum(diag(M%*%M%*%M))/6 
   )
   
   label <- c("003", "012", "102", "021D", "021U",
@@ -1507,10 +1509,40 @@ triad_uman <- function(A, covar=FALSE){
   colnames(mempty) <- label
   mempty <- round(mempty, 3)
   
+  z <- (sum(results$OBS)-sum(results$EXP))/(sqrt(sum(results$VAR)+(2*(sum(COVAR)))))
+  p <- 2*pnorm(-abs(z))
+  res = c(z = z,p = p)
+  res <- round(res, 3)
+  
+  if(ztest & covar){
+    warning("EXPERIMENTAL version. Use with caution... the covar 201-102 and 300-030T are under review")
+    results$Z <- (results$OBS-results$EXP)/results$STD
+    results$Z <- as.numeric(as.character(results$Z))
+    results$Z <- round(results$Z, 3)
+    results$P <- 2*pnorm(-abs(results$Z))
+    results$P <- as.numeric(as.character(results$P))
+    results$P <- round(results$P, 3)
+    newlist <- list(results=results, z_test=res, covariance=mempty)
+    return(newlist)
+  }
+  
   if(covar){
+    warning("EXPERIMENTAL version. Use with caution... the covar 201-102 and 300-030T are under review")
     newlist <- list(results=results, covariance=mempty)
     return(newlist)
   }
+  
+  if(ztest){
+    results$Z <- (results$OBS-results$EXP)/results$STD
+    results$Z <- as.numeric(as.character(results$Z))
+    results$Z <- round(results$Z, 3)
+    results$P <- 2*pnorm(-abs(results$Z))
+    results$P <- as.numeric(as.character(results$P))
+    results$P <- round(results$P, 3)
+    newlist <- list(results=results, z_test=res)
+    return(newlist)
+  }
+  
   
   else{
     return(results)
