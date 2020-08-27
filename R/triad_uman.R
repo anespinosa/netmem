@@ -1067,6 +1067,14 @@ triad_uman <- function(A, covar=FALSE){
       3*(g-3)*g3*(man201_man012b-man201_man012)+
       g3*(g3-1)*(man201_man012-(d1p1t201*d1p1t012)),
     
+    
+    # COVARIANCE ARE WRONG IN W-F 1994? 
+    # (i.e. TRIADS computer program of Walker and Wasserman, 1987)
+    # 201-102: we use the equation of Leinhardt and Holland (1975)
+    # P0(u,v): 9m^(3)n^(3); P1(u,v): 2m^(2)m^(2)(m+4-n)
+    # results: W-F: -18.4; here: 7.06
+    # 300-030T: original: -0.01; here:0.011
+    
     # 201 - 102
     COVAR201_102 <- (-g3*d1p1t201*d1p1t102)+
       3*(g-3)*g3*(man201_man102b-man201_man102)+
@@ -1406,6 +1414,13 @@ triad_uman <- function(A, covar=FALSE){
       3*(g-3)*g3*(man300_man111Ub-man300_man111U)+
       g3*(g3-1)*(man300_man111U-(d1p1t300*d1p1t111U)),
     
+    # COVARIANCE ARE WRONG IN W-F 1994? 
+    # (i.e. TRIADS computer program of Walker and Wasserman, 1987)
+    # 201-102: we use the equation of Leinhardt and Holland (1975)
+    # P0(u,v): 9m^(3)n^(3); P1(u,v): 2m^(2)m^(2)(m+4-n)
+    # results: W-F: -18.4; here: 7.06
+    # 300-030T: original: -0.01; here:0.011
+    
     # 300 - 030T
     COVAR300_030T <- (-g3*d1p1t300*d1p1t030T)+
       3*(g-3)*g3*(man300_man030Tb-man300_man030T)+
@@ -1484,7 +1499,6 @@ triad_uman <- function(A, covar=FALSE){
   results$STD <- sqrt(results$VAR)
   results$STD <- round(as.numeric(as.character(results$STD)), 3)
   
-  # https://stackoverflow.com/questions/18598574/create-a-correlation-matrix-from-a-correlation-vector-in-r
   mempty <- matrix(0, nrow = 16, ncol = 16)
   mindex <- matrix(1:240, nrow = 16, ncol = 16, byrow=T)
   mempty[mindex[upper.tri(mindex)]] <- COVAR
