@@ -27,7 +27,7 @@ The goal of `netmem` is to make available different measures to describe network
 [![Follow me on Twitter](https://img.shields.io/badge/Follow me on Twitter-9cf.svg)](https://twitter.com/aesp08)
 
 
-The package implements different measures to analyse complex multilayer networks, from an ego-centric perspective, considering one-mode network, valued ties (i.e. *weighted* or *multiplex*), with multiple levels, multiplex or all of them. 
+The package implements different measures to analyse complex multilayer networks, from an ego-centric perspective, considering one-mode network, valued ties (i.e. *weighted* or *multiplex*) or with multiple levels.
 
 ## Installation
 
