@@ -25,14 +25,14 @@
 
 #' @examples
 #' 
-#' A <- matrix(c(0,1,0,0,0,1,
-#'              1,0,1,0,0,1,
-#'              1,1,0,0,0,1,
-#'              1,1,0,0,1,1,
-#'              0,0,0,1,0,1,
-#'              1,1,1,1,1,0), ncol=6, byrow=TRUE)
+#' A3 <- matrix(c(0,4,4,0,0,0,
+#'                4,0,2,1,1,0,
+#'                4,2,0,0,0,0,
+#'                0,1,0,0,0,0,
+#'                0,1,0,0,0,7,
+#'                0,0,0,0,7,0), byrow=TRUE, ncol=6)
 #' 
-#' gen_degree(A)
+#' gen_degree(A3, digraph = FALSE, weighted=TRUE)
 #' 
 #' @export
 
@@ -60,25 +60,31 @@ gen_degree <- function(A,
     if(!loops){diag(A) <- 0}
     
     if(type=="in"){
-      deg <- diag(t(A) %*% A) # indegree # colSums(A, na.rm=TRUE)
+      #deg <- diag(t(A) %*% A) # indegree # colSums(A, na.rm=TRUE)
+      deg <- colSums(A, na.rm=TRUE)
     }
     if(type=="out"){
-      deg <- diag(A %*% t(A)) # outdegree # rowSums(A, na.rm=TRUE)  
+      deg <- diag(A %*% t(A)) # outdegree # rowSums(A, na.rm=TRUE)
+      deg <- rowSums(A, na.rm=TRUE)
     }
     
     if(type=="all"){
-      deg <- diag(A %*% t(A))+diag(t(A) %*% A) 
+      #deg <- diag(A %*% t(A))+diag(t(A) %*% A) 
+      deg <- colSums(A, na.rm=TRUE)+rowSums(A, na.rm=TRUE)
     }
     
     if(weighted){
       if(type=="in"){
-        si <- diag(t(W) %*% W)
+        #si <- diag(t(W) %*% W)
+        si <- colSums(W, na.rm=TRUE)
       }
       if(type=="out"){
-        si <- diag(W %*% t(W))
+        #si <- diag(W %*% t(W))
+        si <- rowSums(W, na.rm=TRUE)
       }
       if(type=="all"){
-        si <- diag(W %*% t(W))+diag(t(W) %*% W) # Freeman
+        #si <- diag(W %*% t(W))+diag(t(W) %*% W) # Freeman
+        si <- colSums(W, na.rm=TRUE)+rowSums(W, na.rm=TRUE)
       }
       deg <- (deg^(1-alpha))*(si^(alpha)) # opsahl
     }

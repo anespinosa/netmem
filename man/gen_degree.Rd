@@ -41,14 +41,14 @@ Generalized degree centrality for one-mode and bipartite networks.
 }
 \examples{
 
-A <- matrix(c(0,1,0,0,0,1,
-             1,0,1,0,0,1,
-             1,1,0,0,0,1,
-             1,1,0,0,1,1,
-             0,0,0,1,0,1,
-             1,1,1,1,1,0), ncol=6, byrow=TRUE)
+A3 <- matrix(c(0,4,4,0,0,0,
+               4,0,2,1,1,0,
+               4,2,0,0,0,0,
+               0,1,0,0,0,0,
+               0,1,0,0,0,7,
+               0,0,0,0,7,0), byrow=TRUE, ncol=6)
 
-gen_degree(A)
+gen_degree(A3, digraph = FALSE, weighted=TRUE)
 
 }
 \references{
