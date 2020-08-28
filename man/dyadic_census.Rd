@@ -46,7 +46,7 @@ dyadic_census(A)
 
 }
 \references{
-Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge university press.
+Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }
 \author{
 Alejandro Espinosa-Rada

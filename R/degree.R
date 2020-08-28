@@ -132,13 +132,13 @@ gen_degree <- function(A,
 #'
 #' @references
 #'
-#' Batagelj, V., & Zaveršnik, M. (2011). Fast algorithms for determining (generalized) core groups in social networks. Advances in Data Analysis and Classification, 5(2), 129–145. https://doi.org/10.1007/s11634-010-0079-y
+#' Batagelj, V., & Zaveršnik, M. (2011). Fast algorithms for determining (generalized) core groups in social networks. Advances in Data Analysis and Classification, 5(2), 129–145. \url{https://doi.org/10.1007/s11634-010-0079-y}
 #'
-#' Eidsaa, M., & Almaas, E. (2013). $s$-core network decomposition: A generalization of $k$-core analysis to weighted networks. Physical Review E, 88(6), 062819. https://doi.org/10.1103/PhysRevE.88.062819
+#' Eidsaa, M., & Almaas, E. (2013). s-core network decomposition: A generalization of $k$-core analysis to weighted networks. Physical Review E, 88(6), 062819. \url{https://doi.org/10.1103/PhysRevE.88.062819}
 #' 
 #' Espinosa-Rada, Alejandro (forthcoming) PhD Thesis. 
 #'
-#'  Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
+#' Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
 #' 
 #'
 #' @author Alejandro Espinosa-Rada
