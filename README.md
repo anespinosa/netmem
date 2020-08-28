@@ -61,8 +61,8 @@ represent the multilevel network that could be highly complex.
 
 <div class="alert alert-info">
 
-Let’s assume that we have a multilevel network with three adjacency
-matrices and two incident matrices between them.
+Let’s assume that we have a multilevel network with two adjacency
+matrices, one valued matrix and two incident matrices between them.
 
 -   `A1`: Adjacency Matrix of the level 1
 -   `B1`: Incident Matrix between level 1 and level 2
