@@ -113,3 +113,109 @@ gen_degree <- function(A,
   }
   return(deg)
 }
+
+
+#' Generalized K-core 
+#' 
+#' Generalized k-core for undirected, directed, weighted and multilevel networks
+#'
+#' @param A   A symmetric matrix object.
+#' @param B1  An incident matrix for multilevel networks.
+#' @param multilevel   Wheter the measure of k-core is for multilevel networks.
+#' @param weighted    Wheter the measure of k-core is for valued matrices
+#' @param type    Character string, \dQuote{out} (outdegree), \dQuote{in} (indegree) and \dQuote{all} (degree)
+#' @param loops   Wheter the diagonal of the matrix is considered or not
+#' @param digraph   Wheter the  matrix is directed or undirected
+#' @param alpha   Sets the alpha parameter in the generalised measures from Opsahl et al. (2010)
+#' 
+#' @return This function return the k-core.
+#'
+#' @references
+#'
+#' Batagelj, V., & Zaveršnik, M. (2011). Fast algorithms for determining (generalized) core groups in social networks. Advances in Data Analysis and Classification, 5(2), 129–145. https://doi.org/10.1007/s11634-010-0079-y
+#'
+#' Eidsaa, M., & Almaas, E. (2013). $s$-core network decomposition: A generalization of $k$-core analysis to weighted networks. Physical Review E, 88(6), 062819. https://doi.org/10.1103/PhysRevE.88.062819
+#' 
+#' Espinosa-Rada, Alejandro (forthcoming) PhD Thesis. 
+#'
+#'  Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
+#' 
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' 
+#' A1 <- matrix(c(0,1,0,0,0,
+#'                1,0,0,1,0,
+#'                0,0,0,1,0,
+#'                0,1,1,0,1,
+#'                0,0,0,1,0), byrow=TRUE, ncol=5)
+#' B1 <- matrix(c(1,0,0,
+#'                1,1,0,
+#'                0,1,0,
+#'                0,1,0,
+#'                0,1,1), byrow=TRUE, ncol=3)
+#' 
+#' k_core(A1, B1, multilevel=TRUE)
+#' 
+#' @export
+
+
+k_core <- function (A, B1=NULL, 
+                    multilevel=FALSE, type="in", 
+                    digraph=FALSE, loops=FALSE,
+                    weighted=FALSE, alpha=1) 
+{
+  if(!weighted & !multilevel){
+    if(digraph){g <- igraph::graph.adjacency(A, mode=c("directed"))}
+    if(!digraph){g <- igraph::graph.adjacency(A, mode=c("undirected"))}
+    return(coreness(g, mode=c(type)))
+  }
+  if(!multilevel & weighted){
+    if(!is.null(B1))stop("Matrix `B1` for multilevel networks")
+    W <- A
+    ct <- 1
+    k.core <- vector("integer", length = nrow(W))
+    repeat {
+      str.tmp <- gen_degree(W, digraph=digraph, type=type,
+                            alpha=alpha,
+                            loops=loops, weighted=weighted) 
+      s.thr <- min(str.tmp[which(str.tmp > 0)])
+      v.remove <- which(str.tmp <= s.thr & str.tmp > 0)
+      if (length(v.remove) > 0) {
+        k.core[v.remove] <- ct
+        W[v.remove, ] <- W[, v.remove] <- 0
+        ct <- ct + 1
+      }
+      if (sum(colSums(W) > 0) == 0) 
+        break
+    }
+  }
+  if(multilevel){
+    if(is.null(B1))stop("A bipartite network should be added for multilevel networks")
+    W <- A
+    ct <- 1
+    k.core <- vector("integer", length = nrow(W))
+    repeat {
+      str.tmp <- multilevel_degree(W, B1, 
+                                   weightedA1 = weighted,
+                                   typeA1 = type, alphaA1 = alpha,
+                                   loopsA1 = loops)
+      str.tmp <- str.tmp$multilevel
+      str.tmp <- head(str.tmp, n=dim(W)[1]) 
+      s.thr <- min(str.tmp[which(str.tmp > 0)])
+      v.remove <- which(str.tmp <= s.thr & str.tmp > 0)
+      if (length(v.remove) > 0) {
+        k.core[v.remove] <- ct
+        W[v.remove, ] <- W[, v.remove] <- 0
+        B1[v.remove, ] <- 0 # PENDING
+        
+        ct <- ct + 1
+      }
+      if (sum(colSums(W) > 0) == 0) 
+        break
+    }
+  }
+  return(k.core)
+}
+
