@@ -36,8 +36,6 @@ You can install the development version from [GitHub](https://github.com/) with:
 ```{r inst, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("anespinosa/netmem")
-
-library(netmem)
 ```
 
 ```{r inst2}

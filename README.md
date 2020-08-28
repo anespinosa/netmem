@@ -35,8 +35,6 @@ You can install the development version from
 
     library(netmem)
 
-    library(netmem)
-
 ------------------------------------------------------------------------
 
 Multilevel Networks
