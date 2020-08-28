@@ -31,6 +31,8 @@
 #' 
 #' @export
 
+# TO DO: working progress (expand the measure)
+
 citation_norm <- function(A1, A2, citation="citation"){
   Ci <- A1%*%A2
   Ci <- t(Ci)%*%Ci
@@ -77,6 +79,8 @@ citation_norm <- function(A1, A2, citation="citation"){
 #' coocurrence(OC)
 #' 
 #' @export
+
+# TO DO: working progress (expand the measure)
 
 coocurrence <- function(OC){
   coOC <- t(OC)%*%OC 

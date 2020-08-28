@@ -208,7 +208,7 @@ k_core <- function (A, B1=NULL,
       if (length(v.remove) > 0) {
         k.core[v.remove] <- ct
         W[v.remove, ] <- W[, v.remove] <- 0
-        B1[v.remove, ] <- 0 # PENDING
+        B1[v.remove, ] <- 0 # CHECK
         
         ct <- ct + 1
       }
