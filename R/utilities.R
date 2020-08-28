@@ -53,3 +53,33 @@ citation_norm <- function(A1, A2, citation="citation"){
   }
 }
 
+#' Co‐occurrence matrix based on overlap function 
+#'
+#' @param OC  Asymmetrical occurrence matrix
+#' 
+#' @return This function returns the symmetrical co‐occurrence matrix using the minimal overlap
+#'
+#' @references
+#'
+#' Zhou, Q., & Leydesdorff, L. (2016). The normalization of occurrence and Co-occurrence matrices in bibliometrics using Cosine similarities and Ochiai coefficients. Journal of the Association for Information Science and Technology, 67(11), 2805–2814. \url{https://doi.org/10.1002/asi.23603}
+#'
+#' @author Alejandro Espinosa-Rada
+
+#' @examples
+#' 
+#' OC <- matrix(c(2,0,2,
+#'                1,1,0,
+#'                0,3,3,
+#'                0,2,2,
+#'                0,0,1), 
+#'              nrow=5, byrow = TRUE)
+#' 
+#' coocurrence(OC)
+#' 
+#' @export
+
+coocurrence <- function(OC){
+  coOC <- t(OC)%*%OC 
+  D <- diag(coOC) 
+  coOC/(sqrt(outer(D,D,"*")))
+}
