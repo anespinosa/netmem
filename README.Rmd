@@ -63,7 +63,7 @@ Let's assume that we have a multilevel network with three adjacency matrices and
 - `B1`: Incident Matrix between level 1 and level 2
 - `A2`: Adjacency Matrix of the level 2
 - `B2`: Incident Matrix between level 2 and level 3
-- `A3`: Adjacency Matrix of the level 3
+- `A3`: Valued Matrix of the level 3
 </div>
 
 Create the data
@@ -124,6 +124,18 @@ Also, we could conduct some explorative analysis using the normalized degree of 
 gen_degree(B1, bipartite = TRUE, normalized=TRUE)
 ```
  
+This package also implement some dyadic analysis
+```{r}
+# Dyadic census
+dyadic_census(A1)
+
+# Katz and Powell reciprocity
+pkp(A1)
+
+# Z test of the number of arcs
+zarc(A1)
+```
+
  We can also check the triad census assuming conditional uniform distribution considering different types of dyads **(U|MAN)**
 ```{r onem3}
 triad_uman(A1)
@@ -138,3 +150,9 @@ Now, we can calculate the degree centrality of the entire structure
 ```{r multil, warning=FALSE}
 multilevel_degree(A1, B1, A2, B2, A3, B3, complete = TRUE)
 ```
+
+Also, we can perform a *k*-core analysis of one of the levels using the information of an incident matrix
+```{r multil2, warning=FALSE}
+k_core(A1, B1, multilevel=TRUE)
+```
+

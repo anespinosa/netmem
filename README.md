@@ -71,7 +71,7 @@ matrices and two incident matrices between them.
 -   `B1`: Incident Matrix between level 1 and level 2
 -   `A2`: Adjacency Matrix of the level 2
 -   `B2`: Incident Matrix between level 2 and level 3
--   `A3`: Adjacency Matrix of the level 3
+-   `A3`: Valued Matrix of the level 3
 
 </div>
 
@@ -147,6 +147,22 @@ degree of an incident matrix.
     #> $bipartiteL2
     #> [1] 0.4 0.8 0.2
 
+This package also implement some dyadic analysis
+
+    # Dyadic census
+    dyadic_census(A1)
+    #>      Mutual Asymmetrics       Nulls 
+    #>           7           0           3
+
+    # Katz and Powell reciprocity
+    pkp(A1)
+    #> [1] 6.333333
+
+    # Z test of the number of arcs
+    zarc(A1)
+    #>     z     p 
+    #> 1.789 0.074
+
 We can also check the triad census assuming conditional uniform
 distribution considering different types of dyads **(U\|MAN)**
 
@@ -215,3 +231,9 @@ Now, we can calculate the degree centrality of the entire structure
     #> k2               4
     #> k3               4
     #> k4               3
+
+Also, we can perform a *k*-core analysis of one of the levels using the
+information of an incident matrix
+
+    k_core(A1, B1, multilevel=TRUE)
+    #> [1] 1 3 1 2 3
