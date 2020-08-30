@@ -182,7 +182,7 @@ multiplex_census <- function(A, B){
     "021d_300" = sum(t(C)%*%C*Eb)/2+sum(diag(M2%*%M2%*%M2))/6,
 
     #"102_003" = sum((Eb%*%Eb*M))/2+sum(diag(Eb2%*%Eb2%*%Eb2))/6,
-    "102_102a" = sum((Eb%*%Eb*M))/2+sum((Eb3%*%Eb3*M3))/2,
+    "102_003_102a" = sum((Eb%*%Eb*M))/2+sum((Eb3%*%Eb3*M3))/2,
     "102_102bc_201ac" = sum((Eb%*%Eb*M))/2+sum(M3%*%M3*Eb3)/2,
     "102_300" = sum((Eb%*%Eb*M))/2+sum(diag(M2%*%M2%*%M2))/6,
 
@@ -218,12 +218,12 @@ multiplex_census <- function(A, B){
     "111u_201c_300" = (sum(t(A)%*%A*Eb)-t201-t021D)/2+sum(diag(M3%*%M3%*%M3))/6, 
 
     #"120u_003" = sum(C%*%t(C)*M)/2+sum(diag(Eb2%*%Eb2%*%Eb2))/6, 
-    "120u_102b" = sum(C%*%t(C)*M)/2+sum(C3%*%t(C3)*M3)/2,
+    "120u_003_102b" = sum(C%*%t(C)*M)/2+sum(C3%*%t(C3)*M3)/2,
     "120u_102ab_201ab" = sum(C%*%t(C)*M)/2+sum(M3%*%M3*(C3+t(C3)))/2, 
     "120u_201c_300" = sum(C%*%t(C)*M)/2+sum(diag(M3%*%M3%*%M3))/6, 
 
     #"120d_003" = sum(t(C)%*%C*M)/2+sum(diag(Eb2%*%Eb2%*%Eb2))/6, 
-    "120d_120b" = sum(t(C)%*%C*M)/2+sum(t(C3)%*%C3*M3)/2,
+    "120d_003_120b" = sum(t(C)%*%C*M)/2+sum(t(C3)%*%C3*M3)/2,
     "120d_102ab_201ab" = sum(t(C)%*%C*M)/2+sum(M3%*%M3*(C3+t(C3)))/2,
     "120d_201c_300" = sum(t(C)%*%C*M)/2+sum(diag(M3%*%M3%*%M3))/6, 
 
@@ -237,14 +237,14 @@ multiplex_census <- function(A, B){
     "120c_300" = sum(C%*%C*M)+sum(diag(M3%*%M3%*%M3))/6,
 
     #"210_003" = sum(M%*%M*(C+t(C)))/2+sum(diag(Eb2%*%Eb2%*%Eb2))/6, 
-    "210_210" = sum(M%*%M*(C+t(C)))/2+sum(M3%*%M3*(C3+t(C3)))/2,
+    "210_003_210" = sum(M%*%M*(C+t(C)))/2+sum(M3%*%M3*(C3+t(C3)))/2,
     "210_300" = sum(M%*%M*(C+t(C)))/2+sum(diag(M3%*%M3%*%M3))/6,
 
     #"300_003" = sum(diag(M%*%M%*%M))/6+sum(diag(Eb2%*%Eb2%*%Eb2))/6,  
-    "300_300" = sum(diag(M%*%M%*%M))/6+sum(diag(M3%*%M3%*%M3))/6
+    "300_003_300" = sum(diag(M%*%M%*%M))/6+sum(diag(M3%*%M3%*%M3))/6
     
   )
-  return(res/2)
+  return(floor(res/2))
 }
 
 #' Multilevel triadic and quadrilateral census
