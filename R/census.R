@@ -246,3 +246,143 @@ multiplex_census <- function(A, B){
   )
   return(res/2)
 }
+
+#' Multilevel triadic and quadrilateral census
+#'
+#' @param A1   An adjacent matrix object.
+#' @param B1   An incident matrix object.
+#' @param B2   An incident matrix object.
+#' @param quad  Wheter the matrix is a quadrilateral census or not.
+#' 
+#' @return This function return the counts of the dyadic census.
+#'
+#' @references
+#'
+#' Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin & Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"
+#'
+#' Hollway, J., Lomi, A., Pallotti, F., & Stadtfeld, C. (2017). Multilevel social spaces: The network dynamics of organizational fields. Network Science, 5(2), 187–212. https://doi.org/10.1017/nws.2017.8
+#'
+#' @author James Hollway
+#' @author Alessandro Lomi
+#' @author Francesca Pallotti
+#' @author Christoph Stadtfeld
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' 
+#' B1 <- matrix(c(1,1,0,
+#'                0,0,1,
+#'                0,0,1,
+#'                1,0,0), byrow=TRUE, ncol=3)
+#' A1 <- matrix(c(0,1,0,1,
+#'                1,0,0,1,
+#'                0,1,0,1,
+#'                1,0,1,0), byrow=TRUE, ncol=4)
+#' B2 <- matrix(c(1,0,0,0,0,
+#'                0,1,0,1,0,
+#'                0,0,0,0,0,
+#'                0,0,0,0,0), byrow=TRUE, ncol=5)
+#' 
+#' mixed_census(A1, B1, B2, quad=TRUE)
+#'  
+#' @export
+#' 
+
+mixed_census <- function (A1, B1, B2=NULL, quad=FALSE) {
+  if(!is.null(B2) & quad==FALSE){stop("For the quadrilateral census you should specify `quad=TRUE` in the function")}
+  if(dim(A1)[1]!=dim(A1)[2])stop("Matrix is not square")
+  if(dim(B1)[1]==dim(B1)[2])warning("Matrix should be rectangular")
+  if(!dim(A1)[1]==dim(B1)[1])stop("Non-conformable arrays")
+  
+  m1 <- as.matrix(A1)
+  m2 <- as.matrix(B1)
+  cp <- function(m) (-m + 1)
+  
+  onemode.reciprocal <- m1 * t(m1)
+  onemode.forward <- m1 * cp(t(m1))
+  onemode.backward <- cp(m1) * t(m1)
+  onemode.null <- cp(m1) * cp(t(m1))
+  diag(onemode.forward) <- 0
+  diag(onemode.backward) <- 0
+  diag(onemode.null) <- 0
+  
+  bipartite.twopath <- m2 %*% t(m2)
+  bipartite.null <- cp(m2) %*% cp(t(m2))
+  bipartite.onestep1 <- m2 %*% cp(t(m2))
+  bipartite.onestep2 <- cp(m2) %*% t(m2)
+  diag(bipartite.twopath) <- 0
+  diag(bipartite.null) <- 0
+  diag(bipartite.onestep1) <- 0
+  diag(bipartite.onestep2) <- 0
+  
+  res <- c("22" = sum(onemode.reciprocal * bipartite.twopath) / 2,
+           "21" = sum(onemode.forward * bipartite.twopath) / 2 + sum(onemode.backward * bipartite.twopath) / 2,
+           "20" = sum(onemode.null * bipartite.twopath) / 2,
+           "12" = sum(onemode.reciprocal * bipartite.onestep1) / 2 + sum(onemode.reciprocal * bipartite.onestep2) / 2,
+           "11D" = sum(onemode.forward * bipartite.onestep1) / 2 + sum(onemode.backward * bipartite.onestep2) / 2,
+           "11U" = sum(onemode.forward * bipartite.onestep2) / 2 + sum(onemode.backward * bipartite.onestep1) / 2,
+           "10" = sum(onemode.null * bipartite.onestep2) / 2 + sum(onemode.null * bipartite.onestep1) / 2,
+           "02" = sum(onemode.reciprocal * bipartite.null) / 2,
+           "01" = sum(onemode.forward * bipartite.null) / 2 + sum(onemode.backward * bipartite.null) / 2,
+           "00" = sum(onemode.null * bipartite.null) / 2)
+  
+  if(quad){
+    if(!dim(B2)[1]==dim(A1)[1])stop("Non-conformable arrays")
+    if(dim(B2)[1]==dim(B2)[2])warning("Matrix should be rectangular")
+    m3 <- as.matrix(B2)
+    bipartite.twopath2 <- m3 %*% t(m3)
+    bipartite.null2 <- cp(m3) %*% cp(t(m3))
+    bipartite.onestep12 <- m3 %*% cp(t(m3))
+    bipartite.onestep22 <- cp(m3) %*% t(m3)
+    diag(bipartite.twopath2) <- 0
+    diag(bipartite.null2) <- 0
+    diag(bipartite.onestep12) <- 0
+    diag(bipartite.onestep22) <- 0
+    
+    res <- c(
+      "000" = sum(onemode.null * bipartite.null * bipartite.null2) / 2,
+      "100" = sum(onemode.null * bipartite.onestep1 * bipartite.null2) / 2 + sum(onemode.null * bipartite.onestep2 * bipartite.null2) / 2,
+      "001" = sum(onemode.null * bipartite.null * bipartite.onestep12) / 2 + sum(onemode.null * bipartite.null * bipartite.onestep22) / 2,
+      "010" = sum(onemode.forward * bipartite.null * bipartite.null2)/2 + sum(onemode.backward * bipartite.null * bipartite.null2)/2,
+      "020" = sum(onemode.reciprocal * bipartite.null * bipartite.null2) / 2,
+      
+      "200" = sum(onemode.null * bipartite.twopath * bipartite.null2) / 2,
+      "11D0" = sum(onemode.forward * bipartite.onestep1 * bipartite.null2) / 2 + sum(onemode.backward * bipartite.onestep2 * bipartite.null2) / 2, 
+      "11U0" = sum(onemode.forward * bipartite.onestep2 * bipartite.null2) / 2 + sum(onemode.backward * bipartite.onestep1 * bipartite.null2) / 2, 
+      "120" = sum(onemode.reciprocal * bipartite.onestep1 * bipartite.null2) / 2 + sum(onemode.reciprocal * bipartite.onestep2 * bipartite.null2) / 2,
+      "210" = sum(onemode.forward * bipartite.twopath * bipartite.null2)/2 + sum(onemode.backward * bipartite.twopath * bipartite.null2) / 2,
+      "220" = sum(onemode.reciprocal * bipartite.twopath * bipartite.null2) / 2,
+      
+      "002" = sum(onemode.null * bipartite.null * bipartite.twopath2) / 2,
+      "01D1" = sum(onemode.forward * bipartite.null * bipartite.onestep22) / 2 + sum(onemode.backward * bipartite.null * bipartite.onestep12)/2,
+      "01U1" = sum(onemode.forward * bipartite.null * bipartite.onestep12) / 2 + sum(onemode.backward * bipartite.null * bipartite.onestep22)/2,
+      "012" = sum(onemode.forward * bipartite.null * bipartite.twopath2) /2 + sum(onemode.backward * bipartite.null * bipartite.twopath2) /2,
+      "021" = sum(onemode.reciprocal * bipartite.null * bipartite.onestep12) / 2 + sum(onemode.reciprocal * bipartite.null * bipartite.onestep22)/2,
+      "022" = sum(onemode.reciprocal * bipartite.null * bipartite.twopath2) / 2,
+      
+      "101N" = sum(onemode.null * bipartite.onestep1 * bipartite.onestep22) / 2 + sum(onemode.null * bipartite.onestep2 * bipartite.onestep12) / 2,
+      "101P" = sum(onemode.null * bipartite.onestep1 * bipartite.onestep12) / 2 + sum(onemode.null * bipartite.onestep2 * bipartite.onestep22) / 2,
+      "201" = sum(onemode.null * bipartite.twopath * bipartite.onestep12) * sum(onemode.null * bipartite.twopath * bipartite.onestep22),
+      "102" = sum(onemode.null * bipartite.onestep1 * bipartite.twopath2) / 2 + sum(onemode.null * bipartite.onestep2 * bipartite.twopath2) / 2,
+      "202" = sum(onemode.null * bipartite.twopath * bipartite.twopath2) / 2,
+      
+      "11D1W" = sum(onemode.forward * bipartite.onestep1 * bipartite.onestep12)/2 + sum(onemode.backward * bipartite.onestep2 * bipartite.onestep22)/2,
+      "11U1P" = sum(onemode.forward * bipartite.onestep2 * bipartite.onestep22)/2 + sum(onemode.backward * bipartite.onestep1 * bipartite.onestep12)/2,
+      "11D1P" = sum(onemode.forward * bipartite.onestep1 * bipartite.onestep22)/2 + sum(onemode.backward * bipartite.onestep2 * bipartite.onestep12)/2,
+      "11U1W" = sum(onemode.forward * bipartite.onestep2 * bipartite.onestep12)/2 + sum(onemode.backward * bipartite.onestep1 * bipartite.onestep22)/2,
+      "121W" = sum(onemode.reciprocal * bipartite.onestep1 * bipartite.onestep12)/2 + sum(onemode.reciprocal * bipartite.onestep2 * bipartite.onestep22)/2,
+      "121P" = sum(onemode.reciprocal * bipartite.onestep1 * bipartite.onestep22)/2 + sum(onemode.reciprocal * bipartite.onestep2 * bipartite.onestep12)/2,
+      
+      "21D1" = sum(onemode.forward * bipartite.twopath * bipartite.onestep12) / 2 + sum(onemode.backward * bipartite.twopath * bipartite.onestep22) / 2,
+      "21U1" = sum(onemode.forward * bipartite.twopath * bipartite.onestep22) / 2 + sum(onemode.backward * bipartite.twopath * bipartite.onestep12) / 2,
+      "11D2" = sum(onemode.forward * bipartite.onestep1 * bipartite.twopath2) / 2 + sum(onemode.backward * bipartite.onestep2 * bipartite.twopath2) / 2,
+      "11U2" = sum(onemode.forward * bipartite.onestep2 * bipartite.twopath2) / 2 + sum(onemode.backward * bipartite.onestep1 * bipartite.twopath2) / 2,
+      
+      "221" = sum(onemode.reciprocal * bipartite.twopath * bipartite.onestep12) / 2 + sum(onemode.reciprocal * bipartite.twopath * bipartite.onestep22) / 2,   
+      "122" = sum(onemode.reciprocal * bipartite.onestep1 * bipartite.twopath2) / 2 + sum(onemode.reciprocal * bipartite.onestep2 * bipartite.twopath2) / 2,
+      "212" = sum(onemode.forward * bipartite.twopath * bipartite.twopath2) / 2 + sum(onemode.backward * bipartite.twopath * bipartite.twopath2) / 2,
+      "222" = sum(onemode.reciprocal * bipartite.twopath * bipartite.twopath2) / 2
+    )  
+  }
+  return(res)
+}
