@@ -26,8 +26,9 @@ The University of Manchester
 Twitter](https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg)](https://twitter.com/aesp08)
 
 The package implements different measures to analyse complex multilayer
-networks, from an ego-centric perspective, considering one-mode network,
-valued ties (i.e. *weighted* or *multiplex*) or with multiple levels.
+networks, from an ego-centric perspective, considering one-mode
+networks, valued ties (i.e. *weighted* or *multiplex*) or with multiple
+levels.
 
 Installation
 ------------

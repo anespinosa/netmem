@@ -29,7 +29,7 @@ The goal of `netmem` is to make available different measures to describe network
 [![Follow me on Twitter](https://img.shields.io/badge/Follow me on Twitter-9cf.svg)](https://twitter.com/aesp08)
 
 
-The package implements different measures to analyse complex multilayer networks, from an ego-centric perspective, considering one-mode network, valued ties (i.e. *weighted* or *multiplex*) or with multiple levels.
+The package implements different measures to analyse complex multilayer networks, from an ego-centric perspective, considering one-mode networks, valued ties (i.e. *weighted* or *multiplex*) or with multiple levels.
 
 ## Installation
 
@@ -136,7 +136,7 @@ pkp(A1)
 zarc(A1)
 ```
 
- We can also check the triad census assuming conditional uniform distribution considering different types of dyads **(U|MAN)**
+We can also check the triad census assuming conditional uniform distribution considering different types of dyads **(U|MAN)**
 ```{r onem4}
 triad_uman(A1)
 ```
