@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # netmem: Network Measures using Matrices
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 The goal of `netmem` is to make available different measures to describe networks using matrices.
@@ -149,12 +151,12 @@ Now, we can calculate the degree centrality of the entire structure
 multilevel_degree(A1, B1, A2, B2, A3, B3, complete = TRUE)
 ```
 
-Also, we can perform a *k*-core analysis of one of the levels using the information of an incident matrix
+Besides, we can perform a *k*-core analysis of one of the levels using the information of an incident matrix
 ```{r multil2, warning=FALSE}
 k_core(A1, B1, multilevel=TRUE)
 ```
 
-Finally, we can also conduct a quadrilateral census 
+This package also allows performing complex census for multilevel networks.
 ```{r multil3}
 mixed_census(A2, t(B1), B2, quad=TRUE)
 ```

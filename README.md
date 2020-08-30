@@ -5,6 +5,11 @@ netmem: Network Measures using Matrices
 =======================================
 
 <!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 The goal of `netmem` is to make available different measures to describe
@@ -229,13 +234,14 @@ Now, we can calculate the degree centrality of the entire structure
     #> k3               4
     #> k4               3
 
-Also, we can perform a *k*-core analysis of one of the levels using the
-information of an incident matrix
+Besides, we can perform a *k*-core analysis of one of the levels using
+the information of an incident matrix
 
     k_core(A1, B1, multilevel=TRUE)
     #> [1] 1 3 1 2 3
 
-Finally, we can also conduct a quadrilateral census
+This package also allows performing complex census for multilevel
+networks.
 
     mixed_census(A2, t(B1), B2, quad=TRUE)
     #>   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 
