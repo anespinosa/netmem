@@ -123,7 +123,7 @@ gen_degree(B1, bipartite = TRUE, normalized=TRUE)
 ```
  
 This package also implement some dyadic analysis
-```{r}
+```{r onem3}
 # Dyadic census
 dyadic_census(A1)
 
@@ -135,7 +135,7 @@ zarc(A1)
 ```
 
  We can also check the triad census assuming conditional uniform distribution considering different types of dyads **(U|MAN)**
-```{r onem3}
+```{r onem4}
 triad_uman(A1)
 ```
  
@@ -152,5 +152,10 @@ multilevel_degree(A1, B1, A2, B2, A3, B3, complete = TRUE)
 Also, we can perform a *k*-core analysis of one of the levels using the information of an incident matrix
 ```{r multil2, warning=FALSE}
 k_core(A1, B1, multilevel=TRUE)
+```
+
+Finally, we can also conduct a quadrilateral census 
+```{r multil3}
+mixed_census(A2, t(B1), B2, quad=TRUE)
 ```
 

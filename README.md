@@ -234,3 +234,13 @@ information of an incident matrix
 
     k_core(A1, B1, multilevel=TRUE)
     #> [1] 1 3 1 2 3
+
+Finally, we can also conduct a quadrilateral census
+
+    mixed_census(A2, t(B1), B2, quad=TRUE)
+    #>   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 
+    #>     2     6     1     0     0     2     0     0     4     0     1     1     0 
+    #>  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W 
+    #>     0     0     8     0     3     0     1     3     1     0     0     0     0 
+    #>  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 
+    #>    11    13     0     0     0     0     3     0     0     0
