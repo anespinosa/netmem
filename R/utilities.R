@@ -1,3 +1,58 @@
+#' Generalized density
+#' 
+#'
+#' @param A   A symmetric or incident matrix object
+#' @param directed    Wheter the matrix is directed or not
+#' @param bipartite   Wheter the matrix is bipartite or not.
+#' @param loops   Wheter to consider or not the loops
+#' 
+#' @return This function returns the density of the matrix.
+#'
+#' @author Alejandro Espinosa-Rada
+#' 
+#' @references 
+#' 
+#' Wasserman, S., and Faust, K. (1994). Social Network Analysis: Methods and Applications. Cambridge: Cambridge University Press.
+#' 
+#' @examples
+#' 
+#' B <- matrix(c(1,1,0,
+#'               0,0,1,
+#'               0,1,1,
+#'               0,0,1), byrow=TRUE, ncol=3)
+#' gen_density(B, bipartite = TRUE)
+#' 
+#' 
+#' @export
+
+# TO DO: ADD DENSITY FOR WEIGHTED AND MULTILEVEL NETWORKS
+
+gen_density <- function(A, directed=TRUE, bipartite=FALSE ,loops=FALSE){
+  if(!loops){
+    diag(A) <- 0
+  }
+  if(bipartite){
+    if(dim(A)[1]==dim(A)[2])warning("Incident matrix should be rectangular")
+    high <- ncol(A)
+    low <- nrow(A)
+    L <- sum(A,na.rm=TRUE)
+    dens <- L/(high*low)
+  }
+  else{
+    if(!dim(A)[1]==dim(A)[2])stop("Matrix should be square")
+    
+    if(directed){
+      if(all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The network is undirected")
+      dens <- sum(A,na.rm=TRUE)/(ncol(A)*(ncol(A)-1))
+    }
+    if(!directed){
+      if(!all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The network is directed. The underlying graph is used")
+      A[lower.tri(A)] = t(A)[lower.tri(A)] # Symmetrize
+      dens <- (sum(A[lower.tri(A)], na.rm=TRUE)*2)/(ncol(A)*(ncol(A)-1))}
+  }
+  return(dens)
+}
+
 #' Citation networks
 #'
 #' Matrix transformation from incident matrices to a citation, fractional counting for co-citation or fractional counting for bibliographic coupling.
@@ -115,6 +170,7 @@ coocurrence <- function(OC){
 
 structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
   if(bipartite){
+    if(dim(A)[1]==dim(A)[2])warning("Incident matrix should be rectangular")
     if(column){
       for(i in 1:dim(A)[2]){ 
         A[,i] = ifelse((A[,i] | sum(A[,i])) == 0, 

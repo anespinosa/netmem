@@ -621,7 +621,7 @@ k_core <- function (A, B1=NULL,
   if(!weighted & !multilevel){
     if(digraph){g <- igraph::graph.adjacency(A, mode=c("directed"))}
     if(!digraph){g <- igraph::graph.adjacency(A, mode=c("undirected"))}
-    return(coreness(g, mode=c(type)))
+    return(igraph::coreness(g, mode=c(type)))
   }
   if(!multilevel & weighted){
     if(!is.null(B1))stop("Matrix `B1` for multilevel networks")
