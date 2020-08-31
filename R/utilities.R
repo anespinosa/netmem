@@ -87,3 +87,62 @@ coocurrence <- function(OC){
   D <- diag(coOC) 
   coOC/(sqrt(outer(D,D,"*")))
 }
+
+#' Structural missing data
+#' 
+#' Assign NA to missing data in the matrices
+#'
+#' @param A   A symmetric or incident matrix object
+#' @param label   String vector with the names of the theoretical complete matrix
+#' @param bipartite   Wheter the matrix is bipartite or not.
+#' @param column   Wheter the assignation of NA is for columns in the biparite network, row by default.
+#' 
+#' @return This function returns NA to missing data.
+#'
+#' @author Alejandro Espinosa-Rada
+
+#' @examples
+#' 
+#' A <- matrix(c(0,1,1,
+#'               1,0,1,
+#'               0,0,0), byrow=TRUE, ncol=3)
+#' colnames(A) <- c("A", "C", "D")
+#' rownames(A) <- c("A", "C", "D")
+#' label <- c("A", "B", "C", "D", "E")
+#' structuralNA(A, label)
+#' 
+#' @export
+
+structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
+  if(bipartite){
+    if(column){
+      for(i in 1:dim(A)[2]){ 
+        A[,i] = ifelse((A[,i] | sum(A[,i])) == 0, 
+                       NA, A[,i])
+      }
+      x <- A
+      
+    }
+    else{
+      for(i in 1:dim(A)[1]){ 
+        A[i,] = ifelse((A[i,] | sum(A[i,])) == 0, 
+                       NA, A[i,])
+      }
+      x <- A
+    }
+    return(x)
+  }
+  else{
+    if(!dim(A)[1]==dim(A)[2])stop("Matrix should be square")
+    if(is.null(colnames(A)))stop("Assign column names to the matrix.")
+    if(is.null(rownames(A)))stop("Assign column names to the matrix.")
+    if(!is.character(label))stop("Assign a string vector with the names of the complete matrix.")
+    x <- array(NA, dim=list(length(label),length(label)))
+    colnames(x) <- label
+    rownames(x) <- label
+    rowmatch <- match(rownames(A), rownames(x))
+    colmatch <- match(colnames(A), colnames(x))
+    x[rowmatch, colmatch] <- A
+  }
+  return(x)
+}
