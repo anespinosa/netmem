@@ -12,7 +12,7 @@ multiplex_census(A, B)
 \item{B}{An undirected matrix object.}
 }
 \value{
-This function gives the counts of the mixed multiplex triad census for a directed and an undirected network. The contribution of each of the elementary form is 0.5 and in the multiplex triads sum 1.
+This function gives the counts of the mixed multiplex triad census for a directed and an undirected network.
 }
 \description{
 This function counts the different subgraphs of three nodes in a multiplex directed and undirected network.

@@ -64,8 +64,8 @@ dyadic_census <- function(G, directed=TRUE){
 #' @param A   A directed matrix object.
 #' @param B   An undirected matrix object.
 #' 
-#' @return This function gives the counts of the mixed multiplex triad census for a directed and an undirected network. The contribution of each of the elementary form is 0.5 and in the multiplex triads sum 1.
-#'
+#' @return This function gives the counts of the mixed multiplex triad census for a directed and an undirected network. 
+#' 
 #' @references
 #'
 #' Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin & Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"
