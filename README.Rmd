@@ -31,6 +31,12 @@ The goal of `netmem` is to make available different measures to describe network
 
 The package implements different measures to analyse complex multilayer networks, from an ego-centric perspective, considering one-mode networks, valued ties (i.e. *weighted* or *multiplex*) or with multiple levels.
 
+## Citation
+
+```{r echo=FALSE, results='asis'}
+citation(package="netmem")
+```
+
 ## Installation
 
 You can install the development version from [GitHub](https://github.com/) with:

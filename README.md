@@ -30,6 +30,27 @@ networks, from an ego-centric perspective, considering one-mode
 networks, valued ties (i.e. *weighted* or *multiplex*) or with multiple
 levels.
 
+Citation
+--------
+
+To cite package ‘netmem’ in publications use:
+
+Alejandro Espinosa-Rada (2020). netmem: Social Network Measures using
+Matrices. R package version 1.0-3.
+<a href="https://github.com/anespinosa/netmem" class="uri">https://github.com/anespinosa/netmem</a>
+
+A BibTeX entry for LaTeX users is
+
+@Manual{, title = {netmem: Social Network Measures using Matrices},
+author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package
+version 1.0-3}, url =
+{<a href="https://github.com/anespinosa/netmem" class="uri">https://github.com/anespinosa/netmem</a>},
+}
+
+ATTENTION: This citation information has been auto-generated from the
+package DESCRIPTION file and may need manual editing, see
+‘help(“citation”)’.
+
 Installation
 ------------
 

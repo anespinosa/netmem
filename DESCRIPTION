@@ -2,14 +2,19 @@ Package: netmem
 Version: 1.0-3
 Date: 2020-09-26
 Depends: R (>= 3.0.0)
+Authors@R: c(
+      person(given = "Alejandro", family = "Espinosa-Rada", role = c("cre","aut"),
+      email = "alejandro.espinosa@manchester.ac.uk", comment = c(ORCID = "0000-0003-4177-1912"))
+      )
 Imports: igraph
 Title: Social Network Measures using Matrices
-Author: Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
+Author: Alejandro Espinosa-Rada [cre, aut] <alejandro.espinosa@manchester.ac.uk>
 Maintainer: Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
 Description: Measures to describe social networks using matrices.  
 License: GPL (>= 2)
 Encoding: UTF-8
 URL: https://github.com/anespinosa/netmem
+BugReports: https://github.com/anespinosa/netmem/issues
 Suggests: 
     knitr,
     rmarkdown
