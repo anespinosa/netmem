@@ -75,6 +75,7 @@ matrices, one valued matrix and two incident matrices between them.
 -   `A2`: Adjacency Matrix of the level 2
 -   `B2`: Incident Matrix between level 2 and level 3
 -   `A3`: Valued Matrix of the level 3
+-   `B3`: Incident Matrix between level 3 and level 1
 
 </div>
 
