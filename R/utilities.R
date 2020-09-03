@@ -202,3 +202,96 @@ structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
   }
   return(x)
 }
+
+#' Zone-2 sampling from second-mode
+#' 
+#' Second-zone multilevel sampling considering a second-mode focal actor.
+#'
+#' @param A   A symmetric matrix object.
+#' @param X   X an incident matrix object.
+#' @param ego   Wheter to add or not ego into the subgraph.
+#' 
+#' @return This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.
+#'
+#' @references
+#'
+#' Espinosa-Rada, A. (forthcoming). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
+#'
+#' @import igraph
+#' 
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' 
+#' A <- matrix(c(0,1,0,0,0,0,0,0,
+#'               0,0,1,0,0,0,0,0,
+#'               0,1,0,1,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,
+#'               0,0,0,1,0,0,0,0,
+#'               0,0,0,0,0,0,0,0,
+#'               0,0,0,0,0,0,0,0), byrow=TRUE, ncol=8)
+#' colnames(A) <- c("1", "2", "3", "4", "5", "6", "7", "8")
+#' rownames(A) <- c("1", "2", "3", "4", "5", "6", "7", "8")
+#' 
+#' X <- matrix(c(1,0,0,0,
+#'               1,0,0,0,
+#'               1,0,1,0,
+#'               0,1,1,0,
+#'               0,1,1,1,
+#'               0,1,0,0,
+#'               0,0,0,0,
+#'               0,0,0,1), byrow=TRUE, ncol=4)
+#' colnames(X) <- c("a", "b", "c", "d")
+#' rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
+#' 
+#' zone_sample(A, X)
+#' 
+#' @export
+
+zone_sample <- function(A, X, ego=TRUE){
+  A <- as.matrix(A)
+  X <- as.matrix(X)
+  if(is.null(rownames(A)))stop("Assign `rownames` to the adjacent matrix")
+  if(is.null(colnames(A)))stop("Assign `colnames` to the adjacent matrix")
+  if(is.null(rownames(X)))stop("Assign `rownames` to the incident matrix")
+  if(is.null(colnames(X)))stop("Assign `colnames` to the incident matrix")
+  if(dim(A)[1]!=dim(X)[1]){
+    X <- t(X)
+  }
+  if(!all(colnames(A)==rownames(X)))warning("The names for the combination of the matrixes should be the same")
+  zero <- matrix(0, ncol=ncol(X), nrow=ncol(X))
+  M1 <- cbind(A, X)
+  M2 <- cbind(t(X), zero)
+  gM <- rbind(M1, M2)
+  A1 <- gM
+  gM <- igraph::graph.adjacency(gM)
+  label <- colnames(X)
+  subgraphs <- list()
+  zone1 <- list()
+  external <- list()
+  for(i in label){
+    zone1[[i]] <- which(A1[,i]!=0)
+    zone2 <- A1%*%A1
+    zone2 <- zone2 + A1%*%t(A1)
+    nei <- which(zone2[i,]!=0)
+    nei <- rownames(as.data.frame(nei))
+    nei <- nei[which(nei!=i)]
+    not <- names(zone1[[i]]) %in% label
+    members_zone1 <- names(zone1[[i]][!not])
+    out <- nei[!nei%in%members_zone1]
+    out <- out[!out%in%colnames(X)]
+    external[[i]] <- length(out)
+    outInst <- names(which(X[out,]!=0))
+    if(ego==TRUE){
+      nei <- c(nei, members_zone1, outInst, i)
+    }
+    if(ego==FALSE){
+      nei <- c(nei, members_zone1, outInst)
+    }
+    nei <- unique(nei)
+    subgraphs[[i]] <- igraph::delete.vertices(gM, !(V(gM)$name %in% nei))
+    subgraphs[[i]] <- igraph::simplify(subgraphs[[i]])
+  }
+  return(subgraphs)
+}
