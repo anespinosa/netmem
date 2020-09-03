@@ -18,6 +18,7 @@ BugReports: https://github.com/anespinosa/netmem/issues
 Suggests: 
     knitr,
     rmarkdown,
-    covr
+    covr,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
