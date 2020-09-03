@@ -109,7 +109,7 @@ dyadic_census <- function(G, directed=TRUE){
 #' 
 
 multiplex_census <- function(A, B){
-  warning("Experimental version, please use with caution!")
+  #warning("Experimental version, please use with caution!")
   
   if(!all(A<=1))warning(paste("Measure only implemented for binary networks,", "the `first` network","would be binarized for the triadic census"))
   A <- as.matrix(A)
