@@ -98,7 +98,6 @@ matrices, one valued matrix and two incident matrices between them.
 -   `A2`: Adjacency Matrix of the level 2
 -   `B2`: Incident Matrix between level 2 and level 3
 -   `A3`: Valued Matrix of the level 3
--   `B3`: Incident Matrix between level 3 and level 1
 
 </div>
 
@@ -128,11 +127,6 @@ Create the data
                   1,0,0,0,
                   3,0,0,5,
                   1,0,5,0), byrow=TRUE, ncol=4)
-
-    B3 <- matrix(c(1,0,0,0,0,
-                  0,1,0,1,0,
-                  0,0,0,0,0,
-                  0,0,0,0,0), byrow=TRUE, ncol=5)
 
 ------------------------------------------------------------------------
 
@@ -218,46 +212,33 @@ distribution considering different types of dyads **(U\|MAN)**
 
 Now, we can calculate the degree centrality of the entire structure
 
-    multilevel_degree(A1, B1, A2, B2, A3, B3, complete = TRUE)
-    #>    multilevel bipartiteB1 bipartiteB2 bipartiteB3 tripartiteB1B2 tripartiteB1B3
-    #> n1          4           1          NA           1              1              2
-    #> n2          6           2          NA           1              2              3
-    #> n3          3           1          NA           0              1              1
-    #> n4          5           1          NA           1              1              2
-    #> n5          6           2          NA           0              2              2
-    #> m1          6           2           2          NA              4              2
-    #> m2          6           4           1          NA              5              4
-    #> m3          4           1           2          NA              3              1
-    #> k1          5          NA           1           1              1              1
-    #> k2          4          NA           1           2              1              2
-    #> k3          4          NA           2           0              2              0
-    #> k4          3          NA           1           0              1              0
-    #>    tripartiteB2B3 tripartiteB1B2B3 low_multilevel meso_multilevel
-    #> n1              1                2              4               2
-    #> n2              1                3              6               3
-    #> n3              0                1              3               1
-    #> n4              1                2              5               2
-    #> n5              0                2              6               2
-    #> m1              2                4              4               6
-    #> m2              1                5              5               6
-    #> m3              2                3              3               4
-    #> k1              2                2              2               2
-    #> k2              3                3              3               3
-    #> k3              2                2              2               2
-    #> k4              1                1              1               1
-    #>    high_multilevel
-    #> n1               2
-    #> n2               3
-    #> n3               1
-    #> n4               2
-    #> n5               2
-    #> m1               4
-    #> m2               5
-    #> m3               3
-    #> k1               5
-    #> k2               4
-    #> k3               4
-    #> k4               3
+    multilevel_degree(A1, B1, A2, B2, complete = TRUE)
+    #>    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel
+    #> n1          3           1          NA              1              3
+    #> n2          5           2          NA              2              5
+    #> n3          3           1          NA              1              3
+    #> n4          4           1          NA              1              4
+    #> n5          6           2          NA              2              6
+    #> m1          6           2           2              4              4
+    #> m2          6           4           1              5              5
+    #> m3          4           1           2              3              3
+    #> k1          4          NA           1              1              1
+    #> k2          2          NA           1              1              1
+    #> k3          3          NA           2              2              2
+    #> k4          1          NA           1              1              1
+    #>    meso_multilevel high_multilevel
+    #> n1               1               1
+    #> n2               2               2
+    #> n3               1               1
+    #> n4               1               1
+    #> n5               2               2
+    #> m1               6               4
+    #> m2               6               5
+    #> m3               4               3
+    #> k1               1               1
+    #> k2               1               1
+    #> k3               2               2
+    #> k4               1               1
 
 Besides, we can perform a *k*-core analysis of one of the levels using
 the information of an incident matrix
