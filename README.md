@@ -1,8 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-netmem: Network Measures using Matrices
-=======================================
+netmem: Network Measures using Matrices <img src="man/figures/logo.png" align="right" width="180px"/>
+=====================================================================================================
 
 <!-- badges: start -->
 
@@ -10,6 +10,7 @@ netmem: Network Measures using Matrices
 status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![codecov](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://codecov.io/gh/anespinosa/netmem)
 <!-- badges: end -->
 
 The goal of `netmem` is to make available different measures to describe
@@ -46,10 +47,6 @@ author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package
 version 1.0-3}, url =
 {<a href="https://github.com/anespinosa/netmem" class="uri">https://github.com/anespinosa/netmem</a>},
 }
-
-ATTENTION: This citation information has been auto-generated from the
-package DESCRIPTION file and may need manual editing, see
-‘help(“citation”)’.
 
 Installation
 ------------
