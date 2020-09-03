@@ -13,7 +13,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of `netmem` is to make available different measures to describe
-networks using matrices.
+and manipulate networks using matrices.
 
 🖊 Author/mantainer: [Alejandro
 Espinosa-Rada](https://www.research.manchester.ac.uk/portal/en/researchers/alejandro-espinosa(4ed72800-e02b-47a8-a958-640b6a07f563).html)
@@ -25,10 +25,10 @@ The University of Manchester
 [![Follow me on
 Twitter](https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg)](https://twitter.com/aesp08)
 
-The package implements different measures to analyse complex multilayer
-networks, from an ego-centric perspective, considering one-mode
-networks, valued ties (i.e. *weighted* or *multiplex*) or with multiple
-levels.
+The package implements different measures to analyse and manipulate
+complex multilayer networks, from an ego-centric perspective,
+considering one-mode networks, valued ties (i.e. *weighted* or
+*multiplex*) or with multiple levels.
 
 Citation
 --------
