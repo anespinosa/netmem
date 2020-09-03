@@ -10,6 +10,8 @@ netmem: Network Measures using Matrices <img src="man/figures/logo.png" align="r
 status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build
+status](https://travis-ci.com/anespinosa/netmem.svg?branch=master)](https://travis-ci.com/anespinosa/netmem)
 <!-- badges: end -->
 
 The goal of `netmem` is to make available different measures to describe
