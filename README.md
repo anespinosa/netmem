@@ -14,6 +14,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://travis-ci.com/anespinosa/netmem.svg?branch=master)](https://travis-ci.com/anespinosa/netmem)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?branch=master&svg=true)](https://ci.appveyor.com/project/anespinosa/netmem)
+[![Codecov test
+coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://codecov.io/gh/anespinosa/netmem?branch=master)
 <!-- badges: end -->
 
 The goal of `netmem` is to make available different measures to describe
