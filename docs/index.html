@@ -124,8 +124,6 @@
 <code>B2</code>: Incident Matrix between level 2 and level 3</li>
 <li>
 <code>A3</code>: Valued Matrix of the level 3</li>
-<li>
-<code>B3</code>: Incident Matrix between level 3 and level 1</li>
 </ul>
 </div>
 <p>Create the data</p>
@@ -152,12 +150,7 @@
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>A3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>              <span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a>              <span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">5</span>,</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>              <span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">0</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">ncol=</span><span class="dv">4</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true"></a>B3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true"></a>              <span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true"></a>              <span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true"></a>              <span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">ncol=</span><span class="dv">5</span>)</span></code></pre></div>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a>              <span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">0</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">ncol=</span><span class="dv">4</span>)</span></code></pre></div>
 <hr>
 </div>
 <div id="ego-measures" class="section level3">
@@ -225,46 +218,33 @@
 <h3 class="hasAnchor">
 <a href="#multilevel-network" class="anchor"></a>Multilevel network</h3>
 <p>Now, we can calculate the degree centrality of the entire structure</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">multilevel_degree</span>(A1, B1, A2, B2, A3, B3, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="co">#&gt;    multilevel bipartiteB1 bipartiteB2 bipartiteB3 tripartiteB1B2 tripartiteB1B3</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="co">#&gt; n1          4           1          NA           1              1              2</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="co">#&gt; n2          6           2          NA           1              2              3</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="co">#&gt; n3          3           1          NA           0              1              1</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="co">#&gt; n4          5           1          NA           1              1              2</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="co">#&gt; n5          6           2          NA           0              2              2</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="co">#&gt; m1          6           2           2          NA              4              2</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="co">#&gt; m2          6           4           1          NA              5              4</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a><span class="co">#&gt; m3          4           1           2          NA              3              1</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a><span class="co">#&gt; k1          5          NA           1           1              1              1</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a><span class="co">#&gt; k2          4          NA           1           2              1              2</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a><span class="co">#&gt; k3          4          NA           2           0              2              0</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a><span class="co">#&gt; k4          3          NA           1           0              1              0</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a><span class="co">#&gt;    tripartiteB2B3 tripartiteB1B2B3 low_multilevel meso_multilevel</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a><span class="co">#&gt; n1              1                2              4               2</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a><span class="co">#&gt; n2              1                3              6               3</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a><span class="co">#&gt; n3              0                1              3               1</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a><span class="co">#&gt; n4              1                2              5               2</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a><span class="co">#&gt; n5              0                2              6               2</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a><span class="co">#&gt; m1              2                4              4               6</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a><span class="co">#&gt; m2              1                5              5               6</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a><span class="co">#&gt; m3              2                3              3               4</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a><span class="co">#&gt; k1              2                2              2               2</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a><span class="co">#&gt; k2              3                3              3               3</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a><span class="co">#&gt; k3              2                2              2               2</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a><span class="co">#&gt; k4              1                1              1               1</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true"></a><span class="co">#&gt;    high_multilevel</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true"></a><span class="co">#&gt; n1               2</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true"></a><span class="co">#&gt; n2               3</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true"></a><span class="co">#&gt; n3               1</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true"></a><span class="co">#&gt; n4               2</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true"></a><span class="co">#&gt; n5               2</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true"></a><span class="co">#&gt; m1               4</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true"></a><span class="co">#&gt; m2               5</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true"></a><span class="co">#&gt; m3               3</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true"></a><span class="co">#&gt; k1               5</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true"></a><span class="co">#&gt; k2               4</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true"></a><span class="co">#&gt; k3               4</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true"></a><span class="co">#&gt; k4               3</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">multilevel_degree</span>(A1, B1, A2, B2, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="co">#&gt;    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="co">#&gt; n1          3           1          NA              1              3</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="co">#&gt; n2          5           2          NA              2              5</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a><span class="co">#&gt; n3          3           1          NA              1              3</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="co">#&gt; n4          4           1          NA              1              4</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="co">#&gt; n5          6           2          NA              2              6</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a><span class="co">#&gt; m1          6           2           2              4              4</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a><span class="co">#&gt; m2          6           4           1              5              5</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a><span class="co">#&gt; m3          4           1           2              3              3</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a><span class="co">#&gt; k1          4          NA           1              1              1</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a><span class="co">#&gt; k2          2          NA           1              1              1</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a><span class="co">#&gt; k3          3          NA           2              2              2</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a><span class="co">#&gt; k4          1          NA           1              1              1</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a><span class="co">#&gt;    meso_multilevel high_multilevel</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a><span class="co">#&gt; n1               1               1</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a><span class="co">#&gt; n2               2               2</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a><span class="co">#&gt; n3               1               1</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a><span class="co">#&gt; n4               1               1</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a><span class="co">#&gt; n5               2               2</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a><span class="co">#&gt; m1               6               4</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a><span class="co">#&gt; m2               6               5</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a><span class="co">#&gt; m3               4               3</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true"></a><span class="co">#&gt; k1               1               1</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true"></a><span class="co">#&gt; k2               1               1</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true"></a><span class="co">#&gt; k3               2               2</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true"></a><span class="co">#&gt; k4               1               1</span></span></code></pre></div>
 <p>Besides, we can perform a <em>k</em>-core analysis of one of the levels using the information of an incident matrix</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">k_core</span>(A1, B1, <span class="dt">multilevel=</span><span class="ot">TRUE</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="co">#&gt; [1] 1 3 1 2 3</span></span></code></pre></div>

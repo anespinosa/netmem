@@ -12,7 +12,7 @@ os:
 r: 
   - oldrel
   - 3.6
-  - 4
+#  - 4
 #  - release
 # - devel
   
