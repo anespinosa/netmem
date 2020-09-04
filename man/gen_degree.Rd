@@ -2,7 +2,7 @@
 % Please edit documentation in R/degree.R
 \name{gen_degree}
 \alias{gen_degree}
-\title{Generalized degree centrality for one-mode and bipartite networks.}
+\title{Generalized degree}
 \usage{
 gen_degree(
   A,
@@ -34,10 +34,10 @@ gen_degree(
 }
 \value{
 This function returns term 1, 2 and 3, the normalization and the maximum value of the specification of Everett and Borgatti (2020),
-and the constraint of Burt (1992).
+and the constraint of Burt (1992)
 }
 \description{
-Generalized degree centrality for one-mode and bipartite networks.
+Generalized degree centrality for one-mode and bipartite networks
 }
 \examples{
 

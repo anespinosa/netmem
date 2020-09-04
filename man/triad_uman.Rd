@@ -7,11 +7,11 @@
 triad_uman(A, ztest = FALSE, covar = FALSE)
 }
 \arguments{
-\item{A}{A symmetric matrix object.}
+\item{A}{A symmetric matrix object}
 
 \item{ztest}{Return Z and p-value}
 
-\item{covar}{Return the covarianc matrix for triadic analysis (EXPERIMENTAL).}
+\item{covar}{Return the covarianc matrix for triadic analysis}
 }
 \value{
 This function gives the counts of the triad census, the expected counts, 

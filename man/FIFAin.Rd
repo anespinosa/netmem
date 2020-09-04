@@ -3,7 +3,7 @@
 \docType{data}
 \name{FIFAin}
 \alias{FIFAin}
-\title{FIFA Governance Regulation Network}
+\title{Inside FIFA}
 \format{
 A list of a 41 x 41 symmetric matrix of roles and organizations inside FIFA, and a string vector with the label of the actors
 }

@@ -3,7 +3,7 @@
 \docType{data}
 \name{FIFAex}
 \alias{FIFAex}
-\title{FIFA Governance Regulation Network}
+\title{Outside FIFA}
 \format{
 A list of a 7 x 7 symmetric matrix of non-FIFA organizations, and a string vector with the label of the actors
 }

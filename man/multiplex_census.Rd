@@ -2,7 +2,7 @@
 % Please edit documentation in R/census.R
 \name{multiplex_census}
 \alias{multiplex_census}
-\title{Multiplex triad census for a directed and an undirected network.}
+\title{Multiplex triad census}
 \usage{
 multiplex_census(A, B)
 }

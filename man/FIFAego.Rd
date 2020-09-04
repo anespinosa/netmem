@@ -3,7 +3,7 @@
 \docType{data}
 \name{FIFAego}
 \alias{FIFAego}
-\title{FIFA Governance Regulation Network}
+\title{Ego FIFA}
 \format{
 A list of a 48 x 48 symmetric matrix of the ego network of FIFA as an entity, and a string vector with the label of the actors
 }

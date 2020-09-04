@@ -17,7 +17,7 @@ zone_sample(A, X, ego = TRUE)
 This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.
 }
 \description{
-Second-zone multilevel sampling considering a second-mode focal actor.
+Second-zone multilevel sampling considering a second-mode focal actor
 }
 \examples{
 

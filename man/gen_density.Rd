@@ -11,12 +11,12 @@ gen_density(A, directed = TRUE, bipartite = FALSE, loops = FALSE)
 
 \item{directed}{Wheter the matrix is directed or not}
 
-\item{bipartite}{Wheter the matrix is bipartite or not.}
+\item{bipartite}{Wheter the matrix is bipartite or not}
 
 \item{loops}{Wheter to consider or not the loops}
 }
 \value{
-This function returns the density of the matrix.
+This function returns the density of the matrix
 }
 \description{
 Generalized density

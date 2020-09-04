@@ -14,10 +14,10 @@ citation_norm(A1, A2, citation = "citation")
 \item{citation}{Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}}
 }
 \value{
-Return a type of citation network.
+Return a type of citation network
 }
 \description{
-Matrix transformation from incident matrices to a citation, fractional counting for co-citation or fractional counting for bibliographic coupling.
+Matrix transformation from incident matrices to a citation, fractional counting for co-citation or fractional counting for bibliographic coupling
 }
 \examples{
 

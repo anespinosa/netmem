@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities.R
 \name{coocurrence}
 \alias{coocurrence}
-\title{Co‐occurrence matrix based on overlap function}
+\title{Co‐occurrence}
 \usage{
 coocurrence(OC)
 }
