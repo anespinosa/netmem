@@ -41,7 +41,6 @@ The package implements different measures to analyse and manipulate complex mult
 citation(package="netmem")
 ```
 
-
 ## Installation
 
 You can install the development version from [GitHub](https://github.com/) with:

@@ -41,22 +41,17 @@ considering one-mode networks, valued ties (i.e. *weighted* or
 Citation
 --------
 
-    #> Warning in citation(package = "netmem"): no date field in DESCRIPTION file of
-    #> package 'netmem'
-    #> Warning in citation(package = "netmem"): could not determine year for 'netmem'
-    #> from package DESCRIPTION file
-
 To cite package ‘netmem’ in publications use:
 
-Alejandro Espinosa-Rada (NA). netmem: Social Network Measures using
+Alejandro Espinosa-Rada (2020). netmem: Social Network Measures using
 Matrices. R package version 1.0-3.
 <a href="https://github.com/anespinosa/netmem" class="uri">https://github.com/anespinosa/netmem</a>
 
 A BibTeX entry for LaTeX users is
 
 @Manual{, title = {netmem: Social Network Measures using Matrices},
-author = {Alejandro Espinosa-Rada}, note = {R package version 1.0-3},
-url =
+author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package
+version 1.0-3}, url =
 {<a href="https://github.com/anespinosa/netmem" class="uri">https://github.com/anespinosa/netmem</a>},
 }
 
