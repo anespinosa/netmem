@@ -21,5 +21,5 @@ krackhardt_friends <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
                                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
                              ncol=21, byrow=TRUE)
-usethis::use_data(krackhardt_friends, compress = "xz", overwrite = TRUE)
+usethis::use_data(krackhardt_friends, overwrite = TRUE)
 
