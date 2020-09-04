@@ -45,13 +45,5 @@ Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin & Stadtfeld, Christop
 Hollway, J., Lomi, A., Pallotti, F., & Stadtfeld, C. (2017). Multilevel social spaces: The network dynamics of organizational fields. Network Science, 5(2), 187–212. https://doi.org/10.1017/nws.2017.8
 }
 \author{
-James Hollway
-
-Alessandro Lomi
-
-Francesca Pallotti
-
-Christoph Stadtfeld
-
 Alejandro Espinosa-Rada
 }
