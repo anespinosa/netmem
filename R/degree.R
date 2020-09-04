@@ -1,4 +1,6 @@
-#' Generalized degree centrality for one-mode and bipartite networks.
+#' Generalized degree
+#' 
+#' Generalized degree centrality for one-mode and bipartite networks
 #'
 #' @param A   A matrix object
 #' @param weighted    Wheter the matrix is weighted or not
@@ -11,7 +13,7 @@
 #' 
 #' 
 #' @return This function returns term 1, 2 and 3, the normalization and the maximum value of the specification of Everett and Borgatti (2020),
-#' and the constraint of Burt (1992).
+#' and the constraint of Burt (1992)
 #'
 #' @references
 #'
