@@ -31,15 +31,15 @@ multilevel_degree(
 )
 }
 \arguments{
-\item{A1}{The adjacent square matrix of the lowest level}
+\item{A1}{The square matrix of the lowest level}
 
 \item{B1}{The incident matrix of the ties between the nodes of first level and the nodes of the second level}
 
-\item{A2}{The adjacent square of the second level}
+\item{A2}{The square matrix of the second level}
 
 \item{B2}{The incident matrix of the ties between the nodes of the second level and the nodes of the third level}
 
-\item{A3}{The adjacent square of the third level}
+\item{A3}{The square matrix of the third level}
 
 \item{B3}{The incident matrix of the ties between the nodes of the third level and the nodes of the first level}
 
