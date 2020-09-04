@@ -64,7 +64,5 @@ Espinosa-Rada, A. (forthcoming). A Network Approach for the Sociological Study o
 Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
 }
 \author{
-Christopher G. Watson
-
 Alejandro Espinosa-Rada
 }

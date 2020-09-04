@@ -592,7 +592,8 @@ multilevel_degree <- function(A1, B1,
 #'
 #' Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
 #' 
-#' @author Christopher G. Watson
+#' @import igraph
+#' 
 #' @author Alejandro Espinosa-Rada
 #'
 #' @examples
@@ -629,14 +630,14 @@ k_core <- function (A, B1=NULL,
     ct <- 1
     k.core <- vector("integer", length = nrow(W))
     repeat {
-      str.tmp <- gen_degree(W, digraph=digraph, type=type,
+      temp <- gen_degree(W, digraph=digraph, type=type,
                             alpha=alpha,
                             loops=loops, weighted=weighted) 
-      s.thr <- min(str.tmp[which(str.tmp > 0)])
-      v.remove <- which(str.tmp <= s.thr & str.tmp > 0)
-      if (length(v.remove) > 0) {
-        k.core[v.remove] <- ct
-        W[v.remove, ] <- W[, v.remove] <- 0
+      threshold <- min(temp[which(temp > 0)])
+      v_remove <- which(temp <= threshold & temp > 0)
+      if (length(v_remove) > 0) {
+        k.core[v_remove] <- ct
+        W[v_remove, ] <- W[, v_remove] <- 0
         ct <- ct + 1
       }
       if (sum(colSums(W) > 0) == 0) 
@@ -649,18 +650,18 @@ k_core <- function (A, B1=NULL,
     ct <- 1
     k.core <- vector("integer", length = nrow(W))
     repeat {
-      str.tmp <- multilevel_degree(W, B1, 
+      temp <- multilevel_degree(W, B1, 
                                    weightedA1 = weighted,
                                    typeA1 = type, alphaA1 = alpha,
                                    loopsA1 = loops)
-      str.tmp <- str.tmp$multilevel
-      str.tmp <- head(str.tmp, n=dim(W)[1]) 
-      s.thr <- min(str.tmp[which(str.tmp > 0)])
-      v.remove <- which(str.tmp <= s.thr & str.tmp > 0)
-      if (length(v.remove) > 0) {
-        k.core[v.remove] <- ct
-        W[v.remove, ] <- W[, v.remove] <- 0
-        B1[v.remove, ] <- 0 # CHECK
+      temp <- temp$multilevel
+      temp <- head(temp, n=dim(W)[1]) 
+      threshold <- min(temp[which(temp > 0)])
+      v_remove <- which(temp <= threshold & temp > 0)
+      if (length(v_remove) > 0) {
+        k.core[v_remove] <- ct
+        W[v_remove, ] <- W[, v_remove] <- 0
+        B1[v_remove, ] <- 0 # CHECK
         
         ct <- ct + 1
       }
