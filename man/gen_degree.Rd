@@ -16,7 +16,7 @@ gen_degree(
 )
 }
 \arguments{
-\item{A}{A symmetric matrix object}
+\item{A}{A matrix object}
 
 \item{weighted}{Wheter the matrix is weighted or not}
 
