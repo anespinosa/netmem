@@ -1,4 +1,4 @@
-#' FIFA Governance Regulation Network
+#' Inside FIFA
 #' 
 #' Multilevel Network of the regulatory transnational regime of the International Federation of Association Football (FIFA)
 #' 
@@ -10,7 +10,7 @@
 #' 
 "FIFAin"
 
-#' FIFA Governance Regulation Network
+#' Outside FIFA
 #' 
 #' Multilevel Network of the regulatory transnational regime of the International Federation of Association Football (FIFA)
 #' 
@@ -22,7 +22,7 @@
 #' 
 "FIFAex"
 
-#' FIFA Governance Regulation Network
+#' Ego FIFA
 #' 
 #' Multilevel Network of the regulatory transnational regime of the International Federation of Association Football (FIFA)
 #' 
