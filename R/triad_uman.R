@@ -21,30 +21,8 @@
 #'
 #' @examples
 #' 
-#' A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
-#'              1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,
-#'              0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,
-#'              1,1,0,0,0,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,
-#'              0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,
-#'              0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,1,
-#'              0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              0,0,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,1,0,
-#'              1,1,1,1,1,0,1,0,0,1,1,0,1,0,1,1,1,0,0,1,0,
-#'              1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,
-#'              0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,
-#'              1,0,1,0,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,
-#'              1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,
-#'              0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              1,1,1,0,1,0,0,0,1,1,0,1,1,0,0,0,0,1,0,0,0,
-#'              0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,
-#'              0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,
-#'              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
-#'              ncol=21, byrow=TRUE)
-#' 
-#' triad_uman(A)
+#' data(krackhardt_friends)
+#' triad_uman(krackhardt_friends)
 #' 
 #' \dontrun{
 #' triad_uman(A, ztest=TRUE)
@@ -1515,7 +1493,6 @@ triad_uman <- function(A, ztest=FALSE, covar=FALSE){
   res <- round(res, 3)
   
   if(ztest & covar){
-    warning("EXPERIMENTAL version. Use with caution... the covar 201-102 and 300-030T are under review")
     results$Z <- (results$OBS-results$EXP)/results$STD
     results$Z <- as.numeric(as.character(results$Z))
     results$Z <- round(results$Z, 3)
@@ -1527,7 +1504,7 @@ triad_uman <- function(A, ztest=FALSE, covar=FALSE){
   }
   
   if(covar){
-    warning("EXPERIMENTAL version. Use with caution... the covar 201-102 and 300-030T are under review")
+    # FIXME: EXPERIMENTAL version. Use with caution... the covar 201-102 and 300-030T are under review
     newlist <- list(results=results, covariance=mempty)
     return(newlist)
   }
@@ -1542,7 +1519,6 @@ triad_uman <- function(A, ztest=FALSE, covar=FALSE){
     newlist <- list(results=results, z_test=res)
     return(newlist)
   }
-  
   
   else{
     return(results)
