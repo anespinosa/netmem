@@ -592,7 +592,7 @@ multilevel_degree <- function(A1, B1,
 #'
 #' Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
 #' 
-#'
+#' @author Christopher G. Watson
 #' @author Alejandro Espinosa-Rada
 #'
 #' @examples
