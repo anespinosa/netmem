@@ -25,7 +25,7 @@
 #' 
 #' @export
 
-# TO DO: ADD DENSITY FOR WEIGHTED AND MULTILEVEL NETWORKS
+# TODO: Add density and for weighted and multilevel networks
 
 gen_density <- function(A, directed=TRUE, bipartite=FALSE ,loops=FALSE){
   if(!loops){
@@ -86,7 +86,7 @@ gen_density <- function(A, directed=TRUE, bipartite=FALSE ,loops=FALSE){
 #' 
 #' @export
 
-# TO DO: working progress (expand the measure)
+# TODO: Working progress (expand the measure)
 
 citation_norm <- function(A1, A2, citation="citation"){
   Ci <- A1%*%A2
@@ -135,7 +135,7 @@ citation_norm <- function(A1, A2, citation="citation"){
 #' 
 #' @export
 
-# TO DO: working progress (expand the measure)
+# TODO: working progress (expand the measure)
 
 coocurrence <- function(OC){
   coOC <- t(OC)%*%OC 
