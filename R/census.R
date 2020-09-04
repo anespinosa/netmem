@@ -38,7 +38,7 @@ dyadic_census <- function(G, directed=TRUE){
 }
 
 
-#' Multiplex triad census for a directed and an undirected network.
+#' Multiplex triad census
 #'
 #' This function counts the different subgraphs of three nodes in a multiplex directed and undirected network.
 #' 
