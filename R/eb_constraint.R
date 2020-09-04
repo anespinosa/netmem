@@ -31,9 +31,7 @@
 #' 
 #' @export
 
-# TO DO:
-# - Extend for digraphs
-# - Extend for weighted graphs
+# TODO: Extend for digraphs and weighted graphs
 
 eb_constraint <- function(A, ego=NULL, digraph=FALSE, weighted=FALSE){
   A <- as.matrix(A)
