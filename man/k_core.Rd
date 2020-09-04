@@ -16,7 +16,7 @@ k_core(
 )
 }
 \arguments{
-\item{A}{A symmetric matrix object.}
+\item{A}{A matrix object.}
 
 \item{B1}{An incident matrix for multilevel networks.}
 
