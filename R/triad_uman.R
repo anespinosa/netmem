@@ -1,8 +1,8 @@
 #' Triad census analysis assuming U|MAN
 #'
-#' @param A   A symmetric matrix object.
+#' @param A   A symmetric matrix object
 #' @param ztest   Return Z and p-value
-#' @param covar   Return the covarianc matrix for triadic analysis (EXPERIMENTAL).
+#' @param covar   Return the covarianc matrix for triadic analysis
 #' 
 #' @return This function gives the counts of the triad census, the expected counts, 
 #' assuming that U|MAN distribution is operating, and the standard deviations of these counts.
