@@ -13,30 +13,8 @@
 #'
 #' @examples
 #' 
-#' A <- matrix(c(0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,
-#'              1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,
-#'              0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,
-#'              1,1,0,0,0,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,
-#'              0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,
-#'              0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,1,
-#'              0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              0,0,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,1,0,
-#'              1,1,1,1,1,0,1,0,0,1,1,0,1,0,1,1,1,0,0,1,0,
-#'              1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,
-#'              0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,
-#'              1,0,1,0,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,
-#'              1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,
-#'              0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              1,1,1,0,1,0,0,0,1,1,0,1,1,0,0,0,0,1,0,0,0,
-#'              0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,
-#'              0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,
-#'              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-#'              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), 
-#'              ncol=21, byrow=TRUE)
-#' 
-#' dyadic_census(A)
+#' data(krackhardt_friends)
+#' dyadic_census(krackhardt_friends)
 #' 
 #' @export
 
@@ -109,7 +87,7 @@ dyadic_census <- function(G, directed=TRUE){
 #' 
 
 multiplex_census <- function(A, B){
-  #warning("Experimental version, please use with caution!")
+  # TODO: Experimental version, please use with caution
   
   if(!all(A<=1))warning(paste("Measure only implemented for binary networks,", "the `first` network","would be binarized for the triadic census"))
   A <- as.matrix(A)
@@ -181,7 +159,6 @@ multiplex_census <- function(A, B){
     "021d_201c" = sum(t(C)%*%C*Eb)/2+sum(M3%*%M3*Eb3)/2,
     "021d_300" = sum(t(C)%*%C*Eb)/2+sum(diag(M2%*%M2%*%M2))/6,
 
-    #"102_003" = sum((Eb%*%Eb*M))/2+sum(diag(Eb2%*%Eb2%*%Eb2))/6,
     "102_003_102a" = sum((Eb%*%Eb*M))/2+sum((Eb3%*%Eb3*M3))/2,
     "102_102bc_201ac" = sum((Eb%*%Eb*M))/2+sum(M3%*%M3*Eb3)/2,
     "102_300" = sum((Eb%*%Eb*M))/2+sum(diag(M2%*%M2%*%M2))/6,
@@ -217,12 +194,10 @@ multiplex_census <- function(A, B){
     "111u_102bc_201b" = (sum(t(A)%*%A*Eb)-t201-t021D)/2+sum(M3%*%M3*Eb3)/2, 
     "111u_201c_300" = (sum(t(A)%*%A*Eb)-t201-t021D)/2+sum(diag(M3%*%M3%*%M3))/6, 
 
-    #"120u_003" = sum(C%*%t(C)*M)/2+sum(diag(Eb2%*%Eb2%*%Eb2))/6, 
     "120u_003_102b" = sum(C%*%t(C)*M)/2+sum(C3%*%t(C3)*M3)/2,
     "120u_102ab_201ab" = sum(C%*%t(C)*M)/2+sum(M3%*%M3*(C3+t(C3)))/2, 
     "120u_201c_300" = sum(C%*%t(C)*M)/2+sum(diag(M3%*%M3%*%M3))/6, 
 
-    #"120d_003" = sum(t(C)%*%C*M)/2+sum(diag(Eb2%*%Eb2%*%Eb2))/6, 
     "120d_003_120b" = sum(t(C)%*%C*M)/2+sum(t(C3)%*%C3*M3)/2,
     "120d_102ab_201ab" = sum(t(C)%*%C*M)/2+sum(M3%*%M3*(C3+t(C3)))/2,
     "120d_201c_300" = sum(t(C)%*%C*M)/2+sum(diag(M3%*%M3%*%M3))/6, 
@@ -236,11 +211,9 @@ multiplex_census <- function(A, B){
     "120c_210" = sum(C%*%C*M)+sum(M3%*%M3*(C3+t(C3)))/2,
     "120c_300" = sum(C%*%C*M)+sum(diag(M3%*%M3%*%M3))/6,
 
-    #"210_003" = sum(M%*%M*(C+t(C)))/2+sum(diag(Eb2%*%Eb2%*%Eb2))/6, 
     "210_003_210" = sum(M%*%M*(C+t(C)))/2+sum(M3%*%M3*(C3+t(C3)))/2,
     "210_300" = sum(M%*%M*(C+t(C)))/2+sum(diag(M3%*%M3%*%M3))/6,
 
-    #"300_003" = sum(diag(M%*%M%*%M))/6+sum(diag(Eb2%*%Eb2%*%Eb2))/6,  
     "300_003_300" = sum(diag(M%*%M%*%M))/6+sum(diag(M3%*%M3%*%M3))/6
     
   )
@@ -262,10 +235,6 @@ multiplex_census <- function(A, B){
 #'
 #' Hollway, J., Lomi, A., Pallotti, F., & Stadtfeld, C. (2017). Multilevel social spaces: The network dynamics of organizational fields. Network Science, 5(2), 187–212. https://doi.org/10.1017/nws.2017.8
 #'
-#' @author James Hollway
-#' @author Alessandro Lomi
-#' @author Francesca Pallotti
-#' @author Christoph Stadtfeld
 #' @author Alejandro Espinosa-Rada
 #'
 #' @examples
