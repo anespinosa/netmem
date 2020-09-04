@@ -22,6 +22,9 @@ Dyad census
 data(krackhardt_friends)
 dyadic_census(krackhardt_friends)
 
+data(FIFAin)
+dyadic_census(FIFAin[[1]], directed=FALSE)
+
 }
 \references{
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
