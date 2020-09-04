@@ -1,6 +1,6 @@
 #' Generalized degree centrality for one-mode and bipartite networks.
 #'
-#' @param A   A symmetric matrix object
+#' @param A   A matrix object
 #' @param weighted    Wheter the matrix is weighted or not
 #' @param type    Character string, \dQuote{out} (outdegree), \dQuote{in} (indegree) and \dQuote{all} (degree)
 #' @param normalized    Wheter normalize the measure for the one-mode network (Freeman, 1978) or a bipartite network (Borgatti and Everett, 1997)
@@ -42,8 +42,8 @@ gen_degree <- function(A,
                        digraph=TRUE,
                        alpha=0.5, bipartite=FALSE){
   A <- as.matrix(A)
-  W <- A # weighted
-  A[A > 0] <- 1 # binary
+  W <- A
+  A[A > 0] <- 1
   n <- nrow(A) 
   
   if(!bipartite){
@@ -54,39 +54,33 @@ gen_degree <- function(A,
     }
     if(!digraph){
       if(type=="all")warning("For undirected networks it should be prefered type `out` that is equal to `in`")
-      A[lower.tri(A)] = t(A)[lower.tri(A)] # Symmetrize
+      A[lower.tri(A)] = t(A)[lower.tri(A)]
     }
     
     if(!loops){diag(A) <- 0}
     
     if(type=="in"){
-      #deg <- diag(t(A) %*% A) # indegree # colSums(A, na.rm=TRUE)
       deg <- colSums(A, na.rm=TRUE)
     }
     if(type=="out"){
-      deg <- diag(A %*% t(A)) # outdegree # rowSums(A, na.rm=TRUE)
       deg <- rowSums(A, na.rm=TRUE)
     }
     
     if(type=="all"){
-      #deg <- diag(A %*% t(A))+diag(t(A) %*% A) 
       deg <- colSums(A, na.rm=TRUE)+rowSums(A, na.rm=TRUE)
     }
     
     if(weighted){
       if(type=="in"){
-        #si <- diag(t(W) %*% W)
         si <- colSums(W, na.rm=TRUE)
       }
       if(type=="out"){
-        #si <- diag(W %*% t(W))
         si <- rowSums(W, na.rm=TRUE)
       }
       if(type=="all"){
-        #si <- diag(W %*% t(W))+diag(t(W) %*% W) # Freeman
         si <- colSums(W, na.rm=TRUE)+rowSums(W, na.rm=TRUE)
       }
-      deg <- (deg^(1-alpha))*(si^(alpha)) # opsahl
+      deg <- (deg^(1-alpha))*(si^(alpha)) 
     }
     
     if(normalized){
@@ -98,17 +92,16 @@ gen_degree <- function(A,
     }
   }
   
-  ### BIPARTITE
   if(bipartite){
-    m <- ncol(A) # level 1
+    m <- ncol(A) 
     if(dim(A)[1]==dim(A)[2])warning("Incident matrix should be rectangular")
     
-    deg1 <- diag(A %*% t(A)) # level 1
-    deg2 <- diag(t(A) %*% A) # level 2
+    deg1 <- diag(A %*% t(A))
+    deg2 <- diag(t(A) %*% A)
     
     if(normalized){
       deg1 <- deg1/m
-      deg2 <- deg2/n # BORGATII & EVERETT 1997
+      deg2 <- deg2/n
     }
     
     if(normalized & weighted){
@@ -123,11 +116,11 @@ gen_degree <- function(A,
 
 #' Degree centrality for multilevel networks.
 #'
-#' @param A1  The adjacent square matrix of the lowest level
+#' @param A1  The square matrix of the lowest level
 #' @param B1  The incident matrix of the ties between the nodes of first level and the nodes of the second level
-#' @param A2  The adjacent square of the second level
+#' @param A2  The square matrix of the second level
 #' @param B2  The incident matrix of the ties between the nodes of the second level and the nodes of the third level
-#' @param A3  The adjacent square of the third level
+#' @param A3  The square matrix of the third level
 #' @param B3  The incident matrix of the ties between the nodes of the third level and the nodes of the first level
 #' @param complete  Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree
 #' @param digraphA1  Wheter A1 is a directed network
@@ -245,7 +238,6 @@ multilevel_degree <- function(A1, B1,
   
   if(!is.null(A3)){
     if(is.null(B1))stop("Is not available bipartite network between levels")
-    #if(is.null(B2))stop("Is not available bipartite network between levels")
   }
   if(!is.null(B1)){
     m <- ncol(B1) 
@@ -431,7 +423,6 @@ multilevel_degree <- function(A1, B1,
     else{A3 <- matrix(0, byrow=TRUE, ncol=dim(B2)[2], nrow=dim(B2)[2])}
     
     if(!is.null(B3)){
-      # ADD:
       if(is.null(B2)){B2 <- matrix(0, byrow=TRUE, ncol=dim(B1)[2], nrow=dim(B3)[1])}
       if((!all(B3 %in% 0:1) & normalized))stop("Matrix `B3` is weighted and the normalized values should only be used for binary data")
       if(!all(B3 %in% 0:1))warning("Matrix `B3` is weighted")
@@ -449,7 +440,7 @@ multilevel_degree <- function(A1, B1,
       CM1 <- gen_degree(CM1, type=typeA1, loops=loopsA1, digraph=digraphA1,
                         weighted=weightedA1, alpha=alphaA1)
       CM1 <- head(CM1, n=n)
-      CM3a <- cbind(A3, t(B2), B3) # B2 still here!
+      CM3a <- cbind(A3, t(B2), B3)
       CM3b <- cbind(B2,matrix(0, nrow=(dim(B1)[2]), byrow=T, 
                               ncol=(dim(B1)[2])), 
                     matrix(0, nrow=(dim(B1)[2]), byrow=T,
@@ -538,19 +529,7 @@ multilevel_degree <- function(A1, B1,
         rownames(deg) <- names
         
       }
-      
-      # PENDING: WHEN ONLY A1, B1 and A3 | B3 are known
-      #if(!complete & is.null(B2)){
-      #  
-      #  names <- c(paste(rep("n", dim(A1)[1]), 1:dim(A1)[1], sep=""),
-      #             paste(rep("m", dim(B1)[2]), 1:dim(B1)[2], sep=""),
-      #             paste(rep("k", dim(B3)[1]), 1:dim(B3)[1], sep=""))
-      #  multilevel <- c(CM1, deg2, deg5)
-      #  deg <- as.data.frame(multilevel)
-      #  rownames(deg) <- names
-      #  
-      #}
-      
+      # TODO: Add multilevel degree for matrices A1, B1 and A3 when B3 are known
     }
     
   }
@@ -571,7 +550,7 @@ multilevel_degree <- function(A1, B1,
 #' 
 #' Generalized k-core for undirected, directed, weighted and multilevel networks
 #'
-#' @param A   A symmetric matrix object.
+#' @param A   A matrix object.
 #' @param B1  An incident matrix for multilevel networks.
 #' @param multilevel   Wheter the measure of k-core is for multilevel networks.
 #' @param weighted    Wheter the measure of k-core is for valued matrices
