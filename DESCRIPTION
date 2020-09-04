@@ -11,7 +11,7 @@ Title: Social Network Measures using Matrices
 Author: Alejandro Espinosa-Rada [cre, aut] <alejandro.espinosa@manchester.ac.uk>
 Maintainer: Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
 Description: Measures to describe and manipulate networks using matrices.  
-License: GPL (>= 2)
+License: GPL-3
 Encoding: UTF-8
 URL: https://github.com/anespinosa/netmem
 BugReports: https://github.com/anespinosa/netmem/issues
