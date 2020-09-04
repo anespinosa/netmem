@@ -1,4 +1,6 @@
-#' Everett and Borgatti specification of the constraint measure for binary matrixes.
+#' Constraint
+#' 
+#' Everett and Borgatti specification of the constraint measure for binary matrixes
 #'
 #' @param A   A symmetric matrix object
 #' @param ego   Position of the ego in the matrix
