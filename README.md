@@ -16,6 +16,8 @@ status](https://travis-ci.com/anespinosa/netmem.svg?branch=master)](https://trav
 status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?branch=master&svg=true)](https://ci.appveyor.com/project/anespinosa/netmem)
 [![Codecov test
 coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://codecov.io/gh/anespinosa/netmem?branch=master)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
 The goal of `netmem` is to make available different measures to describe
@@ -39,17 +41,22 @@ considering one-mode networks, valued ties (i.e. *weighted* or
 Citation
 --------
 
+    #> Warning in citation(package = "netmem"): no date field in DESCRIPTION file of
+    #> package 'netmem'
+    #> Warning in citation(package = "netmem"): could not determine year for 'netmem'
+    #> from package DESCRIPTION file
+
 To cite package ‘netmem’ in publications use:
 
-Alejandro Espinosa-Rada (2020). netmem: Social Network Measures using
+Alejandro Espinosa-Rada (NA). netmem: Social Network Measures using
 Matrices. R package version 1.0-3.
 <a href="https://github.com/anespinosa/netmem" class="uri">https://github.com/anespinosa/netmem</a>
 
 A BibTeX entry for LaTeX users is
 
 @Manual{, title = {netmem: Social Network Measures using Matrices},
-author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package
-version 1.0-3}, url =
+author = {Alejandro Espinosa-Rada}, note = {R package version 1.0-3},
+url =
 {<a href="https://github.com/anespinosa/netmem" class="uri">https://github.com/anespinosa/netmem</a>},
 }
 
