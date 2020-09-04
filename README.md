@@ -258,3 +258,18 @@ networks.
     #>     0     0     8     0     3     0     1     3     1     0     0     0     0 
     #>  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 
     #>    11    13     0     0     0     0     3     0     0     0
+
+------------------------------------------------------------------------
+
+### Code of conduct
+
+Please note that this project is released with a [Contributor Code of
+Conduct](https://anespinosa.github.io/netmem/CODE_OF_CONDUCT.html). By
+participating in this project you agree to abide by its terms.
+
+------------------------------------------------------------------------
+
+### To-do list
+
+    # library(todor)
+    # todor::todor_package(c("TODO", "FIXME"))

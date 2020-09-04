@@ -165,3 +165,18 @@ This package also allows performing complex census for multilevel networks.
 ```{r multil3}
 mixed_census(A2, t(B1), B2, quad=TRUE)
 ```
+
+-----
+
+### Code of conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](https://anespinosa.github.io/netmem/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms.
+
+-----
+
+### To-do list
+
+```{r todo1}
+# library(todor)
+# todor::todor_package(c("TODO", "FIXME"))
+```
