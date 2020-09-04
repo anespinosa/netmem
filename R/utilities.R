@@ -1,12 +1,11 @@
 #' Generalized density
 #' 
-#'
 #' @param A   A symmetric or incident matrix object
 #' @param directed    Wheter the matrix is directed or not
-#' @param bipartite   Wheter the matrix is bipartite or not.
+#' @param bipartite   Wheter the matrix is bipartite or not
 #' @param loops   Wheter to consider or not the loops
 #' 
-#' @return This function returns the density of the matrix.
+#' @return This function returns the density of the matrix
 #'
 #' @author Alejandro Espinosa-Rada
 #' 
@@ -55,13 +54,13 @@ gen_density <- function(A, directed=TRUE, bipartite=FALSE ,loops=FALSE){
 
 #' Citation networks
 #'
-#' Matrix transformation from incident matrices to a citation, fractional counting for co-citation or fractional counting for bibliographic coupling.
+#' Matrix transformation from incident matrices to a citation, fractional counting for co-citation or fractional counting for bibliographic coupling
 #'
 #' @param A1   From incident matrix of paper and author.
 #' @param A2   To incident matrix of author to paper.
 #' @param citation    Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}
 #' 
-#' @return Return a type of citation network.
+#' @return Return a type of citation network
 #'
 #' @references
 #' 
@@ -110,6 +109,8 @@ citation_norm <- function(A1, A2, citation="citation"){
   }
 }
 
+#' Co‐occurrence
+#' 
 #' Co‐occurrence matrix based on overlap function 
 #'
 #' @param OC  Asymmetrical occurrence matrix
@@ -205,7 +206,7 @@ structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
 
 #' Zone-2 sampling from second-mode
 #' 
-#' Second-zone multilevel sampling considering a second-mode focal actor.
+#' Second-zone multilevel sampling considering a second-mode focal actor
 #'
 #' @param A   A symmetric matrix object.
 #' @param X   X an incident matrix object.
