@@ -16,6 +16,9 @@
 #' data(krackhardt_friends)
 #' dyadic_census(krackhardt_friends)
 #' 
+#' data(FIFAin)
+#' dyadic_census(FIFAin[[1]], directed=FALSE)
+#' 
 #' @export
 
 dyadic_census <- function(G, directed=TRUE){
