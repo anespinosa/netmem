@@ -3,13 +3,13 @@
 #' Generalized degree centrality for one-mode and bipartite networks
 #'
 #' @param A   A matrix object
-#' @param weighted    Wheter the matrix is weighted or not
+#' @param weighted    Whether the matrix is weighted or not
 #' @param type    Character string, \dQuote{out} (outdegree), \dQuote{in} (indegree) and \dQuote{all} (degree)
-#' @param normalized    Wheter normalize the measure for the one-mode network (Freeman, 1978) or a bipartite network (Borgatti and Everett, 1997)
-#' @param loops   Wheter the diagonal of the matrix is considered or not
-#' @param digraph   Wheter the  matrix is directed or undirected
+#' @param normalized    Whether normalize the measure for the one-mode network (Freeman, 1978) or a bipartite network (Borgatti and Everett, 1997)
+#' @param loops   Whether the diagonal of the matrix is considered or not
+#' @param digraph   Whether the  matrix is directed or undirected
 #' @param alpha   Sets the alpha parameter in the generalised measures from Opsahl et al. (2010)
-#' @param bipartite   Wheter the matrix is bipartite or not.
+#' @param bipartite   Whether the matrix is bipartite or not.
 #' 
 #' 
 #' @return This function returns term 1, 2 and 3, the normalization and the maximum value of the specification of Everett and Borgatti (2020),
@@ -125,19 +125,19 @@ gen_degree <- function(A,
 #' @param A3  The square matrix of the third level
 #' @param B3  The incident matrix of the ties between the nodes of the third level and the nodes of the first level
 #' @param complete  Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree
-#' @param digraphA1  Wheter A1 is a directed network
-#' @param digraphA2  Wheter A2 is a directed network
-#' @param digraphA3  Wheter A3 is a directed network
+#' @param digraphA1  Whether A1 is a directed network
+#' @param digraphA2  Whether A2 is a directed network
+#' @param digraphA3  Whether A3 is a directed network
 #' @param typeA1  Type of degree of the network for A1, "out" for out-degree, "in" for in-degree or "all" for the sum of the two
 #' @param typeA2  Type of degree of the network for A2, "out" for out-degree, "in" for in-degree or "all" for the sum of the two
 #' @param typeA3  Type of degree of the network for A3, "out" for out-degree, "in" for in-degree or "all" for the sum of the two
-#' @param loopsA1  Wheter the loops of the edges are considered in matrix A1
-#' @param loopsA2  Wheter the loops of the edges are considered in matrix A2
-#' @param loopsA3  Wheter the loops of the edges are considered in matrix A3
+#' @param loopsA1  Whether the loops of the edges are considered in matrix A1
+#' @param loopsA2  Whether the loops of the edges are considered in matrix A2
+#' @param loopsA3  Whether the loops of the edges are considered in matrix A3
 #' @param normalized If TRUE then the result is divided by (n-1)+k+m for the first level, (m-1)+n+k for the second level, and (k-1)+m+n according to Espinosa-Rada et al. (2021)
-#' @param weightedA1  Wheter A1 is weighted
-#' @param weightedA2  Wheter A2 is weighted
-#' @param weightedA3  Wheter A3 is weighted
+#' @param weightedA1  Whether A1 is weighted
+#' @param weightedA2  Whether A2 is weighted
+#' @param weightedA3  Whether A3 is weighted
 #' @param alphaA1  The alpha parameter of A1 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.
 #' @param alphaA2  The alpha parameter of A2 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.
 #' @param alphaA3  The alpha parameter of A3 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.
@@ -554,11 +554,11 @@ multilevel_degree <- function(A1, B1,
 #'
 #' @param A   A matrix object.
 #' @param B1  An incident matrix for multilevel networks.
-#' @param multilevel   Wheter the measure of k-core is for multilevel networks.
-#' @param weighted    Wheter the measure of k-core is for valued matrices
+#' @param multilevel   Whether the measure of k-core is for multilevel networks.
+#' @param weighted    Whether the measure of k-core is for valued matrices
 #' @param type    Character string, \dQuote{out} (outdegree), \dQuote{in} (indegree) and \dQuote{all} (degree)
-#' @param loops   Wheter the diagonal of the matrix is considered or not
-#' @param digraph   Wheter the  matrix is directed or undirected
+#' @param loops   Whether the diagonal of the matrix is considered or not
+#' @param digraph   Whether the  matrix is directed or undirected
 #' @param alpha   Sets the alpha parameter in the generalised measures from Opsahl et al. (2010)
 #' 
 #' @return This function return the k-core.

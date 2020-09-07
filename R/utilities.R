@@ -1,9 +1,9 @@
 #' Generalized density
 #' 
 #' @param A   A symmetric or incident matrix object
-#' @param directed    Wheter the matrix is directed or not
-#' @param bipartite   Wheter the matrix is bipartite or not
-#' @param loops   Wheter to consider or not the loops
+#' @param directed    Whether the matrix is directed or not
+#' @param bipartite   Whether the matrix is bipartite or not
+#' @param loops   Whether to consider or not the loops
 #' 
 #' @return This function returns the density of the matrix
 #'
@@ -150,8 +150,8 @@ coocurrence <- function(OC){
 #'
 #' @param A   A symmetric or incident matrix object
 #' @param label   String vector with the names of the theoretical complete matrix
-#' @param bipartite   Wheter the matrix is bipartite or not.
-#' @param column   Wheter the assignation of NA is for columns in the biparite network, row by default.
+#' @param bipartite   Whether the matrix is bipartite or not.
+#' @param column   Whether the assignation of NA is for columns in the biparite network, row by default.
 #' 
 #' @return This function returns NA to missing data.
 #'
@@ -210,7 +210,7 @@ structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
 #'
 #' @param A   A symmetric matrix object.
 #' @param X   X an incident matrix object.
-#' @param ego   Wheter to add or not ego into the subgraph.
+#' @param ego   Whether to add or not ego into the subgraph.
 #' 
 #' @return This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.
 #'

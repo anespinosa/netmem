@@ -4,8 +4,8 @@
 #'
 #' @param A   A symmetric matrix object
 #' @param ego   Position of the ego in the matrix
-#' @param digraph   Wheter the  matrix is directed or undirected
-#' @param weighted  Wheter the matrix is weighted or not
+#' @param digraph   Whether the  matrix is directed or undirected
+#' @param weighted  Whether the matrix is weighted or not
 #' 
 #' @return This function returns term 1, 2 and 3, the normalization and the maximum value of the specification of Everett and Borgatti (2020),
 #' and the constraint of Burt (1992).

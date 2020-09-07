@@ -3,7 +3,7 @@
 #' @param G   A symmetric matrix object.
 #' @param fixed   Whether the choices are fixed or not
 #' @param d   Numeric value of the number of fixed choices. 
-#' @param dichotomic  Wheter the matrix is weighted or binary
+#' @param dichotomic  Whether the matrix is weighted or binary
 #' 
 #' @return This function gives a measurment of the tendency toward reciprocation of choices.
 #'

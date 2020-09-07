@@ -1,7 +1,7 @@
 #' Dyad census
 #'
 #' @param G   A symmetric matrix object.
-#' @param directed   Wheter the matrix is directed or not
+#' @param directed   Whether the matrix is directed or not
 #' 
 #' @return This function return the counts of the dyadic census.
 #'
@@ -228,7 +228,7 @@ multiplex_census <- function(A, B){
 #' @param A1   An adjacent matrix object.
 #' @param B1   An incident matrix object.
 #' @param B2   An incident matrix object.
-#' @param quad  Wheter the matrix is a quadrilateral census or not.
+#' @param quad  Whether the matrix is a quadrilateral census or not.
 #' 
 #' @return This function return the counts of the dyadic census.
 #'
