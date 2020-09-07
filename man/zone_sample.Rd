@@ -11,7 +11,7 @@ zone_sample(A, X, ego = TRUE)
 
 \item{X}{X an incident matrix object.}
 
-\item{ego}{Wheter to add or not ego into the subgraph.}
+\item{ego}{Whether to add or not ego into the subgraph.}
 }
 \value{
 This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.

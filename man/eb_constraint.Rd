@@ -11,9 +11,9 @@ eb_constraint(A, ego = NULL, digraph = FALSE, weighted = FALSE)
 
 \item{ego}{Position of the ego in the matrix}
 
-\item{digraph}{Wheter the  matrix is directed or undirected}
+\item{digraph}{Whether the  matrix is directed or undirected}
 
-\item{weighted}{Wheter the matrix is weighted or not}
+\item{weighted}{Whether the matrix is weighted or not}
 }
 \value{
 This function returns term 1, 2 and 3, the normalization and the maximum value of the specification of Everett and Borgatti (2020),

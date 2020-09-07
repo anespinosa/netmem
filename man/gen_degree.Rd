@@ -18,19 +18,19 @@ gen_degree(
 \arguments{
 \item{A}{A matrix object}
 
-\item{weighted}{Wheter the matrix is weighted or not}
+\item{weighted}{Whether the matrix is weighted or not}
 
 \item{type}{Character string, \dQuote{out} (outdegree), \dQuote{in} (indegree) and \dQuote{all} (degree)}
 
-\item{normalized}{Wheter normalize the measure for the one-mode network (Freeman, 1978) or a bipartite network (Borgatti and Everett, 1997)}
+\item{normalized}{Whether normalize the measure for the one-mode network (Freeman, 1978) or a bipartite network (Borgatti and Everett, 1997)}
 
-\item{loops}{Wheter the diagonal of the matrix is considered or not}
+\item{loops}{Whether the diagonal of the matrix is considered or not}
 
-\item{digraph}{Wheter the  matrix is directed or undirected}
+\item{digraph}{Whether the  matrix is directed or undirected}
 
 \item{alpha}{Sets the alpha parameter in the generalised measures from Opsahl et al. (2010)}
 
-\item{bipartite}{Wheter the matrix is bipartite or not.}
+\item{bipartite}{Whether the matrix is bipartite or not.}
 }
 \value{
 This function returns term 1, 2 and 3, the normalization and the maximum value of the specification of Everett and Borgatti (2020),

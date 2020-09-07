@@ -9,7 +9,7 @@ dyadic_census(G, directed = TRUE)
 \arguments{
 \item{G}{A symmetric matrix object.}
 
-\item{directed}{Wheter the matrix is directed or not}
+\item{directed}{Whether the matrix is directed or not}
 }
 \value{
 This function return the counts of the dyadic census.

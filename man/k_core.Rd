@@ -20,15 +20,15 @@ k_core(
 
 \item{B1}{An incident matrix for multilevel networks.}
 
-\item{multilevel}{Wheter the measure of k-core is for multilevel networks.}
+\item{multilevel}{Whether the measure of k-core is for multilevel networks.}
 
 \item{type}{Character string, \dQuote{out} (outdegree), \dQuote{in} (indegree) and \dQuote{all} (degree)}
 
-\item{digraph}{Wheter the  matrix is directed or undirected}
+\item{digraph}{Whether the  matrix is directed or undirected}
 
-\item{loops}{Wheter the diagonal of the matrix is considered or not}
+\item{loops}{Whether the diagonal of the matrix is considered or not}
 
-\item{weighted}{Wheter the measure of k-core is for valued matrices}
+\item{weighted}{Whether the measure of k-core is for valued matrices}
 
 \item{alpha}{Sets the alpha parameter in the generalised measures from Opsahl et al. (2010)}
 }

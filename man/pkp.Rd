@@ -13,7 +13,7 @@ pkp(G, fixed = FALSE, d = NULL, dichotomic = TRUE)
 
 \item{d}{Numeric value of the number of fixed choices.}
 
-\item{dichotomic}{Wheter the matrix is weighted or binary}
+\item{dichotomic}{Whether the matrix is weighted or binary}
 }
 \value{
 This function gives a measurment of the tendency toward reciprocation of choices.

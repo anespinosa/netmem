@@ -13,7 +13,7 @@ mixed_census(A1, B1, B2 = NULL, quad = FALSE)
 
 \item{B2}{An incident matrix object.}
 
-\item{quad}{Wheter the matrix is a quadrilateral census or not.}
+\item{quad}{Whether the matrix is a quadrilateral census or not.}
 }
 \value{
 This function return the counts of the dyadic census.

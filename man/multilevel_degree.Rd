@@ -45,11 +45,11 @@ multilevel_degree(
 
 \item{complete}{Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree}
 
-\item{digraphA1}{Wheter A1 is a directed network}
+\item{digraphA1}{Whether A1 is a directed network}
 
-\item{digraphA2}{Wheter A2 is a directed network}
+\item{digraphA2}{Whether A2 is a directed network}
 
-\item{digraphA3}{Wheter A3 is a directed network}
+\item{digraphA3}{Whether A3 is a directed network}
 
 \item{typeA1}{Type of degree of the network for A1, "out" for out-degree, "in" for in-degree or "all" for the sum of the two}
 
@@ -57,19 +57,19 @@ multilevel_degree(
 
 \item{typeA3}{Type of degree of the network for A3, "out" for out-degree, "in" for in-degree or "all" for the sum of the two}
 
-\item{loopsA1}{Wheter the loops of the edges are considered in matrix A1}
+\item{loopsA1}{Whether the loops of the edges are considered in matrix A1}
 
-\item{loopsA2}{Wheter the loops of the edges are considered in matrix A2}
+\item{loopsA2}{Whether the loops of the edges are considered in matrix A2}
 
-\item{loopsA3}{Wheter the loops of the edges are considered in matrix A3}
+\item{loopsA3}{Whether the loops of the edges are considered in matrix A3}
 
 \item{normalized}{If TRUE then the result is divided by (n-1)+k+m for the first level, (m-1)+n+k for the second level, and (k-1)+m+n according to Espinosa-Rada et al. (2021)}
 
-\item{weightedA1}{Wheter A1 is weighted}
+\item{weightedA1}{Whether A1 is weighted}
 
-\item{weightedA2}{Wheter A2 is weighted}
+\item{weightedA2}{Whether A2 is weighted}
 
-\item{weightedA3}{Wheter A3 is weighted}
+\item{weightedA3}{Whether A3 is weighted}
 
 \item{alphaA1}{The alpha parameter of A1 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.}
 

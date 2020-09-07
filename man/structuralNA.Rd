@@ -11,9 +11,9 @@ structuralNA(A, label = NULL, bipartite = FALSE, column = FALSE)
 
 \item{label}{String vector with the names of the theoretical complete matrix}
 
-\item{bipartite}{Wheter the matrix is bipartite or not.}
+\item{bipartite}{Whether the matrix is bipartite or not.}
 
-\item{column}{Wheter the assignation of NA is for columns in the biparite network, row by default.}
+\item{column}{Whether the assignation of NA is for columns in the biparite network, row by default.}
 }
 \value{
 This function returns NA to missing data.

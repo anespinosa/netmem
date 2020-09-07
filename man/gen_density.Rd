@@ -9,11 +9,11 @@ gen_density(A, directed = TRUE, bipartite = FALSE, loops = FALSE)
 \arguments{
 \item{A}{A symmetric or incident matrix object}
 
-\item{directed}{Wheter the matrix is directed or not}
+\item{directed}{Whether the matrix is directed or not}
 
-\item{bipartite}{Wheter the matrix is bipartite or not}
+\item{bipartite}{Whether the matrix is bipartite or not}
 
-\item{loops}{Wheter to consider or not the loops}
+\item{loops}{Whether to consider or not the loops}
 }
 \value{
 This function returns the density of the matrix
