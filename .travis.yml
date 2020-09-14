@@ -13,7 +13,7 @@ r:
   - oldrel
   - 3.6
   - release
-  - devel
+  #- devel
   
 after_success:
   - Rscript -e 'covr::codecov(type="all")'
