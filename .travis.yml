@@ -11,8 +11,6 @@ os:
 
 r: 
   - oldrel
-  - 3.6
-  - 4
   - release
   - devel
   
