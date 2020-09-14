@@ -6,6 +6,8 @@
 #' 
 #' @source  Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #' 
+#' @usage data(krackhardt_friends)
+#' 
 #' @docType data
 #' 
 "krackhardt_friends"

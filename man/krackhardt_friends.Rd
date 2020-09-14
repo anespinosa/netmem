@@ -11,7 +11,7 @@ A 21 x 21 directed matrix of the managers
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }
 \usage{
-krackhardt_friends
+data(krackhardt_friends)
 }
 \description{
 Friendship network of the relations measured for Krackhardt's high-tech managers.
