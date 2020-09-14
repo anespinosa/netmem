@@ -13,6 +13,9 @@ Espinosa, Alejandro & Ortiz, Francisca (2016). "Jurisdictional autonomy in the r
 \usage{
 FIFAex
 }
+\value{
+Roles and organizations of non-FIFA organizations, and a string vector with the label of the actors
+}
 \description{
 Multilevel Network of the regulatory transnational regime of the International Federation of Association Football (FIFA)
 }

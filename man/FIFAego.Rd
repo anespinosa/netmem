@@ -5,13 +5,16 @@
 \alias{FIFAego}
 \title{Ego FIFA}
 \format{
-A list of a 48 x 48 symmetric matrix of the ego network of FIFA as an entity, and a string vector with the label of the actors
+A list of a 48 x 48 symmetric matrix of the ego network of FIFA as a different entity, and a string vector with the label of the actors
 }
 \source{
 Espinosa, Alejandro & Ortiz, Francisca (2016). "Jurisdictional autonomy in the regulatory transnational regime of FIFA". REDES- Revista Hispana para el Analisis de Redes Sociales, 27(1), 100- 112. (Original title in Spanish: "Autonomia jurisdiccional en el reegimen regulatorio transnacional de la FIFAFA") <doi: https://doi.org/10.5565/rev/redes.595>
 }
 \usage{
 FIFAego
+}
+\value{
+Ego network of FIFA as a different entity, and a string vector with the label of the actors
 }
 \description{
 Multilevel Network of the regulatory transnational regime of the International Federation of Association Football (FIFA)
