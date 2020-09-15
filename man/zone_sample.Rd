@@ -4,7 +4,7 @@
 \alias{zone_sample}
 \title{Zone-2 sampling from second-mode}
 \usage{
-zone_sample(A, X, ego = TRUE)
+zone_sample(A, X, ego = TRUE, core = FALSE)
 }
 \arguments{
 \item{A}{A symmetric matrix object.}
@@ -12,6 +12,8 @@ zone_sample(A, X, ego = TRUE)
 \item{X}{X an incident matrix object.}
 
 \item{ego}{Whether to add or not ego into the subgraph.}
+
+\item{core}{Whether to add actors at distance one from ego}
 }
 \value{
 This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.
@@ -43,7 +45,7 @@ X <- matrix(c(1,0,0,0,
 colnames(X) <- c("a", "b", "c", "d")
 rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 
-zone_sample(A, X)
+zone_sample(A, X, core=TRUE)
 
 }
 \references{

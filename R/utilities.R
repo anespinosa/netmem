@@ -211,6 +211,7 @@ structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
 #' @param A   A symmetric matrix object.
 #' @param X   X an incident matrix object.
 #' @param ego   Whether to add or not ego into the subgraph.
+#' @param core  Whether to add actors at distance one from ego
 #' 
 #' @return This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.
 #'
@@ -246,11 +247,11 @@ structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
 #' colnames(X) <- c("a", "b", "c", "d")
 #' rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 #' 
-#' zone_sample(A, X)
+#' zone_sample(A, X, core=TRUE)
 #' 
 #' @export
 
-zone_sample <- function(A, X, ego=TRUE){
+zone_sample <- function(A, X, ego=TRUE, core=FALSE){
   A <- as.matrix(A)
   X <- as.matrix(X)
   if(is.null(rownames(A)))stop("Assign `rownames` to the adjacent matrix")
@@ -293,6 +294,10 @@ zone_sample <- function(A, X, ego=TRUE){
     nei <- unique(nei)
     subgraphs[[i]] <- igraph::delete.vertices(gM, !(V(gM)$name %in% nei))
     subgraphs[[i]] <- igraph::simplify(subgraphs[[i]])
+    if(core==TRUE){
+      V(subgraphs[[i]])$core <- ifelse(V(subgraphs[[i]])$name %in% names(zone1[[i]]),1,0)
+    }
   }
+  
   return(subgraphs)
 }
