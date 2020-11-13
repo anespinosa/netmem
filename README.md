@@ -31,7 +31,7 @@ Analysis](https://www.socialsciences.manchester.ac.uk/mitchell-centre/),
 The University of Manchester
 
 [![Follow me on
-Twitter](https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg)](https://twitter.com/aesp08)
+Twitter](https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg)](https://twitter.com/aespinosarada)
 
 The package implements different measures to analyse and manipulate
 complex multilayer networks, from an ego-centric perspective,
