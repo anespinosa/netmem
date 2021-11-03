@@ -14,7 +14,7 @@ triad_uman(A, ztest = FALSE, covar = FALSE)
 \item{covar}{Return the covarianc matrix for triadic analysis}
 }
 \value{
-This function gives the counts of the triad census, the expected counts, 
+This function gives the counts of the triad census, the expected counts,
 assuming that U|MAN distribution is operating, and the standard deviations of these counts.
 }
 \description{
@@ -24,9 +24,8 @@ Triad census analysis assuming U|MAN
 
 data(krackhardt_friends)
 triad_uman(krackhardt_friends)
-
 \dontrun{
-triad_uman(A, ztest=TRUE)
+triad_uman(krackhardt_friends, ztest = TRUE, covar=TRUE)
 }
 
 }
