@@ -1,9 +1,9 @@
 {
-    "path" : "~/Dropbox/netmem",
-    "sortOrder" : [
+    "path": "~/Desktop/ETH/netmem/man",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }
