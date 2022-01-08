@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generalized K-core — k_core • netmem</title>
+<title>Mixing matrix — mixMatrix • netmem</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,10 @@
 
 
 
-<meta property="og:title" content="Generalized K-core — k_core" />
-<meta property="og:description" content="Generalized k-core for undirected, directed, weighted and multilevel networks" />
+<meta property="og:title" content="Mixing matrix — mixMatrix" />
+<meta property="og:description" content="Create a mixing matrix from node attributes. The mixing matrix is a two-dimensional 
+matrix that cross-classifies the edges depending on the values of their attributes. 
+This matrix allowed identifying segregation and homophily at the network level." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -116,91 +118,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generalized K-core</h1>
-    <small class="dont-index">Source: <a href='https://github.com/anespinosa/netmem/blob/master/R/degree.R'><code>R/degree.R</code></a></small>
-    <div class="hidden name"><code>k_core.Rd</code></div>
+    <h1>Mixing matrix</h1>
+    <small class="dont-index">Source: <a href='https://github.com/anespinosa/netmem/blob/master/R/homophily.R'><code>R/homophily.R</code></a></small>
+    <div class="hidden name"><code>mixMatrix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Generalized k-core for undirected, directed, weighted and multilevel networks</p>
+    <p>Create a mixing matrix from node attributes. The mixing matrix is a two-dimensional 
+matrix that cross-classifies the edges depending on the values of their attributes. 
+This matrix allowed identifying segregation and homophily at the network level.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>k_core</span><span class='op'>(</span>
-  <span class='va'>A</span>,
-  B1 <span class='op'>=</span> <span class='cn'>NULL</span>,
-  multilevel <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  type <span class='op'>=</span> <span class='st'>"in"</span>,
-  digraph <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  loops <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  weighted <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  alpha <span class='op'>=</span> <span class='fl'>1</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mixMatrix</span><span class='op'>(</span><span class='va'>A</span>, att <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>A</th>
-      <td><p>A matrix object.</p></td>
+      <td><p>A symmetric matrix object</p></td>
     </tr>
     <tr>
-      <th>B1</th>
-      <td><p>An incident matrix for multilevel networks.</p></td>
-    </tr>
-    <tr>
-      <th>multilevel</th>
-      <td><p>Whether the measure of k-core is for multilevel networks.</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>Character string, &#8220;out&#8221; (outdegree), &#8220;in&#8221; (indegree) and &#8220;all&#8221; (degree)</p></td>
-    </tr>
-    <tr>
-      <th>digraph</th>
-      <td><p>Whether the  matrix is directed or undirected</p></td>
-    </tr>
-    <tr>
-      <th>loops</th>
-      <td><p>Whether the diagonal of the matrix is considered or not</p></td>
-    </tr>
-    <tr>
-      <th>weighted</th>
-      <td><p>Whether the measure of k-core is for valued matrices</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Sets the alpha parameter in the generalised measures from Opsahl et al. (2010)</p></td>
+      <th>att</th>
+      <td><p>Categorical attribute of the nodes</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>This function return the k-core.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <p>This function returns a mixing matrix.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Batagelj, V., &amp; Zaveršnik, M. (2011). Fast algorithms for determining (generalized) core groups in social networks. Advances in Data Analysis and Classification, 5(2), 129–145. <a href='https://doi.org/10.1007/s11634-010-0079-y'>https://doi.org/10.1007/s11634-010-0079-y</a></p>
-<p>Eidsaa, M., &amp; Almaas, E. (2013). s-core network decomposition: A generalization of $k$-core analysis to weighted networks. Physical Review E, 88(6), 062819. <a href='https://doi.org/10.1103/PhysRevE.88.062819'>https://doi.org/10.1103/PhysRevE.88.062819</a></p>
-<p>Espinosa-Rada, A. (forthcoming). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.</p>
-<p>Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.</p>
+    <p>Values in the diagonal are the number of ties within groups, and off-diagonal are the number of relations between groups.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Alejandro Espinosa-Rada</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'></span>
-<span class='r-in'><span class='va'>A1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
-<span class='r-in'>               <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
-<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
-<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
-<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, ncol<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>B1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
-<span class='r-in'>               <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
-<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
-<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
-<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, ncol<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='fu'>k_core</span><span class='op'>(</span><span class='va'>A1</span>, <span class='va'>B1</span>, multilevel<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1 2 1 2 2</span>
+<span class='r-in'><span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fl'>100</span></span>
+<span class='r-in'><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span><span class='va'>n</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>, </span>
+<span class='r-in'>            ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span>, byrow <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'><span class='va'>att</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span>, <span class='fl'>3</span>, <span class='fl'>0.5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>mixMatrix</span><span class='op'>(</span><span class='va'>A</span>, att<span class='op'>=</span><span class='va'>att</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     To</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> From  0  1  2  3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    0  0  2  3  0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  2  3  8  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  2 10 11  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  0  2  3  0</span>
 <span class='r-in'></span>
 </pre>
   </div>

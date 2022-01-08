@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/anespinosa/netmem/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,7 +125,7 @@
     <p>This function counts the different subgraphs of three nodes in a multiplex directed and undirected network.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>multiplex_census</span>(<span class='no'>A</span>, <span class='no'>B</span>)</pre>
+    <pre class="usage"><span class='fu'>multiplex_census</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,72 +146,77 @@
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin &amp; Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Alejandro Espinosa-Rada</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># SOAR</span>
-<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,
-              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>),
-            <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>12</span>)
-
-<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>),
-            <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>12</span>)
-
-<span class='fu'>multiplex_census</span>(<span class='no'>A</span>, <span class='no'>B</span>)</div><div class='output co'>#&gt;            003_003            003_102            003_201            003_300 
-#&gt;                 17                 52                 22                 20 
-#&gt;            012_003           012_102a           012_102b           012_102c 
-#&gt;                113                 52                 43                 46 
-#&gt;           012_201b          012_201ac            012_300           021u_003 
-#&gt;                 43                 39                 40                 79 
-#&gt;         021u_102ac          021u_102b         021u_201ab          021u_201c 
-#&gt;                 12                 14                  9                  5 
-#&gt;           021u_300           021d_003         021d_102ac          021d_120b 
-#&gt;                  6                 91                 20                 18 
-#&gt;         021d_201ab          021d_201c           021d_300       102_003_102a 
-#&gt;                 20                 17                 17                 15 
-#&gt;    102_102bc_201ac            102_300           021c_003          021c_102a 
-#&gt;                  2                  3                 80                  9 
-#&gt;          021c_103b          021c_102c         021c_210ab          021c_201c 
-#&gt;                  7                 13                  9                  6 
-#&gt;           021c_300           030t_003         030t_102ab          030t_102b 
-#&gt;                  7                 82                 10                 17 
-#&gt;          030t_102c         030t_210ab      030t_201c_300           030c_003 
-#&gt;                 10                 12                  9                 74 
-#&gt;        030c_102abc        030c_201abc           030c_300           111d_003 
-#&gt;                  1                  3                  1                 76 
-#&gt;     111d_102a_201a          111d_102b     111d_102c_201b      111d_201c_300 
-#&gt;                  5                  7                  2                  3 
-#&gt;           111u_003     111u_102a_201a    111u_102bc_201b      111u_201c_300 
-#&gt;                 76                  5                  2                  3 
-#&gt;      120u_003_102b   120u_102ab_201ab      120u_201c_300      120d_003_120b 
-#&gt;                 13                  8                  5                  3 
-#&gt;   120d_102ab_201ab      120d_201c_300            201_003    201_102ac_201ab 
-#&gt;                  5                  2                 74                  0 
-#&gt; 201_102c_201bc_300           120c_003          120c_120c           120c_210 
-#&gt;                  1                 75                  2                  4 
-#&gt;           120c_300        210_003_210            210_300        300_003_300 
-#&gt;                  2                  3                  1                  1 </div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># SOAR</span></span>
+<span class='r-in'><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span>, </span>
+<span class='r-in'>            byrow<span class='op'>=</span><span class='cn'>TRUE</span>, ncol<span class='op'>=</span><span class='fl'>12</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>B</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span>, </span>
+<span class='r-in'>            byrow <span class='op'>=</span> <span class='cn'>TRUE</span>, ncol<span class='op'>=</span><span class='fl'>12</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>multiplex_census</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            003_003            003_102            003_201            003_300 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 17                 52                 22                 20 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            012_003           012_102a           012_102b           012_102c </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                113                 52                 43                 46 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           012_201b          012_201ac            012_300           021u_003 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 43                 39                 40                 79 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         021u_102ac          021u_102b         021u_201ab          021u_201c </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 12                 14                  9                  5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           021u_300           021d_003         021d_102ac          021d_120b </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  6                 91                 20                 18 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         021d_201ab          021d_201c           021d_300       102_003_102a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 20                 17                 17                 15 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    102_102bc_201ac            102_300           021c_003          021c_102a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  2                  3                 80                  9 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          021c_103b          021c_102c         021c_210ab          021c_201c </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  7                 13                  9                  6 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           021c_300           030t_003         030t_102ab          030t_102b </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  7                 82                 10                 17 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          030t_102c         030t_210ab      030t_201c_300           030c_003 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 10                 12                  9                 74 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        030c_102abc        030c_201abc           030c_300           111d_003 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  1                  3                  1                 76 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     111d_102a_201a          111d_102b     111d_102c_201b      111d_201c_300 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  5                  7                  2                  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           111u_003     111u_102a_201a    111u_102bc_201b      111u_201c_300 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 76                  5                  2                  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      120u_003_102b   120u_102ab_201ab      120u_201c_300      120d_003_120b </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 13                  8                  5                  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   120d_102ab_201ab      120d_201c_300            201_003    201_102ac_201ab </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  5                  2                 74                  0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 201_102c_201bc_300           120c_003          120c_120c           120c_210 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  1                 75                  2                  4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           120c_300        210_003_210            210_300        300_003_300 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  2                  3                  1                  1 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -227,7 +232,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

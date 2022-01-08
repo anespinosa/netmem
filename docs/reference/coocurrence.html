@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/anespinosa/netmem/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,7 +125,7 @@
     <p>Co‐occurrence matrix based on overlap function</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coocurrence</span>(<span class='no'>OC</span>)</pre>
+    <pre class="usage"><span class='fu'>coocurrence</span><span class='op'>(</span><span class='va'>OC</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,21 +142,26 @@
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Zhou, Q., &amp; Leydesdorff, L. (2016). The normalization of occurrence and Co-occurrence matrices in bibliometrics using Cosine similarities and Ochiai coefficients. Journal of the Association for Information Science and Technology, 67(11), 2805–2814. <a href='https://doi.org/10.1002/asi.23603'>https://doi.org/10.1002/asi.23603</a></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Alejandro Espinosa-Rada</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>OC</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>2</span>,
-               <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,
-               <span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,
-               <span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,
-               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>),
-             <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>coocurrence</span>(<span class='no'>OC</span>)</div><div class='output co'>#&gt;           [,1]      [,2]     [,3]
-#&gt; [1,] 1.0000000 0.1195229 0.421637
-#&gt; [2,] 0.1195229 1.0000000 0.818923
-#&gt; [3,] 0.4216370 0.8189230 1.000000</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>OC</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>2</span>,</span>
+<span class='r-in'>               <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, </span>
+<span class='r-in'>             nrow<span class='op'>=</span><span class='fl'>5</span>, byrow <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>coocurrence</span><span class='op'>(</span><span class='va'>OC</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]      [,2]     [,3]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 1.0000000 0.1195229 0.421637</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.1195229 1.0000000 0.818923</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.4216370 0.8189230 1.000000</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -172,7 +177,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

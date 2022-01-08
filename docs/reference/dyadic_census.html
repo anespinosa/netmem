@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/anespinosa/netmem/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,7 +125,7 @@
     <p>Dyad census</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dyadic_census</span>(<span class='no'>G</span>, <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>dyadic_census</span><span class='op'>(</span><span class='va'>G</span>, directed <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,16 +146,23 @@
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Alejandro Espinosa-Rada</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>krackhardt_friends</span>)
-<span class='fu'>dyadic_census</span>(<span class='no'>krackhardt_friends</span>)</div><div class='output co'>#&gt;      Mutual Asymmetrics       Nulls 
-#&gt;          23          56         131 </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>FIFAin</span>)
-<span class='fu'>dyadic_census</span>(<span class='no'>FIFAin</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>directed</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Mutual  Nulls 
-#&gt;    111    709 </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>krackhardt_friends</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>dyadic_census</span><span class='op'>(</span><span class='va'>krackhardt_friends</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      Mutual Asymmetrics       Nulls </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          23          56         131 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>FIFAin</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>dyadic_census</span><span class='op'>(</span><span class='va'>FIFAin</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, directed<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mutual  Nulls </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    111    709 </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -171,7 +178,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

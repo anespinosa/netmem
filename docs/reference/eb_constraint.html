@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/anespinosa/netmem/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,7 +117,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Constraint</h1>
-    <small class="dont-index">Source: <a href='https://github.com/anespinosa/netmem/blob/master/R/eb_constraint.R'><code>R/eb_constraint.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/anespinosa/netmem/blob/master/R/structural_holes.R'><code>R/structural_holes.R</code></a></small>
     <div class="hidden name"><code>eb_constraint.Rd</code></div>
     </div>
 
@@ -125,7 +125,7 @@
     <p>Everett and Borgatti specification of the constraint measure for binary matrixes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>eb_constraint</span>(<span class='no'>A</span>, <span class='kw'>ego</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>digraph</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>weighted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>eb_constraint</span><span class='op'>(</span><span class='va'>A</span>, ego <span class='op'>=</span> <span class='cn'>NULL</span>, digraph <span class='op'>=</span> <span class='cn'>FALSE</span>, weighted <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -136,7 +136,7 @@
     </tr>
     <tr>
       <th>ego</th>
-      <td><p>Position of the ego in the matrix</p></td>
+      <td><p>Name of ego in the matrix</p></td>
     </tr>
     <tr>
       <th>digraph</th>
@@ -156,24 +156,32 @@ and the constraint of Burt (1992).</p>
 
     <p>Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.</p>
 <p>Everett, M.G. and Borgatti, S., 2020. Unpacking Burt's constraint measure. Social Networks 62, pp. 50-57. doi: <a href='https://doi.org/10.1016/j.socnet.2020.02.001'>https://doi.org/10.1016/j.socnet.2020.02.001</a></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Alejandro Espinosa-Rada</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-             <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-             <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-             <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,
-             <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-             <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>), <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>6</span>, <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-
-<span class='fu'>eb_constraint</span>(<span class='no'>A</span>, <span class='kw'>ego</span><span class='kw'>=</span><span class='fl'>6</span>)</div><div class='output co'>#&gt; $results
-#&gt;   term1 term2 term3 constraint normalization
-#&gt; 1   0.2  0.24 0.073      0.513         0.699
-#&gt; 
-#&gt; $maximum
-#&gt; [1] 0.648
-#&gt; </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>             <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>             <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>             <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>             <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>             <span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>, ncol<span class='op'>=</span><span class='fl'>6</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'><span class='fu'>eb_constraint</span><span class='op'>(</span><span class='va'>A</span>, ego<span class='op'>=</span><span class='st'>'f'</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $results</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   term1 term2 term3 constraint normalization</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> f   0.2  0.24 0.073      0.513         0.699</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $maximum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.648 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -189,7 +197,7 @@ and the constraint of Burt (1992).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

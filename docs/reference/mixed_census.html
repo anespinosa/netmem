@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/anespinosa/netmem/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,7 +125,7 @@
     <p>Multilevel triadic and quadrilateral census</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mixed_census</span>(<span class='no'>A1</span>, <span class='no'>B1</span>, <span class='kw'>B2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>mixed_census</span><span class='op'>(</span><span class='va'>A1</span>, <span class='va'>B1</span>, B2 <span class='op'>=</span> <span class='cn'>NULL</span>, quad <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,29 +155,34 @@
 
     <p>Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin &amp; Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"</p>
 <p>Hollway, J., Lomi, A., Pallotti, F., &amp; Stadtfeld, C. (2017). Multilevel social spaces: The network dynamics of organizational fields. Network Science, 5(2), 187–212. https://doi.org/10.1017/nws.2017.8</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Alejandro Espinosa-Rada</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>B1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,
-               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-               <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>), <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='no'>A1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-               <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-               <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
-               <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>), <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>4</span>)
-<span class='no'>B2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-               <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,
-               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
-               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>), <span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>5</span>)
-
-<span class='fu'>mixed_census</span>(<span class='no'>A1</span>, <span class='no'>B1</span>, <span class='no'>B2</span>, <span class='kw'>quad</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 
-#&gt;     0    12     0     9     9     0     3     3    20     3     4     0     4 
-#&gt;  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W 
-#&gt;     2     0     1     0     1     2     0     0     0     2     0     0     2 
-#&gt;  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 
-#&gt;     5     5     0     2     0     0     1     0     0     0 </div><div class='input'> 
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>B1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>               <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, ncol<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>A1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>               <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>               <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, ncol<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>B2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>               <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, ncol<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>mixed_census</span><span class='op'>(</span><span class='va'>A1</span>, <span class='va'>B1</span>, <span class='va'>B2</span>, quad<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     0    12     0     9     9     0     3     3    20     3     4     0     4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2     0     1     0     1     2     0     0     0     2     0     0     2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     5     5     0     2     0     0     1     0     0     0 </span>
+<span class='r-in'> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -193,7 +198,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

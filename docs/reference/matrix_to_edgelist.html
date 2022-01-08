@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Outside FIFA — FIFAex • netmem</title>
+<title>Transform symmetric matrix to an edge-list — matrix_to_edgelist • netmem</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Outside FIFA — FIFAex" />
-<meta property="og:description" content="Multilevel Network of the regulatory transnational regime of the International Federation of Association Football (FIFA)" />
+<meta property="og:title" content="Transform symmetric matrix to an edge-list — matrix_to_edgelist" />
+<meta property="og:description" content="Transform symmetric matrix to an edge-list" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -116,25 +116,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Outside FIFA</h1>
-    <small class="dont-index">Source: <a href='https://github.com/anespinosa/netmem/blob/master/R/fifa_multilevel.R'><code>R/fifa_multilevel.R</code></a></small>
-    <div class="hidden name"><code>FIFAex.Rd</code></div>
+    <h1>Transform symmetric matrix to an edge-list</h1>
+    <small class="dont-index">Source: <a href='https://github.com/anespinosa/netmem/blob/master/R/homophily.R'><code>R/homophily.R</code></a></small>
+    <div class="hidden name"><code>matrix_to_edgelist.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Multilevel Network of the regulatory transnational regime of the International Federation of Association Football (FIFA)</p>
+    <p>Transform symmetric matrix to an edge-list</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>FIFAex</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>matrix_to_edgelist</span><span class='op'>(</span><span class='va'>A</span>, digraph <span class='op'>=</span> <span class='cn'>FALSE</span>, valued <span class='op'>=</span> <span class='cn'>FALSE</span>, loops <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>A</th>
+      <td><p>A symmetric matrix</p></td>
+    </tr>
+    <tr>
+      <th>digraph</th>
+      <td><p>Whether the matrix is directed or not</p></td>
+    </tr>
+    <tr>
+      <th>valued</th>
+      <td><p>Add a third columns with the valued of the relationship</p></td>
+    </tr>
+    <tr>
+      <th>loops</th>
+      <td><p>Whether the loops are retained or not</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of a 7 x 7 symmetric matrix of non-FIFA organizations, and a string vector with the label of the actors</p>
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+    <p>This function transform the matrix into an edgelist.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Espinosa, Alejandro &amp; Ortiz, Francisca (2016). "Jurisdictional autonomy in the regulatory transnational regime of FIFA". REDES- Revista Hispana para el Analisis de Redes Sociales, 27(1), 100- 112. (Original title in Spanish: "Autonomia jurisdiccional en el reegimen regulatorio transnacional de la FIFAFA") &lt;doi: https://doi.org/10.5565/rev/redes.595&gt;#'</p>
+    <p>Alejandro Espinosa-Rada</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,</span>
+<span class='r-in'>              <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,</span>
+<span class='r-in'>              <span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span>, ncol<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>matrix_to_edgelist</span><span class='op'>(</span><span class='va'>A</span>, digraph<span class='op'>=</span><span class='cn'>TRUE</span>, valued <span class='op'>=</span> <span class='cn'>TRUE</span>, loops<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      [,1] [,2] [,3]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] "2"  "1"  "1" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] "3"  "1"  "1" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] "1"  "2"  "2" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] "1"  "3"  "1" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] "3"  "3"  "1" </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
