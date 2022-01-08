@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
-The goal of `netmem` is to make available different measures to describe and manipulate complex networks using matrices.
+The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make available different measures to describe and manipulate complex networks using matrices.
 
 `r emo::ji("pen")` Author/mantainer: [Alejandro Espinosa-Rada](https://github.com/anespinosa) 
 
@@ -115,7 +115,7 @@ rownames(A1) <- letters[1:nrow(A1)]
 colnames(A1) <- letters[1:ncol(A1)]
 
 eb_constraint(A1, ego = "e")
-burt(A1, ego = "e")
+redundancy(A1, ego = "e")
 ```
 
 Also, sometimes we might want to subset a group of actors surrounding an ego.

@@ -138,13 +138,13 @@ node_direction <- function(arg, choices, several.ok=FALSE) {
 #'               1,1,1,1,1,1,0), ncol = 7, byrow = TRUE)
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- letters[1:ncol(A)]
-#' burt(A, ego = "g")
+#' redundancy(A, ego = "g")
 #' 
 #' @export
 
 # TODO: DIRECTED AND WEIGHTED CASES
 
-burt <- function(A, ego=NULL, digraph=FALSE, weighted=FALSE){
+redundancy <- function(A, ego=NULL, digraph=FALSE, weighted=FALSE){
   A <- ego_net(A, ego = ego)
   A <- ifelse(A>0, 1, 0) # Binarize
   A[lower.tri(A)] = t(A)[lower.tri(A)] # Symmetrize
@@ -158,12 +158,12 @@ burt <- function(A, ego=NULL, digraph=FALSE, weighted=FALSE){
                         for directed networks it would use the underlying graph")
   
   if(digraph==FALSE){
-  redundancy <- mean(rowSums(A))
-  effective_size <- ncol(A) - redundancy
-  efficiency <- effective_size/ncol(A) 
-  return(list(redundancy=redundancy,
-              effective_size=effective_size, 
-              efficiency=efficiency))
+    redundancy <- mean(rowSums(A))
+    effective_size <- ncol(A) - redundancy
+    efficiency <- effective_size/ncol(A) 
+    return(list(redundancy=redundancy,
+                effective_size=effective_size, 
+                efficiency=efficiency))
   }
 }
 

@@ -19,8 +19,9 @@ coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
-The goal of `netmem` is to make available different measures to describe
-and manipulate complex networks using matrices.
+The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make
+available different measures to describe and manipulate complex networks
+using matrices.
 
 🖊 Author/mantainer: [Alejandro
 Espinosa-Rada](https://github.com/anespinosa)
@@ -150,7 +151,7 @@ eb_constraint(A1, ego = "e")
 #> $maximum
 #>     e 
 #> 0.766
-burt(A1, ego = "e")
+redundancy(A1, ego = "e")
 #> $redundancy
 #> [1] 1.5
 #> 
