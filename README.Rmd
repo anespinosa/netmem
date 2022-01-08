@@ -108,9 +108,19 @@ A3 <- matrix(c(0,1,3,1,
 
 ### Ego measures
 
-When we are interested in one particular actor, we could perform different network measures. For example, actor `5` has connections with all the other actors in the network. Therefore, we could estimate its constraint.
+When we are interested in one particular actor, we could perform different network measures. For example, actor `e` has connections with all the other actors in the network. Therefore, we could estimate some of Ronald Burt's measures.
 ```{r ego}
-eb_constraint(A1, ego=5)
+# First we will assign names to the matrix
+rownames(A1) <- letters[1:nrow(A1)]
+colnames(A1) <- letters[1:ncol(A1)]
+
+eb_constraint(A1, ego = "e")
+burt(A1, ego = "e")
+```
+
+Also, sometimes we might want to subset a group of actors surrounding an ego.
+```{r ego2}
+ego_net(A1, ego = "e")
 ```
 
 -----
