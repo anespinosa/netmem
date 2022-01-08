@@ -8,7 +8,8 @@ Authors@R: c(
       )
 Imports: 
     igraph,
-    Matrix
+    Matrix,
+    stats
 Title: Social Network Measures using Matrices
 Author: Alejandro Espinosa-Rada [cre, aut] <alejandro.espinosa@manchester.ac.uk>
 Maintainer: Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
@@ -25,5 +26,5 @@ Suggests:
     usethis,
     styler
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 LazyData: true
