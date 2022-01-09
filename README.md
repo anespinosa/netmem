@@ -17,6 +17,7 @@ status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?bra
 coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://codecov.io/gh/anespinosa/netmem?branch=master)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total) -->
 <!-- badges: end -->
 
 The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make
