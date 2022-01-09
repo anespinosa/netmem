@@ -129,6 +129,28 @@ A3 <- matrix(c(0,1,3,1,
               1,0,5,0), byrow=TRUE, ncol=4)
 ```
 
+What is the density of some of the matrices?
+
+``` r
+matrices <- list(A1, B1, A2, B2)
+gen_density(matrices, multilayer = TRUE)
+#> [[1]]
+#> Density of matrix [[1]] 
+#>                     0.7 
+#> 
+#> [[2]]
+#> Density of matrix [[2]] 
+#>               0.4666667 
+#> 
+#> [[3]]
+#> Density of matrix [[3]] 
+#>               0.6666667 
+#> 
+#> [[4]]
+#> Density of matrix [[4]] 
+#>               0.4166667
+```
+
 ------------------------------------------------------------------------
 
 ### Ego measures
