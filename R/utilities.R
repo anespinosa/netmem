@@ -260,6 +260,62 @@ coocurrence <- function(OC){
   coOC/(sqrt(outer(D,D,"*")))
 }
 
+#' Jaccard similarity
+#' 
+#' Jaccard similarity to identify the tie changes between two matrices.
+#'
+#' @param A  Binary matrix A
+#' @param B  Binary matrix B
+#' @param directed  Whether the matrix is symmetric 
+#' @param diag  Whether the diagonal should be considered
+#' 
+#' @return Jaccard similarity, proportion among the ties present at a given observation of ties that are also present in the other matrix, and a table with the tie changes between matrices
+#'
+#' @references
+#'
+#' Batagelj, V., and Bren, M. (1995). Comparing resemblance measures. Journal of Classification 12, 73–90.
+#'
+#' @author Alejandro Espinosa-Rada
+
+#' @examples
+#' 
+#' A <- matrix(c(0,1,1,0,
+#'               1,0,0,0,
+#'               1,0,0,0,
+#'               0,0,1,0), byrow=TRUE, ncol= 4)
+#' B <- matrix(c(0,1,1,0,
+#'               1,0,0,0,
+#'               1,0,0,0,
+#'               0,0,0,0), byrow=TRUE, ncol= 4)
+#' jaccard(A, B, directed = TRUE)
+#' 
+#' @export
+
+# TODO: expand for n periods
+# TODO: expand for other similarities
+
+jaccard <- function(A, B, directed = TRUE, diag = FALSE){
+  A <- as.matrix(A)
+  B <- as.matrix(B)
+  if(any(abs(A>1)))stop("The matrix should be binary")
+  if(any(abs(B>1)))stop("The matrix should be binary")
+  if(!directed){
+    t <- table(A[lower.tri(A, diag=diag)], B[lower.tri(B, diag=diag)])
+  }else{
+    if(all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The matrix is symmetric")
+    A <- c(A[lower.tri(A, diag=diag)],A[upper.tri(A, diag=diag)])
+    B<- c(B[lower.tri(B, diag=diag)],B[upper.tri(B, diag=diag)])
+    t <- table(A, B, useNA = c("always"))
+  }
+  n11 <- t[2,2]
+  n10 <- t[2,1]
+  n01 <- t[1,2]
+  n00 <- t[1,1]    
+  return(list(jaccard=n11/(n10+n01+n11),
+              proportion=n11/(n10+n11),
+              table = t))
+}
+
 #' Structural missing data
 #' 
 #' Assign NA to missing data in the matrices
