@@ -79,7 +79,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>netmem</code> is to make available different measures to describe and manipulate complex networks using matrices.</p>
+<p>The goal of <a href="https://anespinosa.github.io/netmem/"><code>netmem</code></a> is to make available different measures to describe and manipulate complex networks using matrices.</p>
 <p>🖊 Author/mantainer: <a href="https://github.com/anespinosa">Alejandro Espinosa-Rada</a></p>
 <p>🏫 <a href="https://sn.ethz.ch">Social Networks Lab ETH Zürich</a></p>
 <p><a href="https://twitter.com/aespinosarada"><img src="https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg" alt="Follow me on Twitter"></a></p>
@@ -153,13 +153,32 @@
               <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,
               <span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">5</span>,
               <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">5</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
+<p>What is the density of some of the matrices?</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span>
+<span class="fu"><a href="reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="va">matrices</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; Density of matrix [[1]] </span>
+<span class="co">#&gt;                     0.7 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; Density of matrix [[2]] </span>
+<span class="co">#&gt;               0.4666667 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt; Density of matrix [[3]] </span>
+<span class="co">#&gt;               0.6666667 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt; Density of matrix [[4]] </span>
+<span class="co">#&gt;               0.4166667</span></code></pre></div>
 <hr>
 </div>
 <div id="ego-measures" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ego-measures" class="anchor"></a>Ego measures</h3>
 <p>When we are interested in one particular actor, we could perform different network measures. For example, actor <code>e</code> has connections with all the other actors in the network. Therefore, we could estimate some of Ronald Burt’s measures.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First we will assign names to the matrix</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span>
@@ -182,7 +201,7 @@
 <span class="co">#&gt; $efficiency</span>
 <span class="co">#&gt; [1] 0.625</span></code></pre></div>
 <p>Also, sometimes we might want to subset a group of actors surrounding an ego.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/ego_net.html">ego_net</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span>
 <span class="co">#&gt;   a b c d</span>
 <span class="co">#&gt; a 0 1 0 0</span>
@@ -195,11 +214,11 @@
 <h3 class="hasAnchor">
 <a href="#one-mode-network" class="anchor"></a>One-mode network</h3>
 <p>This package implements the generalized degree centrality. Suppose we consider a valued matrix <code>A3</code>. If <code>alpha=0</code> then it would only count the direct connections. But, adding the tuning parameter <code>alpha=0.5</code> would determine the relative importance of the number of ties compared to tie weights.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">A3</span>, digraph <span class="op">=</span> <span class="cn">FALSE</span>, weighted<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 3.872983 1.000000 4.000000 3.464102</span></code></pre></div>
 <p>Also, we could conduct some explorative analysis using the normalized degree of an incident matrix.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">B1</span>, bipartite <span class="op">=</span> <span class="cn">TRUE</span>, normalized<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $bipartiteL1</span>
 <span class="co">#&gt; [1] 0.3333333 0.6666667 0.3333333 0.3333333 0.6666667</span>
@@ -207,7 +226,7 @@
 <span class="co">#&gt; $bipartiteL2</span>
 <span class="co">#&gt; [1] 0.4 0.8 0.2</span></code></pre></div>
 <p>This package also implement some dyadic analysis</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Dyadic census</span>
 <span class="fu"><a href="reference/dyadic_census.html">dyadic_census</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
 <span class="co">#&gt;      Mutual Asymmetrics       Nulls </span>
@@ -222,7 +241,7 @@
 <span class="co">#&gt;     z     p </span>
 <span class="co">#&gt; 1.789 0.074</span></code></pre></div>
 <p>We can also check the triad census assuming conditional uniform distribution considering different types of dyads <strong>(U|MAN)</strong></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/triad_uman.html">triad_uman</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
 <span class="co">#&gt;    label OBS   EXP   VAR   STD</span>
 <span class="co">#&gt; 1    003   0 0.083 0.076 0.276</span>
@@ -247,7 +266,7 @@
 <h3 class="hasAnchor">
 <a href="#multilevel-network" class="anchor"></a>Multilevel network</h3>
 <p>Now, we can calculate the degree centrality of the entire structure</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/multilevel_degree.html">multilevel_degree</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt;    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel</span>
 <span class="co">#&gt; n1          3           1          NA              1              3</span>
@@ -276,11 +295,11 @@
 <span class="co">#&gt; k3               2               2</span>
 <span class="co">#&gt; k4               1               1</span></code></pre></div>
 <p>Besides, we can perform a <em>k</em>-core analysis of one of the levels using the information of an incident matrix</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1 3 1 2 3</span></code></pre></div>
 <p>This package also allows performing complex census for multilevel networks.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span>
 <span class="co">#&gt;     2     6     1     0     0     2     0     0     4     0     1     1     0 </span>
@@ -299,7 +318,7 @@
 <div id="to-do-list" class="section level3">
 <h3 class="hasAnchor">
 <a href="#to-do-list" class="anchor"></a>To-do list</h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># library(todor)</span>
 <span class="co"># todor::todor_package(c("TODO", "FIXME"))</span></code></pre></div>
 </div>
