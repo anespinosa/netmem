@@ -1,11 +1,13 @@
 #' Generalized density
 #' 
 #' @param A   A symmetric or incident matrix object
-#' @param directed    Whether the matrix is directed or not
-#' @param bipartite   Whether the matrix is bipartite or not
-#' @param loops   Whether to consider or not the loops
+#' @param directed    Whether the matrix is directed 
+#' @param bipartite   Whether the matrix is bipartite
+#' @param loops   Whether to consider the loops
+#' @param weighted   Whether the matrix is weighted 
+#' @param multilayer   Whether the matrix is multilayer (i.e., multiplex and/or multilevel)
 #' 
-#' @return This function returns the density of the matrix
+#' @return This function returns the density of the matrix(es)
 #'
 #' @author Alejandro Espinosa-Rada
 #' 
@@ -15,41 +17,153 @@
 #' 
 #' @examples
 #' 
+#' # A bipartite matrix
 #' B <- matrix(c(1,1,0,
 #'               0,0,1,
 #'               0,1,1,
 #'               0,0,1), byrow=TRUE, ncol=3)
 #' gen_density(B, bipartite = TRUE)
 #' 
+#' # A multilevel network
+#' A1 <- matrix(c(0,1,0,0,1,
+#'                1,0,0,1,1,
+#'                0,0,0,1,1,
+#'                0,1,1,0,1,
+#'                1,1,1,1,0), byrow=TRUE, ncol=5)
+#' 
+#' B1 <- matrix(c(1,0,0,
+#'                1,1,0,
+#'                0,1,0,
+#'                0,1,0,
+#'                0,1,1), byrow=TRUE, ncol=3)
+#' 
+#' A2 <- matrix(c(0,1,1,
+#'                1,0,0,
+#'                1,0,0), byrow=TRUE, nrow=3)
+#' 
+#' B2 <- matrix(c(1,1,0,0,
+#'                0,0,1,0,
+#'                0,0,1,1), byrow=TRUE, ncol=4)
+#' 
+#' A3 <- matrix(c(0,1,3,1,
+#'                1,0,0,0,
+#'                3,0,0,5,
+#'                1,0,5,0), byrow=TRUE, ncol=4)
+#' 
+#' matrices <- list(A1, B1, A2, B2, A3)
+#' gen_density(matrices, multilayer = TRUE)
+#' 
+#' # A multiplex network
+#' A <- matrix(c(0,1,3,6,4,
+#'               2,0,4,5,2,
+#'               4,1,0,6,1,
+#'               5,6,3,0,6,
+#'               1,1,2,3,0), byrow= TRUE, ncol= 5)
+#' gen_density(A, multilayer = TRUE)
 #' 
 #' @export
 
-# TODO: Add density and for weighted and multilevel networks
+# TODO: Add density for weighted and multilevel networks
+# TODO: Differentiate the class of the elements of the matrix (integral, strings, numeric, ...)
 
-gen_density <- function(A, directed=TRUE, bipartite=FALSE ,loops=FALSE){
-  if(!loops){
-    diag(A) <- 0
+gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
+                        weighted = FALSE, multilayer = FALSE){
+  
+  if(weighted){
+    stop("Density is not yet implemented for weighted networks")
+  }else{
+    if(!multilayer){
+      if(is.list(A)){
+        stop("The object should be a matrix")
+      }
+      matrices <- A
+    }
   }
-  if(bipartite){
-    if(dim(A)[1]==dim(A)[2])warning("Incident matrix should be rectangular")
-    high <- ncol(A)
-    low <- nrow(A)
-    L <- sum(A,na.rm=TRUE)
-    dens <- L/(high*low)
+  
+  if(multilayer){
+    if(is.list(A)){
+      for(j in 1:length(A)){
+        if(is.matrix(A[[j]]) == FALSE)stop("Not in matrix format")
+        if(any(abs(A[[j]])>1))
+          warning(paste("The matrix in [[", j ,"]] is valued", sep=''))
+      }
+      matrices <- A
+    }else{
+      levels <- unique(sort(c(A)))
+      matrices <- list()
+      for(i  in levels[levels!=0]){
+        matrices[[i]] <- ifelse(A==i, 1, 0)
+      }
+    }
   }
   else{
-    if(!dim(A)[1]==dim(A)[2])stop("Matrix should be square")
-    
-    if(directed){
-      if(all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The network is undirected")
-      dens <- sum(A,na.rm=TRUE)/(ncol(A)*(ncol(A)-1))
-    }
-    if(!directed){
-      if(!all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The network is directed. The underlying graph is used")
-      A[lower.tri(A)] = t(A)[lower.tri(A)] # Symmetrize
-      dens <- (sum(A[lower.tri(A)], na.rm=TRUE)*2)/(ncol(A)*(ncol(A)-1))}
+    if(is.list(A))stop("The object should be a matrix")
+    if(any(abs(A)>1))stop("The matrix is valued")
   }
-  return(dens)
+  
+  if(!loops){
+    if(is.list(matrices)){
+      for(j in 1:length(matrices)){
+        if(ncol(matrices[[j]]) == nrow(matrices[[j]])){
+          diag(matrices[[j]]) <- 0  
+        }
+      }
+    }else{
+      diag(A) <- 0  
+    }
+  }
+  
+  if(is.list(matrices)){
+    dens <- list()
+    for(j in 1:length(matrices)){
+      
+      # weighted
+      if(any(abs(matrices[[j]])>1)){
+        dens[[j]] <- NA
+      }else{
+        
+        # bipartite
+        if(ncol(matrices[[j]]) != nrow(matrices[[j]])){
+          high <- ncol(matrices[[j]])
+          low <- nrow(matrices[[j]])
+          L <- sum(matrices[[j]],na.rm=TRUE)
+          dens[[j]] <- L/(high*low)
+        }else{
+          
+          # directed or undirected
+          if(all(matrices[[j]][lower.tri(matrices[[j]])] == t(matrices[[j]])[lower.tri(matrices[[j]])])){
+            dens[[j]] <- sum(matrices[[j]],na.rm=TRUE)/(ncol(matrices[[j]])*(ncol(matrices[[j]])-1))
+          }else{
+            dens[[j]] <- (sum(matrices[[j]][lower.tri(matrices[[j]])], na.rm=TRUE)*2)/(ncol(matrices[[j]])*(ncol(matrices[[j]])-1))  
+          }
+        }
+      }
+      names(dens[[j]]) <- paste("Density of matrix [[", j ,"]]", sep='')
+    }
+    
+    return(dens)
+  }else{
+    if(bipartite){
+      if(dim(A)[1]==dim(A)[2])warning("Incident matrix should be rectangular")
+      high <- ncol(A)
+      low <- nrow(A)
+      L <- sum(A,na.rm=TRUE)
+      dens <- L/(high*low)
+    }
+    else{
+      if(!dim(A)[1]==dim(A)[2])stop("Matrix should be square")
+      
+      if(directed){
+        if(all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The network is undirected")
+        dens <- sum(A,na.rm=TRUE)/(ncol(A)*(ncol(A)-1))
+      }
+      if(!directed){
+        if(!all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The network is directed. The underlying graph is used")
+        A[lower.tri(A)] = t(A)[lower.tri(A)] # Symmetrize
+        dens <- (sum(A[lower.tri(A)], na.rm=TRUE)*2)/(ncol(A)*(ncol(A)-1))}
+    }
+    return(dens)
+  }
 }
 
 #' Citation networks
@@ -261,7 +375,7 @@ zone_sample <- function(A, X, ego=TRUE, core=FALSE){
   if(dim(A)[1]!=dim(X)[1]){
     X <- t(X)
   }
-  if(!all(colnames(A)==rownames(X)))warning("The names for the combination of the matrixes should be the same")
+  if(!all(colnames(A)==rownames(X)))warning("The names for the combination of the matrices should be the same")
   zero <- matrix(0, ncol=ncol(X), nrow=ncol(X))
   M1 <- cbind(A, X)
   M2 <- cbind(t(X), zero)

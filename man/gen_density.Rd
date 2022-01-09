@@ -4,31 +4,79 @@
 \alias{gen_density}
 \title{Generalized density}
 \usage{
-gen_density(A, directed = TRUE, bipartite = FALSE, loops = FALSE)
+gen_density(
+  A,
+  directed = TRUE,
+  bipartite = FALSE,
+  loops = FALSE,
+  weighted = FALSE,
+  multilayer = FALSE
+)
 }
 \arguments{
 \item{A}{A symmetric or incident matrix object}
 
-\item{directed}{Whether the matrix is directed or not}
+\item{directed}{Whether the matrix is directed}
 
-\item{bipartite}{Whether the matrix is bipartite or not}
+\item{bipartite}{Whether the matrix is bipartite}
 
-\item{loops}{Whether to consider or not the loops}
+\item{loops}{Whether to consider the loops}
+
+\item{weighted}{Whether the matrix is weighted}
+
+\item{multilayer}{Whether the matrix is multilayer (i.e., multiplex and/or multilevel)}
 }
 \value{
-This function returns the density of the matrix
+This function returns the density of the matrix(es)
 }
 \description{
 Generalized density
 }
 \examples{
 
+# A bipartite matrix
 B <- matrix(c(1,1,0,
               0,0,1,
               0,1,1,
               0,0,1), byrow=TRUE, ncol=3)
 gen_density(B, bipartite = TRUE)
 
+# A multilevel network
+A1 <- matrix(c(0,1,0,0,1,
+               1,0,0,1,1,
+               0,0,0,1,1,
+               0,1,1,0,1,
+               1,1,1,1,0), byrow=TRUE, ncol=5)
+
+B1 <- matrix(c(1,0,0,
+               1,1,0,
+               0,1,0,
+               0,1,0,
+               0,1,1), byrow=TRUE, ncol=3)
+
+A2 <- matrix(c(0,1,1,
+               1,0,0,
+               1,0,0), byrow=TRUE, nrow=3)
+
+B2 <- matrix(c(1,1,0,0,
+               0,0,1,0,
+               0,0,1,1), byrow=TRUE, ncol=4)
+
+A3 <- matrix(c(0,1,3,1,
+               1,0,0,0,
+               3,0,0,5,
+               1,0,5,0), byrow=TRUE, ncol=4)
+
+matrices <- list(A1, B1, A2, B2, A3)
+gen_density(matrices, multilayer = TRUE)
+
+# A multiplex network
+A <- matrix(c(0,1,3,6,4,
+              2,0,4,5,2,
+              4,1,0,6,1,
+              5,6,3,0,6,
+              1,1,2,3,0), byrow= TRUE, ncol= 5)
+gen_density(A, multilayer = TRUE)
 
 }
 \references{
