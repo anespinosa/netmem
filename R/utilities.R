@@ -94,6 +94,8 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
       for(i  in levels[levels!=0]){
         matrices[[i]] <- ifelse(A==i, 1, 0)
       }
+      names(matrices) <- 1:length(matrices)
+      matrices[sapply(matrices, is.null)] <- NULL
     }
   }
   else{
@@ -138,7 +140,7 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
           }
         }
       }
-      names(dens[[j]]) <- paste("Density of matrix [[", j ,"]]", sep='')
+      names(dens[[j]]) <- paste("Density of matrix [[", names(matrices)[[j]] ,"]]", sep='')
     }
     
     return(dens)
