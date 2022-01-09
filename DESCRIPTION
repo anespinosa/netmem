@@ -1,7 +1,7 @@
 Package: netmem
 Version: 1.0-3
 Date: 2020-09-02
-Depends: R (>= 3.0.0)
+Depends: R (>= 4.0.0)
 Authors@R: c(
       person(given = "Alejandro", family = "Espinosa-Rada", role = c("cre","aut"),
       email = "alejandro.espinosa@manchester.ac.uk", comment = c(ORCID = "0000-0003-4177-1912"))
