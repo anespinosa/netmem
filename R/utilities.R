@@ -268,6 +268,7 @@ coocurrence <- function(OC){
 #' @param B  Binary matrix B
 #' @param directed  Whether the matrix is symmetric 
 #' @param diag  Whether the diagonal should be considered
+#' @param coparticipation  Select nodes that co-participate in both matrices
 #' 
 #' @return Jaccard similarity, proportion among the ties present at a given observation of ties that are also present in the other matrix, and a table with the tie changes between matrices
 #'
@@ -294,26 +295,55 @@ coocurrence <- function(OC){
 # TODO: expand for n periods
 # TODO: expand for other similarities
 
-jaccard <- function(A, B, directed = TRUE, diag = FALSE){
+jaccard <- function(A, B, directed = TRUE, diag = FALSE,
+                    coparticipation = FALSE){
   A <- as.matrix(A)
   B <- as.matrix(B)
-  if(any(abs(A>1)))stop("The matrix should be binary")
-  if(any(abs(B>1)))stop("The matrix should be binary")
+  
+  if(coparticipation){
+    if(all(rownames(A) != colnames(A)))stop("The names of rows and columns does not match")
+    if(all(rownames(B) != colnames(B)))stop("The names of rows and columns does not match")
+    
+    n1t <- ncol(A)
+    n2t <- ncol(B)
+    name1 <- rownames(A) %in% rownames(B)
+    name1 <- rownames(A)[name1 == TRUE]
+    A <- A[rownames(A) %in% name1, rownames(A) %in% name1]
+    B <- B[rownames(B) %in% name1, rownames(B) %in% name1]
+    
+    n1 <- ncol(A)
+    n2 <- ncol(B)
+    
+  }
+  
+  if(any(abs(A>1), na.rm = TRUE))stop("The matrix should be binary")
+  if(any(abs(B>1), na.rm = TRUE))stop("The matrix should be binary")
   if(!directed){
     t <- table(A[lower.tri(A, diag=diag)], B[lower.tri(B, diag=diag)])
   }else{
     if(all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The matrix is symmetric")
     A <- c(A[lower.tri(A, diag=diag)],A[upper.tri(A, diag=diag)])
-    B<- c(B[lower.tri(B, diag=diag)],B[upper.tri(B, diag=diag)])
+    B <- c(B[lower.tri(B, diag=diag)],B[upper.tri(B, diag=diag)])
     t <- table(A, B, useNA = c("always"))
   }
   n11 <- t[2,2]
   n10 <- t[2,1]
   n01 <- t[1,2]
   n00 <- t[1,1]    
-  return(list(jaccard=n11/(n10+n01+n11),
-              proportion=n11/(n10+n11),
-              table = t))
+  
+  if(coparticipation){
+    return(list(jaccard=n11/(n10+n01+n11),
+                proportion=n11/(n10+n11),
+                table = t,
+                coparticipation1 = n1/n1t,
+                coparticipation2 = n2/n2t
+    ))  
+  }else{
+    return(list(jaccard=n11/(n10+n01+n11),
+                proportion=n11/(n10+n11),
+                table = t))
+  }
+  
 }
 
 #' Structural missing data

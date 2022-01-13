@@ -4,7 +4,7 @@
 \alias{jaccard}
 \title{Jaccard similarity}
 \usage{
-jaccard(A, B, directed = TRUE, diag = FALSE)
+jaccard(A, B, directed = TRUE, diag = FALSE, coparticipation = FALSE)
 }
 \arguments{
 \item{A}{Binary matrix A}
@@ -14,6 +14,8 @@ jaccard(A, B, directed = TRUE, diag = FALSE)
 \item{directed}{Whether the matrix is symmetric}
 
 \item{diag}{Whether the diagonal should be considered}
+
+\item{coparticipation}{Select nodes that co-participate in both matrices}
 }
 \value{
 Jaccard similarity, proportion among the ties present at a given observation of ties that are also present in the other matrix, and a table with the tie changes between matrices
