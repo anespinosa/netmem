@@ -1,4 +1,4 @@
-#' Redundancy Measures
+#' Redundancy measures
 #' 
 #' Redundancy measures of the structural holes theory for binary matrixes
 #'

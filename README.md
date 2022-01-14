@@ -21,7 +21,7 @@ v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/li
 <!-- badges: end -->
 
 The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make
-available different measures to describe and manipulate complex networks
+available different measures to analyse and manipulate complex networks
 using matrices.
 
 🖊 Author/mantainer: [Alejandro
@@ -75,7 +75,10 @@ over time. These structures can themselves be interdependent and exist
 at different levels. Multilevel networks are a means by which we can
 represent this complex system by using nodes and edges of different
 types. Check [this book](https://www.springer.com/gp/book/9783319245188)
-edited by Emmanuel Lazega and Tom A.B. Snijders.
+edited by Emmanuel Lazega and Tom A.B. Snijders or [this
+book](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128)
+edited by David Knoke, Mario Diani, James Hollway and Dimitris
+Christopoulos.
 
 <img src="man/figures/multilevel.png"/>
 
@@ -135,21 +138,17 @@ What is the density of some of the matrices?
 ``` r
 matrices <- list(A1, B1, A2, B2)
 gen_density(matrices, multilayer = TRUE)
-#> [[1]]
-#> Density of matrix [[]] 
-#>                    0.7 
+#> $`Density of matrix [[1]]`
+#> [1] 0.7
 #> 
-#> [[2]]
-#> Density of matrix [[]] 
-#>              0.4666667 
+#> $`Density of matrix [[2]]`
+#> [1] 0.4666667
 #> 
-#> [[3]]
-#> Density of matrix [[]] 
-#>              0.6666667 
+#> $`Density of matrix [[3]]`
+#> [1] 0.6666667
 #> 
-#> [[4]]
-#> Density of matrix [[]] 
-#>              0.4166667
+#> $`Density of matrix [[4]]`
+#> [1] 0.4166667
 ```
 
 ------------------------------------------------------------------------

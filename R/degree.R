@@ -84,7 +84,7 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
     if(is.list(A)){
       for(j in 1:length(A)){
         if(is.matrix(A[[j]]) == FALSE)stop("Not in matrix format")
-        if(any(abs(A[[j]])>1))
+        if(any(abs(A[[j]])>1, na.rm = TRUE))
           warning(paste("The matrix in [[", j ,"]] is valued", sep=''))
       }
       matrices <- A
@@ -100,7 +100,7 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
   }
   else{
     if(is.list(A))stop("The object should be a matrix")
-    if(any(abs(A)>1))stop("The matrix is valued")
+    if(any(abs(A)>1, na.rm = TRUE))stop("The matrix is valued")
   }
   
   if(!loops){
@@ -120,7 +120,7 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
     for(j in 1:length(matrices)){
       
       # weighted
-      if(any(abs(matrices[[j]])>1)){
+      if(any(abs(matrices[[j]])>1, na.rm = TRUE)){
         dens[[j]] <- NA
       }else{
         
@@ -133,14 +133,17 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
         }else{
           
           # directed or undirected
-          if(all(matrices[[j]][lower.tri(matrices[[j]])] == t(matrices[[j]])[lower.tri(matrices[[j]])])){
+          if(all(matrices[[j]][lower.tri(matrices[[j]])] == t(matrices[[j]])[lower.tri(matrices[[j]])], na.rm = TRUE)){
             dens[[j]] <- sum(matrices[[j]],na.rm=TRUE)/(ncol(matrices[[j]])*(ncol(matrices[[j]])-1))
           }else{
             dens[[j]] <- (sum(matrices[[j]][lower.tri(matrices[[j]])], na.rm=TRUE)*2)/(ncol(matrices[[j]])*(ncol(matrices[[j]])-1))  
           }
         }
       }
-      names(dens[[j]]) <- paste("Density of matrix [[", names(matrices)[[j]] ,"]]", sep='')
+      if(is.null(names(matrices)[j]) || is.na(names(matrices)[j])){
+        names(matrices)[j] <- j
+      }
+      names(dens)[j] <- paste("Density of matrix [[", names(matrices)[j] ,"]]", sep='')
     }
     
     return(dens)
@@ -156,11 +159,11 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
       if(!dim(A)[1]==dim(A)[2])stop("Matrix should be square")
       
       if(directed){
-        if(all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The network is undirected")
+        if(all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE))warning("The network is undirected")
         dens <- sum(A,na.rm=TRUE)/(ncol(A)*(ncol(A)-1))
       }
       if(!directed){
-        if(!all(A[lower.tri(A)] == t(A)[lower.tri(A)]))warning("The network is directed. The underlying graph is used")
+        if(!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE))warning("The network is directed. The underlying graph is used")
         A[lower.tri(A)] = t(A)[lower.tri(A)] # Symmetrize
         dens <- (sum(A[lower.tri(A)], na.rm=TRUE)*2)/(ncol(A)*(ncol(A)-1))}
     }

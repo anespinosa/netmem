@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 <!-- ![GitHub All Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total) -->
 <!-- badges: end -->
 
-The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make available different measures to describe and manipulate complex networks using matrices.
+The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make available different measures to analyse and manipulate complex networks using matrices.
 
 `r emo::ji("pen")` Author/mantainer: [Alejandro Espinosa-Rada](https://github.com/anespinosa) 
 
@@ -59,7 +59,7 @@ library(netmem)
 
 ## Multilevel Networks
 
-Connections between individuals are often embedded in complex structures, which shape actors’ expectations, behaviours and outcomes over time. These structures can themselves be interdependent and exist at different levels. Multilevel networks are a means by which we can represent this complex system by using nodes and edges of different types. Check [this book](https://www.springer.com/gp/book/9783319245188) edited by Emmanuel Lazega and Tom A.B. Snijders.  
+Connections between individuals are often embedded in complex structures, which shape actors’ expectations, behaviours and outcomes over time. These structures can themselves be interdependent and exist at different levels. Multilevel networks are a means by which we can represent this complex system by using nodes and edges of different types. Check [this book](https://www.springer.com/gp/book/9783319245188) edited by Emmanuel Lazega and Tom A.B. Snijders or [this book](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128) edited by David Knoke, Mario Diani, James Hollway and Dimitris Christopoulos.  
 
 <img src="man/figures/multilevel.png"/>
 

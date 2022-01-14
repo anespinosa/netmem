@@ -2,7 +2,7 @@
 % Please edit documentation in R/structural_holes.R
 \name{redundancy}
 \alias{redundancy}
-\title{Redundancy Measures}
+\title{Redundancy measures}
 \usage{
 redundancy(A, ego = NULL, digraph = FALSE, weighted = FALSE)
 }

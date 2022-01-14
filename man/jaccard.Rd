@@ -24,10 +24,11 @@ are also present in the other matrix, and \code{table} = a table with the
 tie changes between matrices.
 
 If \code{coparticipation = TRUE}, then 
-also: \code{coparticipation1} = percentage 
+also: \code{match} = number of nodes present in both matrices;
+\code{coparticipation1} = percentage 
 of actors in the first matrix also present in the 
-second matrix, and \code{coparticipation2}` = percentage 
-of actors in the second matrix also present in the first matrix.
+second matrix; \code{coparticipation2}` = percentage 
+of actors in the second matrix also present in the first matrix
 }
 \description{
 Jaccard similarity to identify the tie changes between two matrices.

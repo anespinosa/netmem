@@ -78,13 +78,13 @@ mixMatrix <- function(A, att=NULL){
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- letters[1:ncol(A)]
 #' att <- rbinom(sqrt(n), 3, 0.5)
-#' ei.table(A, mixed=FALSE, att=att) 
+#' ei_index(A, mixed=FALSE, att=att) 
 #' 
 #' @export
 
 # TODO: select a better example!
 
-ei.table <- function(A, mixed=TRUE, att=NULL)
+ei_index <- function(A, mixed=TRUE, att=NULL)
 {
   if(!mixed){
     matrix <- mixMatrix(A, att)
