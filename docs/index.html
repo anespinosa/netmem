@@ -158,20 +158,20 @@
 <code class="sourceCode R"><span class="va">matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span>
 <span class="fu"><a href="reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="va">matrices</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; Density of matrix [[1]] </span>
-<span class="co">#&gt;                     0.7 </span>
+<span class="co">#&gt; Density of matrix [[]] </span>
+<span class="co">#&gt;                    0.7 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; Density of matrix [[2]] </span>
-<span class="co">#&gt;               0.4666667 </span>
+<span class="co">#&gt; Density of matrix [[]] </span>
+<span class="co">#&gt;              0.4666667 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; Density of matrix [[3]] </span>
-<span class="co">#&gt;               0.6666667 </span>
+<span class="co">#&gt; Density of matrix [[]] </span>
+<span class="co">#&gt;              0.6666667 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt; Density of matrix [[4]] </span>
-<span class="co">#&gt;               0.4166667</span></code></pre></div>
+<span class="co">#&gt; Density of matrix [[]] </span>
+<span class="co">#&gt;              0.4166667</span></code></pre></div>
 <hr>
 </div>
 <div id="ego-measures" class="section level3">
@@ -233,11 +233,11 @@
 <span class="co">#&gt;           7           0           3</span>
 
 <span class="co"># Katz and Powell reciprocity</span>
-<span class="fu"><a href="reference/pkp.html">pkp</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
+<span class="fu"><a href="reference/kp_reciprocity.html">kp_reciprocity</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
 <span class="co">#&gt; [1] 6.333333</span>
 
 <span class="co"># Z test of the number of arcs</span>
-<span class="fu"><a href="reference/zarc.html">zarc</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
+<span class="fu"><a href="reference/z_arctest.html">z_arctest</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
 <span class="co">#&gt;     z     p </span>
 <span class="co">#&gt; 1.789 0.074</span></code></pre></div>
 <p>We can also check the triad census assuming conditional uniform distribution considering different types of dyads <strong>(U|MAN)</strong></p>

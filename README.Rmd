@@ -152,10 +152,10 @@ This package also implement some dyadic analysis
 dyadic_census(A1)
 
 # Katz and Powell reciprocity
-pkp(A1)
+kp_reciprocity(A1)
 
 # Z test of the number of arcs
-zarc(A1)
+z_arctest(A1)
 ```
 
 We can also check the triad census assuming conditional uniform distribution considering different types of dyads **(U|MAN)**

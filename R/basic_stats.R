@@ -16,13 +16,13 @@
 #' @examples 
 #' 
 #' data(krackhardt_friends)
-#' pkp(krackhardt_friends, fixed=TRUE, d=5)
+#' kp_reciprocity(krackhardt_friends, fixed=TRUE, d=5)
 #' 
 #' @importFrom stats pnorm
 #' 
 #' @export
 
-pkp <- function(G, fixed=FALSE, d=NULL, dichotomic=TRUE)
+kp_reciprocity <- function(G, fixed=FALSE, d=NULL, dichotomic=TRUE)
 {
   G <- as.matrix(G)
   g <- dim(G)[1]
@@ -59,14 +59,14 @@ pkp <- function(G, fixed=FALSE, d=NULL, dichotomic=TRUE)
 #' @examples 
 #' 
 #' data(krackhardt_friends)
-#' zarc(krackhardt_friends)
+#' z_arctest(krackhardt_friends)
 #' 
 #' @importFrom stats pnorm
 #' 
 #' @export
 #' 
 
-zarc <- function(G, p=0.5, interval=FALSE){
+z_arctest <- function(G, p=0.5, interval=FALSE){
   G <- as.matrix(G)
   G <- ifelse(G>0, 1, 0)
   l <- sum(G)

@@ -136,20 +136,20 @@ What is the density of some of the matrices?
 matrices <- list(A1, B1, A2, B2)
 gen_density(matrices, multilayer = TRUE)
 #> [[1]]
-#> Density of matrix [[1]] 
-#>                     0.7 
+#> Density of matrix [[]] 
+#>                    0.7 
 #> 
 #> [[2]]
-#> Density of matrix [[2]] 
-#>               0.4666667 
+#> Density of matrix [[]] 
+#>              0.4666667 
 #> 
 #> [[3]]
-#> Density of matrix [[3]] 
-#>               0.6666667 
+#> Density of matrix [[]] 
+#>              0.6666667 
 #> 
 #> [[4]]
-#> Density of matrix [[4]] 
-#>               0.4166667
+#> Density of matrix [[]] 
+#>              0.4166667
 ```
 
 ------------------------------------------------------------------------
@@ -233,11 +233,11 @@ dyadic_census(A1)
 #>           7           0           3
 
 # Katz and Powell reciprocity
-pkp(A1)
+kp_reciprocity(A1)
 #> [1] 6.333333
 
 # Z test of the number of arcs
-zarc(A1)
+z_arctest(A1)
 #>     z     p 
 #> 1.789 0.074
 ```
