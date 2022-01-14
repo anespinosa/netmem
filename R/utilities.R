@@ -270,7 +270,16 @@ coocurrence <- function(OC){
 #' @param diag  Whether the diagonal should be considered
 #' @param coparticipation  Select nodes that co-participate in both matrices
 #' 
-#' @return Jaccard similarity, proportion among the ties present at a given observation of ties that are also present in the other matrix, and a table with the tie changes between matrices
+#' @return The output are: \code{jaccard} = Jaccard similarity, \code{proportion} = 
+#' proportion among the ties present at a given observation of ties that 
+#' are also present in the other matrix, and \code{table} = a table with the 
+#' tie changes between matrices.
+#' 
+#' If \code{coparticipation = TRUE}, then 
+#' also: \code{coparticipation1} = percentage 
+#' of actors in the first matrix also present in the 
+#' second matrix, and \code{coparticipation2}` = percentage 
+#' of actors in the second matrix also present in the first matrix.
 #'
 #' @references
 #'

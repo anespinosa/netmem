@@ -18,7 +18,16 @@ jaccard(A, B, directed = TRUE, diag = FALSE, coparticipation = FALSE)
 \item{coparticipation}{Select nodes that co-participate in both matrices}
 }
 \value{
-Jaccard similarity, proportion among the ties present at a given observation of ties that are also present in the other matrix, and a table with the tie changes between matrices
+The output are: \code{jaccard} = Jaccard similarity, \code{proportion} = 
+proportion among the ties present at a given observation of ties that 
+are also present in the other matrix, and \code{table} = a table with the 
+tie changes between matrices.
+
+If \code{coparticipation = TRUE}, then 
+also: \code{coparticipation1} = percentage 
+of actors in the first matrix also present in the 
+second matrix, and \code{coparticipation2}` = percentage 
+of actors in the second matrix also present in the first matrix.
 }
 \description{
 Jaccard similarity to identify the tie changes between two matrices.
