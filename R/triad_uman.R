@@ -33,6 +33,12 @@
 triad_uman <- function(A, ztest = FALSE, covar = FALSE) {
   # elements ----
   A <- as.matrix(A)
+  
+  if(any(abs(A>1), na.rm = TRUE))stop("The matrix should be binary")
+  if(any(is.na(A) == TRUE)){
+    A <- ifelse(is.na(A), 0, A)
+  }
+  
   A <- Matrix::Matrix(A)
   g <- dim(A)[1]
   m <- (1 / 2) * sum(Matrix::diag(A %*% A)) # mutual

@@ -23,7 +23,13 @@
 
 dyadic_census <- function(G, directed=TRUE){
   G <- as.matrix(G)
+  if(any(abs(G>1), na.rm = TRUE))stop("The matrix should be binary")
   g <- dim(G)[1]
+  
+  if(any(is.na(G) == TRUE)){
+    G <- ifelse(is.na(G), 0, G)
+  }
+  
   if(directed){
     c(
       "Mutual" = (1/2)*sum(diag(G%*%G)),
@@ -104,6 +110,13 @@ multiplex_census <- function(A, B){
   
   if(!all(B[lower.tri(B)] == t(B)[lower.tri(B)]))warning(paste("Measure only implemented for undirected networks", "in the `second` network,", "the measure would use the underlying graph"))
   B[lower.tri(B)] = t(B)[lower.tri(B)]
+  
+  if(any(is.na(A) == TRUE)){
+    A <- ifelse(is.na(A), 0, A)
+  }
+  if(any(is.na(B) == TRUE)){
+    B <- ifelse(is.na(B), 0, B)
+  }
   
   E <- ifelse((A+t(A))>0, 1, 0)
   Eb <- ifelse(E==0, 1, 0)
@@ -265,6 +278,20 @@ mixed_census <- function (A1, B1, B2=NULL, quad=FALSE) {
   if(dim(A1)[1]!=dim(A1)[2])stop("Matrix is not square")
   if(dim(B1)[1]==dim(B1)[2])warning("Matrix should be rectangular")
   if(!dim(A1)[1]==dim(B1)[1])stop("Non-conformable arrays")
+  
+  if(any(is.na(A1) == TRUE)){
+    A1 <- ifelse(is.na(A1), 0, A1)
+  }
+  if(any(is.na(B1) == TRUE)){
+    B1 <- ifelse(is.na(B1), 0, B1)
+  }
+  if(any(is.na(B2) == TRUE)){
+    B2 <- ifelse(is.na(B2), 0, B2)
+  }
+  
+  if(any(abs(A1>1), na.rm = TRUE))stop("The matrix should be binary")
+  if(any(abs(B1>1), na.rm = TRUE))stop("The matrix should be binary")
+  if(any(abs(B2>1), na.rm = TRUE))stop("The matrix should be binary")
   
   m1 <- as.matrix(A1)
   m2 <- as.matrix(B1)
