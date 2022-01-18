@@ -1,3 +1,5 @@
+# TODO: Add NA for all censuses
+
 #' Dyad census
 #'
 #' @param G   A symmetric matrix object.
@@ -23,26 +25,46 @@
 
 dyadic_census <- function(G, directed=TRUE){
   G <- as.matrix(G)
+  A <- G
   if(any(abs(G>1), na.rm = TRUE))stop("The matrix should be binary")
-  g <- dim(G)[1]
+  g <- nrow(G)
+  na <- sum(is.na(G))-sum(diag(is.na(G)))
   
   if(any(is.na(G) == TRUE)){
     G <- ifelse(is.na(G), 0, G)
   }
   
+  m <- (1/2)*sum(diag(G%*%G))
+  a <- sum(diag(G%*%t(G)))-sum(diag(G%*%G))
+  n <- ((g*(g-1))/2)-(sum(diag(G%*%t(G)))-sum(diag(G%*%G)))-((1/2)*sum(diag(G%*%G)))
+  
   if(directed){
-    c(
-      "Mutual" = (1/2)*sum(diag(G%*%G)),
-      "Asymmetrics" = sum(diag(G%*%t(G)))-sum(diag(G%*%G)),
-      "Nulls" = ((g*(g-1))/2)-(sum(diag(G%*%t(G)))-sum(diag(G%*%G)))-((1/2)*sum(diag(G%*%G)))
-    )
+    if(any(is.na(A) == TRUE)){
+      c(
+        "Mutual" = m,
+        "Asymmetrics" = a,
+        "Nulls" = n-na,
+        "NA" = na
+      )  
+    }else{
+      c(
+        "Mutual" = m,
+        "Asymmetrics" = a,
+        "Nulls" = n
+      )}
+    
+  }else{
+    if(any(is.na(A) == TRUE)){
+      c("Mutual" = m,
+        "Nulls" = n-na,
+        "NA" = na)    
+    }
+    else{
+      c("Mutual" = m,
+        "Nulls" = n)
+    }
   }
-  else{
-    c("Mutual" = (1/2)*sum(diag(G%*%G)),
-      "Nulls" = ((g*(g-1))/2)-(sum(diag(G%*%t(G)))-sum(diag(G%*%G)))-((1/2)*sum(diag(G%*%G))))
-  }
-}
-
+}  
 
 #' Multiplex triad census
 #'
