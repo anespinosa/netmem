@@ -15,10 +15,29 @@ triad_uman(A, ztest = FALSE, covar = FALSE)
 }
 \value{
 This function gives the counts of the triad census, the expected counts,
-assuming that U|MAN distribution is operating, and the standard deviations of these counts.
+assuming that U|MAN distribution (Holland and Leinhardt, 1975, 1976) is operating, 
+and the standard deviations of these counts.
 }
 \description{
-Triad census analysis assuming U|MAN
+Considering the triad census of Davis and Leinhardt (1972) for vector A, B, and C:
+}
+\details{
+003 = A,B,C, empty triad
+012 = A -> B, C, triad with a single directed edge
+102 = A <-> B, C, triad with a reciprocated connection between two vertices
+021D = A <-B-> C, triadic out-star
+021U = A -> B <- C triadic in-star
+021C = A-> B-> C, directed line
+111D = A <-> B <-C
+111U = A <-> B-> C
+030T = A-> B <-C, A-> C
+030C = A <-B <-C, A-> C
+201 = A <-> B <-> C
+120D = A <-B-> C, A <-> C
+120U = A-> B <-C, A <->C
+120C = A-> B-> C, A <-> C
+210 = A-> B <-> C, A <-> C
+300 = A <-> B <-> C, A <->C,  complete triad.
 }
 \examples{
 
@@ -30,6 +49,8 @@ triad_uman(krackhardt_friends, ztest = TRUE, covar=TRUE)
 
 }
 \references{
+Davis, J.A. and Leinhardt, S. (1972). The Structure of Positive Interpersonal Relations in Small Groups. In J. Berger (Ed.), Sociological Theories in Progress, Volume 2, 218-251. Boston: Houghton Mifflin.
+
 Holland, P. W. and Leinhardt, S. (1975). The statistical analysis of local structure in social networks. In D. R. Heise (Ed.), Sociological Methodology, 1976 (Jossey-Bass, pp. 1–45).
 
 Holland, P. W. and Leinhardt, S. (1976). Local Structure in Social Networks. Sociological Methodology, 7, 1–45.  doi: \url{https://doi.org/10.2307/270703}

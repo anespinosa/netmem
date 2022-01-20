@@ -66,23 +66,28 @@ dyadic_census <- function(G, directed=TRUE){
   }
 }  
 
-#' Find triads 201
+#' Forbidden Triad Table
 #' 
-#' The triad 201 = A<->B<->C is one of the possible triads according to the MAN census of Davis and Leinhardt (1972).
-#'
+#' This function explores dyads and triads (Simmel, 1950), building from the 
+#' 'forbidden triad' (Granovetter, 1973). 
+#' First, the minimum structure is an isolated node, then dyads. 
+#' Afterwards, different combinations of 'forbidden triads' are explored.
+#' 
 #' @param A   A symmetric matrix object.
 #' @param adjacency_list   Whether to return the adjacency list of triads 201 per node.
 #' @param min   Numeric constant, lower limit on the size of the triads 201 to find. NULL means no limit, ie. it is the same as 0.
 #' @param max   Numeric constant, upper limit on the size of the triads 201 to find. NULL means no limit.
 #' 
-#' @return This function return the list of triads 201 that each node belong. 
+#' @return This function return the list of triads that each node belong. 
 #' 
 #' If \code{adjacency_list = TRUE} it also  return the adjacency list of 
-#' triads 201 per node.
+#' the 'forbidden triads' per node.
 #'
 #' @references
+#' 
+#' Granovetter, M.S. (1973). The Strength of Weak Ties. American Journal of Sociology. 78 (6): 1360–80. https://doi.org/10.1086/225469.
 #'
-#' Davis, J.A. and Leinhardt, S. (1972). The Structure of Positive Interpersonal Relations in Small Groups. In J. Berger (Ed.), Sociological Theories in Progress, Volume 2, 218-251. Boston: Houghton Mifflin.
+#' Simmel, G. (1950). Individual and Society. In K. H. Wolff (Ed.), The Sociology of George Simmel. New York: Free Press.
 #'
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
@@ -97,12 +102,12 @@ dyadic_census <- function(G, directed=TRUE){
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- letters[1:ncol(A)]
 #' 
-#' triad201_table(A, adjacency_list = TRUE, min = 3)
+#' dyad_triad_table(A, adjacency_list = TRUE, min = 3)
 #' 
 #' @export
 #' 
 
-triad201_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
+dyad_triad_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
   
   A <- as.matrix(A)
   if(any(is.na(A) == TRUE)){
