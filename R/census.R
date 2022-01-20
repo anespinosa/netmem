@@ -99,6 +99,9 @@ dyadic_census <- function(G, directed=TRUE){
 #' 
 
 cliques_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
+  
+  # TODO: Experimental version, please use with caution
+  
   A <- as.matrix(A)
   if(any(is.na(A) == TRUE)){
     A <- ifelse(is.na(A), 0, A)
