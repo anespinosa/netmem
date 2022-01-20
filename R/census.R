@@ -93,12 +93,12 @@ dyadic_census <- function(G, directed=TRUE){
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- letters[1:ncol(A)]
 #' 
-#' clique(A, adjacency_list = TRUE, min = 3)
+#' cliques_table(A, adjacency_list = TRUE, min = 3)
 #' 
 #' @export
 #' 
 
-clique <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
+cliques_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
   A <- as.matrix(A)
   if(any(is.na(A) == TRUE)){
     A <- ifelse(is.na(A), 0, A)
@@ -154,6 +154,14 @@ clique <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
                       CliqueID %in% t)
     }
   }
+  
+  a <- as.data.frame(cbind(order = rep(1:length(unique(nodes[,2]))), 
+                           CliqueID = unique(as.numeric(nodes[,2]))))
+  b <- as.data.frame(nodes)
+  nodes <- merge(b, a, by='CliqueID')
+  nodes <- nodes[order(nodes$order, nodes$node),]
+  nodes <- nodes[,-1]
+  colnames(nodes) <- c('node', 'CliqueID')
   
   if(adjacency_list){
     if(!is.null(min)){

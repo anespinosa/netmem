@@ -57,7 +57,7 @@ Functions currently available in
 [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
 1.  `citation_norm()`: Citation networks
-2.  `clique()`: Find cliques
+2.  `cliques_table()`: Find cliques
 3.  `coocurrence()`: Co‐occurrence
 4.  `dyadic_census()`: Dyadic census
 5.  `eb_constraint()`: Constraint
