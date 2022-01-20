@@ -66,6 +66,111 @@ dyadic_census <- function(G, directed=TRUE){
   }
 }  
 
+#' Find cliques
+#'
+#' @param A   A symmetric matrix object.
+#' @param adjacency_list   Whether to return the adjacency list of cliques per node.
+#' @param min   Numeric constant, lower limit on the size of the cliques to find. NULL means no limit, ie. it is the same as 0.
+#' @param max   Numeric constant, upper limit on the size of the cliques to find. NULL means no limit.
+#' 
+#' @return This function return the list of cliques that each node belong. 
+#' 
+#' If \code{adjacency_list = TRUE} it also  return the adjacency list of 
+#' cliques per node.
+#'
+#' @references
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(0,1,1,1,0,
+#'             1,0,1,0,0,
+#'             1,1,0,0,0,
+#'             1,0,0,0,1,
+#'             0,0,0,1,0), byrow = TRUE, ncol = 5)
+#' rownames(A) <- letters[1:nrow(A)]
+#' colnames(A) <- letters[1:ncol(A)]
+#' 
+#' clique(A, adjacency_list = TRUE, min = 3)
+#' 
+#' @export
+#' 
+
+clique <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
+  A <- as.matrix(A)
+  if(any(is.na(A) == TRUE)){
+    A <- ifelse(is.na(A), 0, A)
+  }
+  if(is.null(rownames(A)))stop("No label assigned to the rows of the matrix")
+  if(is.null(colnames(A)))stop("No label assigned to the columns of the matrix")
+  if(all(rownames(A) != colnames(A)))stop("The names of rows and columns does not match")
+  if(nrow(A)!=ncol(A))stop("Matrix should be square")
+  if(any(abs(A>1), na.rm = TRUE))warning("The matrix should be binary")
+  if(!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE))warning("The network is directed. The underlying graph is used")
+  A[lower.tri(A)] = t(A)[lower.tri(A)] # Symmetrize
+  diag(A) <- 0
+  
+  adj_list <- list()
+  size <- list()
+  temp <- list()
+  for(i in 1:ncol(A)){
+    adj_list[[i]] <- names(A[i,][A[i,]>=1])
+    
+    if(length(adj_list[[i]])>1){
+      adj_list[[i]] <- t(combn(adj_list[[i]], 2))
+      adj_list[[i]] <- cbind(colnames(A)[i], adj_list[[i]])
+      adj_list[[i]] <- t(apply(adj_list[[i]], 1, sort))
+      temp[[i]] <- apply(adj_list[[i]],1,paste,collapse="")
+      size[[i]] <- lengths(temp[[i]])
+      
+    }else{
+      adj_list[[i]] <- sort(c(colnames(A)[i], adj_list[[i]])) #ok
+      temp[[i]] <- paste(adj_list[[i]],collapse="")
+      size[[i]] <- lengths(temp[[i]])
+    }
+    names(adj_list)[[i]] <- rownames(A)[i]
+    names(temp)[[i]] <- rownames(A)[i]
+  }
+  size <- sapply(size, sum)
+  CliqueID <- as.numeric(factor(unlist(temp)))
+  node <- rep(rownames(A),times= size)
+  nodes <- cbind(node, CliqueID)
+  
+  if(!is.null(min) & !is.null(max)){
+    if(min == max)stop("Min and max should be different")
+  }
+  
+  if(!is.null(min)){
+    nodes <- subset(nodes, 
+                    CliqueID %in% as.vector(which((table(nodes[,2]) >= min) == TRUE)))
+  }
+  if(!is.null(max)){
+    t <- table(nodes[,2]) <= max
+    t <- as.vector(which((t) == TRUE))
+    if(!any(nodes[,2] %in% t)){
+      nodes <- subset(nodes, 
+                      CliqueID %in% t)
+    }
+  }
+  
+  if(adjacency_list){
+    if(!is.null(min)){
+      temp <- temp[nodes[,1]]
+    }
+    if(!is.null(max)){
+      temp <- temp[nodes[,1]]
+    }
+    
+    newlist <- list(nodes = nodes, adjacency_list = temp)
+    return(newlist)  
+  }else{
+    return(nodes)
+  }
+  
+}
+
 #' Multiplex triad census
 #'
 #' This function counts the different subgraphs of three nodes in a multiplex directed and undirected network.
