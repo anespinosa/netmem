@@ -51,6 +51,46 @@ A BibTeX entry for LaTeX users is
 author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package
 version 1.0-3}, url = {<https://github.com/anespinosa/netmem>}, }
 
+## All functions
+
+Functions currently available in
+[`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
+
+1.  `citation_norm()`: Citation networks
+2.  `clique()`: Find cliques
+3.  `coocurrence()`: Co‐occurrence
+4.  `dyadic_census()`: Dyadic census
+5.  `eb_constraint()`: Constraint
+6.  `ego_net()`: Ego network
+7.  `ei_index()`: Krackhardt and Stern’s E-I index
+8.  `gen_degree()`: Generalized degree
+9.  `gen_density()`: Generalized density
+10. `heterogeneity()`: Blau’s and IQV Index
+11. `jaccard()`: Jaccard similarity
+12. `k_core()`: Generalized K-core
+13. `kp_reciprocity()`: Reciprocity of Katz and Powell
+14. `matrix_to_edgelist()`: Transform symmetric matrix to an edge-list
+15. `mixMatrix()`: Mixing matrix
+16. `mixed_census()`: Multilevel triad and quadrilateral census
+17. `multilevel_degree()`: Degree centrality for multilevel networks.
+18. `multiplex_census()`: Multiplex triad census
+19. `redundancy()`: Redundancy measures
+20. `structuralNA()`: Structural missing data
+21. `triad_uman()`: Triad census analysis assuming U\|MAN
+22. `z_arctest()`: Z test of the number of arcs
+23. `zone_sample()`: Zone-2 sampling from second-mode
+
+Data currently available in
+[`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
+
+1.  `FIFAego`: Ego FIFA
+2.  `FIFAex`: Outside FIFA
+3.  `FIFAin`: Inside FIFA
+4.  `krackhardt_friends`: Krackhardt friends
+
+Additional data in
+[`classicnets: Classic Data of Social Networks`](https://github.com/anespinosa/classicnets)
+
 ## Installation
 
 You can install the development version from

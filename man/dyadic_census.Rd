@@ -2,7 +2,7 @@
 % Please edit documentation in R/census.R
 \name{dyadic_census}
 \alias{dyadic_census}
-\title{Dyad census}
+\title{Dyadic census}
 \usage{
 dyadic_census(G, directed = TRUE)
 }
@@ -15,7 +15,7 @@ dyadic_census(G, directed = TRUE)
 This function return the counts of the dyadic census.
 }
 \description{
-Dyad census
+Dyadic census
 }
 \examples{
 

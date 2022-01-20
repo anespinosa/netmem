@@ -12,7 +12,9 @@ heterogeneity(att, normalized = FALSE)
 \item{normalized}{Whether to return IQV index}
 }
 \value{
-Numerical value of the Blau index and the IQV index.
+Numerical value of the Blau index.
+
+If \code{normalized = TRUE}, then the function also return IQV index.
 }
 \description{
 This index was proposed by Blau (1977) to distinguish between the relative prevalence 

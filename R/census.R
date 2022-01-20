@@ -1,6 +1,6 @@
 # TODO: Add NA for all censuses
 
-#' Dyad census
+#' Dyadic census
 #'
 #' @param G   A symmetric matrix object.
 #' @param directed   Whether the matrix is directed or not
@@ -182,7 +182,7 @@ clique <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
 #' 
 #' @references
 #'
-#' Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin & Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"
+#' Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
 #' 
 #' @author Alejandro Espinosa-Rada
 #'
@@ -225,12 +225,12 @@ clique <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
 multiplex_census <- function(A, B){
   # TODO: Experimental version, please use with caution
   
-  if(!all(A<=1))warning(paste("Measure only implemented for binary networks,", "the `first` network","would be binarized for the triadic census"))
+  if(!all(A<=1))warning(paste("Measure only implemented for binary networks,", "the `first` network","would be binarized for the triad census"))
   A <- as.matrix(A)
   if(!dim(A)[1]==dim(A)[2])stop("Matrix should be square")
   A <- ifelse(A>0, 1, 0) 
   
-  if(!all(B<=1))warning(paste("Measure only implemented for binary networks,", "the `second` network","would be binarized for the triadic census")) #deparse(quote(B))
+  if(!all(B<=1))warning(paste("Measure only implemented for binary networks,", "the `second` network","would be binarized for the triad census")) #deparse(quote(B))
   B <- as.matrix(B)
   if(!dim(B)[1]==dim(B)[2])stop("Matrix should be square")
   B <- ifelse(B>0, 1, 0) 
@@ -363,18 +363,20 @@ multiplex_census <- function(A, B){
   return(floor(res/2))
 }
 
-#' Multilevel triadic and quadrilateral census
+#' Multilevel triad and quadrilateral census
 #'
 #' @param A1   An adjacent matrix object.
 #' @param B1   An incident matrix object.
 #' @param B2   An incident matrix object.
 #' @param quad  Whether the matrix is a quadrilateral census or not.
 #' 
-#' @return This function return the counts of the dyadic census.
+#' @return This function return the counts of a multilevel census.
+#' 
+#' If \code{quad = TRUE}, then the function return the multilevel quadrilateral census.
 #'
 #' @references
 #'
-#' Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin & Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"
+#' Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
 #'
 #' Hollway, J., Lomi, A., Pallotti, F., & Stadtfeld, C. (2017). Multilevel social spaces: The network dynamics of organizational fields. Network Science, 5(2), 187–212. https://doi.org/10.1017/nws.2017.8
 #'

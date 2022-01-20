@@ -59,9 +59,9 @@ mixMatrix <- function(A, att=NULL){
   return(mixMATRIX)
 }
 
-#' Krackhard and Stern's E-I index
+#' Krackhardt and Stern's E-I index
 #'
-#' This index was proposed by Krackhard and Stern (1988) to distinguish between the relative prevalence 
+#' This index was proposed by Krackhardt and Stern (1988) to distinguish between the relative prevalence 
 #' of between and within-group ties. This measure can be interpreted as homophily at the network level.
 #' 
 #' @param A  A symmetric matrix object
@@ -108,7 +108,9 @@ ei_index <- function(A, mixed=TRUE, att=NULL)
 #' @param att  Categorical attribute of the nodes
 #' @param normalized  Whether to return IQV index
 #'
-#' @return Numerical value of the Blau index and the IQV index.
+#' @return Numerical value of the Blau index.
+#' 
+#' If \code{normalized = TRUE}, then the function also return IQV index.
 #' 
 #' @references 
 #' 

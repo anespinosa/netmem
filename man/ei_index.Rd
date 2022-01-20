@@ -2,7 +2,7 @@
 % Please edit documentation in R/homophily.R
 \name{ei_index}
 \alias{ei_index}
-\title{Krackhard and Stern's E-I index}
+\title{Krackhardt and Stern's E-I index}
 \usage{
 ei_index(A, mixed = TRUE, att = NULL)
 }
@@ -17,7 +17,7 @@ ei_index(A, mixed = TRUE, att = NULL)
 Numerical value of the E-I index.
 }
 \description{
-This index was proposed by Krackhard and Stern (1988) to distinguish between the relative prevalence 
+This index was proposed by Krackhardt and Stern (1988) to distinguish between the relative prevalence 
 of between and within-group ties. This measure can be interpreted as homophily at the network level.
 }
 \examples{

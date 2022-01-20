@@ -49,7 +49,7 @@ zone_sample(A, X, core=TRUE)
 
 }
 \references{
-Espinosa-Rada, A. (forthcoming). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
+Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
 }
 \author{
 Alejandro Espinosa-Rada

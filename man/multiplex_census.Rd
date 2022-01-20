@@ -51,7 +51,7 @@ B <- matrix(c(0,0,0,0,1,0,0,0,1,0,0,0,
 multiplex_census(A, B)
 }
 \references{
-Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin & Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"
+Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
 }
 \author{
 Alejandro Espinosa-Rada

@@ -320,8 +320,6 @@ gen_degree <- function(A,
 #' @references
 #'
 #' Borgatti, S. P., and Everett, M. G. (1997). Network analysis of 2-mode data. Social Networks, 19(3), 243–269.
-#'
-#' Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin & Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"
 #' 
 #' Freeman, L. C. (1978). Centrality in social networks conceptual clarification. Social Networks, 1(3), 215–239.
 #'
@@ -742,8 +740,6 @@ multilevel_degree <- function(A1, B1,
 #'
 #' Eidsaa, M., & Almaas, E. (2013). s-core network decomposition: A generalization of $k$-core analysis to weighted networks. Physical Review E, 88(6), 062819. \url{https://doi.org/10.1103/PhysRevE.88.062819}
 #' 
-#' Espinosa-Rada, A. (forthcoming). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
-#'
 #' Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
 #' 
 #' @import igraph

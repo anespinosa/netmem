@@ -2,7 +2,7 @@
 % Please edit documentation in R/census.R
 \name{mixed_census}
 \alias{mixed_census}
-\title{Multilevel triadic and quadrilateral census}
+\title{Multilevel triad and quadrilateral census}
 \usage{
 mixed_census(A1, B1, B2 = NULL, quad = FALSE)
 }
@@ -16,10 +16,12 @@ mixed_census(A1, B1, B2 = NULL, quad = FALSE)
 \item{quad}{Whether the matrix is a quadrilateral census or not.}
 }
 \value{
-This function return the counts of the dyadic census.
+This function return the counts of a multilevel census.
+
+If \code{quad = TRUE}, then the function return the multilevel quadrilateral census.
 }
 \description{
-Multilevel triadic and quadrilateral census
+Multilevel triad and quadrilateral census
 }
 \examples{
 
@@ -40,7 +42,7 @@ mixed_census(A1, B1, B2, quad=TRUE)
  
 }
 \references{
-Espinosa-Rada, Alejandro; Bellotti, Elisa; Everett, Martin & Stadtfeld, Christoph (forthcoming). "Co-evolution of Scientific Networks: Multilevel Analysis of a National Discipline"
+Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
 
 Hollway, J., Lomi, A., Pallotti, F., & Stadtfeld, C. (2017). Multilevel social spaces: The network dynamics of organizational fields. Network Science, 5(2), 187–212. https://doi.org/10.1017/nws.2017.8
 }
