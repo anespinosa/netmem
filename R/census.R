@@ -66,19 +66,23 @@ dyadic_census <- function(G, directed=TRUE){
   }
 }  
 
-#' Find cliques
+#' Find triads 201
+#' 
+#' The triad 201 = A<->B<->C is one of the possible triads according to the MAN census of Davis and Leinhardt (1972).
 #'
 #' @param A   A symmetric matrix object.
-#' @param adjacency_list   Whether to return the adjacency list of cliques per node.
-#' @param min   Numeric constant, lower limit on the size of the cliques to find. NULL means no limit, ie. it is the same as 0.
-#' @param max   Numeric constant, upper limit on the size of the cliques to find. NULL means no limit.
+#' @param adjacency_list   Whether to return the adjacency list of triads 201 per node.
+#' @param min   Numeric constant, lower limit on the size of the triads 201 to find. NULL means no limit, ie. it is the same as 0.
+#' @param max   Numeric constant, upper limit on the size of the triads 201 to find. NULL means no limit.
 #' 
-#' @return This function return the list of cliques that each node belong. 
+#' @return This function return the list of triads 201 that each node belong. 
 #' 
 #' If \code{adjacency_list = TRUE} it also  return the adjacency list of 
-#' cliques per node.
+#' triads 201 per node.
 #'
 #' @references
+#'
+#' Davis, J.A. and Leinhardt, S. (1972). The Structure of Positive Interpersonal Relations in Small Groups. In J. Berger (Ed.), Sociological Theories in Progress, Volume 2, 218-251. Boston: Houghton Mifflin.
 #'
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
@@ -93,14 +97,12 @@ dyadic_census <- function(G, directed=TRUE){
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- letters[1:ncol(A)]
 #' 
-#' cliques_table(A, adjacency_list = TRUE, min = 3)
+#' triad201_table(A, adjacency_list = TRUE, min = 3)
 #' 
 #' @export
 #' 
 
-cliques_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
-  
-  # TODO: Experimental version, please use with caution
+triad201_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
   
   A <- as.matrix(A)
   if(any(is.na(A) == TRUE)){
@@ -137,9 +139,9 @@ cliques_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
     names(temp)[[i]] <- rownames(A)[i]
   }
   size <- sapply(size, sum)
-  CliqueID <- as.numeric(factor(unlist(temp)))
+  Triad201 <- as.numeric(factor(unlist(temp)))
   node <- rep(rownames(A),times= size)
-  nodes <- cbind(node, CliqueID)
+  nodes <- cbind(node, Triad201)
   
   if(!is.null(min) & !is.null(max)){
     if(min == max)stop("Min and max should be different")
@@ -147,24 +149,26 @@ cliques_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
   
   if(!is.null(min)){
     nodes <- subset(nodes, 
-                    CliqueID %in% as.vector(which((table(nodes[,2]) >= min) == TRUE)))
+                    Triad201 %in% as.vector(which((table(nodes[,2]) >= min) == TRUE)))
+    if(all(!table(nodes[,2]) >= min))stop(paste("There is no triad 201 mayor or equal to", min))
   }
   if(!is.null(max)){
     t <- table(nodes[,2]) <= max
     t <- as.vector(which((t) == TRUE))
     if(!any(nodes[,2] %in% t)){
       nodes <- subset(nodes, 
-                      CliqueID %in% t)
+                      Triad201 %in% t)
     }
+    if(all(!table(nodes[,2]) <= max))stop(paste("There is no triad 201 minor or equal to", max))
   }
   
   a <- as.data.frame(cbind(order = rep(1:length(unique(nodes[,2]))), 
-                           CliqueID = unique(as.numeric(nodes[,2]))))
+                           Triad201 = unique(as.numeric(nodes[,2]))))
   b <- as.data.frame(nodes)
-  nodes <- merge(b, a, by='CliqueID')
+  nodes <- merge(b, a, by='Triad201')
   nodes <- nodes[order(nodes$order, nodes$node),]
   nodes <- nodes[,-1]
-  colnames(nodes) <- c('node', 'CliqueID')
+  colnames(nodes) <- c('node', 'Triad201')
   
   if(adjacency_list){
     if(!is.null(min)){
