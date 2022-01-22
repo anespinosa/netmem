@@ -109,12 +109,14 @@ coocurrence <- function(OC){
 #' also: \code{match} = number of nodes present in both matrices;
 #' \code{coparticipation1} = percentage 
 #' of actors in the first matrix also present in the 
-#' second matrix; \code{coparticipation2}` = percentage 
-#' of actors in the second matrix also present in the first matrix
+#' second matrix; \code{coparticipation2} = percentage 
+#' of actors in the second matrix also present in the first matrix;
+#' \code{overlap} = similarity based on overlap and membership nomination (Muelder et al.)
 #'
 #' @references
 #'
 #' Batagelj, V., and Bren, M. (1995). Comparing resemblance measures. Journal of Classification 12, 73–90.
+#' 
 #'
 #' @author Alejandro Espinosa-Rada
 
@@ -177,7 +179,8 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
                 table = t,
                 match = n1,
                 coparticipation1 = n1/n1t,
-                coparticipation2 = n2/n2t
+                coparticipation2 = n2/n2t,
+                overlap = (n1/n1t+n1/n2t)/2
     ))  
   }else{
     return(list(jaccard=n11/(n10+n01+n11),

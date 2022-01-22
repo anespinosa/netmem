@@ -27,8 +27,9 @@ If \code{coparticipation = TRUE}, then
 also: \code{match} = number of nodes present in both matrices;
 \code{coparticipation1} = percentage 
 of actors in the first matrix also present in the 
-second matrix; \code{coparticipation2}` = percentage 
-of actors in the second matrix also present in the first matrix
+second matrix; \code{coparticipation2} = percentage 
+of actors in the second matrix also present in the first matrix;
+\code{overlap} = similarity based on overlap and membership nomination (Muelder et al.)
 }
 \description{
 Jaccard similarity to identify the tie changes between two matrices.
