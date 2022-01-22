@@ -110,7 +110,6 @@ matrix_to_edgelist <- function(A, digraph=FALSE, valued=FALSE, loops=FALSE){
 #' 
 #' @export
 
-
 ego_net <- function(A, ego=NULL, bipartite=FALSE, addEgo=FALSE,
                     select = c('all', 'in', 'out')){
   
@@ -146,13 +145,19 @@ ego_net <- function(A, ego=NULL, bipartite=FALSE, addEgo=FALSE,
   }
   
   # In, out or all
-  if(select == 1){
+  if(select == 1){ # out
     name <- names(which(A[ego,]!=0))
+    if(length(name) == 0){
+      name <- NULL
+    }
   }
-  if(select == 2){
+  if(select == 2){ # in
     name <- names(which(A[,ego]!=0))
+    if(length(name) == 0){
+      name <- NULL
+    }
   }
-  if(select == 3){
+  if(select == 3){ # all
     nameOut <- names(which(A[ego,]!=0))
     nameIn <- names(which(A[,ego]!=0))  
     name <- unique(c(nameOut, nameIn))
@@ -164,12 +169,20 @@ ego_net <- function(A, ego=NULL, bipartite=FALSE, addEgo=FALSE,
     addEGO <- rbind(subA, A[ego,][c(name)])
     # c(A[,ego][A[,ego]!=0],0)
     addEGO <- cbind(addEGO, A[,ego][c(name,ego)])
-    
-    rownames(addEGO) <- c(rownames(addEGO)[rownames(addEGO) %in% name], ego)
-    colnames(addEGO) <- c(colnames(addEGO)[colnames(addEGO) %in% name], ego)
+    name <- c(name, ego)
+    rownames(addEGO) <- name
+    colnames(addEGO) <- name
     
     return(addEGO)
-  }else{return(A[name, name])}
+  }else{
+    
+    if(length(name) == 1){
+      return(matrix(c(name), ncol = 1, nrow = 1))
+    }
+    if(length(name) == 0){
+      print(paste('actor', ego, 'has no neighbour'))
+    }else(A[name, name])
+  }
   
 }
 
