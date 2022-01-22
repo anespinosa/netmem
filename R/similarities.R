@@ -107,11 +107,13 @@ coocurrence <- function(OC){
 #' 
 #' If \code{coparticipation = TRUE}, then 
 #' also: \code{match} = number of nodes present in both matrices;
+#'  \code{size_matrix1} = size of the first matrix;
+#'  \code{size_matrix2} = size of the second matrix;
 #' \code{coparticipation1} = percentage 
 #' of actors in the first matrix also present in the 
 #' second matrix; \code{coparticipation2} = percentage 
 #' of actors in the second matrix also present in the first matrix;
-#' \code{overlap} = similarity based on overlap and membership nomination (Muelder et al.)
+#' \code{overlap_actors} = overlap of nodes between two matrices
 #'
 #' @references
 #'
@@ -177,10 +179,13 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
     return(list(jaccard=n11/(n10+n01+n11),
                 proportion=n11/(n10+n11),
                 table = t,
-                match = n1,
-                coparticipation1 = n1/n1t,
-                coparticipation2 = n2/n2t,
-                overlap = (n1/n1t+n1/n2t)/2
+                coparticipation = cbind(
+                  match = n1,
+                  size_matrix1 = n1t,
+                  size_matrix2 = n2t,
+                  coparticipation1 = n1/n1t,
+                  coparticipation2 = n2/n2t,
+                  overlap_actors = ((n1/n1t+n1/n2t)/2))
     ))  
   }else{
     return(list(jaccard=n11/(n10+n01+n11),

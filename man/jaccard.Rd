@@ -25,11 +25,13 @@ tie changes between matrices.
 
 If \code{coparticipation = TRUE}, then 
 also: \code{match} = number of nodes present in both matrices;
+ \code{size_matrix1} = size of the first matrix;
+ \code{size_matrix2} = size of the second matrix;
 \code{coparticipation1} = percentage 
 of actors in the first matrix also present in the 
 second matrix; \code{coparticipation2} = percentage 
 of actors in the second matrix also present in the first matrix;
-\code{overlap} = similarity based on overlap and membership nomination (Muelder et al.)
+\code{overlap_actors} = overlap of nodes between two matrices
 }
 \description{
 Jaccard similarity to identify the tie changes between two matrices.
