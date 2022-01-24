@@ -66,10 +66,11 @@ Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/
 18. `multilevel_degree()`: Degree centrality for multilevel networks.
 19. `multiplex_census()`: Multiplex triad census
 20. `redundancy()`: Redundancy measures
-21. `structuralNA()`: Structural missing data
-22. `triad_uman()`: Triad census analysis assuming U|MAN
-23. `z_arctest()`: Z test of the number of arcs
-24. `zone_sample()`: Zone-2 sampling from second-mode
+21. `struc_balance()`: Structural balance
+22. `structuralNA()`: Structural missing data
+23. `triad_uman()`: Triad census analysis assuming U|MAN
+24. `z_arctest()`: Z test of the number of arcs
+25. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
@@ -149,6 +150,22 @@ matrices <- list(A1, B1, A2, B2)
 gen_density(matrices, multilayer = TRUE)
 ```
 
+How about the degree centrality of the entire structure?
+```{r multil, warning=FALSE}
+multilevel_degree(A1, B1, A2, B2, complete = TRUE)
+```
+
+Besides, we can perform a *k*-core analysis of one of the levels using the information of an incident matrix
+```{r multil2, warning=FALSE}
+k_core(A1, B1, multilevel=TRUE)
+```
+
+This package also allows performing complex census for multilevel networks.
+```{r multil3}
+mixed_census(A2, t(B1), B2, quad=TRUE)
+```
+
+
 -----
 
 ### Ego measures
@@ -173,13 +190,13 @@ ego_net(A1, ego = "e")
 
 ### One-mode network
 
-This package implements the generalized degree centrality. Suppose we consider a valued matrix `A3`. If `alpha=0` then it would only count the direct connections. But, adding the tuning parameter `alpha=0.5` would determine the relative importance of the number of ties compared to tie weights. 
+This package expand some measures for one-mode networks, such as the generalized degree centrality. Suppose we consider a valued matrix `A3`. If `alpha=0` then it would only count the direct connections. But, adding the tuning parameter `alpha=0.5` would determine the relative importance of the number of ties compared to tie weights. 
 
 ```{r onem}
 gen_degree(A3, digraph = FALSE, weighted=TRUE)
 ```
 
-Also, we could conduct some explorative analysis using the normalized degree of an incident matrix.
+Also, we could conduct some exploratory analysis using the normalized degree of an incident matrix.
 ```{r onem2}
 gen_degree(B1, bipartite = TRUE, normalized=TRUE)
 ```
@@ -201,25 +218,6 @@ We can also check the triad census assuming conditional uniform distribution con
 triad_uman(A1)
 ```
  
-
------
-
-### Multilevel network
-
-Now, we can calculate the degree centrality of the entire structure
-```{r multil, warning=FALSE}
-multilevel_degree(A1, B1, A2, B2, complete = TRUE)
-```
-
-Besides, we can perform a *k*-core analysis of one of the levels using the information of an incident matrix
-```{r multil2, warning=FALSE}
-k_core(A1, B1, multilevel=TRUE)
-```
-
-This package also allows performing complex census for multilevel networks.
-```{r multil3}
-mixed_census(A2, t(B1), B2, quad=TRUE)
-```
 
 -----
 

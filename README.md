@@ -76,10 +76,11 @@ Functions currently available in
 18. `multilevel_degree()`: Degree centrality for multilevel networks.
 19. `multiplex_census()`: Multiplex triad census
 20. `redundancy()`: Redundancy measures
-21. `structuralNA()`: Structural missing data
-22. `triad_uman()`: Triad census analysis assuming U\|MAN
-23. `z_arctest()`: Z test of the number of arcs
-24. `zone_sample()`: Zone-2 sampling from second-mode
+21. `struc_balance()`: Structural balance
+22. `structuralNA()`: Structural missing data
+23. `triad_uman()`: Triad census analysis assuming U\|MAN
+24. `z_arctest()`: Z test of the number of arcs
+25. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in
 [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
@@ -192,6 +193,59 @@ gen_density(matrices, multilayer = TRUE)
 #> [1] 0.4166667
 ```
 
+How about the degree centrality of the entire structure?
+
+``` r
+multilevel_degree(A1, B1, A2, B2, complete = TRUE)
+#>    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel
+#> n1          3           1          NA              1              3
+#> n2          5           2          NA              2              5
+#> n3          3           1          NA              1              3
+#> n4          4           1          NA              1              4
+#> n5          6           2          NA              2              6
+#> m1          6           2           2              4              4
+#> m2          6           4           1              5              5
+#> m3          4           1           2              3              3
+#> k1          4          NA           1              1              1
+#> k2          2          NA           1              1              1
+#> k3          3          NA           2              2              2
+#> k4          1          NA           1              1              1
+#>    meso_multilevel high_multilevel
+#> n1               1               1
+#> n2               2               2
+#> n3               1               1
+#> n4               1               1
+#> n5               2               2
+#> m1               6               4
+#> m2               6               5
+#> m3               4               3
+#> k1               1               1
+#> k2               1               1
+#> k3               2               2
+#> k4               1               1
+```
+
+Besides, we can perform a *k*-core analysis of one of the levels using
+the information of an incident matrix
+
+``` r
+k_core(A1, B1, multilevel=TRUE)
+#> [1] 1 3 1 2 3
+```
+
+This package also allows performing complex census for multilevel
+networks.
+
+``` r
+mixed_census(A2, t(B1), B2, quad=TRUE)
+#>   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 
+#>     2     6     1     0     0     2     0     0     4     0     1     1     0 
+#>  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W 
+#>     0     0     8     0     3     0     1     3     1     0     0     0     0 
+#>  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 
+#>    11    13     0     0     0     0     3     0     0     0
+```
+
 ------------------------------------------------------------------------
 
 ### Ego measures
@@ -241,18 +295,18 @@ ego_net(A1, ego = "e")
 
 ### One-mode network
 
-This package implements the generalized degree centrality. Suppose we
-consider a valued matrix `A3`. If `alpha=0` then it would only count the
-direct connections. But, adding the tuning parameter `alpha=0.5` would
-determine the relative importance of the number of ties compared to tie
-weights.
+This package expand some measures for one-mode networks, such as the
+generalized degree centrality. Suppose we consider a valued matrix `A3`.
+If `alpha=0` then it would only count the direct connections. But,
+adding the tuning parameter `alpha=0.5` would determine the relative
+importance of the number of ties compared to tie weights.
 
 ``` r
 gen_degree(A3, digraph = FALSE, weighted=TRUE)
 #> [1] 3.872983 1.000000 4.000000 3.464102
 ```
 
-Also, we could conduct some explorative analysis using the normalized
+Also, we could conduct some exploratory analysis using the normalized
 degree of an incident matrix.
 
 ``` r
@@ -304,63 +358,6 @@ triad_uman(A1)
 #> 14  120C   0 0.000 0.000 0.000
 #> 15   210   0 0.000 0.000 0.000
 #> 16   300   3 2.917 0.410 0.640
-```
-
-------------------------------------------------------------------------
-
-### Multilevel network
-
-Now, we can calculate the degree centrality of the entire structure
-
-``` r
-multilevel_degree(A1, B1, A2, B2, complete = TRUE)
-#>    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel
-#> n1          3           1          NA              1              3
-#> n2          5           2          NA              2              5
-#> n3          3           1          NA              1              3
-#> n4          4           1          NA              1              4
-#> n5          6           2          NA              2              6
-#> m1          6           2           2              4              4
-#> m2          6           4           1              5              5
-#> m3          4           1           2              3              3
-#> k1          4          NA           1              1              1
-#> k2          2          NA           1              1              1
-#> k3          3          NA           2              2              2
-#> k4          1          NA           1              1              1
-#>    meso_multilevel high_multilevel
-#> n1               1               1
-#> n2               2               2
-#> n3               1               1
-#> n4               1               1
-#> n5               2               2
-#> m1               6               4
-#> m2               6               5
-#> m3               4               3
-#> k1               1               1
-#> k2               1               1
-#> k3               2               2
-#> k4               1               1
-```
-
-Besides, we can perform a *k*-core analysis of one of the levels using
-the information of an incident matrix
-
-``` r
-k_core(A1, B1, multilevel=TRUE)
-#> [1] 1 3 1 2 3
-```
-
-This package also allows performing complex census for multilevel
-networks.
-
-``` r
-mixed_census(A2, t(B1), B2, quad=TRUE)
-#>   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 
-#>     2     6     1     0     0     2     0     0     4     0     1     1     0 
-#>  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W 
-#>     0     0     8     0     3     0     1     3     1     0     0     0     0 
-#>  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 
-#>    11    13     0     0     0     0     3     0     0     0
 ```
 
 ------------------------------------------------------------------------
