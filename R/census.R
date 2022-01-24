@@ -191,6 +191,129 @@ dyad_triad_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL){
   
 }
 
+#' Clique table
+#' 
+#' Exploration of a 3-cliques, as the maximum number of three or more actors who 
+#' have all possible ties present among themselves
+#' 
+#' @param A   A symmetric matrix object.
+#' @param list_cliques   Whether to return the list of cliques.
+#' @param number   Number of triangles
+#' 
+#' @return This function return an edge list of actors participating in 3-cliques.
+#' 
+#' If \code{list_cliques = TRUE} it also  return the list of cliques per nodes.
+#' If \code{number = TRUE} the output returns the number of 3-cliques in the matrix.
+#'
+#' @references
+#'
+#' Luce, R.D. and Perry, A.D. (1949). A method of matrix analysis of group structure. Psychometrika, 14: 95-116.
+#' 
+#' Roethlisberger, F.J. and Dickson, W.J. (1939). Management and the Worker. Harvard University Press, Cambridge, MA.
+#'    
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' A <- matrix(c(0,1,1,0,0,0,0,1,0,
+#'               1,0,1,0,0,0,0,0,0,
+#'               1,1,0,0,0,0,0,0,0,
+#'               0,0,0,0,1,1,0,0,0,
+#'               0,0,0,1,0,0,0,0,0,
+#'               0,0,0,1,0,0,1,1,0,
+#'               0,0,0,0,0,1,0,1,0,
+#'               1,0,0,0,0,1,1,0,0,
+#'               0,0,0,0,0,0,0,0,0), byrow = TRUE, ncol = 9)
+#'rownames(A) <- letters[1:nrow(A)]
+#'colnames(A) <- rownames(A)
+#'clique_table(A, list_cliques = TRUE, number = TRUE)
+#' 
+#' @export
+#' 
+clique_table <- function(A, list_cliques = FALSE, number = FALSE){
+  
+  A <- as.matrix(A)
+  if(any(is.na(A) == TRUE)){
+    A <- ifelse(is.na(A), 0, A)
+  }
+  if(is.null(rownames(A)))stop("No label assigned to the rows of the matrix")
+  if(is.null(colnames(A)))stop("No label assigned to the columns of the matrix")
+  if(all(rownames(A) != colnames(A)))stop("The names of rows and columns does not match")
+  if(nrow(A)!=ncol(A))stop("Matrix should be square")
+  if(any(abs(A>1), na.rm = TRUE))warning("The matrix should be binary")
+  if(!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE))warning("The network is directed. The underlying graph is used")
+  A[lower.tri(A)] = t(A)[lower.tri(A)]
+  diag(A) <- 0
+  
+  adj_list <- list()
+  cliques <- list()
+  neighbours <- list()
+  
+  for(i in 1:ncol(A)){
+    adj_list[[i]] <- names(A[i,][A[i,]>=1])
+    if(length(adj_list[[i]])>1){
+      adj_list[[i]] <- t(combn(adj_list[[i]], 2))
+      adj_list[[i]] <- cbind(colnames(A)[i], adj_list[[i]])
+      adj_list[[i]] <- t(apply(adj_list[[i]], 1, sort))
+      
+      neighbours[[i]] <- adj_list[[i]]
+      names(neighbours)[i] <- rownames(A)[i]
+      
+      cliques[[i]] <- apply(adj_list[[i]],1,paste,collapse="")   
+    }
+  }
+  t <- table(unlist(cliques))[which(table(unlist(cliques))>=3)]
+  
+  if(all(table(unlist(cliques))<2))stop(print('No cliques'))
+  
+  clique_table <- list()
+  for(i in 1:ncol(A)){
+    if(length(adj_list[[i]])>1){
+      clique_table[[i]] <- which(cliques[[i]] %in% names(t))
+      clique_table[[i]] <- (cliques[[i]])[clique_table[[i]]]
+      names(clique_table)[i] <- rownames(A)[i]
+    }
+  }
+  new_list <- list()
+  size <- list()
+  for(i in 1:length(clique_table)){
+    if(length(clique_table[[i]])>0){
+      new_list[[i]] <- clique_table[[i]]
+      names(new_list)[i] <- names(clique_table[i])
+      size[[i]] <- lengths(new_list[[i]])
+    }
+  }
+  
+  size <- sapply(size, sum)
+  triad300 <- as.numeric(factor(unlist(new_list)))
+  node <- rep(names(new_list),times= size)
+  nodes <- cbind(node, triad300)
+  neighbours <- neighbours[names(neighbours) %in% nodes[,1]]
+  if(any(sapply(new_list, is.null))){
+    new_list <- new_list[-which(sapply(new_list, is.null))] 
+  }
+  for(i in 1:length(names(neighbours))){
+    neighbours[[i]] <- neighbours[[i]][which(apply(neighbours[[i]],
+                                                   1,paste,collapse=""
+    ) %in% new_list[[i]]),]
+  }
+  
+  if(list_cliques & number){
+    return(list(table = nodes,
+                n_triangles = sum(diag(A %*% A %*% A)) / 6, 
+                neighbours = neighbours))
+  }else{
+    if(list_cliques){
+      return(list(table = nodes, neighbours = neighbours))
+    }
+    if(number){
+      return(list(table = nodes, n_triangles = sum(diag(A %*% A %*% A)) / 6))
+    }else{
+      return(list(table = nodes))
+    }
+  }
+}
+
 #' Multiplex triad census
 #'
 #' This function counts the different subgraphs of three nodes in a multiplex directed and undirected network.

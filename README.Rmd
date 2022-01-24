@@ -47,28 +47,29 @@ citation(package="netmem")
 Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
 1. `citation_norm()`: Citation networks
-2. `coocurrence()`: Co‐occurrence
-3. `dyad_triad_table()`: Forbidden Triad Table
-4. `dyadic_census()`: Dyadic census
-5. `eb_constraint()`: Constraint
-6. `ego_net()`: Ego network
-7. `ei_index()`: Krackhardt and Stern's E-I index
-8. `gen_degree()`: Generalized degree
-9. `gen_density()`: Generalized density
-10. `heterogeneity()`: Blau's and IQV Index
-11. `jaccard()`: Jaccard similarity
-12. `k_core()`: Generalized K-core
-13. `kp_reciprocity()`: Reciprocity of Katz and Powell
-14. `matrix_to_edgelist()`: Transform symmetric matrix to an edge-list
-15. `mixMatrix()`: Mixing matrix
-16. `mixed_census()`: Multilevel triad and quadrilateral census
-17. `multilevel_degree()`: Degree centrality for multilevel networks.
-18. `multiplex_census()`: Multiplex triad census
-19. `redundancy()`: Redundancy measures
-20. `structuralNA()`: Structural missing data
-21. `triad_uman()`: Triad census analysis assuming U|MAN
-22. `z_arctest()`: Z test of the number of arcs
-23. `zone_sample()`: Zone-2 sampling from second-mode
+2. `clique_table()`: Clique table
+3. `coocurrence()`: Co‐occurrence
+4. `dyad_triad_table()`: Forbidden Triad Table
+5. `dyadic_census()`: Dyadic census
+6. `eb_constraint()`: Constraint
+7. `ego_net()`: Ego network
+8. `ei_index()`: Krackhardt and Stern's E-I index
+9. `gen_degree()`: Generalized degree
+10. `gen_density()`: Generalized density
+11. `heterogeneity()`: Blau's and IQV Index
+12. `jaccard()`: Jaccard similarity
+13. `k_core()`: Generalized K-core
+14. `kp_reciprocity()`: Reciprocity of Katz and Powell
+15. `matrix_to_edgelist()`: Transform symmetric matrix to an edge-list
+16. `mixMatrix()`: Mixing matrix
+17. `mixed_census()`: Multilevel triad and quadrilateral census
+18. `multilevel_degree()`: Degree centrality for multilevel networks.
+19. `multiplex_census()`: Multiplex triad census
+20. `redundancy()`: Redundancy measures
+21. `structuralNA()`: Structural missing data
+22. `triad_uman()`: Triad census analysis assuming U|MAN
+23. `z_arctest()`: Z test of the number of arcs
+24. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
