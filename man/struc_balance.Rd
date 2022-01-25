@@ -4,31 +4,38 @@
 \alias{struc_balance}
 \title{Structural balance}
 \usage{
-struc_balance(A)
+struc_balance(A, B = NULL, score = c("triangle", "walk"))
 }
 \arguments{
-\item{A}{A signed matrix (i.e., with ties that are either -1, 0 or 1)}
+\item{A}{A signed symmetric matrix (i.e., with ties that are either -1, 0 or 1)}
+
+\item{B}{A signed symmetric matrix considered as the negative ties (i.e., with ties that are either -1, 0 or 1)}
+
+\item{score}{Whether to return the \code{triangle} (default) or \code{walk} balance score (Aref and Wilson, 2017)}
 }
 \value{
-This function return the structural balance (Heider, 1940; Cartwright and Harary, 1956)
+This function return the structural balance (Heider, 1940; Cartwright and Harary, 1956). 
+When \code{B} is used, matrix A is considered the negative matrix and \code{A} the positive matrix.
 }
 \description{
 Structural balance
 }
 \examples{
-B <- matrix(c(0,-1,-1,0,
+A <- matrix(c(0,-1,-1,0,
               -1,0,1,0,
               -1,1,0,0,
               0,0,0,0), byrow = TRUE, ncol = 4)
-rownames(B) <- letters[1:nrow(B)]
-colnames(B) <- rownames(B)
-struc_balance(B)
+rownames(A) <- letters[1:nrow(A)]
+colnames(A) <- rownames(A)
+struc_balance(A)
 
 }
 \references{
+Aref, Samin and Wilson, Mark C. (2017). Measuring partial balance in signed networks. Journal of Complex Networks, 6(4): 566-595.
+
 Cartwright, Dorwin, and Harary, Frank (1956). Structural balance: a generalization of Heider's theory. Psychological review, 63(5), 277.
 
-Heider, Fritz (1946). "Attitudes and Cognitive Organization". The Journal of Psychology. 21: 107–112
+Heider, Fritz (1946). Attitudes and Cognitive Organization. The Journal of Psychology, 21: 107–112
 }
 \author{
 Alejandro Espinosa-Rada
