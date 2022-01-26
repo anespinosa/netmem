@@ -933,7 +933,7 @@ triad_uman <- function(A, ztest = FALSE, covar = FALSE) {
   results$STD <- round(as.numeric(as.character(results$STD)), 3)
 
   mempty <- matrix(0, nrow = 16, ncol = 16)
-  mindex <- matrix(1:240, nrow = 16, ncol = 16, byrow = T)
+  mindex <- matrix(1:256, nrow = 16, ncol = 16, byrow = T)
   mempty[mindex[upper.tri(mindex)]] <- COVAR
   diag(mempty) <- VAR # VARIANCE IN THE DIAGONAL
   rownames(mempty) <- label
