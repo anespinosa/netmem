@@ -18,11 +18,10 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Travis build status](https://travis-ci.com/anespinosa/netmem.svg?branch=master)](https://travis-ci.com/anespinosa/netmem)
+[![R-CMD-check](https://github.com/anespinosa/netmem/workflows/R-CMD-check/badge.svg)](https://github.com/anespinosa/netmem/actions)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?branch=master&svg=true)](https://ci.appveyor.com/project/anespinosa/netmem)
 [![Codecov test coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://codecov.io/gh/anespinosa/netmem?branch=master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total) -->
 <!-- badges: end -->
 
 The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make available different measures to analyse and manipulate complex networks using matrices.
