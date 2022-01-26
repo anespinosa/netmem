@@ -99,20 +99,23 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
-<span class="r-in">               <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
-<span class="r-in">               <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
-<span class="r-in">               <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,</span>
-<span class="r-in">               <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">B1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
-<span class="r-in">               <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
-<span class="r-in">               <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
-<span class="r-in">               <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
-<span class="r-in">               <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span></span>
+<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">B1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span></span>
+<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu">k_core</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">k_core</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 1 2 2</span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>

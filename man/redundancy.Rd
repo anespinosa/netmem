@@ -23,17 +23,18 @@ Redundancy measures of the structural holes theory for binary matrixes
 }
 \examples{
 
-A <- matrix(c(0,1,0,0,1,1,1,
-              1,0,0,1,0,0,1,
-              0,0,0,0,0,0,1,
-              0,1,0,0,0,0,1,
-              1,0,0,0,0,0,1,
-              1,0,0,0,0,0,1,
-              1,1,1,1,1,1,0), ncol = 7, byrow = TRUE)
+A <- matrix(c(
+  0, 1, 0, 0, 1, 1, 1,
+  1, 0, 0, 1, 0, 0, 1,
+  0, 0, 0, 0, 0, 0, 1,
+  0, 1, 0, 0, 0, 0, 1,
+  1, 0, 0, 0, 0, 0, 1,
+  1, 0, 0, 0, 0, 0, 1,
+  1, 1, 1, 1, 1, 1, 0
+), ncol = 7, byrow = TRUE)
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 redundancy(A, ego = "g")
-
 }
 \references{
 Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.

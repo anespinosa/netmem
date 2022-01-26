@@ -12,123 +12,135 @@
 #' @author Alejandro Espinosa-Rada
 #'
 #' @examples
-#' A <- matrix(c(0,2,1,
-#'               1,0,0,
-#'               1,0,1), byrow=TRUE, ncol=3)
-#' matrix_to_edgelist(A, digraph=TRUE, valued = TRUE, loops=TRUE)
-#'
+#' A <- matrix(c(
+#'   0, 2, 1,
+#'   1, 0, 0,
+#'   1, 0, 1
+#' ), byrow = TRUE, ncol = 3)
+#' matrix_to_edgelist(A, digraph = TRUE, valued = TRUE, loops = TRUE)
 #' @export
 
-matrix_to_edgelist <- function(A, digraph=FALSE, valued=FALSE, loops=FALSE){
+matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE) {
   M <- A
-  
+
   # if(digraph){
   #   if(sum(M[lower.tri(M)] - M[upper.tri(M)])==0)warning("The network is undirected")
   # }else{
   #   if(abs(sum(M[lower.tri(M)] - M[upper.tri(M)]))>0)warning("The networks might be directed")
   #   M[lower.tri(M)]<-0}
-  
-  if(is.null(colnames(M))) colnames(M) <- 1:ncol(M)
-  if(is.null(rownames(M))) rownames(M) <- 1:nrow(M)
-  
+
+  if (is.null(colnames(M))) colnames(M) <- 1:ncol(M)
+  if (is.null(rownames(M))) rownames(M) <- 1:nrow(M)
+
   edge <- NULL
-  for(i in 1:nrow(M)){
-    for(j in 1:ncol(M)){
-      if(M[i,j]!=0){
-        edge <- c(edge,
-                  rep(c(dimnames(M)[[1]][i],
-                        dimnames(M)[[2]][j])))
+  for (i in 1:nrow(M)) {
+    for (j in 1:ncol(M)) {
+      if (M[i, j] != 0) {
+        edge <- c(
+          edge,
+          rep(c(
+            dimnames(M)[[1]][i],
+            dimnames(M)[[2]][j]
+          ))
+        )
       }
     }
   }
-  edge <- matrix(edge, byrow=TRUE, ncol=2)
-  
-  if(valued){
+  edge <- matrix(edge, byrow = TRUE, ncol = 2)
+
+  if (valued) {
     edge <- NULL
-    for(i in 1:nrow(M)){
-      for(j in 1:ncol(M)){
-        if(M[i,j]!=0){
-          edge <- c(edge,
-                    rep(c(dimnames(M)[[1]][i],
-                          dimnames(M)[[2]][j]),
-                        M[i,j])
+    for (i in 1:nrow(M)) {
+      for (j in 1:ncol(M)) {
+        if (M[i, j] != 0) {
+          edge <- c(
+            edge,
+            rep(
+              c(
+                dimnames(M)[[1]][i],
+                dimnames(M)[[2]][j]
+              ),
+              M[i, j]
+            )
           )
-          
         }
       }
-      
     }
-    edge <- matrix(edge, byrow=TRUE, ncol=2)
+    edge <- matrix(edge, byrow = TRUE, ncol = 2)
     df <- as.data.frame(edge)
-    edge <- as.matrix(stats::aggregate(list(valued=rep(1,nrow(df))), df, length))
+    edge <- as.matrix(stats::aggregate(list(valued = rep(1, nrow(df))), df, length))
     colnames(edge) <- NULL
   }
   # else{
   #   if(any(A>1))warning("The networks is valued")
   # }
-  
-  if(loops==FALSE){
-    #if(any(diag(M>0)))warning("There are loops in the network")
-    edge <- edge[edge[,1]!=edge[,2],]
+
+  if (loops == FALSE) {
+    # if(any(diag(M>0)))warning("There are loops in the network")
+    edge <- edge[edge[, 1] != edge[, 2], ]
   }
-  
+
   return(edge)
 }
 
 #' Ego network
-#' 
+#'
 #' Submatrix of ego's neighbourhoods
 #'
 #' @param A   A symmetric matrix object
 #' @param ego   Name of ego in the matrix
 #' @param bipartite  Whether the matrix is a two-mode network
 #' @param addEgo  Whether to retain ego in the submatrix or not
-#' @param select   Whether to consider all sender and receiver ties of ego (\code{all}), only incoming ties (\code{in}), or outgoing ties (\code{out}). By default, \code{all}. 
-#' 
+#' @param select   Whether to consider all sender and receiver ties of ego (\code{all}), only incoming ties (\code{in}), or outgoing ties (\code{out}). By default, \code{all}.
+#'
 #' @return This function returns redundancy, effective size and efficincy measures (Burt, 1992).
 #'
 #' @references
 #'
 #' Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.
-#' 
-#' Borgatti, S., 1997. Unpacking Burt's redundancy measure. Connections, 20(1): 35-38. doi: \url{http://www.analytictech.com/connections/v20(1)/holes.htm}     
+#'
+#' Borgatti, S., 1997. Unpacking Burt's redundancy measure. Connections, 20(1): 35-38. doi: \url{http://www.analytictech.com/connections/v20(1)/holes.htm}
 #'
 #' @author Alejandro Espinosa-Rada
 #'
 #' @examples
-#' 
-#' A <- matrix(c(0,1,0,0,1,1,1,
-#'               1,0,0,1,0,0,1,
-#'               0,0,0,0,0,0,1,
-#'               0,1,0,0,0,0,1,
-#'               1,0,0,0,0,0,1,
-#'               1,0,0,0,0,0,1,
-#'               1,1,1,1,1,1,0), ncol = 7, byrow = TRUE)
+#'
+#' A <- matrix(c(
+#'   0, 1, 0, 0, 1, 1, 1,
+#'   1, 0, 0, 1, 0, 0, 1,
+#'   0, 0, 0, 0, 0, 0, 1,
+#'   0, 1, 0, 0, 0, 0, 1,
+#'   1, 0, 0, 0, 0, 0, 1,
+#'   1, 0, 0, 0, 0, 0, 1,
+#'   1, 1, 1, 1, 1, 1, 0
+#' ), ncol = 7, byrow = TRUE)
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- letters[1:ncol(A)]
 #' ego_net(A, ego = "g")
-#' 
 #' @export
 
-ego_net <- function(A, ego=NULL, bipartite=FALSE, addEgo=FALSE,
-                    select = c('all', 'in', 'out')){
-  
-  if(class(ego)=="numeric")stop("Label of the name of ego should be in character format")
-  if(is.null(rownames(A)))stop("No label assigned to the rows of the matrix")
-  if(is.null(colnames(A)))stop("No label assigned to the columns of the matrix")
-  if(!(ego %in% sort(unique(c(rownames(A), colnames(A))))))stop("Ego name does not match with the names of the enlisted nodes")
-  
+ego_net <- function(A, ego = NULL, bipartite = FALSE, addEgo = FALSE,
+                    select = c("all", "in", "out")) {
+  if (class(ego) == "numeric") stop("Label of the name of ego should be in character format")
+  if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
+  if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
+  if (!(ego %in% sort(unique(c(rownames(A), colnames(A)))))) stop("Ego name does not match with the names of the enlisted nodes")
+
   A <- as.matrix(A)
   ego <- as.character(ego)
   # select <- switch(node_direction(select), "out"=1, "in"=2, "all"=3)
-  select <- switch(node_direction(select), "out"=1, "in"=2, "all"=3)
-  
-  if(bipartite==TRUE){
-    if(ncol(A)==nrow(A))warning("Matrix should be rectangular")
-    E <- matrix(0, nrow=nrow(A), ncol=nrow(A), byrow=TRUE)
+  select <- switch(node_direction(select),
+    "out" = 1,
+    "in" = 2,
+    "all" = 3
+  )
+
+  if (bipartite == TRUE) {
+    if (ncol(A) == nrow(A)) warning("Matrix should be rectangular")
+    E <- matrix(0, nrow = nrow(A), ncol = nrow(A), byrow = TRUE)
     rownames(E) <- rownames(A)
     colnames(E) <- rownames(A)
-    S <- matrix(0, nrow=ncol(A), ncol=ncol(A), byrow=TRUE)
+    S <- matrix(0, nrow = ncol(A), ncol = ncol(A), byrow = TRUE)
     rownames(S) <- colnames(A)
     colnames(S) <- colnames(A)
     SE <- t(A)
@@ -136,120 +148,120 @@ ego_net <- function(A, ego=NULL, bipartite=FALSE, addEgo=FALSE,
     DOWN <- cbind(S, SE)
     A <- rbind(UP, DOWN)
   }
-  
-  if(is.null(rownames(A))){
+
+  if (is.null(rownames(A))) {
     rownames(A) <- as.character(1:nrow(A))
   }
-  if(is.null(rownames(A))){
+  if (is.null(rownames(A))) {
     colnames(A) <- as.character(1:nrow(A))
   }
-  
+
   # In, out or all
-  if(select == 1){ # out
-    name <- names(which(A[ego,]!=0))
-    if(length(name) == 0){
+  if (select == 1) { # out
+    name <- names(which(A[ego, ] != 0))
+    if (length(name) == 0) {
       name <- NULL
     }
   }
-  if(select == 2){ # in
-    name <- names(which(A[,ego]!=0))
-    if(length(name) == 0){
+  if (select == 2) { # in
+    name <- names(which(A[, ego] != 0))
+    if (length(name) == 0) {
       name <- NULL
     }
   }
-  if(select == 3){ # all
-    nameOut <- names(which(A[ego,]!=0))
-    nameIn <- names(which(A[,ego]!=0))  
+  if (select == 3) { # all
+    nameOut <- names(which(A[ego, ] != 0))
+    nameIn <- names(which(A[, ego] != 0))
     name <- unique(c(nameOut, nameIn))
   }
-  
-  if(addEgo){
+
+  if (addEgo) {
     subA <- A[name, name]
     # A[ego,][A[ego,]!=0]
-    addEGO <- rbind(subA, A[ego,][c(name)])
+    addEGO <- rbind(subA, A[ego, ][c(name)])
     # c(A[,ego][A[,ego]!=0],0)
-    addEGO <- cbind(addEGO, A[,ego][c(name,ego)])
+    addEGO <- cbind(addEGO, A[, ego][c(name, ego)])
     name <- c(name, ego)
     rownames(addEGO) <- name
     colnames(addEGO) <- name
-    
+
     return(addEGO)
-  }else{
-    
-    if(length(name) == 1){
+  } else {
+    if (length(name) == 1) {
       return(matrix(c(name), ncol = 1, nrow = 1))
     }
-    if(length(name) == 0){
-      print(paste('actor', ego, 'has no neighbour'))
-    }else(A[name, name])
+    if (length(name) == 0) {
+      print(paste("actor", ego, "has no neighbour"))
+    } else {
+      (A[name, name])
+    }
   }
-  
 }
 
-node_direction <- function(arg, choices, several.ok=FALSE) {
+node_direction <- function(arg, choices, several.ok = FALSE) {
   if (missing(choices)) {
     formal.args <- formals(sys.function(sys.parent()))
     choices <- eval(formal.args[[deparse(substitute(arg))]])
   }
-  
+
   arg <- tolower(arg)
   choices <- tolower(choices)
-  
-  match.arg(arg=arg, choices=choices, several.ok=several.ok)
+
+  match.arg(arg = arg, choices = choices, several.ok = several.ok)
 }
 
 
 #' Structural missing data
-#' 
+#'
 #' Assign NA to missing data in the matrices
 #'
 #' @param A   A symmetric or incident matrix object
 #' @param label   String vector with the names of the theoretical complete matrix
 #' @param bipartite   Whether the matrix is bipartite or not.
 #' @param column   Whether the assignation of NA is for columns in the biparite network, row by default.
-#' 
+#'
 #' @return This function returns NA to missing data.
 #'
 #' @author Alejandro Espinosa-Rada
 
 #' @examples
-#' 
-#' A <- matrix(c(0,1,1,
-#'               1,0,1,
-#'               0,0,0), byrow=TRUE, ncol=3)
+#'
+#' A <- matrix(c(
+#'   0, 1, 1,
+#'   1, 0, 1,
+#'   0, 0, 0
+#' ), byrow = TRUE, ncol = 3)
 #' colnames(A) <- c("A", "C", "D")
 #' rownames(A) <- c("A", "C", "D")
 #' label <- c("A", "B", "C", "D", "E")
 #' structuralNA(A, label)
-#' 
 #' @export
 
-structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
-  if(bipartite){
-    if(dim(A)[1]==dim(A)[2])warning("Incident matrix should be rectangular")
-    if(column){
-      for(i in 1:dim(A)[2]){ 
-        A[,i] = ifelse((A[,i] | sum(A[,i])) == 0, 
-                       NA, A[,i])
+structuralNA <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
+  if (bipartite) {
+    if (dim(A)[1] == dim(A)[2]) warning("Incident matrix should be rectangular")
+    if (column) {
+      for (i in 1:dim(A)[2]) {
+        A[, i] <- ifelse((A[, i] | sum(A[, i])) == 0,
+          NA, A[, i]
+        )
       }
       x <- A
-      
-    }
-    else{
-      for(i in 1:dim(A)[1]){ 
-        A[i,] = ifelse((A[i,] | sum(A[i,])) == 0, 
-                       NA, A[i,])
+    } else {
+      for (i in 1:dim(A)[1]) {
+        A[i, ] <- ifelse((A[i, ] | sum(A[i, ])) == 0,
+          NA, A[i, ]
+        )
       }
       x <- A
     }
     return(x)
-  }
-  else{
-    if(!dim(A)[1]==dim(A)[2])stop("Matrix should be square")
-    if(is.null(colnames(A)))stop("Assign column names to the matrix.")
-    if(is.null(rownames(A)))stop("Assign column names to the matrix.")
-    if(!is.character(label))stop("Assign a string vector with the names of the complete matrix.")
-    x <- array(NA, dim=list(length(label),length(label)))
+  } else {
+    if (!dim(A)[1] == dim(A)[2]) stop("Matrix should be square")
+    if (is.null(colnames(A))) stop("Assign column names to the matrix.")
+    if (is.null(rownames(A))) stop("Assign column names to the matrix.")
+    if (!is.character(label)) stop("Assign a string vector with the names of the complete matrix.")
+    x <- array(NA, dim = list(length(label), length(label)))
     colnames(x) <- label
     rownames(x) <- label
     rowmatch <- match(rownames(A), rownames(x))
@@ -260,14 +272,14 @@ structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
 }
 
 #' Zone-2 sampling from second-mode
-#' 
+#'
 #' Second-zone multilevel sampling considering a second-mode focal actor
 #'
 #' @param A   A symmetric matrix object.
 #' @param X   X an incident matrix object.
 #' @param ego   Whether to add or not ego into the subgraph.
 #' @param core  Whether to add actors at distance one from ego
-#' 
+#'
 #' @return This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.
 #'
 #' @references
@@ -275,49 +287,52 @@ structuralNA <- function(A, label=NULL, bipartite=FALSE, column=FALSE){
 #' Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
 #'
 #' @import igraph
-#' 
+#'
 #' @author Alejandro Espinosa-Rada
 #'
 #' @examples
-#' 
-#' A <- matrix(c(0,1,0,0,0,0,0,0,
-#'               0,0,1,0,0,0,0,0,
-#'               0,1,0,1,0,0,0,0,
-#'               0,0,0,0,0,0,0,0,
-#'               0,0,0,0,0,0,0,0,
-#'               0,0,0,1,0,0,0,0,
-#'               0,0,0,0,0,0,0,0,
-#'               0,0,0,0,0,0,0,0), byrow=TRUE, ncol=8)
+#'
+#' A <- matrix(c(
+#'   0, 1, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 1, 0, 0, 0, 0, 0,
+#'   0, 1, 0, 1, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0
+#' ), byrow = TRUE, ncol = 8)
 #' colnames(A) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 #' rownames(A) <- c("1", "2", "3", "4", "5", "6", "7", "8")
-#' 
-#' X <- matrix(c(1,0,0,0,
-#'               1,0,0,0,
-#'               1,0,1,0,
-#'               0,1,1,0,
-#'               0,1,1,1,
-#'               0,1,0,0,
-#'               0,0,0,0,
-#'               0,0,0,1), byrow=TRUE, ncol=4)
+#'
+#' X <- matrix(c(
+#'   1, 0, 0, 0,
+#'   1, 0, 0, 0,
+#'   1, 0, 1, 0,
+#'   0, 1, 1, 0,
+#'   0, 1, 1, 1,
+#'   0, 1, 0, 0,
+#'   0, 0, 0, 0,
+#'   0, 0, 0, 1
+#' ), byrow = TRUE, ncol = 4)
 #' colnames(X) <- c("a", "b", "c", "d")
 #' rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
-#' 
-#' zone_sample(A, X, core=TRUE)
-#' 
+#'
+#' zone_sample(A, X, core = TRUE)
 #' @export
 
-zone_sample <- function(A, X, ego=TRUE, core=FALSE){
+zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
   A <- as.matrix(A)
   X <- as.matrix(X)
-  if(is.null(rownames(A)))stop("Assign `rownames` to the adjacent matrix")
-  if(is.null(colnames(A)))stop("Assign `colnames` to the adjacent matrix")
-  if(is.null(rownames(X)))stop("Assign `rownames` to the incident matrix")
-  if(is.null(colnames(X)))stop("Assign `colnames` to the incident matrix")
-  if(dim(A)[1]!=dim(X)[1]){
+  if (is.null(rownames(A))) stop("Assign `rownames` to the adjacent matrix")
+  if (is.null(colnames(A))) stop("Assign `colnames` to the adjacent matrix")
+  if (is.null(rownames(X))) stop("Assign `rownames` to the incident matrix")
+  if (is.null(colnames(X))) stop("Assign `colnames` to the incident matrix")
+  if (dim(A)[1] != dim(X)[1]) {
     X <- t(X)
   }
-  if(!all(colnames(A)==rownames(X)))warning("The names for the combination of the matrices should be the same")
-  zero <- matrix(0, ncol=ncol(X), nrow=ncol(X))
+  if (!all(colnames(A) == rownames(X))) warning("The names for the combination of the matrices should be the same")
+  zero <- matrix(0, ncol = ncol(X), nrow = ncol(X))
   M1 <- cbind(A, X)
   M2 <- cbind(t(X), zero)
   gM <- rbind(M1, M2)
@@ -327,32 +342,32 @@ zone_sample <- function(A, X, ego=TRUE, core=FALSE){
   subgraphs <- list()
   zone1 <- list()
   external <- list()
-  for(i in label){
-    zone1[[i]] <- which(A1[,i]!=0)
-    zone2 <- A1%*%A1
-    zone2 <- zone2 + A1%*%t(A1)
-    nei <- which(zone2[i,]!=0)
+  for (i in label) {
+    zone1[[i]] <- which(A1[, i] != 0)
+    zone2 <- A1 %*% A1
+    zone2 <- zone2 + A1 %*% t(A1)
+    nei <- which(zone2[i, ] != 0)
     nei <- rownames(as.data.frame(nei))
-    nei <- nei[which(nei!=i)]
+    nei <- nei[which(nei != i)]
     not <- names(zone1[[i]]) %in% label
     members_zone1 <- names(zone1[[i]][!not])
-    out <- nei[!nei%in%members_zone1]
-    out <- out[!out%in%colnames(X)]
+    out <- nei[!nei %in% members_zone1]
+    out <- out[!out %in% colnames(X)]
     external[[i]] <- length(out)
-    outInst <- names(which(X[out,]!=0))
-    if(ego==TRUE){
+    outInst <- names(which(X[out, ] != 0))
+    if (ego == TRUE) {
       nei <- c(nei, members_zone1, outInst, i)
     }
-    if(ego==FALSE){
+    if (ego == FALSE) {
       nei <- c(nei, members_zone1, outInst)
     }
     nei <- unique(nei)
     subgraphs[[i]] <- igraph::delete.vertices(gM, !(V(gM)$name %in% nei))
     subgraphs[[i]] <- igraph::simplify(subgraphs[[i]])
-    if(core==TRUE){
-      V(subgraphs[[i]])$core <- ifelse(V(subgraphs[[i]])$name %in% names(zone1[[i]]),1,0)
+    if (core == TRUE) {
+      V(subgraphs[[i]])$core <- ifelse(V(subgraphs[[i]])$name %in% names(zone1[[i]]), 1, 0)
     }
   }
-  
+
   return(subgraphs)
 }

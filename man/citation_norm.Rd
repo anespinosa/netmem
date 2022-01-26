@@ -21,19 +21,22 @@ Matrix transformation from incident matrices to a citation, fractional counting 
 }
 \examples{
 
-A1 <- matrix(c(1,0,0,0,
-               0,1,0,0,
-               0,1,1,1,
-               0,0,0,0,
-               0,0,0,1), byrow = TRUE, ncol=4)
+A1 <- matrix(c(
+  1, 0, 0, 0,
+  0, 1, 0, 0,
+  0, 1, 1, 1,
+  0, 0, 0, 0,
+  0, 0, 0, 1
+), byrow = TRUE, ncol = 4)
 
-A2 <- matrix(c(1,1,1,0,0,
-               0,0,1,0,0,
-               0,0,1,1,0,
-               0,0,0,1,1), byrow=TRUE, ncol=5)
+A2 <- matrix(c(
+  1, 1, 1, 0, 0,
+  0, 0, 1, 0, 0,
+  0, 0, 1, 1, 0,
+  0, 0, 0, 1, 1
+), byrow = TRUE, ncol = 5)
 
 citation_norm(A1, A2)
-
 }
 \references{
 Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864.

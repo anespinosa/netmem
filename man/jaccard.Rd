@@ -18,18 +18,18 @@ jaccard(A, B, directed = TRUE, diag = FALSE, coparticipation = FALSE)
 \item{coparticipation}{Select nodes that co-participate in both matrices}
 }
 \value{
-The output are: \code{jaccard} = Jaccard similarity, \code{proportion} = 
-proportion among the ties present at a given observation of ties that 
-are also present in the other matrix, and \code{table} = a table with the 
+The output are: \code{jaccard} = Jaccard similarity, \code{proportion} =
+proportion among the ties present at a given observation of ties that
+are also present in the other matrix, and \code{table} = a table with the
 tie changes between matrices.
 
-If \code{coparticipation = TRUE}, then 
+If \code{coparticipation = TRUE}, then
 also: \code{match} = number of nodes present in both matrices;
  \code{size_matrix1} = size of the first matrix;
  \code{size_matrix2} = size of the second matrix;
-\code{coparticipation1} = percentage 
-of actors in the first matrix also present in the 
-second matrix; \code{coparticipation2} = percentage 
+\code{coparticipation1} = percentage
+of actors in the first matrix also present in the
+second matrix; \code{coparticipation2} = percentage
 of actors in the second matrix also present in the first matrix;
 \code{overlap_actors} = overlap of nodes between two matrices
 }
@@ -38,16 +38,19 @@ Jaccard similarity to identify the tie changes between two matrices.
 }
 \examples{
 
-A <- matrix(c(0,1,1,0,
-              1,0,0,0,
-              1,0,0,0,
-              0,0,1,0), byrow=TRUE, ncol= 4)
-B <- matrix(c(0,1,1,0,
-              1,0,0,0,
-              1,0,0,0,
-              0,0,0,0), byrow=TRUE, ncol= 4)
+A <- matrix(c(
+  0, 1, 1, 0,
+  1, 0, 0, 0,
+  1, 0, 0, 0,
+  0, 0, 1, 0
+), byrow = TRUE, ncol = 4)
+B <- matrix(c(
+  0, 1, 1, 0,
+  1, 0, 0, 0,
+  1, 0, 0, 0,
+  0, 0, 0, 0
+), byrow = TRUE, ncol = 4)
 jaccard(A, B, directed = TRUE)
-
 }
 \references{
 Batagelj, V., and Bren, M. (1995). Comparing resemblance measures. Journal of Classification 12, 73–90.

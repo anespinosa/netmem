@@ -14,21 +14,22 @@ struc_balance(A, B = NULL, score = c("triangle", "walk"))
 \item{score}{Whether to return the \code{triangle} (default) or \code{walk} balance score (Aref and Wilson, 2017)}
 }
 \value{
-This function return the structural balance (Heider, 1940; Cartwright and Harary, 1956). 
+This function return the structural balance (Heider, 1940; Cartwright and Harary, 1956).
 When \code{B} is used, matrix A is considered the negative matrix and \code{A} the positive matrix.
 }
 \description{
 Structural balance
 }
 \examples{
-A <- matrix(c(0,-1,-1,0,
-              -1,0,1,0,
-              -1,1,0,0,
-              0,0,0,0), byrow = TRUE, ncol = 4)
+A <- matrix(c(
+  0, -1, -1, 0,
+  -1, 0, 1, 0,
+  -1, 1, 0, 0,
+  0, 0, 0, 0
+), byrow = TRUE, ncol = 4)
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- rownames(A)
 struc_balance(A)
-
 }
 \references{
 Aref, Samin and Wilson, Mark C. (2017). Measuring partial balance in signed networks. Journal of Complex Networks, 6(4): 566-595.

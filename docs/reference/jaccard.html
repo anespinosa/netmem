@@ -68,17 +68,17 @@
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The output are: <code>jaccard</code> = Jaccard similarity, <code>proportion</code> = 
-proportion among the ties present at a given observation of ties that 
-are also present in the other matrix, and <code>table</code> = a table with the 
+    <p>The output are: <code>jaccard</code> = Jaccard similarity, <code>proportion</code> =
+proportion among the ties present at a given observation of ties that
+are also present in the other matrix, and <code>table</code> = a table with the
 tie changes between matrices.
-If <code>coparticipation = TRUE</code>, then 
+If <code>coparticipation = TRUE</code>, then
 also: <code>match</code> = number of nodes present in both matrices;
 <code>size_matrix1</code> = size of the first matrix;
 <code>size_matrix2</code> = size of the second matrix;
-<code>coparticipation1</code> = percentage 
-of actors in the first matrix also present in the 
-second matrix; <code>coparticipation2</code> = percentage 
+<code>coparticipation1</code> = percentage
+of actors in the first matrix also present in the
+second matrix; <code>coparticipation2</code> = percentage
 of actors in the second matrix also present in the first matrix;
 <code>overlap_actors</code> = overlap of nodes between two matrices</p>
     </div>
@@ -94,14 +94,18 @@ of actors in the second matrix also present in the first matrix;
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
-<span class="r-in">              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
-<span class="r-in">              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
-<span class="r-in">              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
-<span class="r-in">              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
-<span class="r-in">              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
-<span class="r-in">              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span></span>
+<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span></span>
+<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">jaccard</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $jaccard</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8</span>
@@ -116,7 +120,6 @@ of actors in the second matrix also present in the first matrix;
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1    1 4    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;NA&gt; 0 0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>

@@ -15,8 +15,8 @@ mixMatrix(A, att = NULL)
 This function returns a mixing matrix.
 }
 \description{
-Create a mixing matrix from node attributes. The mixing matrix is a two-dimensional 
-matrix that cross-classifies the edges depending on the values of their attributes. 
+Create a mixing matrix from node attributes. The mixing matrix is a two-dimensional
+matrix that cross-classifies the edges depending on the values of their attributes.
 This matrix allowed identifying segregation and homophily at the network level.
 }
 \details{
@@ -25,13 +25,13 @@ Values in the diagonal are the number of ties within groups, and off-diagonal ar
 \examples{
 
 n <- 100
-A <- matrix(c(rbinom(n, 1, 0.5)), 
-            ncol = sqrt(n), nrow = sqrt(n), byrow = TRUE)
+A <- matrix(c(rbinom(n, 1, 0.5)),
+  ncol = sqrt(n), nrow = sqrt(n), byrow = TRUE
+)
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 att <- rbinom(sqrt(n), 3, 0.5)
-mixMatrix(A, att=att)
-
+mixMatrix(A, att = att)
 }
 \author{
 Alejandro Espinosa-Rada

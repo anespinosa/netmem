@@ -23,7 +23,6 @@ Z test of the number of arcs
 
 data(krackhardt_friends)
 z_arctest(krackhardt_friends)
-
 }
 \references{
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.

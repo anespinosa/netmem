@@ -17,15 +17,17 @@ Co‐occurrence matrix based on overlap function
 }
 \examples{
 
-OC <- matrix(c(2,0,2,
-               1,1,0,
-               0,3,3,
-               0,2,2,
-               0,0,1), 
-             nrow=5, byrow = TRUE)
+OC <- matrix(c(
+  2, 0, 2,
+  1, 1, 0,
+  0, 3, 3,
+  0, 2, 2,
+  0, 0, 1
+),
+nrow = 5, byrow = TRUE
+)
 
 coocurrence(OC)
-
 }
 \references{
 Zhou, Q., & Leydesdorff, L. (2016). The normalization of occurrence and Co-occurrence matrices in bibliometrics using Cosine similarities and Ochiai coefficients. Journal of the Association for Information Science and Technology, 67(11), 2805–2814. \url{https://doi.org/10.1002/asi.23603}

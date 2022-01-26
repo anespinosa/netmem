@@ -24,17 +24,18 @@ Everett and Borgatti specification of the constraint measure for binary matrixes
 }
 \examples{
 
-A <- matrix(c(0,1,1,0,0,1,
-             1,0,1,0,0,1,
-             1,1,0,0,0,1,
-             0,0,0,0,1,1,
-             0,0,0,1,0,1,
-             1,1,1,1,1,0), ncol=6, byrow=TRUE)
+A <- matrix(c(
+  0, 1, 1, 0, 0, 1,
+  1, 0, 1, 0, 0, 1,
+  1, 1, 0, 0, 0, 1,
+  0, 0, 0, 0, 1, 1,
+  0, 0, 0, 1, 0, 1,
+  1, 1, 1, 1, 1, 0
+), ncol = 6, byrow = TRUE)
 
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
-eb_constraint(A, ego='f')
-
+eb_constraint(A, ego = "f")
 }
 \references{
 Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.

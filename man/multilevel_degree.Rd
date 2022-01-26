@@ -85,40 +85,51 @@ Degree centrality for multilevel networks.
 }
 \examples{
 
-A1 <- matrix(c(0,1,0,0,0,
-              1,0,0,1,0,
-              0,0,0,1,0,
-              0,1,1,0,1,
-              0,0,0,1,0), byrow=TRUE, ncol=5)
-              
-B1 <- matrix(c(1,0,0,
-              1,1,0,
-              0,1,0,
-              0,1,0,
-              0,1,1), byrow=TRUE, ncol=3)
+A1 <- matrix(c(
+  0, 1, 0, 0, 0,
+  1, 0, 0, 1, 0,
+  0, 0, 0, 1, 0,
+  0, 1, 1, 0, 1,
+  0, 0, 0, 1, 0
+), byrow = TRUE, ncol = 5)
 
-A2 <- matrix(c(0,1,1,
-              1,0,0,
-              1,0,0), byrow=TRUE, nrow=3)
+B1 <- matrix(c(
+  1, 0, 0,
+  1, 1, 0,
+  0, 1, 0,
+  0, 1, 0,
+  0, 1, 1
+), byrow = TRUE, ncol = 3)
 
-B2 <- matrix(c(1,1,0,0,
-              0,0,1,0,
-              0,0,1,1), byrow=TRUE, ncol=4)
+A2 <- matrix(c(
+  0, 1, 1,
+  1, 0, 0,
+  1, 0, 0
+), byrow = TRUE, nrow = 3)
 
-A3 <- matrix(c(0,1,1,1,
-              1,0,0,0,
-              1,0,0,1,
-              1,0,1,0), byrow=TRUE, ncol=4)
+B2 <- matrix(c(
+  1, 1, 0, 0,
+  0, 0, 1, 0,
+  0, 0, 1, 1
+), byrow = TRUE, ncol = 4)
 
-B3 <- matrix(c(1,0,0,0,0,
-              0,1,0,1,0,
-              0,0,0,0,0,
-              0,0,0,0,0), byrow=TRUE, ncol=5)
+A3 <- matrix(c(
+  0, 1, 1, 1,
+  1, 0, 0, 0,
+  1, 0, 0, 1,
+  1, 0, 1, 0
+), byrow = TRUE, ncol = 4)
+
+B3 <- matrix(c(
+  1, 0, 0, 0, 0,
+  0, 1, 0, 1, 0,
+  0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0
+), byrow = TRUE, ncol = 5)
 
 multilevel_degree(A1, B1, A2, B2, A3, B3)
-
 \dontrun{
-multilevel_degree(A1, B1, A2, B2, A3, B3, normalized=TRUE, complete=TRUE)
+multilevel_degree(A1, B1, A2, B2, A3, B3, normalized = TRUE, complete = TRUE)
 }
 
 }

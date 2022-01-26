@@ -41,15 +41,16 @@ Generalized degree centrality for one-mode and bipartite networks
 }
 \examples{
 
-A3 <- matrix(c(0,4,4,0,0,0,
-               4,0,2,1,1,0,
-               4,2,0,0,0,0,
-               0,1,0,0,0,0,
-               0,1,0,0,0,7,
-               0,0,0,0,7,0), byrow=TRUE, ncol=6)
+A3 <- matrix(c(
+  0, 4, 4, 0, 0, 0,
+  4, 0, 2, 1, 1, 0,
+  4, 2, 0, 0, 0, 0,
+  0, 1, 0, 0, 0, 0,
+  0, 1, 0, 0, 0, 7,
+  0, 0, 0, 0, 7, 0
+), byrow = TRUE, ncol = 6)
 
-gen_degree(A3, digraph = FALSE, weighted=TRUE)
-
+gen_degree(A3, digraph = FALSE, weighted = TRUE)
 }
 \references{
 Borgatti, S. P., and Everett, M. G. (1997). Network analysis of 2-mode data. Social Networks, 19(3), 243–269.

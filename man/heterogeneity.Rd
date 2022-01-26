@@ -17,7 +17,7 @@ Numerical value of the Blau index.
 If \code{normalized = TRUE}, then the function also return IQV index.
 }
 \description{
-This index was proposed by Blau (1977) to distinguish between the relative prevalence 
+This index was proposed by Blau (1977) to distinguish between the relative prevalence
 of between and within-group ties. This measure can be interpreted as homophily at the network level.
 }
 \examples{
@@ -25,10 +25,9 @@ of between and within-group ties. This measure can be interpreted as homophily a
 n <- 100
 att <- rbinom(sqrt(n), 3, 0.5)
 heterogeneity(n, normalized = TRUE)
-
 }
 \references{
-Agresti, A. and Agresti, B. (1978). Statistical Analysis of Qualitative Variation. Sociological Methodology, 9, 204-237. doi: \url{https://doi.org/10.2307/270810}   
+Agresti, A. and Agresti, B. (1978). Statistical Analysis of Qualitative Variation. Sociological Methodology, 9, 204-237. doi: \url{https://doi.org/10.2307/270810}
 
 Blau, P. M. (1977). Inequality and heterogeneity. New York: Free Press.
 }

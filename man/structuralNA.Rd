@@ -23,14 +23,15 @@ Assign NA to missing data in the matrices
 }
 \examples{
 
-A <- matrix(c(0,1,1,
-              1,0,1,
-              0,0,0), byrow=TRUE, ncol=3)
+A <- matrix(c(
+  0, 1, 1,
+  1, 0, 1,
+  0, 0, 0
+), byrow = TRUE, ncol = 3)
 colnames(A) <- c("A", "C", "D")
 rownames(A) <- c("A", "C", "D")
 label <- c("A", "B", "C", "D", "E")
 structuralNA(A, label)
-
 }
 \author{
 Alejandro Espinosa-Rada

@@ -23,30 +23,33 @@ Second-zone multilevel sampling considering a second-mode focal actor
 }
 \examples{
 
-A <- matrix(c(0,1,0,0,0,0,0,0,
-              0,0,1,0,0,0,0,0,
-              0,1,0,1,0,0,0,0,
-              0,0,0,0,0,0,0,0,
-              0,0,0,0,0,0,0,0,
-              0,0,0,1,0,0,0,0,
-              0,0,0,0,0,0,0,0,
-              0,0,0,0,0,0,0,0), byrow=TRUE, ncol=8)
+A <- matrix(c(
+  0, 1, 0, 0, 0, 0, 0, 0,
+  0, 0, 1, 0, 0, 0, 0, 0,
+  0, 1, 0, 1, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 1, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0
+), byrow = TRUE, ncol = 8)
 colnames(A) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 rownames(A) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 
-X <- matrix(c(1,0,0,0,
-              1,0,0,0,
-              1,0,1,0,
-              0,1,1,0,
-              0,1,1,1,
-              0,1,0,0,
-              0,0,0,0,
-              0,0,0,1), byrow=TRUE, ncol=4)
+X <- matrix(c(
+  1, 0, 0, 0,
+  1, 0, 0, 0,
+  1, 0, 1, 0,
+  0, 1, 1, 0,
+  0, 1, 1, 1,
+  0, 1, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 1
+), byrow = TRUE, ncol = 4)
 colnames(X) <- c("a", "b", "c", "d")
 rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 
-zone_sample(A, X, core=TRUE)
-
+zone_sample(A, X, core = TRUE)
 }
 \references{
 Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.

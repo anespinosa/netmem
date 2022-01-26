@@ -15,7 +15,7 @@ triad_uman(A, ztest = FALSE, covar = FALSE)
 }
 \value{
 This function gives the counts of the triad census, the expected counts,
-assuming that U|MAN distribution (Holland and Leinhardt, 1975, 1976) is operating, 
+assuming that U|MAN distribution (Holland and Leinhardt, 1975, 1976) is operating,
 and the standard deviations of these counts.
 }
 \description{
@@ -44,7 +44,7 @@ Considering the triad census of Davis and Leinhardt (1972) for vector A, B, and 
 data(krackhardt_friends)
 triad_uman(krackhardt_friends)
 \dontrun{
-triad_uman(krackhardt_friends, ztest = TRUE, covar=TRUE)
+triad_uman(krackhardt_friends, ztest = TRUE, covar = TRUE)
 }
 
 }

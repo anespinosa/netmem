@@ -33,7 +33,7 @@ d1 <- function(g2, n, m, a) {
   d1p1t210 <- man210 / d1p1
   man300 <- m * (m - 1) * (m - 2)
   d1p1t300 <- man300 / d1p1
-  
+
   return(
     list(
       d1p1t003 = d1p1t003, d1p1t012 = d1p1t012, d1p1t102 = d1p1t102,
@@ -51,19 +51,19 @@ d2 <- function(g2, n, m, a) {
   d2p0 <- g2 * (g2 - 1) * (g2 - 2) * (g2 - 3) * (g2 - 4) * (g2 - 5)
   n1t003 <- n * (n - 1) * (n - 2) * (n - 3) * (n - 4) * (n - 5)
   man003_man003 <- n1t003 / d2p0
-  
+
   n1t012 <- 3 * a * n * (n - 1) * (n - 2) * (n - 3) * (n - 4)
   man012_man003 <- n1t012 / d2p0
   n2t012 <- 9 * a * (a - 1) * n * (n - 1) * (n - 2) * (n - 3)
   man012_man012 <- n2t012 / d2p0
-  
+
   n1t102 <- 3 * m * n * (n - 1) * (n - 2) * (n - 3) * (n - 4)
   man102_man003 <- n1t102 / d2p0
   n2t102 <- 9 * m * a * n * (n - 1) * (n - 2) * (n - 3)
   man102_man012 <- n2t102 / d2p0
   n3t102_102 <- 9 * m * (m - 1) * n * (n - 1) * (n - 2) * (n - 3)
   man102_man102 <- n3t102_102 / d2p0
-  
+
   n1t021D <- a * (a - 1) * n * (n - 1) * (n - 2) * (n - 3)
   man021D_man003 <- (3 / 4) * (n1t021D / d2p0)
   n2t021D <- a * (a - 1) * (a - 2) * n * (n - 1) * (n - 2)
@@ -72,7 +72,7 @@ d2 <- function(g2, n, m, a) {
   man021D_man102 <- (9 / 4) * (n3t021D / d2p0)
   n4t021D <- a * (a - 1) * (a - 2) * (a - 3) * n * (n - 1)
   man021D_man021D <- (9 / 16) * (n4t021D / d2p0)
-  
+
   n1t021U <- a * (a - 1) * n * (n - 1) * (n - 2) * (n - 3)
   man021U_man003 <- (3 / 4) * (n1t021U / d2p0)
   n2t021U <- a * (a - 1) * (a - 2) * n * (n - 1) * (n - 2)
@@ -83,7 +83,7 @@ d2 <- function(g2, n, m, a) {
   man021U_man021D <- (9 / 16) * (n4t021U / d2p0)
   n5t021U <- a * (a - 1) * (a - 2) * (a - 3) * n * (n - 1)
   man021U_man021U <- (9 / 16) * (n5t021U / d2p0)
-  
+
   n1t021C <- a * (a - 1) * n * (n - 1) * (n - 2) * (n - 3)
   man021C_man003 <- (3 / 2) * (n1t021C / d2p0)
   n2t021C <- a * (a - 1) * (a - 2) * n * (n - 1) * (n - 2)
@@ -96,7 +96,7 @@ d2 <- function(g2, n, m, a) {
   man021C_man021U <- (9 / 8) * (n5t021C / d2p0)
   n6t021C <- a * (a - 1) * (a - 2) * (a - 3) * n * (n - 1) # n="nominator"
   man021C_man021C <- (9 / 4) * (n6t021C / d2p0) # !
-  
+
   n1t111D <- 3 * m * a * n * (n - 1) * (n - 2) * (n - 3)
   man111D_man003 <- n1t111D / d2p0
   n2t111D <- 9 * m * a * (a - 1) * n * (n - 1) * (n - 2)
@@ -111,7 +111,7 @@ d2 <- function(g2, n, m, a) {
   man111D_man021C <- (9 / 2) * (n6t111D / d2p0)
   n7t111D <- 9 * m * (m - 1) * a * (a - 1) * n * (n - 1)
   man111D_man111D <- n7t111D / d2p0
-  
+
   n1t111U <- 3 * m * a * n * (n - 1) * (n - 2) * (n - 3)
   man111U_man003 <- n1t111U / d2p0
   n2t111U <- 9 * m * a * (a - 1) * n * (n - 1) * (n - 2)
@@ -128,7 +128,7 @@ d2 <- function(g2, n, m, a) {
   man111U_man111D <- n7t111U / d2p0
   n8t111U <- 9 * m * (m - 1) * a * (a - 1) * n * (n - 1)
   man111U_man111U <- n8t111U / d2p0
-  
+
   n1t030T <- a * (a - 1) * (a - 2) * n * (n - 1) * (n - 2)
   man030T_man003 <- (3 / 4) * (n1t030T / d2p0)
   n2t030T <- a * (a - 1) * (a - 2) * (a - 3) * n * (n - 1)
@@ -147,7 +147,7 @@ d2 <- function(g2, n, m, a) {
   man030T_man111U <- (9 / 4) * (n8t030T / d2p0)
   n9t030T <- a * (a - 1) * (a - 2) * (a - 3) * (a - 4) * (a - 5)
   man030T_man030T <- (9 / 16) * (n9t030T / d2p0)
-  
+
   n1t030C <- a * (a - 1) * (a - 2) * n * (n - 1) * (n - 2)
   man030C_man003 <- (1 / 4) * (n1t030C / d2p0)
   n2t030C <- a * (a - 1) * (a - 2) * (a - 3) * n * (n - 1)
@@ -168,7 +168,7 @@ d2 <- function(g2, n, m, a) {
   man030C_man030T <- (3 / 16) * (n9t030C / d2p0)
   n10t030C <- a * (a - 1) * (a - 2) * (a - 3) * (a - 4) * (a - 5)
   man030C_man030C <- (1 / 16) * (n10t030C / d2p0)
-  
+
   n1t201 <- 3 * m * (m - 1) * n * (n - 1) * (n - 2) * (n - 3)
   man201_man003 <- n1t201 / d2p0
   n2t201 <- 9 * m * (m - 1) * a * n * (n - 1) * (n - 2)
@@ -191,7 +191,7 @@ d2 <- function(g2, n, m, a) {
   man201_man030C <- (3 / 4) * (n10t201 / d2p0)
   n11t201 <- 9 * m * (m - 1) * (m - 2) * (m - 3) * n * (n - 1)
   man201_man201 <- n11t201 / d2p0
-  
+
   n1t120D <- m * a * (a - 1) * n * (n - 1) * (n - 2)
   man120D_man003 <- (3 / 4) * (n1t120D / d2p0)
   n2t120D <- m * a * (a - 1) * (a - 2) * n * (n - 1)
@@ -216,7 +216,7 @@ d2 <- function(g2, n, m, a) {
   man120D_man201 <- (9 / 4) * (n11t120D / d2p0)
   n12t120D <- m * (m - 1) * a * (a - 1) * (a - 2) * (a - 3)
   man120D_man120D <- (9 / 16) * (n12t120D / d2p0)
-  
+
   n1t120U <- m * a * (a - 1) * n * (n - 1) * (n - 2)
   man120U_man003 <- (3 / 4) * (n1t120U / d2p0)
   n2t120U <- m * a * (a - 1) * (a - 2) * n * (n - 1)
@@ -243,7 +243,7 @@ d2 <- function(g2, n, m, a) {
   man120U_man120D <- (9 / 16) * (n12t120U / d2p0)
   n13t120U <- m * (m - 1) * a * (a - 1) * (a - 2) * (a - 3)
   man120U_man120U <- (9 / 16) * (n13t120U / d2p0)
-  
+
   n1t120C <- m * a * (a - 1) * n * (n - 1) * (n - 2)
   man120C_man003 <- (3 / 2) * (n1t120C / d2p0)
   n2t120C <- m * a * (a - 1) * (a - 2) * n * (n - 1)
@@ -272,7 +272,7 @@ d2 <- function(g2, n, m, a) {
   man120C_man120U <- (9 / 8) * (n13t120C / d2p0)
   n14t120C <- m * (m - 1) * a * (a - 1) * (a - 2) * (a - 3)
   man120C_man120C <- (9 / 4) * (n14t120C / d2p0)
-  
+
   n1t210 <- 3 * m * (m - 1) * a * n * (n - 1) * (n - 2)
   man210_man003 <- n1t210 / d2p0
   n2t210 <- 9 * m * (m - 1) * a * (a - 1) * n * (n - 1)
@@ -303,7 +303,7 @@ d2 <- function(g2, n, m, a) {
   man210_man120C <- (9 / 2) * (n14t210 / d2p0)
   n15t210 <- 9 * m * (m - 1) * (m - 2) * (m - 3) * a * (a - 1)
   man210_man210 <- n15t210 / d2p0
-  
+
   n1t300 <- m * (m - 1) * (m - 2) * n * (n - 1) * (n - 2)
   man300_man003 <- n1t300 / d2p0
   n2t300 <- 3 * m * (m - 1) * (m - 2) * a * n * (n - 1)
@@ -336,7 +336,7 @@ d2 <- function(g2, n, m, a) {
   man300_man210 <- n15t300 / d2p0
   n16t300 <- m * (m - 1) * (m - 2) * (m - 3) * (m - 4) * (m - 5)
   man300_man300 <- n16t300 / d2p0
-  
+
   return(
     list(
       # VAR
@@ -348,7 +348,7 @@ d2 <- function(g2, n, m, a) {
       man201_man201 = man201_man201, man120D_man120D = man120D_man120D,
       man120U_man120U = man120U_man120U, man120C_man120C = man120C_man120C,
       man210_man210 = man210_man210, man300_man300 = man300_man300,
-      
+
       # COV
       man012_man003 = man012_man003, man102_man003 = man102_man003,
       man102_man012 = man102_man012, man021D_man003 = man021D_man003,
@@ -374,7 +374,7 @@ d2 <- function(g2, n, m, a) {
       man030C_man111D = man030C_man111D, man030C_man111U = man030C_man111U,
       man030C_man030T = man030C_man030T, man201_man003 = man201_man003,
       man201_man012 = man201_man012,
-      
+
       # COV, NOTE 1
       man201_man102 = man201_man102, man201_man021D = man201_man021D,
       man201_man021U = man201_man021U, man201_man021C = man201_man021C,
@@ -409,7 +409,7 @@ d2 <- function(g2, n, m, a) {
       man300_man102 = man300_man102, man300_man021D = man300_man021D,
       man300_man021U = man300_man021U, man300_man021C = man300_man021C,
       man300_man111D = man300_man111D, man300_man111U = man300_man111U,
-      
+
       # COV, NOTE 2
       man300_man030T = man300_man030T, man300_man030C = man300_man030C,
       man300_man201 = man300_man201, man300_man120D = man300_man120D,
@@ -424,19 +424,19 @@ d3 <- function(g2, n, m, a) {
   d3p2 <- g2 * (g2 - 1) * (g2 - 2) * (g2 - 3) * (g2 - 4)
   n1t003b <- n * (n - 1) * (n - 2) * (n - 3) * (n - 4)
   man003_man003b <- n1t003b / d3p2
-  
+
   n1t012b <- 2 * a * n * (n - 1) * (n - 2) * (n - 3)
   man012_man003b <- n1t012b / d3p2
   n2t012b <- a * n * (n - 1) * (n - 2) * ((4 * a) + n - 7)
   man012_man012b <- n2t012b / d3p2
-  
+
   n1t102b <- 2 * m * n * (n - 1) * (n - 2) * (n - 3)
   man102_man003b <- n1t102b / d3p2
   n2t102b <- 4 * m * a * n * (n - 1) * (n - 2)
   man102_man012b <- n2t102b / d3p2
   n3t102b <- m * n * (n - 1) * (n - 2) * ((4 * m) + n - 7)
   man102_man102b <- n3t102b / d3p2
-  
+
   n1t021Db <- a * (a - 1) * n * (n - 1) * (n - 2)
   man021D_man003b <- (1 / 4) * (n1t021Db / d3p2)
   n2t021Db <- a * (a - 1) * n * (n - 1) * (a + n - 4)
@@ -445,7 +445,7 @@ d3 <- function(g2, n, m, a) {
   man021D_man102b <- (1 / 2) * (n3t021Db / d3p2)
   n4t021Db <- a * (a - 1) * (a - 2) * n * (a + (4 * n) - 7)
   man021D_man021Db <- (1 / 16) * (n4t021Db / d3p2)
-  
+
   n1t021Ub <- a * (a - 1) * n * (n - 1) * (n - 2)
   man021U_man003b <- (1 / 4) * (n1t021Ub / d3p2)
   n2t021Ub <- a * (a - 1) * n * (n - 1) * (a + n - 4)
@@ -456,7 +456,7 @@ d3 <- function(g2, n, m, a) {
   man021U_man021Db <- (1 / 16) * (n4t021Db / d3p2)
   n5t021Ub <- a * (a - 1) * (a - 2) * n * (a + (4 * n) - 7)
   man021U_man021Ub <- (1 / 16) * (n5t021Ub / d3p2)
-  
+
   n1t021Cb <- a * (a - 1) * n * (n - 1) * (n - 2)
   man021C_man003b <- (1 / 2) * (n1t021Cb / d3p2)
   n2t021Cb <- a * (a - 1) * n * (n - 1) * (a + n - 4)
@@ -469,7 +469,7 @@ d3 <- function(g2, n, m, a) {
   man021C_man021Ub <- (1 / 8) * (n5t021Cb / d3p2)
   n6t021Cb <- a * (a - 1) * (a - 2) * n * (a + (4 * n) - 7)
   man021C_man021Cb <- (1 / 4) * (n6t021Cb / d3p2)
-  
+
   n1t111Db <- m * a * n * (n - 1) * (n - 2)
   man111D_man003b <- n1t111Db / d3p2
   n2t111Db <- m * a * n * (n - 1) * ((2 * a) + n - 4)
@@ -484,7 +484,7 @@ d3 <- function(g2, n, m, a) {
   man111D_man021Cb <- (1 / 2) * (n6t111Db / d3p2)
   n7t111Db <- (m * a * (a - 1) * n * (n - 1)) + (m * (m - 1) * a * n * (n - 1)) + (m * (m - 1) * a * (a - 1) * n)
   man111D_man111Db <- n7t111Db / d3p2
-  
+
   n1t111Ub <- m * a * n * (n - 1) * (n - 2)
   man111U_man003b <- n1t111Ub / d3p2
   n2t111Ub <- m * a * n * (n - 1) * ((2 * a) + n - 4)
@@ -501,7 +501,7 @@ d3 <- function(g2, n, m, a) {
   man111U_man111Db <- n7t111Ub / d3p2
   n8t111Ub <- (m * a * (a - 1) * n * (n - 1)) + (m * (m - 1) * a * n * (n - 1)) + (m * (m - 1) * a * (a - 1) * n) # WARNING: table 4 in H-L 1976 is wrong?
   man111U_man111Ub <- n8t111Ub / d3p2
-  
+
   n1t030Tb <- 0
   man030T_man003b <- n1t030Tb / d3p2
   n2t030Tb <- a * (a - 1) * (a - 2) * n * (n - 1)
@@ -520,7 +520,7 @@ d3 <- function(g2, n, m, a) {
   man030T_man111Ub <- (3 / 4) * (n8t030Tb / d3p2)
   n9t030Tb <- a * (a - 1) * (a - 2) * (a - 3) * (a - 4)
   man030T_man030Tb <- (9 / 16) * (n9t030Tb / d3p2)
-  
+
   n1t030Cb <- 0
   man030C_man003b <- (1 / 8) * (n1t030Cb / d3p2)
   n2t030Cb <- a * (a - 1) * (a - 2) * n * (n - 1)
@@ -541,7 +541,7 @@ d3 <- function(g2, n, m, a) {
   man030C_man030Tb <- (3 / 16) * (n9t030Cb / d3p2)
   n10t030Cb <- a * (a - 1) * (a - 2) * (a - 3) * (a - 4)
   man030C_man030Cb <- (1 / 16) * (n10t030Cb / d3p2)
-  
+
   n1t201b <- m * (m - 1) * n * (n - 1) * (n - 2)
   man201_man003b <- n1t201b / d3p2
   n2t201b <- 2 * m * (m - 1) * a * n * (n - 1)
@@ -564,7 +564,7 @@ d3 <- function(g2, n, m, a) {
   man201_man030Cb <- n10t201b / d3p2
   n11t201b <- m * (m - 1) * (m - 2) * n * (m + (4 * n) - 7)
   man201_man201b <- n11t201b / d3p2
-  
+
   n1t120Db <- 0
   man120D_man003b <- n1t120Db / d3p2
   n2t120Db <- m * a * (a - 1) * n * (n - 1)
@@ -589,7 +589,7 @@ d3 <- function(g2, n, m, a) {
   man120D_man201b <- (1 / 2) * (n11t120Db / d3p2)
   n12t120Db <- m * a * (a - 1) * (a - 2) * (a + (4 * m) - 7)
   man120D_man120Db <- (1 / 16) * (n12t120Db / d3p2)
-  
+
   n1t120Ub <- 0
   man120U_man003b <- n1t120Ub / d3p2
   n2t120Ub <- m * a * (a - 1) * n * (n - 1)
@@ -616,7 +616,7 @@ d3 <- function(g2, n, m, a) {
   man120U_man120Db <- (1 / 16) * (n12t120Ub / d3p2)
   n13t120Ub <- m * a * (a - 1) * (a - 2) * (a + (4 * m) - 7)
   man120U_man120Ub <- (1 / 16) * (n13t120Ub / d3p2)
-  
+
   n1t120Cb <- 0
   man120C_man003b <- n1t120Cb / d3p2
   n2t120Cb <- m * a * (a - 1) * n * (n - 1)
@@ -645,7 +645,7 @@ d3 <- function(g2, n, m, a) {
   man120C_man120Ub <- (1 / 8) * (n13t120Cb / d3p2)
   n14t120Cb <- m * a * (a - 1) * (a - 2) * (a + (4 * m) - 7)
   man120C_man120Cb <- (1 / 4) * (n14t120Cb / d3p2)
-  
+
   n1t210b <- 0
   man210_man003b <- n1t210b / d3p2
   n2t210b <- m * (m - 1) * a * n * (n - 1)
@@ -676,7 +676,7 @@ d3 <- function(g2, n, m, a) {
   man210_man120Cb <- n14t210b / d3p2
   n15t210b <- m * (m - 1) * (m - 2) * a * (m + (4 * a) - 7)
   man210_man210b <- n15t210b / d3p2
-  
+
   n1t300b <- 0
   man300_man003b <- n1t300b / d3p2
   n2t300b <- 0
@@ -709,7 +709,7 @@ d3 <- function(g2, n, m, a) {
   man300_man210b <- n15t300b / d3p2
   n16t300b <- m * (m - 1) * (m - 2) * (m - 3) * (m - 4)
   man300_man300b <- n16t300b / d3p2
-  
+
   return(
     list(
       # VAR
@@ -721,7 +721,7 @@ d3 <- function(g2, n, m, a) {
       man201_man201b = man201_man201b, man120D_man120Db = man120D_man120Db,
       man120U_man120Ub = man120U_man120Ub, man120C_man120Cb = man120C_man120Cb,
       man210_man210b = man210_man210b, man300_man300b = man300_man300b,
-      
+
       # COV
       man012_man003b = man012_man003b, man102_man003b = man102_man003b,
       man102_man012b = man102_man012b, man021D_man003b = man021D_man003b,
@@ -747,7 +747,7 @@ d3 <- function(g2, n, m, a) {
       man030C_man111Db = man030C_man111Db, man030C_man111Ub = man030C_man111Ub,
       man030C_man030Tb = man030C_man030Tb, man201_man003b = man201_man003b,
       man201_man012b = man201_man012b,
-      
+
       # COV, NOTE 1
       man201_man102b = man201_man102b, man201_man021Db = man201_man021Db,
       man201_man021Ub = man201_man021Ub, man201_man021Cb = man201_man021Cb,
@@ -782,7 +782,7 @@ d3 <- function(g2, n, m, a) {
       man300_man102b = man300_man102b, man300_man021Db = man300_man021Db,
       man300_man021Ub = man300_man021Ub, man300_man021Cb = man300_man021Cb,
       man300_man111Db = man300_man111Db, man300_man111Ub = man300_man111Ub,
-      
+
       # COV, NOTE 2
       man300_man030Tb = man300_man030Tb, man300_man030Cb = man300_man030Cb,
       man300_man201b = man300_man201b, man300_man120Db = man300_man120Db,

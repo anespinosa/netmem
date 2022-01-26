@@ -25,21 +25,26 @@ Multilevel triad and quadrilateral census
 }
 \examples{
 
-B1 <- matrix(c(1,1,0,
-               0,0,1,
-               0,0,1,
-               1,0,0), byrow=TRUE, ncol=3)
-A1 <- matrix(c(0,1,0,1,
-               1,0,0,1,
-               0,1,0,1,
-               1,0,1,0), byrow=TRUE, ncol=4)
-B2 <- matrix(c(1,0,0,0,0,
-               0,1,0,1,0,
-               0,0,0,0,0,
-               0,0,0,0,0), byrow=TRUE, ncol=5)
+B1 <- matrix(c(
+  1, 1, 0,
+  0, 0, 1,
+  0, 0, 1,
+  1, 0, 0
+), byrow = TRUE, ncol = 3)
+A1 <- matrix(c(
+  0, 1, 0, 1,
+  1, 0, 0, 1,
+  0, 1, 0, 1,
+  1, 0, 1, 0
+), byrow = TRUE, ncol = 4)
+B2 <- matrix(c(
+  1, 0, 0, 0, 0,
+  0, 1, 0, 1, 0,
+  0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0
+), byrow = TRUE, ncol = 5)
 
-mixed_census(A1, B1, B2, quad=TRUE)
- 
+mixed_census(A1, B1, B2, quad = TRUE)
 }
 \references{
 Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.

@@ -22,11 +22,12 @@ This function transform the matrix into an edgelist.
 Transform symmetric matrix to an edge-list
 }
 \examples{
-A <- matrix(c(0,2,1,
-              1,0,0,
-              1,0,1), byrow=TRUE, ncol=3)
-matrix_to_edgelist(A, digraph=TRUE, valued = TRUE, loops=TRUE)
-
+A <- matrix(c(
+  0, 2, 1,
+  1, 0, 0,
+  1, 0, 1
+), byrow = TRUE, ncol = 3)
+matrix_to_edgelist(A, digraph = TRUE, valued = TRUE, loops = TRUE)
 }
 \author{
 Alejandro Espinosa-Rada

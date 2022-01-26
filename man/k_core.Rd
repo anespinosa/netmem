@@ -40,19 +40,22 @@ Generalized k-core for undirected, directed, weighted and multilevel networks
 }
 \examples{
 
-A1 <- matrix(c(0,1,0,0,0,
-               1,0,0,1,0,
-               0,0,0,1,0,
-               0,1,1,0,1,
-               0,0,0,1,0), byrow=TRUE, ncol=5)
-B1 <- matrix(c(1,0,0,
-               1,1,0,
-               0,1,0,
-               0,1,0,
-               0,1,1), byrow=TRUE, ncol=3)
+A1 <- matrix(c(
+  0, 1, 0, 0, 0,
+  1, 0, 0, 1, 0,
+  0, 0, 0, 1, 0,
+  0, 1, 1, 0, 1,
+  0, 0, 0, 1, 0
+), byrow = TRUE, ncol = 5)
+B1 <- matrix(c(
+  1, 0, 0,
+  1, 1, 0,
+  0, 1, 0,
+  0, 1, 0,
+  0, 1, 1
+), byrow = TRUE, ncol = 3)
 
-k_core(A1, B1, multilevel=TRUE)
-
+k_core(A1, B1, multilevel = TRUE)
 }
 \references{
 Batagelj, V., & Zaveršnik, M. (2011). Fast algorithms for determining (generalized) core groups in social networks. Advances in Data Analysis and Classification, 5(2), 129–145. \url{https://doi.org/10.1007/s11634-010-0079-y}
