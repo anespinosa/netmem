@@ -11,8 +11,8 @@ Imports:
     Matrix,
     stats
 Title: Social Network Measures using Matrices
-Author: Alejandro Espinosa-Rada [cre, aut] <alejandro.espinosa@manchester.ac.uk>
-Maintainer: Alejandro Espinosa-Rada <alejandro.espinosa@manchester.ac.uk>
+Author: Alejandro Espinosa-Rada [cre, aut] <alejandro.espinosa@gess.ethz.ch>
+Maintainer: Alejandro Espinosa-Rada <alejandro.espinosa@gess.ethz.ch>
 Description: Measures to describe and manipulate networks using matrices.  
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
