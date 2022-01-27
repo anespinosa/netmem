@@ -61,15 +61,16 @@ Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/
 14. `kp_reciprocity()`: Reciprocity of Katz and Powell
 15. `matrix_to_edgelist()`: Transform symmetric matrix to an edge-list
 16. `mixMatrix()`: Mixing matrix
-17. `mixed_census()`: Multilevel triad and quadrilateral census
-18. `multilevel_degree()`: Degree centrality for multilevel networks.
-19. `multiplex_census()`: Multiplex triad census
-20. `redundancy()`: Redundancy measures
-21. `struc_balance()`: Structural balance
-22. `structuralNA()`: Structural missing data
-23. `triad_uman()`: Triad census analysis assuming U|MAN
-24. `z_arctest()`: Z test of the number of arcs
-25. `zone_sample()`: Zone-2 sampling from second-mode
+17. `meta_matrix()`: Meta matrix for multilevel networks
+18. `mixed_census()`: Multilevel triad and quadrilateral census
+19. `multilevel_degree()`: Degree centrality for multilevel networks.
+20. `multiplex_census()`: Multiplex triad census
+21. `redundancy()`: Redundancy measures
+22. `struc_balance()`: Structural balance
+23. `structuralNA()`: Structural missing data
+24. `triad_uman()`: Triad census analysis assuming U|MAN
+25. `z_arctest()`: Z test of the number of arcs
+26. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
