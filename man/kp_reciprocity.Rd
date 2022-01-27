@@ -16,7 +16,7 @@ kp_reciprocity(G, fixed = FALSE, d = NULL, dichotomic = TRUE)
 \item{dichotomic}{Whether the matrix is weighted or binary}
 }
 \value{
-This function gives a measurment of the tendency toward 
+This function gives a measurment of the tendency toward
 reciprocation of choices.
 }
 \description{
@@ -28,7 +28,7 @@ data(krackhardt_friends)
 kp_reciprocity(krackhardt_friends, fixed = TRUE, d = 5)
 }
 \references{
-Katz, L. and Powell, J.H. (1955). "Measurement of the tendency toward 
+Katz, L. and Powell, J.H. (1955). "Measurement of the tendency toward
 reciprocation of choice." Sociometry, 18:659-665.
 }
 \author{

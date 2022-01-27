@@ -2,7 +2,7 @@
 % Please edit documentation in R/degree.R
 \name{multilevel_degree}
 \alias{multilevel_degree}
-\title{Degree centrality for multilevel networks.}
+\title{Degree centrality for multilevel networks}
 \usage{
 multilevel_degree(
   A1,
@@ -81,7 +81,7 @@ multilevel_degree(
 Return a data.frame of multilevel degree
 }
 \description{
-Degree centrality for multilevel networks.
+Degree centrality for multilevel networks
 }
 \examples{
 

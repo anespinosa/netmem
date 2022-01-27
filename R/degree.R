@@ -304,7 +304,7 @@ gen_degree <- function(A,
 }
 
 
-#' Degree centrality for multilevel networks.
+#' Degree centrality for multilevel networks
 #'
 #' @param A1  The square matrix of the lowest level
 #' @param B1  The incident matrix of the ties between the nodes of first level and the nodes of the second level

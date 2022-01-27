@@ -46,6 +46,9 @@
     <loc>/reference/cliques_table.html</loc>
   </url>
   <url>
+    <loc>/reference/co_ocurrence.html</loc>
+  </url>
+  <url>
     <loc>/reference/coocurrence.html</loc>
   </url>
   <url>
@@ -91,13 +94,22 @@
     <loc>/reference/krackhardt_friends.html</loc>
   </url>
   <url>
+    <loc>/reference/matrix_projection.html</loc>
+  </url>
+  <url>
     <loc>/reference/matrix_to_edgelist.html</loc>
   </url>
   <url>
     <loc>/reference/meta_matrix.html</loc>
   </url>
   <url>
+    <loc>/reference/minmax_overlap.html</loc>
+  </url>
+  <url>
     <loc>/reference/mixMatrix.html</loc>
+  </url>
+  <url>
+    <loc>/reference/mix_matrix.html</loc>
   </url>
   <url>
     <loc>/reference/mixed_census.html</loc>

@@ -83,6 +83,89 @@ matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE
   return(edge)
 }
 
+#' Unipartite projections
+#'
+#' Two-mode networks can be represented (or 'projected') as one-mode networks.
+#'
+#' @param A  A matrix object
+#'
+#' @return This function return a list of matrices of the two projections of the original matrix.
+#'
+#' @references
+#'
+#' Davis, Allison; Gardner, Burleigh B. and Mary. R. Gardner (1941). Deep South: A Social Anthropological Study of Caste and Class. The University of Chicago Press, Chicago.
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   2, 0, 2,
+#'   1, 1, 0,
+#'   0, 3, 3,
+#'   0, 2, 2,
+#'   0, 0, 1
+#' ), byrow = TRUE, ncol = 3)
+#' matrix_projection(A)
+#' @export
+matrix_projection <- function(A) {
+  A <- as.matrix(A)
+  projection1 <- t(A) %*% A
+  projection2 <- A %*% t(A)
+  return(list(matrix1 = projection1, matrix2 = projection2))
+}
+
+#' Minimum/maximum overlap
+#'
+#' Two-mode networks can be represented (or 'projected') as one-mode networks.
+#'
+#' @param A  A matrix object
+#' @param row  Whether to consider the actors in the rows of the matrix (default) or the column.
+#' @param min  Whether to extract the minimum (default) or the maximum overlap.
+#'
+#' @return This function return the overlap between the modes (a.k.a. actors, nodes, vertices).
+#'
+#' @references
+#'
+#' Morris, S.A. (2005). Unified Mathematical Treatment of Complex Cascaded Bipartite Networks: The Case of Collections of Journal Papers. Unpub- lished PhD Thesis, Oklahoma State University. Retrieved from \url{http://digital.library.okstate.edu/etd/umi-okstate-1334.pdf}
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#'
+#' A <- matrix(c(
+#'   2, 0, 2,
+#'   1, 1, 0,
+#'   0, 3, 3,
+#'   0, 2, 2,
+#'   0, 0, 1
+#' ), byrow = TRUE, ncol = 3)
+#' minmax_overlap(A)
+#' @export
+minmax_overlap <- function(A, row = TRUE, min = TRUE) {
+  A <- as.matrix(A)
+  if (!row) {
+    A <- t(A)
+  }
+  sim.jac <- matrix(0, nrow = nrow(A), ncol = nrow(A))
+  rownames(sim.jac) <- rownames(A)
+  colnames(sim.jac) <- rownames(A)
+  pairs <- t(combn(1:nrow(A), 2))
+  for (i in 1:nrow(pairs)) {
+    if (min) {
+      num <- sum(sapply(1:ncol(A), function(x) (min(A[pairs[i, 1], x], A[pairs[i, 2], x]))))
+    } else {
+      num <- sum(sapply(1:ncol(A), function(x) (max(A[pairs[i, 1], x], A[pairs[i, 2], x]))))
+    }
+    sim.jac[pairs[i, 1], pairs[i, 2]] <- num
+    sim.jac[pairs[i, 2], pairs[i, 1]] <- num
+  }
+  sim.jac[which(is.na(sim.jac))] <- 0
+  diag(sim.jac) <- rowSums(A)
+  return(sim.jac)
+}
+
 #' Ego network
 #'
 #' Submatrix of ego's neighbourhoods
@@ -128,7 +211,6 @@ ego_net <- function(A, ego = NULL, bipartite = FALSE, addEgo = FALSE,
 
   A <- as.matrix(A)
   ego <- as.character(ego)
-  # select <- switch(node_direction(select), "out"=1, "in"=2, "all"=3)
   select <- switch(node_direction(select),
     "out" = 1,
     "in" = 2,
@@ -293,32 +375,32 @@ meta_matrix <- function(A1, B1,
                         A2 = NULL, B2 = NULL,
                         A3 = NULL, B3 = NULL) {
   A1 <- as.matrix(A1)
-  
+
   if (!is.null(A3)) {
     if (is.null(B1)) stop("Is not available the bipartite network between levels")
   }
   if (!is.null(B1)) {
     if (!nrow(A1) == nrow(B1)) stop("Non-conformable arrays")
     if (nrow(B1) == ncol(B1)) warning("Matrix should be rectangular")
-    
+
     M1 <- cbind(A1, B1)
     M1b <- cbind(
       t(B1),
       matrix(0,
-             nrow = (ncol(M1) - nrow(B1)), byrow = T,
-             ncol = (ncol(M1) - nrow(A1))
+        nrow = (ncol(M1) - nrow(B1)), byrow = T,
+        ncol = (ncol(M1) - nrow(A1))
       )
     )
-    
+
     colnames(M1b) <- c(rownames(M1), rownames(M1b))
-    
+
     meta_matrix <- rbind(M1, M1b)
   }
-  
+
   if (!is.null(A2)) {
     if (is.null(B1)) stop("Multilevel networks require at least one bipartite network between levels")
     if (!nrow(A2) == ncol(A2)) stop("Matrix should be square")
-    
+
     if (!ncol(B1) == nrow(A2)) stop("Non-conformable arrays")
     M2 <- cbind(A1, B1)
     M2b <- cbind(
@@ -327,41 +409,41 @@ meta_matrix <- function(A1, B1,
     meta_matrix <- rbind(M2, M2b)
   } else {
     A2 <- matrix(0, byrow = TRUE, ncol = ncol(B1), nrow = ncol(B1))
-    
+
     rownames(A2) <- colnames(B1)
     colnames(A2) <- rownames(A2)
   }
-  
+
   if (!is.null(B2)) {
     if (is.null(B1)) stop("Is not available the first bipartite network between lower and medium levels")
     if (nrow(B2) == ncol(B2)) warning("Matrix should be rectangular")
     if (!nrow(A2) == nrow(B2)) stop("Non-conformable arrays")
-    
-    
+
+
     M3 <- cbind(
       meta_matrix,
       rbind(matrix(0,
-                   nrow = nrow(A1), byrow = T,
-                   ncol = ncol(B2)
+        nrow = nrow(A1), byrow = T,
+        ncol = ncol(B2)
       ), B2)
     )
     M3b <- matrix(0,
-                  nrow = ncol(B2), byrow = T,
-                  ncol = ncol(M3)
+      nrow = ncol(B2), byrow = T,
+      ncol = ncol(M3)
     )
     rownames(M3b) <- colnames(B2)
     meta_matrix <- rbind(M3, M3b)
   }
-  
+
   if (!is.null(A3)) {
     if (!nrow(A3) == ncol(A3)) stop("Matrix should be square")
     if (!ncol(B2) == nrow(A3)) stop("Non-conformable arrays")
-    
+
     meta_matrix <- rbind(
       M3,
       cbind(matrix(0,
-                   nrow = ncol(A3), byrow = T,
-                   ncol = ncol(M3) - ncol(A3)
+        nrow = ncol(A3), byrow = T,
+        ncol = ncol(M3) - ncol(A3)
       ), A3)
     )
   }
@@ -369,10 +451,10 @@ meta_matrix <- function(A1, B1,
     if (is.null(B2)) {
       B2 <- matrix(0, byrow = TRUE, ncol = ncol(B1), nrow = nrow(B3))
     }
-    
+
     if (!nrow(B3) == ncol(A3)) stop("Non-conformable arrays")
     if (!ncol(B3) == nrow(A1)) stop("Non-conformable arrays")
-    
+
     M4 <- cbind(
       rbind(M2, M2b),
       rbind(
@@ -380,15 +462,15 @@ meta_matrix <- function(A1, B1,
         matrix(0, nrow = ncol(A2), ncol = nrow(B3), byrow = TRUE)
       )
     )
-    
+
     M4a <- cbind(matrix(0,
-                        nrow = ncol(A3), byrow = T,
-                        ncol = ncol(M3) - ncol(A3)
+      nrow = ncol(A3), byrow = T,
+      ncol = ncol(M3) - ncol(A3)
     ), A3)
-    
+
     meta_matrix <- rbind(M4, M4a)
   }
-  
+
   return(meta_matrix)
 }
 

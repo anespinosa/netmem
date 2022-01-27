@@ -64,11 +64,16 @@ citation_norm <- function(A1, A2, citation = "citation") {
 #'
 #' Co‐occurrence matrix based on overlap function
 #'
-#' @param OC  Asymmetrical occurrence matrix
+#' @param A  A matrix
+#' @param similarity  The similarities available are either \code{Ochiai} (default) or \code{cosine}.
+#' @param occurrence  Whether to treat the matrix as a two-mode structure (a.k.a. rectangular matrix, occurrence matrix, affiliation matrix, bipartite network)
+#' @param projection Whether to apply a projection (inner product multiplication) to the matrix
 #'
-#' @return This function returns the symmetrical co‐occurrence matrix using the minimal overlap
+#' @return This function returns the normalisation of a matrix into a symmetrical co‐occurrence matrix
 #'
 #' @references
+#'
+#' Borgatti, S. P., Halgin, D. S., 2011. Analyzing affiliation networks. In: J. Scott and P. J. Carrington (Eds.) The Sage handbook of social network analysis (pp. 417-433), Sage.
 #'
 #' Zhou, Q., & Leydesdorff, L. (2016). The normalization of occurrence and Co-occurrence matrices in bibliometrics using Cosine similarities and Ochiai coefficients. Journal of the Association for Information Science and Technology, 67(11), 2805–2814. \url{https://doi.org/10.1002/asi.23603}
 #'
@@ -76,7 +81,7 @@ citation_norm <- function(A1, A2, citation = "citation") {
 
 #' @examples
 #'
-#' OC <- matrix(c(
+#' A <- matrix(c(
 #'   2, 0, 2,
 #'   1, 1, 0,
 #'   0, 3, 3,
@@ -86,15 +91,89 @@ citation_norm <- function(A1, A2, citation = "citation") {
 #' nrow = 5, byrow = TRUE
 #' )
 #'
-#' coocurrence(OC)
+#' co_ocurrence(A)
 #' @export
 
-# TODO: working progress (expand the measure)
+co_ocurrence <- function(A, similarity = c("ochiai", "cosine"),
+                         occurrence = TRUE, projection = FALSE) {
+  A <- as.matrix(A)
+  similarity <- switch(similarity_option(similarity),
+    "ochiai" = 1,
+    "cosine" = 2
+  )
 
-coocurrence <- function(OC) {
-  coOC <- t(OC) %*% OC
-  D <- diag(coOC)
-  coOC / (sqrt(outer(D, D, "*")))
+  ### Occurrence matrix
+  if (occurrence) {
+    # OCHIAI
+    if (similarity == 1) {
+      Di <- rowSums(A)
+      Dj <- colSums(A)
+      Ab <- (t(A) %*% A)
+      diag(Ab) <- colSums(A) # impute diagonal
+      return(Ab / (sqrt(outer(Dj, Dj, "*"))))
+    }
+    # COSINE
+    if (similarity == 2) {
+
+      # coOC <- t(A) %*% A
+      # D <- diag(coOC)
+      # return(coOC / (sqrt(outer(D, D, "*"))))
+
+      return((t(A) %*% A) / (sqrt(outer(colSums(A^2), colSums(A^2), "*"))))
+    }
+  }
+
+  ### Co-occurrence matrix based on inner product
+  if (!occurrence) {
+    IN <- (t(A) %*% A)
+
+    # OCHIAI:
+    if (projection) {
+      if (similarity == 1) {
+        Di <- rowSums(A^2)
+        Dj <- colSums(A^2)
+        return(IN / (sqrt(outer(Dj, Dj, "*"))))
+      }
+
+      # COSINE:
+      if (similarity == 2) {
+        INb <- IN
+        Di <- rowSums(INb^2)
+        Dj <- colSums(INb^2)
+        return((IN %*% t(IN)) / (sqrt(outer(Di, Dj, "*"))))
+      }
+    }
+    ### Co-occurrence matrix based on minmax_overlap function/OCHIAI
+    # COSINE:
+    if (!projection) {
+
+      # OCHIAI:
+      if (similarity == 1) {
+        D <- colSums(A)
+        return(OVER / (sqrt(outer(D, D, "*"))))
+      }
+
+      if (similarity == 2) {
+        OVER <- minmax_overlap(A, row = FALSE)
+        OVERb <- OVER
+        Di <- rowSums(OVERb^2)
+        Dj <- colSums(OVERb^2)
+        return(OVER %*% t(OVER) / (sqrt(outer(Di, Dj, "*"))))
+      }
+    }
+  }
+}
+
+similarity_option <- function(arg, choices, several.ok = FALSE) {
+  if (missing(choices)) {
+    formal.args <- formals(sys.function(sys.parent()))
+    choices <- eval(formal.args[[deparse(substitute(arg))]])
+  }
+
+  arg <- tolower(arg)
+  choices <- tolower(choices)
+
+  match.arg(arg = arg, choices = choices, several.ok = several.ok)
 }
 
 #' Jaccard similarity

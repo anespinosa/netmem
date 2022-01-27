@@ -68,7 +68,7 @@ dyadic_census <- function(G, directed = TRUE) {
   }
 }
 
-#' Forbidden Triad Table
+#' Forbidden triad table
 #'
 #' This function explores dyads and triads (Simmel, 1950), building from the
 #' 'forbidden triad' (Granovetter, 1973).

@@ -2,7 +2,7 @@
 % Please edit documentation in R/census.R
 \name{dyad_triad_table}
 \alias{dyad_triad_table}
-\title{Forbidden Triad Table}
+\title{Forbidden triad table}
 \usage{
 dyad_triad_table(A, adjacency_list = FALSE, min = NULL, max = NULL)
 }

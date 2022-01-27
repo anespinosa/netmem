@@ -22,13 +22,13 @@
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- letters[1:ncol(A)]
 #' att <- rbinom(sqrt(n), 3, 0.5)
-#' mixMatrix(A, att = att)
+#' mix_matrix(A, att = att)
 #' @export
 #'
 
 # TODO: select a better example!
 
-mixMatrix <- function(A, att = NULL) {
+mix_matrix <- function(A, att = NULL) {
   if (is.null(att)) stop("No attribute has been specified")
   if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
   if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
@@ -48,17 +48,17 @@ mixMatrix <- function(A, att = NULL) {
   edgeTO <- merge(edgeTO, data, by = "label")
   edgeTO <- edgeTO[order(edgeTO$id), ]
 
-  mixMATRIX <- do.call(table, c(list(
+  mix_matrix <- do.call(table, c(list(
     From = edgeFROM$att,
     To = edgeTO$att
   )))
 
   if (all(A[lower.tri(A)] == t(A)[lower.tri(A)])) {
     warning("The network is undirected")
-    mixMATRIX <- mixMATRIX + t(mixMATRIX)
-    diag(mixMATRIX) <- diag(mixMATRIX) %/% 2L
+    mix_matrix <- mix_matrix + t(mix_matrix)
+    diag(mix_matrix) <- diag(mix_matrix) %/% 2L
   }
-  return(mixMATRIX)
+  return(mix_matrix)
 }
 
 #' Krackhardt and Stern's E-I index
@@ -88,7 +88,7 @@ mixMatrix <- function(A, att = NULL) {
 
 ei_index <- function(A, mixed = TRUE, att = NULL) {
   if (!mixed) {
-    matrix <- mixMatrix(A, att)
+    matrix <- mix_matrix(A, att)
   }
   if (length(dim(matrix)) == 3) {
     m <- matrix[, , 2]

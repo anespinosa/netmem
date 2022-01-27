@@ -5,12 +5,12 @@
 #' @param d   Numeric value of the number of fixed choices.
 #' @param dichotomic  Whether the matrix is weighted or binary
 #'
-#' @return This function gives a measurment of the tendency toward 
+#' @return This function gives a measurment of the tendency toward
 #' reciprocation of choices.
 #'
 #' @references
 #'
-#' Katz, L. and Powell, J.H. (1955). "Measurement of the tendency toward 
+#' Katz, L. and Powell, J.H. (1955). "Measurement of the tendency toward
 #' reciprocation of choice." Sociometry, 18:659-665.
 #'
 #' @author Alejandro Espinosa-Rada
