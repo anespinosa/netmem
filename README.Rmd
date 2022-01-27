@@ -39,10 +39,6 @@ The package implements different measures to analyse and manipulate complex mult
 
 ```{r echo=FALSE, results='asis'}
 citation(package="netmem")
-
-glue::glue('<script type="application/ld+json">
-      {glue::glue_collapse(readLines("codemeta.json"), sep = "\n")}
-    </script>')
 ```
 
 ## All functions
@@ -238,4 +234,14 @@ Please note that this project is released with a [Contributor Code of Conduct](h
 ```{r todo1}
 # library(todor)
 # todor::todor_package(c("TODO", "FIXME"))
+```
+
+-----
+
+### JSON
+
+```{r echo=FALSE, results='asis'}
+glue::glue('<script type="application/ld+json">
+      {glue::glue_collapse(readLines("codemeta.json"), sep = "\n")}
+    </script>')
 ```
