@@ -67,11 +67,12 @@ Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/
 20. `multilevel_degree()`: Degree centrality for multilevel networks
 21. `multiplex_census()`: Multiplex triad census
 22. `redundancy()`: Redundancy measures
-23. `struc_balance()`: Structural balance
-24. `structural_na()`: Structural missing data
-25. `triad_uman()`: Triad census analysis assuming U|MAN
-26. `z_arctest()`: Z test of the number of arcs
-27. `zone_sample()`: Zone-2 sampling from second-mode
+23. `posneg_index()`: Positive-negative centrality
+24. `struc_balance()`: Structural balance
+25. `structural_na()`: Structural missing data
+26. `triad_uman()`: Triad census analysis assuming U|MAN
+27. `z_arctest()`: Z test of the number of arcs
+28. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 

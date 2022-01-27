@@ -159,3 +159,92 @@ method_used <- function(arg, choices, several.ok = FALSE) {
 
   match.arg(arg = arg, choices = choices, several.ok = several.ok)
 }
+
+
+
+#' Positive-negative centrality
+#'
+#' @param A   A signed symmetric matrix (i.e., with ties that are either -1, 0 or 1)
+#' @param select   Whether to consider the direction of the outgoing ties. Considering \code{all} (default), \code{in} or \code{out} ties.
+#'
+#' @return This function return the positive-negative centrality index for signed networks (Everett and Borgatti).
+#'
+#' @references
+#'
+#' Everett, Martin and Borgatti, Stephen (2014). Networks containing negative ties. Social Networks, 38, 111-120. \url{http://dx.doi.org/10.1016/j.socnet.2014.03.005}
+#'
+#' @source Adapted from David Schoch 'signnet'
+#'
+#' @examples
+#'
+#' A <- matrix(c(
+#'   0, 1, -1, -1, -1, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 1,
+#'   1, 0, -1, 0, -1, -1, 0, 0, -1, -1, 0, 0, 0, 0, 1, 1,
+#'   -1, -1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   -1, -1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, -1, -1,
+#'   -1, -1, 1, 0, 0, 0, 1, 1, -1, 0, 1, 1, -1, 0, 0, -1,
+#'   0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0,
+#'   0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, -1, 0, 0,
+#'   0, -1, 0, 0, 1, -1, 0, 0, 0, 1, -1, 0, 1, 0, -1, 0,
+#'   0, -1, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 1, 0, -1, 0,
+#'   0, 0, 0, 0, 0, 1, 1, 1, -1, -1, 0, 1, -1, 0, -1, -1,
+#'   -1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, -1, -1, -1,
+#'   0, 0, 0, 0, 0, -1, 1, 0, 1, 1, -1, 0, 0, 1, -1, -1,
+#'   0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, -1, 1, 0, 0, -1,
+#'   1, 1, 0, 0, -1, 0, 0, 0, -1, -1, -1, -1, -1, 0, 0, 1,
+#'   1, 1, 0, 0, -1, -1, 0, 0, 0, 0, -1, -1, -1, -1, 1, 0
+#' ),
+#' ncol = 16, nrow = 16, byrow = TRUE
+#' )
+#' label <- c(
+#'   "Gavev", "Kotun", "Ove", "Alika", "Nagam", "Gahuk", "Masil", "Ukudz",
+#'   "Notoh", "Kohik", "Geham", "Asaro", "Uheto", "Seuve", "Nagad", "Gama"
+#' )
+#' rownames(A) <- label
+#' colnames(A) <- rownames(A)
+#' posneg_index(A, select = c("all"))
+#' @export
+
+posneg_index <- function(A, select = c("all", "in", "out")) {
+  if (any(is.na(A))) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  if (any(abs(A > 1), na.rm = TRUE)) warning("The matrix should be binary")
+  if (!any(A < 0)) warning("No negative ties")
+  if (!any(A > 0)) warning("No positive ties")
+
+  select <- switch(node_direction(select),
+    "out" = 1,
+    "in" = 2,
+    "all" = 3
+  )
+
+  pos <- ifelse(A == 1, 1, 0)
+  neg <- ifelse(A == -1, 1, 0)
+
+  I <- diag(1, ncol(A))
+  A <- pos - 2 * neg
+
+  if (select == 1) {
+    # all
+    a <- solve(I - 1 / (2 * ncol(A) - 2) * A)
+    return(rowSums(a))
+  }
+
+  if (select == 2) {
+    # in
+    a <- solve(I - 1 / (4 * (ncol(A) - 1)^2) * t(A) %*% A) %*% (I + 1 / (2 * ncol(A) - 2) * t(A))
+    return(rowSums(a))
+  }
+
+  if (select == 3) {
+    # out
+    a <- solve(I - 1 / (4 * (ncol(A) - 1)^2) * A %*% t(A)) %*% (I + 1 / (2 * ncol(A) - 2) * A)
+    return(rowSums(a))
+  }
+}
+
+# TODO: structural equivalence (Lorrain and White, 1971), automorphic equivalence and regular equivalence (White and Reitz, 1983; Everett and Borgatti, 1995)
+# TODO: Bonacich and Lloyd (2004) eigenvector centrality
+# TODO: http://dx.doi.org/10.1016/j.socnet.2013.04.007
