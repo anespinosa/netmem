@@ -1,0 +1,159 @@
+---
+title: "multilayer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{multilayer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+-----
+
+## Installation
+
+You can install the [development version](https://github.com/anespinosa/netmem) with:
+```{r inst, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("anespinosa/netmem")
+```
+
+```{r setup}
+library(netmem)
+```
+
+-----
+
+## Multilevel Networks
+
+Connections between individuals are often embedded in complex structures, which shape actors’ expectations, behaviours and outcomes over time. These structures can themselves be interdependent and exist at different levels. Multilevel networks are a means by which we can represent this complex system by using nodes and edges of different types. Check [this book](https://www.springer.com/gp/book/9783319245188) edited by Emmanuel Lazega and Tom A.B. Snijders or [this book](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128) edited by David Knoke, Mario Diani, James Hollway and Dimitris Christopoulos.  
+
+For multilevel structures, we tend to collect the data in different matrices representing the variation of ties within and between levels. Often, we describe the connection between actors as an adjacency matrix and the relations between levels through incident matrices. The comfortable combination of these matrices into a common structure would represent the multilevel network that could be highly complex.
+
+### Example
+
+<div class="alert alert-info">
+Let's assume that we have a multilevel network with two adjacency matrices, one valued matrix and two incident matrices between them.
+
+- `A1`: Adjacency Matrix of the level 1
+- `B1`: Incident Matrix between level 1 and level 2
+- `A2`: Adjacency Matrix of the level 2
+- `B2`: Incident Matrix between level 2 and level 3
+- `A3`: Valued Matrix of the level 3
+</div>
+
+Create the data
+```{r multilevel_example}
+A1 <- matrix(c(0,1,0,0,1,
+              1,0,0,1,1,
+              0,0,0,1,1,
+              0,1,1,0,1,
+              1,1,1,1,0), byrow=TRUE, ncol=5)
+              
+B1 <- matrix(c(1,0,0,
+              1,1,0,
+              0,1,0,
+              0,1,0,
+              0,1,1), byrow=TRUE, ncol=3)
+
+A2 <- matrix(c(0,1,1,
+              1,0,0,
+              1,0,0), byrow=TRUE, nrow=3)
+
+B2 <- matrix(c(1,1,0,0,
+              0,0,1,0,
+              0,0,1,1), byrow=TRUE, ncol=4)
+
+A3 <- matrix(c(0,1,3,1,
+              1,0,0,0,
+              3,0,0,5,
+              1,0,5,0), byrow=TRUE, ncol=4)
+
+rownames(A1) <- letters[1:nrow(A1)]
+colnames(A1) <- rownames(A1)
+rownames(A2) <- letters[nrow(A1) + 1:nrow(A2)]
+colnames(A2) <- rownames(A2)
+rownames(B1) <- rownames(A1)
+colnames(B1) <- colnames(A2)
+rownames(A3) <- letters[nrow(A1) + nrow(A2) + 1:nrow(A3)]
+colnames(A3) <- rownames(A3)
+rownames(B2) <- rownames(A2)
+colnames(B2) <- colnames(A3)
+```
+
+-----
+
+### Two-mode networks
+
+
+```{r}
+
+matrix_projection(B1)
+
+minmax_overlap(B1, row = TRUE, min = TRUE) 
+minmax_overlap(B1, row = FALSE, min = TRUE) 
+
+co_ocurrence(B1, similarity = c('ochiai'), occurrence = TRUE, projection = FALSE)
+
+```
+
+-----
+
+### Ties within and between modes
+
+Would you rather prefer seeing the matrix as a complete structure? In which case, we can use the *'meta-matrix'* representation (Krackhardt & Carley, 1998; Carley, 2002). 
+```{r meta_matrix}
+meta_matrix(A1, B1, A2, B2, A3)
+
+library(igraph)
+plot(graph.adjacency(meta_matrix(A1, B1, A2, B2, A3), mode = c('directed')))
+
+```
+
+What is the density of some of the matrices?
+```{r multilevel_example2}
+matrices <- list(A1, B1, A2, B2)
+gen_density(matrices, multilayer = TRUE)
+```
+
+How about the degree centrality of the entire structure?
+```{r multil, warning=FALSE}
+multilevel_degree(A1, B1, A2, B2, complete = TRUE)
+```
+
+Besides, we can perform a *k*-core analysis of one of the levels using the information of an incident matrix
+```{r multil2, warning=FALSE}
+k_core(A1, B1, multilevel=TRUE)
+```
+
+This package also allows performing complex census for multilevel networks.
+```{r multil3}
+mixed_census(A2, t(B1), B2, quad=TRUE)
+```
+
+-----
+
+## Multiplex networks
+
+```{r}
+data("lazega_lawfirm")
+gen_density(list(lazega_lawfirm$cowork, lazega_lawfirm$advice, 
+                 lazega_lawfirm$friends), multilayer = TRUE)
+
+rownames(lazega_lawfirm$advice) <- as.character(1:ncol(lazega_lawfirm$advice))
+colnames(lazega_lawfirm$advice) <- rownames(lazega_lawfirm$advice)
+colnames(lazega_lawfirm$friends) <- rownames(lazega_lawfirm$advice)
+rownames(lazega_lawfirm$friends) <- colnames(lazega_lawfirm$friends)
+jaccard(lazega_lawfirm$advice, lazega_lawfirm$friends)
+
+multiplex_census(lazega_lawfirm$advice, lazega_lawfirm$friends)
+
+```
+
+

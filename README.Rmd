@@ -39,20 +39,24 @@ The package implements different measures to analyse and manipulate complex mult
 
 ```{r echo=FALSE, results='asis'}
 citation(package="netmem")
+
+glue::glue('<script type="application/ld+json">
+      {glue::glue_collapse(readLines("codemeta.json"), sep = "\n")}
+    </script>')
 ```
 
 ## All functions
 
 Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
-1. `citation_norm()`: Citation networks
-2. `clique_table()`: Clique table
-3. `co_ocurrence()`: Co‐occurrence
-4. `dyad_triad_table()`: Forbidden triad table
-5. `dyadic_census()`: Dyadic census
-6. `eb_constraint()`: Constraint
-7. `ego_net()`: Ego network
-8. `ei_index()`: Krackhardt and Stern's E-I index
+1. `clique_table()`: Clique table
+2. `co_ocurrence()`: Co‐occurrence
+3. `dyad_triad_table()`: Forbidden triad table
+4. `dyadic_census()`: Dyadic census
+5. `eb_constraint()`: Constraint
+6. `ego_net()`: Ego network
+7. `ei_index()`: Krackhardt and Stern's E-I index
+8. `fractional_approach()`: Fractional approach
 9. `gen_degree()`: Generalized degree
 10. `gen_density()`: Generalized density
 11. `heterogeneity()`: Blau's and IQV Index
@@ -68,7 +72,7 @@ Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/
 21. `multiplex_census()`: Multiplex triad census
 22. `redundancy()`: Redundancy measures
 23. `struc_balance()`: Structural balance
-24. `structuralNA()`: Structural missing data
+24. `structural_na()`: Structural missing data
 25. `triad_uman()`: Triad census analysis assuming U|MAN
 26. `z_arctest()`: Z test of the number of arcs
 27. `zone_sample()`: Zone-2 sampling from second-mode
@@ -79,6 +83,7 @@ Data currently available in [`netmem`](https://anespinosa.github.io/netmem/refer
 2. `FIFAex`: Outside FIFA
 3. `FIFAin`: Inside FIFA
 4. `krackhardt_friends`: Krackhardt friends
+5. `lazega_lawfirm`: Lazega Law Firm
 
 Additional data in [`classicnets: Classic Data of Social Networks`](https://github.com/anespinosa/classicnets)
 

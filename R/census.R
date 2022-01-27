@@ -269,7 +269,7 @@ clique_table <- function(A, list_cliques = FALSE, number = FALSE) {
   }
   t <- table(unlist(cliques))[which(table(unlist(cliques)) >= 3)]
 
-  if (all(table(unlist(cliques)) < 2)) stop(print("No cliques"))
+  if (all(table(unlist(cliques)) < 2)) stop(message("No cliques"))
 
   clique_table <- list()
   for (i in 1:ncol(A)) {
@@ -392,7 +392,7 @@ multiplex_census <- function(A, B) {
   if (!dim(B)[1] == dim(B)[2]) stop("Matrix should be square")
   B <- ifelse(B > 0, 1, 0)
 
-  if (!all(B[lower.tri(B)] == t(B)[lower.tri(B)])) warning(paste("Measure only implemented for undirected networks", "in the `second` network,", "the measure would use the underlying graph"))
+  if (!all(B[lower.tri(B)] == t(B)[lower.tri(B)])) warning(paste("Measure only implemented for a directed and an undirected network.", "For the `second` network,", "the underlying graph is used"))
   B[lower.tri(B)] <- t(B)[lower.tri(B)]
 
   if (any(is.na(A) == TRUE)) {

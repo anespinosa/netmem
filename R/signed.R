@@ -56,7 +56,7 @@ struc_balance <- function(A, B = NULL, score = c("triangle", "walk")) {
 
     if (any(abs(B > 1), na.rm = TRUE)) warning("The matrix should be binary")
     if (any((abs(A) + abs(B)) > 1)) {
-      print("Some ties are positive and negative at the same time, which might distort the number of cliques in the matrix")
+      message("Some ties are positive and negative at the same time, which might distort the number of cliques in the matrix")
     }
 
     if (!all(B[lower.tri(B)] == t(B)[lower.tri(B)], na.rm = TRUE)) warning("The network is directed. The underlying graph is used")

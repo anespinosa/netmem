@@ -1,16 +1,18 @@
-#' Citation networks
+#' Fractional approach
 #'
-#' Matrix transformation from incident matrices to a citation, fractional counting for co-citation or fractional counting for bibliographic coupling
+#' Matrix transformation from incident matrices to citation networks, fractional counting for co-citation or fractional counting for bibliographic coupling
 #'
-#' @param A1   From incident matrix of paper and author.
-#' @param A2   To incident matrix of author to paper.
-#' @param citation    Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}
+#' @param A1   From incident matrix (e.g. paper and authors)
+#' @param A2   To incident matrix (e.g. author to paper)
+#' @param approach    Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}
 #'
-#' @return Return a type of citation network
+#' @return Return a type of "citation network"
 #'
 #' @references
 #'
-#' Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864.
+#' Batagelj, V. (2020). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \url{https://doi.org/10.1016/j.socnet.2021.08.001}
+#'
+#' Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864. \url{https://doi.org/10.1007/s11192-012-0940-1}
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -31,19 +33,29 @@
 #'   0, 0, 0, 1, 1
 #' ), byrow = TRUE, ncol = 5)
 #'
-#' citation_norm(A1, A2)
+#' fractional_approach(A1, A2)
 #' @export
 
-# TODO: Working progress (expand the measure)
+fractional_approach <- function(A1, A2, approach = c("citation", "cocitation", "bcoupling")) {
+  A1 <- as.matrix(A1)
+  A2 <- as.matrix(A2)
 
-citation_norm <- function(A1, A2, citation = "citation") {
+  similarity <- switch(similarity_option(approach),
+    "citation" = 1,
+    "cocitation" = 2,
+    "bcoupling" = 3
+  )
+
   Ci <- A1 %*% A2
   Ci <- t(Ci) %*% Ci
-  if (citation == "citation") {
+
+  # Citation Networks
+  if (similarity == 1) {
     return(Ci)
   }
 
-  if (citation == "cocitation") {
+  # Co-citations
+  if (similarity == 2) {
     D <- ifelse(rowSums(Ci) > 0, rowSums(Ci), 1)
     D <- diag(1 / D)
     Cin <- t(D %*% Ci)
@@ -51,7 +63,8 @@ citation_norm <- function(A1, A2, citation = "citation") {
     return(coCit)
   }
 
-  if (citation == "bcoupling") {
+  # Bibliographic coupling
+  if (similarity == 3) {
     D <- ifelse(rowSums(Ci) > 0, rowSums(Ci), 1)
     D <- diag(1 / D)
     biCo <- Ci %*% t(Ci)
@@ -234,8 +247,8 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
   B <- as.matrix(B)
 
   if (coparticipation) {
-    if (all(rownames(A) != colnames(A))) stop("The names of rows and columns does not match")
-    if (all(rownames(B) != colnames(B))) stop("The names of rows and columns does not match")
+    if (all(rownames(A) != colnames(A))) stop("The names of rows and columns do not match")
+    if (all(rownames(B) != colnames(B))) stop("The names of rows and columns do not match")
 
     n1t <- ncol(A)
     n2t <- ncol(B)

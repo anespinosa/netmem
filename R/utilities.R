@@ -273,7 +273,7 @@ ego_net <- function(A, ego = NULL, bipartite = FALSE, addEgo = FALSE,
       return(matrix(c(name), ncol = 1, nrow = 1))
     }
     if (length(name) == 0) {
-      print(paste("actor", ego, "has no neighbour"))
+      message(paste("actor", ego, "has no neighbour"))
     } else {
       (A[name, name])
     }
@@ -497,10 +497,10 @@ meta_matrix <- function(A1, B1,
 #' colnames(A) <- c("A", "C", "D")
 #' rownames(A) <- c("A", "C", "D")
 #' label <- c("A", "B", "C", "D", "E")
-#' structuralNA(A, label)
+#' structural_na(A, label)
 #' @export
 
-structuralNA <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
+structural_na <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
   if (bipartite) {
     if (dim(A)[1] == dim(A)[2]) warning("Incident matrix should be rectangular")
     if (column) {
