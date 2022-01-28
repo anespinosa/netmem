@@ -57,7 +57,7 @@ Functions currently available in
 1.  `clique_table()`: Clique table
 2.  `co_ocurrence()`: Co‐occurrence
 3.  `dyad_triad_table()`: Forbidden triad table
-4.  `dyad_census()`: Dyad census
+4.  `dyad_census()`: dyad census
 5.  `eb_constraint()`: Constraint
 6.  `ego_net()`: Ego network
 7.  `ei_index()`: Krackhardt and Stern’s E-I index
@@ -373,10 +373,10 @@ gen_degree(B1, bipartite = TRUE, normalized=TRUE)
 #> [1] 0.4 0.8 0.2
 ```
 
-This package also implement some dyadic analysis
+This package also implements some analysis of dyads.
 
 ``` r
-# Dyadic census
+# dyad census
 dyad_census(A1)
 #>      Mutual Asymmetrics       Nulls 
 #>           7           0           3
