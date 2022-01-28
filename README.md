@@ -79,9 +79,10 @@ Functions currently available in
 23. `posneg_index()`: Positive-negative centrality
 24. `struc_balance()`: Structural balance
 25. `structural_na()`: Structural missing data
-26. `triad_uman()`: Triad census analysis assuming U\|MAN
-27. `z_arctest()`: Z test of the number of arcs
-28. `zone_sample()`: Zone-2 sampling from second-mode
+26. `trans_coef()`: Transitivity
+27. `triad_uman()`: Triad census analysis assuming U\|MAN
+28. `z_arctest()`: Z test of the number of arcs
+29. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in
 [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
