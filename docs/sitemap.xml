@@ -58,6 +58,9 @@
     <loc>/reference/coocurrence.html</loc>
   </url>
   <url>
+    <loc>/reference/dyad_census.html</loc>
+  </url>
+  <url>
     <loc>/reference/dyad_triad_table.html</loc>
   </url>
   <url>
@@ -107,6 +110,9 @@
   </url>
   <url>
     <loc>/reference/matrix_projection.html</loc>
+  </url>
+  <url>
+    <loc>/reference/matrix_report.html</loc>
   </url>
   <url>
     <loc>/reference/matrix_to_edgelist.html</loc>

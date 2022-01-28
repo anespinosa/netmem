@@ -57,7 +57,7 @@ Functions currently available in
 1.  `clique_table()`: Clique table
 2.  `co_ocurrence()`: Co‐occurrence
 3.  `dyad_triad_table()`: Forbidden triad table
-4.  `dyadic_census()`: Dyadic census
+4.  `dyad_census()`: Dyadic census
 5.  `eb_constraint()`: Constraint
 6.  `ego_net()`: Ego network
 7.  `ei_index()`: Krackhardt and Stern’s E-I index
@@ -69,20 +69,21 @@ Functions currently available in
 13. `k_core()`: Generalized K-core
 14. `kp_reciprocity()`: Reciprocity of Katz and Powell
 15. `matrix_projection()`: Unipartite projections
-16. `matrix_to_edgelist()`: Transform symmetric matrix to an edge-list
-17. `mix_matrix()`: Mixing matrix
-18. `meta_matrix()`: Meta matrix for multilevel networks
-19. `mixed_census()`: Multilevel triad and quadrilateral census
-20. `multilevel_degree()`: Degree centrality for multilevel networks
-21. `multiplex_census()`: Multiplex triad census
-22. `redundancy()`: Redundancy measures
-23. `posneg_index()`: Positive-negative centrality
-24. `struc_balance()`: Structural balance
-25. `structural_na()`: Structural missing data
-26. `trans_coef()`: Transitivity
-27. `triad_uman()`: Triad census analysis assuming U\|MAN
-28. `z_arctest()`: Z test of the number of arcs
-29. `zone_sample()`: Zone-2 sampling from second-mode
+16. `matrix_report()`: Matrix report
+17. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
+18. `mix_matrix()`: Mixing matrix
+19. `meta_matrix()`: Meta matrix for multilevel networks
+20. `mixed_census()`: Multilevel triad and quadrilateral census
+21. `multilevel_degree()`: Degree centrality for multilevel networks
+22. `multiplex_census()`: Multiplex triad census
+23. `redundancy()`: Redundancy measures
+24. `posneg_index()`: Positive-negative centrality
+25. `struc_balance()`: Structural balance
+26. `structural_na()`: Structural missing data
+27. `trans_coef()`: Transitivity
+28. `triad_uman()`: Triad census analysis assuming U\|MAN
+29. `z_arctest()`: Z test of the number of arcs
+30. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in
 [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
@@ -176,6 +177,57 @@ A3 <- matrix(c(0,1,3,1,
               1,0,0,0,
               3,0,0,5,
               1,0,5,0), byrow=TRUE, ncol=4)
+```
+
+We will start with a report of the matrices:
+
+``` r
+matrix_report(A1)
+#> The matrix A might have the following characteristics:
+#> --> The vectors of the matrix are `numeric`
+#> --> No names assigned to the rows of the matrix
+#> --> No names assigned to the columns of the matrix
+#> --> Matrix is symmetric (network is undirected)
+#> --> The matrix is square, 5 by 5
+#> --> Determinant equal zero
+#>      nodes edges
+#> [1,]     5     7
+matrix_report(B1)
+#> The matrix A might have the following characteristics:
+#> --> The vectors of the matrix are `numeric`
+#> --> No names assigned to the rows of the matrix
+#> --> No names assigned to the columns of the matrix
+#> --> The matrix is rectangular, 3 by 5
+#>      nodes_rows nodes_columns incident_lines
+#> [1,] 3          5             ?
+matrix_report(A2)
+#> The matrix A might have the following characteristics:
+#> --> The vectors of the matrix are `numeric`
+#> --> No names assigned to the rows of the matrix
+#> --> No names assigned to the columns of the matrix
+#> --> Matrix is symmetric (network is undirected)
+#> --> The matrix is square, 3 by 3
+#>      nodes edges
+#> [1,]     3     2
+matrix_report(B2)
+#> The matrix A might have the following characteristics:
+#> --> The vectors of the matrix are `numeric`
+#> --> No names assigned to the rows of the matrix
+#> --> No names assigned to the columns of the matrix
+#> --> The matrix is rectangular, 4 by 3
+#>      nodes_rows nodes_columns incident_lines
+#> [1,] 4          3             ?
+matrix_report(A3)
+#> The matrix A might have the following characteristics:
+#> --> The vectors of the matrix are `numeric`
+#> --> No names assigned to the rows of the matrix
+#> --> No names assigned to the columns of the matrix
+#> --> Valued matrix
+#> --> Matrix is symmetric (network is undirected)
+#> --> The matrix is square, 4 by 4
+#> --> Determinant equal zero
+#>      nodes edges
+#> [1,]     4    10
 ```
 
 What is the density of some of the matrices?
@@ -325,7 +377,7 @@ This package also implement some dyadic analysis
 
 ``` r
 # Dyadic census
-dyadic_census(A1)
+dyad_census(A1)
 #>      Mutual Asymmetrics       Nulls 
 #>           7           0           3
 

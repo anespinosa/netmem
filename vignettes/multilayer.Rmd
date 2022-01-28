@@ -87,13 +87,21 @@ rownames(B2) <- rownames(A2)
 colnames(B2) <- colnames(A3)
 ```
 
+We will start with a report of the matrices:
+```{r}
+matrix_report(A1)
+matrix_report(B1)
+matrix_report(A2)
+matrix_report(B2)
+matrix_report(A3)
+```
+
 -----
 
 ### Two-mode networks
 
 
 ```{r}
-
 matrix_projection(B1)
 
 minmax_overlap(B1, row = TRUE, min = TRUE) 

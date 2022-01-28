@@ -2,12 +2,12 @@
 % Please edit documentation in R/utilities.R
 \name{matrix_to_edgelist}
 \alias{matrix_to_edgelist}
-\title{Transform symmetric matrix to an edge-list}
+\title{Transform a square matrix to an edge-list}
 \usage{
 matrix_to_edgelist(A, digraph = FALSE, valued = FALSE, loops = FALSE)
 }
 \arguments{
-\item{A}{A symmetric matrix}
+\item{A}{A square matrix}
 
 \item{digraph}{Whether the matrix is directed or not}
 
@@ -19,7 +19,7 @@ matrix_to_edgelist(A, digraph = FALSE, valued = FALSE, loops = FALSE)
 This function transform the matrix into an edgelist.
 }
 \description{
-Transform symmetric matrix to an edge-list
+Transform a square matrix to an edge-list
 }
 \examples{
 A <- matrix(c(

@@ -1,11 +1,11 @@
 # TODO: Add NA for all censuses
 
-#' Dyadic census
+#' Dyad census
 #'
 #' @param G   A symmetric matrix object.
 #' @param directed   Whether the matrix is directed or not
 #'
-#' @return This function return the counts of the dyadic census.
+#' @return This function return the counts of the dyad census.
 #'
 #' @references
 #'
@@ -16,13 +16,13 @@
 #' @examples
 #'
 #' data(krackhardt_friends)
-#' dyadic_census(krackhardt_friends)
+#' dyad_census(krackhardt_friends)
 #'
 #' data(FIFAin)
-#' dyadic_census(FIFAin[[1]], directed = FALSE)
+#' dyad_census(FIFAin[[1]], directed = FALSE)
 #' @export
 
-dyadic_census <- function(G, directed = TRUE) {
+dyad_census <- function(G, directed = TRUE) {
   G <- as.matrix(G)
   A <- G
   if (any(abs(G > 1), na.rm = TRUE)) stop("The matrix should be binary")

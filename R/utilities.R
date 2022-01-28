@@ -1,6 +1,103 @@
-#' Transform symmetric matrix to an edge-list
+#' Matrix report
 #'
-#' @param A   A symmetric matrix
+#' The primary matrix used in social network analysis are the
+#' adjacency matrix or sociomatrix, and the incidence matrix.
+#'
+#' @param A   A matrix
+#'
+#' @return This function return a report of some of the characteristics of the matrix.
+#'
+#' @references
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   1, 1, 0, 0, -1,
+#'   1, 0, 0, 1, 1,
+#'   0, 0, NA, 1, 1,
+#'   0, 1, 1, 0, 1,
+#'   1, 1, 1, 1, 0
+#' ), byrow = TRUE, ncol = 5)
+#'
+#' B <- matrix(c(
+#'   1, 0, 0,
+#'   1, 1, 0,
+#'   0, NA, 0,
+#'   0, 1, 0,
+#'   0, 1, 1
+#' ), byrow = TRUE, ncol = 3)
+#' matrix_report(A)
+#' matrix_report(B)
+#' @export
+
+matrix_report <- function(A) {
+  if (!is.matrix(A)) stop("The object is not a matrix")
+  if (length(A) == 1) {
+    stop("A 1 x 1 matrix")
+  }
+
+  nodes <- ncol(A)
+
+  message(paste("The matrix", as.character(bquote(A)), "might have the following characteristics:"))
+
+  # if(is.double(A))message('--> The vectors of the matrix are `double`')
+  if (is.numeric(A)) message("--> The vectors of the matrix are `numeric`")
+  if (is.integer(A)) message("--> The vectors of the matrix are `integer`")
+  if (is.character(A)) message("--> The vectors of the matrix are `character`")
+  if (is.logical(A)) message("--> The vectors of the matrix are `logical`")
+
+  if (is.null(rownames(A))) message("--> No names assigned to the rows of the matrix")
+  if (is.null(colnames(A))) message("--> No names assigned to the columns of the matrix")
+
+  if (any(abs(A) > 1, na.rm = TRUE)) message("--> Valued matrix")
+  if (any(A < 0, na.rm = TRUE)) message("--> The matrix has negative elements (network is signed)")
+  if (any(is.na(A))) message("--> The matrix has NA elements")
+
+  if (ncol(A) == nrow(A)) {
+    if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
+      message("--> Matrix is asymmetric (network is directed)")
+      if (any(diag(A) != 0)) message("--> The main diagonal is nonzero (the network has loops)")
+      edges <- sum(A, na.rm = TRUE)
+    } else {
+      message("--> Matrix is symmetric (network is undirected)")
+      if (any(diag(A) != 0)) {
+        message("--> The main diagonal is nonzero (the network has loops)")
+        I <- diag(1, ncol(A))
+        if (all(A == I)) message("--> An identity matrix")
+      }
+      edges <- sum(A, na.rm = TRUE) / 2
+    }
+  }
+
+  if (ncol(A) == nrow(A)) {
+    message(paste("--> The matrix is square,", ncol(A), "by", nrow(A)))
+
+    if (det(A)) message("--> Determinant equal zero")
+
+    if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
+      return(cbind(nodes = nodes, arcs = edges))
+    } else {
+      return(cbind(nodes = nodes, edges = edges))
+    }
+  } else {
+    message(paste("--> The matrix is rectangular,", ncol(A), "by", nrow(A)))
+    mode_level1 <- ncol(A)
+    mode_level2 <- nrow(A)
+    return(cbind(
+      nodes_rows = mode_level1,
+      nodes_columns = mode_level2,
+      incident_lines = edges
+    ))
+  }
+}
+
+
+#' Transform a square matrix to an edge-list
+#'
+#' @param A   A square matrix
 #' @param digraph   Whether the matrix is directed or not
 #' @param valued  Add a third columns with the valued of the relationship
 #' @param loops   Whether the loops are retained or not
