@@ -75,8 +75,6 @@ matrix_report <- function(A) {
   if (ncol(A) == nrow(A)) {
     message(paste("--> The matrix is square,", ncol(A), "by", nrow(A)))
 
-    if (det(A)) message("--> Determinant equal zero")
-
     if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
       return(cbind(nodes = nodes, arcs = edges))
     } else {
