@@ -57,7 +57,7 @@ Functions currently available in
 1.  `clique_table()`: Clique table
 2.  `co_ocurrence()`: Co‐occurrence
 3.  `dyad_triad_table()`: Forbidden triad table
-4.  `dyad_census()`: Dyadic census
+4.  `dyad_census()`: Dyad census
 5.  `eb_constraint()`: Constraint
 6.  `ego_net()`: Ego network
 7.  `ei_index()`: Krackhardt and Stern’s E-I index
