@@ -99,12 +99,13 @@ When <code>B</code> is used, matrix A is considered the negative matrix and <cod
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">]</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">struc_balance</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>number of rows of result is not a multiple of vector length (arg 2)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sign1 sign2 sign3 number balance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    -1    -1     1      3     --+</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    -1    -1    -1      3     ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $balance_score</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

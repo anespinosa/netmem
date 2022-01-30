@@ -100,7 +100,7 @@ matrix_report <- function(A) {
 #' @param valued  Add a third columns with the valued of the relationship
 #' @param loops   Whether the loops are retained or not
 #'
-#' @return This function transform the matrix into an edgelist.
+#' @return This function transform the matrix into an edgelist
 #'
 #' @importFrom stats aggregate
 #'
@@ -118,14 +118,23 @@ matrix_report <- function(A) {
 matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE) {
   M <- A
 
-  # if(digraph){
-  #   if(sum(M[lower.tri(M)] - M[upper.tri(M)])==0)warning("The network is undirected")
-  # }else{
-  #   if(abs(sum(M[lower.tri(M)] - M[upper.tri(M)]))>0)warning("The networks might be directed")
-  #   M[lower.tri(M)]<-0}
+  if (digraph) {
+    if (all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) message("The network might be undirected")
+  } else {
+    if (!all(A[lower.tri(M)] == t(M)[lower.tri(M)], na.rm = TRUE)) message("The network might be directed")
+    M[lower.tri(M)] <- 0
+  }
 
   if (is.null(colnames(M))) colnames(M) <- 1:ncol(M)
   if (is.null(rownames(M))) rownames(M) <- 1:nrow(M)
+
+  if (any(is.na(M) == TRUE)) {
+    M <- ifelse(is.na(M), 0, M)
+  }
+
+  if (!digraph) {
+    M[lower.tri(M)] <- 0
+  }
 
   edge <- NULL
   for (i in 1:nrow(M)) {
@@ -165,18 +174,100 @@ matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE
     df <- as.data.frame(edge)
     edge <- as.matrix(stats::aggregate(list(valued = rep(1, nrow(df))), df, length))
     colnames(edge) <- NULL
+  } else {
+    if (any(abs(A) > 1)) message("The networks is valued")
   }
-  # else{
-  #   if(any(A>1))warning("The networks is valued")
-  # }
 
   if (loops == FALSE) {
-    # if(any(diag(M>0)))warning("There are loops in the network")
+    if (any(diag(M > 0))) message("There are loops in the network")
     edge <- edge[edge[, 1] != edge[, 2], ]
   }
 
   return(edge)
 }
+
+#' Transform an edgelist to a matrix
+#'
+#' @param E   An edge list
+#' @param digraph   Whether the matrix is directed or not
+#' @param label  A vector with the names of the nodes
+#' @param label2   A vector with the names of a different set of nodes
+#' @param bipartite  Whether the matrix is bipartite
+#'
+#' @return This function transform the edgelist into a matrix
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 1, 0, 0, 0, 0, 1, 0,
+#'   1, 0, 1, 0, 0, 0, 0, 0, 0,
+#'   1, 1, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1, 1, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 1, 1, 0,
+#'   0, 0, 0, 0, 0, 1, 0, 1, 0,
+#'   1, 0, 0, 0, 0, 1, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0
+#' ), byrow = TRUE, ncol = 9)
+#' rownames(A) <- letters[1:nrow(A)]
+#' colnames(A) <- rownames(A)
+#' E <- matrix_to_edgelist(A)
+#' edgelist_to_matrix(E, label = c("i"))
+#' @export
+
+# TODO: add valued matrix
+edgelist_to_matrix <- function(E, digraph = TRUE, label = NULL,
+                               label2 = NULL, bipartite = FALSE) {
+  if (bipartite) {
+    if (!is.null(label)) {
+      nodes1 <- unique(c(E[, 1], label))
+    } else {
+      nodes1 <- unique(c(E[, 1]))
+    }
+    if (!is.null(label2)) {
+      nodes2 <- unique(c(E[, 2], label2))
+    } else {
+      nodes2 <- unique(c(E[, 2]))
+    }
+    empty <- matrix(0,
+      nrow = length(nodes1), ncol = length(nodes2),
+      dimnames = list(nodes1, nodes2)
+    )
+
+    for (i in 1:nrow(E)) {
+      temp1 <- which(rownames(empty) %in% E[i, ])
+      temp2 <- which(colnames(empty) %in% E[i, ])
+      empty[temp1, temp2] <- 1 # valued
+    }
+  } else {
+    if (!is.null(label)) {
+      nodes <- unique(c(unlist(E)))
+      nodes <- unique(c(nodes, label))
+    } else {
+      nodes <- unique(c(unlist(E)))
+    }
+    empty <- matrix(0,
+      nrow = length(nodes), ncol = length(nodes),
+      dimnames = list(nodes, nodes)
+    )
+    for (i in 1:nrow(E)) {
+      temp <- which(rownames(empty) %in% E[i, ])
+      empty[temp[1], temp[2]] <- 1 # valued
+    }
+  }
+
+  A <- empty[
+    order(rownames(empty)),
+    order(colnames(empty))
+  ]
+
+  if (!digraph) {
+    A[lower.tri(A)] <- t(A)[lower.tri(A)]
+  }
+  return(A)
+}
+
 
 #' Unipartite projections
 #'

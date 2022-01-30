@@ -221,19 +221,21 @@ dyad_triad_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL) 
 #'
 #' @author Alejandro Espinosa-Rada
 #'
-#' A <- matrix(c(0,1,1,0,0,0,0,1,0,
-#'               1,0,1,0,0,0,0,0,0,
-#'               1,1,0,0,0,0,0,0,0,
-#'               0,0,0,0,1,1,0,0,0,
-#'               0,0,0,1,0,0,0,0,0,
-#'               0,0,0,1,0,0,1,1,0,
-#'               0,0,0,0,0,1,0,1,0,
-#'               1,0,0,0,0,1,1,0,0,
-#'               0,0,0,0,0,0,0,0,0), byrow = TRUE, ncol = 9)
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 1, 0, 0, 0, 0, 1, 0,
+#'   1, 0, 1, 0, 0, 0, 0, 0, 0,
+#'   1, 1, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1, 1, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 1, 1, 0,
+#'   0, 0, 0, 0, 0, 1, 0, 1, 0,
+#'   1, 0, 0, 0, 0, 1, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0
+#' ), byrow = TRUE, ncol = 9)
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- rownames(A)
 #' clique_table(A, list_cliques = TRUE, number = TRUE)
-#'
 #' @export
 #'
 clique_table <- function(A, list_cliques = FALSE, number = FALSE) {
