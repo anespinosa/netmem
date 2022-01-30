@@ -2,6 +2,7 @@
 
 export(clique_table)
 export(co_ocurrence)
+export(dist_sim_matrix)
 export(dyad_census)
 export(dyad_triad_table)
 export(eb_constraint)

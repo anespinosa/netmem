@@ -47,35 +47,36 @@ Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/
 
 1. `clique_table()`: Clique table
 2. `co_ocurrence()`: Co‐occurrence
-3. `dyad_triad_table()`: Forbidden triad table
-4. `dyad_census()`: dyad census
-5. `eb_constraint()`: Constraint
-6. `edgelist_to_matrix()`: Transform an edgelist to a matrix
-7. `ego_net()`: Ego network
-8. `ei_index()`: Krackhardt and Stern's E-I index
-9. `fractional_approach()`: Fractional approach
-10. `gen_degree()`: Generalized degree
-11. `gen_density()`: Generalized density
-12. `heterogeneity()`: Blau's and IQV Index
-13. `jaccard()`: Jaccard similarity
-14. `k_core()`: Generalized K-core
-15. `kp_reciprocity()`: Reciprocity of Katz and Powell
-16. `matrix_projection()`: Unipartite projections
-17. `matrix_report()`: Matrix report
-18. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
-19. `mix_matrix()`: Mixing matrix
-20. `meta_matrix()`: Meta matrix for multilevel networks
-21. `mixed_census()`: Multilevel triad and quadrilateral census
-22. `multilevel_degree()`: Degree centrality for multilevel networks
-23. `multiplex_census()`: Multiplex triad census
-24. `redundancy()`: Redundancy measures
-25. `posneg_index()`: Positive-negative centrality
-26. `struc_balance()`: Structural balance
-27. `structural_na()`: Structural missing data
-28. `trans_coef()`: Transitivity
-29. `triad_uman()`: Triad census analysis assuming U|MAN
-30. `z_arctest()`: Z test of the number of arcs
-31. `zone_sample()`: Zone-2 sampling from second-mode
+3. `dist_sim_matrix()`: Structural similarities
+4. `dyad_triad_table()`: Forbidden triad table
+5. `dyad_census()`: dyad census
+6. `eb_constraint()`: Constraint
+7. `edgelist_to_matrix()`: Transform an edgelist to a matrix
+8. `ego_net()`: Ego network
+9. `ei_index()`: Krackhardt and Stern's E-I index
+10. `fractional_approach()`: Fractional approach
+11. `gen_degree()`: Generalized degree
+12. `gen_density()`: Generalized density
+13. `heterogeneity()`: Blau's and IQV Index
+14. `jaccard()`: Jaccard similarity
+15. `k_core()`: Generalized K-core
+16. `kp_reciprocity()`: Reciprocity of Katz and Powell
+17. `matrix_projection()`: Unipartite projections
+18. `matrix_report()`: Matrix report
+19. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
+20. `mix_matrix()`: Mixing matrix
+21. `meta_matrix()`: Meta matrix for multilevel networks
+22. `mixed_census()`: Multilevel triad and quadrilateral census
+23. `multilevel_degree()`: Degree centrality for multilevel networks
+24. `multiplex_census()`: Multiplex triad census
+25. `redundancy()`: Redundancy measures
+26. `posneg_index()`: Positive-negative centrality
+27. `struc_balance()`: Structural balance
+28. `structural_na()`: Structural missing data
+29. `trans_coef()`: Transitivity
+30. `triad_uman()`: Triad census analysis assuming U|MAN
+31. `z_arctest()`: Z test of the number of arcs
+32. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 

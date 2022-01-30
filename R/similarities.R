@@ -373,3 +373,87 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
     ))
   }
 }
+
+#' Structural similarities
+#'
+#' @param A  A matrix
+#' @param method  The similarities/distance currently available are either \code{Euclidean} (default) or \code{Jaccard}.
+#'
+#' @return This function returns a distance matrix between nodes of the same matrix.
+#'
+#' @references
+#' 
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 0, 0, 1,
+#'   0, 0, 0, 1, 1,
+#'   0, 1, 0, 0, 1,
+#'   0, 0, 1, 1, 0,
+#'   0, 1, 0, 0, 0
+#' ), nrow = 5, ncol = 5, byrow = TRUE)
+#' rownames(A) <- letters[1:nrow(A)]
+#' colnames(A) <- rownames(A)
+#' dist_sim_matrix(A, method = "jaccard")
+#'
+#' A <- matrix(c(
+#'   0, 0, 3, 0, 5,
+#'   0, 0, 2, 0, 4,
+#'   5, 4, 0, 4, 0,
+#'   0, 3, 0, 1, 0,
+#'   0, 0, 0, 0, 2
+#' ), nrow = 5, ncol = 5, byrow = TRUE)
+#' dist_sim_matrix(A, method = "euclidean")
+#' @export
+
+dist_sim_matrix <- function(A, method = c("euclidean", "jaccard")) {
+  A <- as.matrix(A)
+  method <- switch(sim_method(method),
+    "euclidean" = 1,
+    "jaccard" = 2
+  )
+  profile <- list()
+  profile2 <- list()
+
+  if (method == 1) { # euclidean
+    for (i in 1:nrow(A)) {
+      for (j in 1:ncol(A)) {
+        profile[[j]] <- sqrt(sum((A[i, ] - A[j, ])^2))
+      }
+      profile2[[i]] <- unlist(profile)
+    }
+    m1 <- do.call(rbind, profile2)
+    return(m1)
+  }
+
+  if (method == 2) { # jaccard
+    for (i in 1:nrow(A)) {
+      for (j in 1:ncol(A)) {
+        t <- table(A[i, ], A[j, ])
+        n11 <- t[2, 2]
+        n10 <- t[2, 1]
+        n01 <- t[1, 2]
+        n00 <- t[1, 1]
+        profile[[j]] <- n11 / (n11 + n01 + n10)
+      }
+      profile2[[i]] <- unlist(profile)
+    }
+    m1 <- do.call(rbind, profile2)
+    return(1 - m1)
+  }
+}
+
+sim_method <- function(arg, choices, several.ok = FALSE) {
+  if (missing(choices)) {
+    formal.args <- formals(sys.function(sys.parent()))
+    choices <- eval(formal.args[[deparse(substitute(arg))]])
+  }
+
+  arg <- tolower(arg)
+  choices <- tolower(choices)
+
+  match.arg(arg = arg, choices = choices, several.ok = several.ok)
+}
