@@ -255,7 +255,7 @@ similarity_option <- function(arg, choices, several.ok = FALSE) {
 # TODO: expand for other similarities
 
 jaccard <- function(A, B, directed = TRUE, diag = FALSE,
-                    coparticipation = FALSE, bipartite = TRUE) {
+                    coparticipation = FALSE, bipartite = FALSE) {
   A <- as.matrix(A)
   B <- as.matrix(B)
   if (any(abs(A > 1), na.rm = TRUE)) stop("The matrix should be binary")
@@ -297,6 +297,19 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
   }
 
   if (bipartite) {
+    if (!coparticipation) {
+      if (ncol(A) != ncol(B)) {
+        stop("The matrices have different dimensions")
+      } else {
+        if (all(rownames(A) != rownames(B))) stop("The names of nodes do not match")
+      }
+      if (nrow(A) != nrow(B)) {
+        stop("The matrices have different dimensions")
+      } else {
+        if (all(colnames(B) != colnames(B))) stop("The names of nodes do not match")
+      }
+    }
+
     t <- table(A, B, useNA = c("always"))
   } else {
     if (!directed) {

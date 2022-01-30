@@ -10,7 +10,7 @@ jaccard(
   directed = TRUE,
   diag = FALSE,
   coparticipation = FALSE,
-  bipartite = TRUE
+  bipartite = FALSE
 )
 }
 \arguments{
