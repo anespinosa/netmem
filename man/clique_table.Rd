@@ -24,19 +24,20 @@ Exploration of a 3-cliques, as the maximum number of three or more actors who
 have all possible ties present among themselves
 }
 \examples{
-A <- matrix(c(0,1,1,0,0,0,0,1,0,
-              1,0,1,0,0,0,0,0,0,
-              1,1,0,0,0,0,0,0,0,
-              0,0,0,0,1,1,0,0,0,
-              0,0,0,1,0,0,0,0,0,
-              0,0,0,1,0,0,1,1,0,
-              0,0,0,0,0,1,0,1,0,
-              1,0,0,0,0,1,1,0,0,
-              0,0,0,0,0,0,0,0,0), byrow = TRUE, ncol = 9)
+A <- matrix(c(
+  0, 1, 1, 0, 0, 0, 0, 1, 0,
+  1, 0, 1, 0, 0, 0, 0, 0, 0,
+  1, 1, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 1, 1, 0, 0, 0,
+  0, 0, 0, 1, 0, 0, 0, 0, 0,
+  0, 0, 0, 1, 0, 0, 1, 1, 0,
+  0, 0, 0, 0, 0, 1, 0, 1, 0,
+  1, 0, 0, 0, 0, 1, 1, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0
+), byrow = TRUE, ncol = 9)
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- rownames(A)
 clique_table(A, list_cliques = TRUE, number = TRUE)
-
 }
 \references{
 Luce, R.D. and Perry, A.D. (1949). A method of matrix analysis of group structure. Psychometrika, 14: 95-116.

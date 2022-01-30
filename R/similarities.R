@@ -191,13 +191,14 @@ similarity_option <- function(arg, choices, several.ok = FALSE) {
 
 #' Jaccard similarity
 #'
-#' Jaccard similarity to identify the tie changes between two matrices.
+#' Jaccard similarity identifies the changes of ties between two matrices.
 #'
 #' @param A  Binary matrix A
 #' @param B  Binary matrix B
 #' @param directed  Whether the matrix is symmetric
 #' @param diag  Whether the diagonal should be considered
 #' @param coparticipation  Select nodes that co-participate in both matrices
+#' @param bipartite  Whether the matrix is incident
 #'
 #' @return The output are: \code{jaccard} = Jaccard similarity, \code{proportion} =
 #' proportion among the ties present at a given observation of ties that
@@ -205,14 +206,26 @@ similarity_option <- function(arg, choices, several.ok = FALSE) {
 #' tie changes between matrices.
 #'
 #' If \code{coparticipation = TRUE}, then
-#' also: \code{match} = number of nodes present in both matrices;
-#'  \code{size_matrix1} = size of the first matrix;
-#'  \code{size_matrix2} = size of the second matrix;
-#' \code{coparticipation1} = percentage
-#' of actors in the first matrix also present in the
-#' second matrix; \code{coparticipation2} = percentage
-#' of actors in the second matrix also present in the first matrix;
-#' \code{overlap_actors} = overlap of nodes between two matrices
+#' also: \code{match} = The number of nodes present in both matrices;
+#'  \code{size_matrix1} = The size of the first matrix;
+#'  \code{size_matrix2} = The size of the second matrix;
+#' \code{coparticipation1} = The percentage of nodes in the first matrix also present in the second matrix;
+#' \code{coparticipation2} = The percentage of nodes in the second matrix also present in the first matrix:
+#' \code{overlap_actors} = Overlap of nodes between two matrices
+#'
+#' #' If \code{coparticipation = TRUE} and \code{bipartite = TRUE}, then
+#' also: \code{matchM1} = The number of nodes in the first 'mode' present in both matrices;
+#' \code{matchM2} = The number of nodes in the second 'mode' present in both matrices;
+#'  \code{size_matrix1_M1} = The number of nodes in the first 'mode' of the first matrix;
+#'  \code{size_matrix1_M2} = The number of nodes in the second 'mode' of the first matrix;
+#'  \code{size_matrix2_M1} = The number of nodes in the first 'mode' of the second matrix;
+#'  \code{size_matrix2_M2} = The number of nodes in the second 'mode' of the second matrix;
+#' \code{coparticipation1_M2} = The percentage of nodes of the first 'mode' in the first matrix present in the second matrix.
+#' \code{coparticipation1_M2} = The percentage of nodes of the second 'mode' in the first matrix present in the second matrix.
+#' \code{coparticipation2_M1} = The percentage of nodes of the first 'mode' in the second matrix present in the first matrix.
+#'  \code{coparticipation2_M2} = The percentage of nodes of the second 'mode' in the second matrix present in the first matrix.
+#' \code{overlap_actors_M1} = Overlap between two matrices (nodes of the first 'mode')
+#' \code{overlap_actors_M2} = Overlap between two matrices (nodes of the second 'mode')
 #'
 #' @references
 #'
@@ -242,34 +255,58 @@ similarity_option <- function(arg, choices, several.ok = FALSE) {
 # TODO: expand for other similarities
 
 jaccard <- function(A, B, directed = TRUE, diag = FALSE,
-                    coparticipation = FALSE) {
+                    coparticipation = FALSE, bipartite = TRUE) {
   A <- as.matrix(A)
   B <- as.matrix(B)
-
-  if (coparticipation) {
-    if (all(rownames(A) != colnames(A))) stop("The names of rows and columns do not match")
-    if (all(rownames(B) != colnames(B))) stop("The names of rows and columns do not match")
-
-    n1t <- ncol(A)
-    n2t <- ncol(B)
-    name1 <- rownames(A) %in% rownames(B)
-    name1 <- rownames(A)[name1 == TRUE]
-    A <- A[rownames(A) %in% name1, rownames(A) %in% name1]
-    B <- B[rownames(B) %in% name1, rownames(B) %in% name1]
-
-    n1 <- ncol(A)
-    n2 <- ncol(B)
-  }
-
   if (any(abs(A > 1), na.rm = TRUE)) stop("The matrix should be binary")
   if (any(abs(B > 1), na.rm = TRUE)) stop("The matrix should be binary")
-  if (!directed) {
-    t <- table(A[lower.tri(A, diag = diag)], B[lower.tri(B, diag = diag)])
-  } else {
-    if (all(A[lower.tri(A)] == t(A)[lower.tri(A)])) warning("The matrix is symmetric")
-    A <- c(A[lower.tri(A, diag = diag)], A[upper.tri(A, diag = diag)])
-    B <- c(B[lower.tri(B, diag = diag)], B[upper.tri(B, diag = diag)])
+
+  if (coparticipation) {
+    if (!bipartite) {
+      if (all(rownames(A) != colnames(A))) stop("The names of rows and columns do not match")
+      if (all(rownames(B) != colnames(B))) stop("The names of rows and columns do not match")
+
+      n1t <- ncol(A)
+      n2t <- ncol(B)
+      name1 <- rownames(A) %in% rownames(B)
+      name1 <- rownames(A)[name1 == TRUE]
+      A <- A[rownames(A) %in% name1, rownames(A) %in% name1]
+      B <- B[rownames(B) %in% name1, rownames(B) %in% name1]
+
+      n1 <- ncol(A)
+      n2 <- ncol(B)
+    } else {
+      # bipartite
+      n1_at <- nrow(A)
+      n1_bt <- ncol(A)
+      n2_at <- nrow(B)
+      n2_bt <- ncol(B)
+
+      name1a <- rownames(A) %in% rownames(B)
+      name1a <- rownames(A)[name1a == TRUE]
+
+      name1b <- colnames(A) %in% colnames(B)
+      name1b <- colnames(A)[name1b == TRUE]
+
+      A <- A[rownames(A) %in% name1a, colnames(A) %in% name1b]
+      B <- B[rownames(B) %in% name1a, colnames(B) %in% name1b]
+
+      n1a <- nrow(A)
+      n1b <- ncol(A)
+    }
+  }
+
+  if (bipartite) {
     t <- table(A, B, useNA = c("always"))
+  } else {
+    if (!directed) {
+      t <- table(A[lower.tri(A, diag = diag)], B[lower.tri(B, diag = diag)])
+    } else {
+      if (all(A[lower.tri(A)] == t(A)[lower.tri(A)])) message("The matrix is symmetric")
+      A <- c(A[lower.tri(A, diag = diag)], A[upper.tri(A, diag = diag)])
+      B <- c(B[lower.tri(B, diag = diag)], B[upper.tri(B, diag = diag)])
+      t <- table(A, B, useNA = c("always"))
+    }
   }
   n11 <- t[2, 2]
   n10 <- t[2, 1]
@@ -277,19 +314,44 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
   n00 <- t[1, 1]
 
   if (coparticipation) {
-    return(list(
-      jaccard = n11 / (n10 + n01 + n11),
-      proportion = n11 / (n10 + n11),
-      table = t,
-      coparticipation = cbind(
-        match = n1,
-        size_matrix1 = n1t,
-        size_matrix2 = n2t,
-        coparticipation1 = n1 / n1t,
-        coparticipation2 = n2 / n2t,
-        overlap_actors = ((n1 / n1t + n1 / n2t) / 2)
-      )
-    ))
+    if (!bipartite) {
+      return(list(
+        jaccard = n11 / (n10 + n01 + n11),
+        proportion = n11 / (n10 + n11),
+        table = t,
+        coparticipation = cbind(
+          match = n1,
+          size_matrix1 = n1t,
+          size_matrix2 = n2t,
+          coparticipation1 = n1 / n1t,
+          coparticipation2 = n2 / n2t,
+          overlap_actors = ((n1 / n1t + n1 / n2t) / 2)
+        )
+      ))
+    } else {
+      # bipartite
+      return(list(
+        jaccard = n11 / (n10 + n01 + n11),
+        proportion = n11 / (n10 + n11),
+        table = t,
+        coparticipation = cbind(
+          matchM1 = n1a, # match mode 1
+          matchM2 = n1b, # match mode 2
+
+          size_matrix1_M1 = n1_at, # size matrix rows A
+          size_matrix1_M2 = n1_bt, # size matrix columns A
+          size_matrix2_M1 = n2_at, # size matrix rows B
+          size_matrix2_M2 = n2_bt, # size matrix columns B
+
+          coparticipation1_M1 = n1a / n1_at,
+          coparticipation1_M2 = n1b / n1_bt,
+          coparticipation2_M1 = n1a / n2_at,
+          coparticipation2_M2 = n1b / n2_bt,
+          overlap_actors_M1 = ((n1a / n1_at + n1a / n2_at) / 2), # overlap
+          overlap_actors_M2 = ((n1b / n1_bt + n1b / n2_bt) / 2)
+        )
+      ))
+    }
   } else {
     return(list(
       jaccard = n11 / (n10 + n01 + n11),

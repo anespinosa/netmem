@@ -4,7 +4,14 @@
 \alias{jaccard}
 \title{Jaccard similarity}
 \usage{
-jaccard(A, B, directed = TRUE, diag = FALSE, coparticipation = FALSE)
+jaccard(
+  A,
+  B,
+  directed = TRUE,
+  diag = FALSE,
+  coparticipation = FALSE,
+  bipartite = TRUE
+)
 }
 \arguments{
 \item{A}{Binary matrix A}
@@ -16,6 +23,8 @@ jaccard(A, B, directed = TRUE, diag = FALSE, coparticipation = FALSE)
 \item{diag}{Whether the diagonal should be considered}
 
 \item{coparticipation}{Select nodes that co-participate in both matrices}
+
+\item{bipartite}{Whether the matrix is incident}
 }
 \value{
 The output are: \code{jaccard} = Jaccard similarity, \code{proportion} =
@@ -24,17 +33,29 @@ are also present in the other matrix, and \code{table} = a table with the
 tie changes between matrices.
 
 If \code{coparticipation = TRUE}, then
-also: \code{match} = number of nodes present in both matrices;
- \code{size_matrix1} = size of the first matrix;
- \code{size_matrix2} = size of the second matrix;
-\code{coparticipation1} = percentage
-of actors in the first matrix also present in the
-second matrix; \code{coparticipation2} = percentage
-of actors in the second matrix also present in the first matrix;
-\code{overlap_actors} = overlap of nodes between two matrices
+also: \code{match} = The number of nodes present in both matrices;
+ \code{size_matrix1} = The size of the first matrix;
+ \code{size_matrix2} = The size of the second matrix;
+\code{coparticipation1} = The percentage of nodes in the first matrix also present in the second matrix;
+\code{coparticipation2} = The percentage of nodes in the second matrix also present in the first matrix:
+\code{overlap_actors} = Overlap of nodes between two matrices
+
+#' If \code{coparticipation = TRUE} and \code{bipartite = TRUE}, then
+also: \code{matchM1} = The number of nodes in the first 'mode' present in both matrices;
+\code{matchM2} = The number of nodes in the second 'mode' present in both matrices;
+ \code{size_matrix1_M1} = The number of nodes in the first 'mode' of the first matrix;
+ \code{size_matrix1_M2} = The number of nodes in the second 'mode' of the first matrix;
+ \code{size_matrix2_M1} = The number of nodes in the first 'mode' of the second matrix;
+ \code{size_matrix2_M2} = The number of nodes in the second 'mode' of the second matrix;
+\code{coparticipation1_M2} = The percentage of nodes of the first 'mode' in the first matrix present in the second matrix.
+\code{coparticipation1_M2} = The percentage of nodes of the second 'mode' in the first matrix present in the second matrix.
+\code{coparticipation2_M1} = The percentage of nodes of the first 'mode' in the second matrix present in the first matrix.
+ \code{coparticipation2_M2} = The percentage of nodes of the second 'mode' in the second matrix present in the first matrix.
+\code{overlap_actors_M1} = Overlap between two matrices (nodes of the first 'mode')
+\code{overlap_actors_M2} = Overlap between two matrices (nodes of the second 'mode')
 }
 \description{
-Jaccard similarity to identify the tie changes between two matrices.
+Jaccard similarity identifies the changes of ties between two matrices.
 }
 \examples{
 
