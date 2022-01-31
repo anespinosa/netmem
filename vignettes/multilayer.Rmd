@@ -100,22 +100,41 @@ matrix_report(A3)
 
 ### Two-mode networks
 
+There are different ways of referring to incident matrices. From the social network perspective is often considered as *affiliation network*, which consist of a set of binary relationships between members of two sets of items (i.e., "is a member of" or "is a participant in" or "has") ([Borgatti and Halgin, 2011](https://methods.sagepub.com/book/the-sage-handbook-of-social-network-analysis/n28.xml)). In general, these networks have a bipartite property in which there are two classes such that all ties occur only between classes and never within classes. 
 
+As a common practice, an incident matrix is often converted to adjacent matrices. These are given by the matrix product $AA^T$ and $A^TA$, where $A$ is the incident matrix and matrix $A^T$ is the transpose of $A$. The relationship between these matrices in the context of social networks was explored by [Breiger (1974)](https://doi.org/10.2307/2576011). 
 ```{r}
 matrix_projection(B1)
+```
 
+Another concept often used is *bipartite* networks, which means that the graph's nodes can be partitioned into two classes. While in some cases, these classes can be different entities (e.g., actors participating in activities or belonging to clubs), this assumption is not always clear. For example, dichotomic attributes of ascribed characteristics also have a bipartite property.
+
+An approach that was devised specifically for affiliation data, was provided by [Bonacich (1972)](https://doi.org/10.1080/0022250X.1972.9989806):
+
+```{r}
+bonacich_norm(B1)
+```
+
+The difference between *affiliation networks* and *bipartite networks* allowed us to avoid confounding the concept of social proximity (e.g., being part of the same laboratory) with social similarity (e.g., having an ascribed gender) ([Rivera et al., 2010](https://doi.org/10.1146/annurev.soc.34.040507.134743)). In addition, this distinction is important because these mechanisms are often considered competing alternatives to understanding social relationships.
+
+*Two-mode networks* is a broader concept that emphasizes the difference between entities of different levels. Therefore, these entities are likewise differentiated as rows and columns in the incident matrix. 
+
+Some researchers differentiate between the informational or socio-cognitive dimensions and social networks of concrete relations - or proxies - between agents ([Leydesdorff, 2008](https://doi.org/10.1002/asi.20732)). For example, informational or socio-cognitive networks can be an incident matrix of actors and survey's items, citation networks or a tweet message. Therefore, the incident matrix of socio-cognitive networks are often called *occurrence networks*. 
+
+For example, in scientometric, information is often explored using co-occurrence of overlapping ties:
+```{r}
 minmax_overlap(B1, row = TRUE, min = TRUE) 
 minmax_overlap(B1, row = FALSE, min = TRUE) 
 
 co_ocurrence(B1, similarity = c('ochiai'), occurrence = TRUE, projection = FALSE)
-bonacich_norm(B1)
 ```
+
 
 -----
 
 ### Ties within and between modes
 
-Would you rather prefer seeing the matrix as a complete structure? In which case, we can use the *'meta-matrix'* representation (Krackhardt & Carley, 1998; Carley, 2002). 
+In some cases we have an incident matrix and also the relationships of the node of the same class. In which case, we can use the *'meta-matrix'* ([Krackhardt & Carley, 1998](https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf); [Carley, 2002](http://sds.hss.cmu.edu/faculty/carley/carley.htm)) to represent a multilevel network. 
 ```{r meta_matrix}
 meta_matrix(A1, B1, A2, B2, A3)
 
