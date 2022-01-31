@@ -4,18 +4,18 @@
 \alias{dist_sim_matrix}
 \title{Structural similarities}
 \usage{
-dist_sim_matrix(A, method = c("euclidean", "jaccard"))
+dist_sim_matrix(A, method = c("euclidean", "hamming", "jaccard"))
 }
 \arguments{
 \item{A}{A matrix}
 
-\item{method}{The similarities/distance currently available are either \code{Euclidean} (default) or \code{Jaccard}.}
+\item{method}{The similarities/distance currently available are either \code{Euclidean} (default), \code{Hamming}, or \code{Jaccard}.}
 }
 \value{
 This function returns a distance matrix between nodes of the same matrix.
 }
 \description{
-Structural similarities
+In the literature of social network, Euclidean distance (Burt, 1976) or correlations (Wasserman and Faust, 1994) were considered as measures of structural equivalence.
 }
 \examples{
 A <- matrix(c(
@@ -39,6 +39,8 @@ A <- matrix(c(
 dist_sim_matrix(A, method = "euclidean")
 }
 \references{
+Burt, Ronald S. (1976) Positions in networks. Social Forces, 55(1): 93-122.
+
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }
 \author{

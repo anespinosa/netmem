@@ -376,13 +376,17 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
 
 #' Structural similarities
 #'
+#' In the literature of social network, Euclidean distance (Burt, 1976) or correlations (Wasserman and Faust, 1994) were considered as measures of structural equivalence.
+#'
 #' @param A  A matrix
-#' @param method  The similarities/distance currently available are either \code{Euclidean} (default) or \code{Jaccard}.
+#' @param method  The similarities/distance currently available are either \code{Euclidean} (default), \code{Hamming}, or \code{Jaccard}.
 #'
 #' @return This function returns a distance matrix between nodes of the same matrix.
 #'
 #' @references
-#' 
+#'
+#' Burt, Ronald S. (1976) Positions in networks. Social Forces, 55(1): 93-122.
+#'
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
 #' @author Alejandro Espinosa-Rada
@@ -409,11 +413,12 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
 #' dist_sim_matrix(A, method = "euclidean")
 #' @export
 
-dist_sim_matrix <- function(A, method = c("euclidean", "jaccard")) {
+dist_sim_matrix <- function(A, method = c("euclidean", "hamming", "jaccard")) {
   A <- as.matrix(A)
   method <- switch(sim_method(method),
     "euclidean" = 1,
-    "jaccard" = 2
+    "hamming" = 2,
+    "jaccard" = 3
   )
   profile <- list()
   profile2 <- list()
@@ -429,7 +434,18 @@ dist_sim_matrix <- function(A, method = c("euclidean", "jaccard")) {
     return(m1)
   }
 
-  if (method == 2) { # jaccard
+  if (method == 2) { # hamming
+    for (i in 1:nrow(A)) {
+      for (j in 1:ncol(A)) {
+        profile[[j]] <- sum(A[i, ] != A[j, ])
+      }
+      profile2[[i]] <- unlist(profile)
+    }
+    m1 <- do.call(rbind, profile2)
+    return(m1)
+  }
+
+  if (method == 3) { # jaccard
     for (i in 1:nrow(A)) {
       for (j in 1:ncol(A)) {
         t <- table(A[i, ], A[j, ])
