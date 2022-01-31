@@ -108,7 +108,7 @@ minmax_overlap(B1, row = TRUE, min = TRUE)
 minmax_overlap(B1, row = FALSE, min = TRUE) 
 
 co_ocurrence(B1, similarity = c('ochiai'), occurrence = TRUE, projection = FALSE)
-
+bonacich_norm(B1)
 ```
 
 -----
