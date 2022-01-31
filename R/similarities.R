@@ -413,6 +413,8 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
 #' dist_sim_matrix(A, method = "euclidean")
 #' @export
 
+# TODO: Expand for bipartite and more than one matrix
+
 dist_sim_matrix <- function(A, method = c("euclidean", "hamming", "jaccard")) {
   A <- as.matrix(A)
   method <- switch(sim_method(method),
@@ -463,6 +465,112 @@ dist_sim_matrix <- function(A, method = c("euclidean", "hamming", "jaccard")) {
 }
 
 sim_method <- function(arg, choices, several.ok = FALSE) {
+  if (missing(choices)) {
+    formal.args <- formals(sys.function(sys.parent()))
+    choices <- eval(formal.args[[deparse(substitute(arg))]])
+  }
+
+  arg <- tolower(arg)
+  choices <- tolower(choices)
+
+  match.arg(arg = arg, choices = choices, several.ok = several.ok)
+}
+
+#' Bonacich Normalisation
+#'
+#' The function provide a normalisation provided by Bonacich (1972).
+#'
+#' @param A  An incident matrix
+#' @param projection  Whether to normalise by \code{rows} (default), or \code{columns} of the matrix.
+#' @param normalisation  Normalise the measure
+#'
+#' @return This function returns the Bonacich normalisation.
+#'
+#' @references
+#'
+#' Bonacich, P. (1972). Factoring and weighting approaches to status scores and clique identification. Journal of Mathematical Sociology, 2: 112-120.
+#'
+#' @source Adapted from Borgatti, S., Everett, M., Johnson, J. and Agneessens, P. (2022) Analyzing Social Networks Using R. Sage.
+#'
+#' @examples
+#' A <- matrix(c(
+#'   1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+#'   1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+#'   0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+#'   1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1,
+#'   0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1,
+#'   0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1,
+#'   0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0
+#' ),
+#' byrow = TRUE, ncol = 14
+#' )
+#' bonacich_norm(A)
+#' @export
+
+bonacich_norm <- function(A, projection = c("rows", "columns"),
+                          normalisation = FALSE) {
+  projection <- switch(projection_direction(projection),
+    "rows" = 1,
+    "columns" = 2
+  )
+
+  if (projection == 1) {
+    P <- matrix_projection(A)[[2]]
+    n <- ncol(A)
+  }
+  if (projection == 2) {
+    P <- matrix_projection(A)[[1]]
+    n <- nrow(A)
+  }
+
+  M <- matrix(0, nrow(P), ncol(P))
+  for (i in 1:nrow(P)) {
+    for (j in i:ncol(P)) {
+      temp1 <- P[i, j] * (n + P[i, j] - P[i, i] - P[j, j])
+      temp2 <- (P[i, i] - P[i, j]) * (P[j, j] - P[i, j])
+
+      if (temp1 == temp2) {
+        M[i, j] <- 0.5
+      } else {
+        M[i, j] <- (temp1 - sqrt(temp1 * temp2)) / (temp1 - temp2)
+      }
+      M[j, i] <- M[i, j]
+    }
+    M[i, i] <- 1
+  }
+
+  if (projection == 1) {
+    if (!is.null(rownames(A))) {
+      rownames(M) <- rownames(A)
+      colnames(M) <- rownames(A)
+    }
+  }
+  if (projection == 2) {
+    if (!is.null(colnames(A))) {
+      rownames(M) <- colnames(A)
+      colnames(M) <- colnames(A)
+    }
+  }
+  if (normalisation) {
+    M <- M * 100
+  }
+
+  return(M)
+}
+
+
+projection_direction <- function(arg, choices, several.ok = FALSE) {
   if (missing(choices)) {
     formal.args <- formals(sys.function(sys.parent()))
     choices <- eval(formal.args[[deparse(substitute(arg))]])
