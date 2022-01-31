@@ -59,7 +59,7 @@ Functions currently available in
 3.  `co_ocurrence()`: Co‐occurrence
 4.  `dist_sim_matrix()`: Structural similarities
 5.  `dyad_triad_table()`: Forbidden triad table
-6.  `dyad_census()`: dyad census
+6.  `dyad_census()`: Dyad census
 7.  `eb_constraint()`: Constraint
 8.  `edgelist_to_matrix()`: Transform an edgelist to a matrix
 9.  `ego_net()`: Ego network
