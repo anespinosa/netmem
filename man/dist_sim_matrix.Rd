@@ -4,12 +4,18 @@
 \alias{dist_sim_matrix}
 \title{Structural similarities}
 \usage{
-dist_sim_matrix(A, method = c("euclidean", "hamming", "jaccard"))
+dist_sim_matrix(
+  A,
+  method = c("euclidean", "hamming", "jaccard"),
+  bipartite = FALSE
+)
 }
 \arguments{
 \item{A}{A matrix}
 
 \item{method}{The similarities/distance currently available are either \code{Euclidean} (default), \code{Hamming}, or \code{Jaccard}.}
+
+\item{bipartite}{Whether the object is an incident matrix}
 }
 \value{
 This function returns a distance matrix between nodes of the same matrix.

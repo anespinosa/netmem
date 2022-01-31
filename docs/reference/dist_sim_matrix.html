@@ -60,7 +60,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dist_sim_matrix</span><span class="op">(</span><span class="va">A</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"hamming"</span>, <span class="st">"jaccard"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dist_sim_matrix</span><span class="op">(</span>
+  <span class="va">A</span>,
+  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"hamming"</span>, <span class="st">"jaccard"</span><span class="op">)</span>,
+  bipartite <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -69,6 +73,8 @@
 <dd><p>A matrix</p></dd>
 <dt>method</dt>
 <dd><p>The similarities/distance currently available are either <code>Euclidean</code> (default), <code>Hamming</code>, or <code>Jaccard</code>.</p></dd>
+<dt>bipartite</dt>
+<dd><p>Whether the object is an incident matrix</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

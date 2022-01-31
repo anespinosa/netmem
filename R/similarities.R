@@ -380,6 +380,7 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
 #'
 #' @param A  A matrix
 #' @param method  The similarities/distance currently available are either \code{Euclidean} (default), \code{Hamming}, or \code{Jaccard}.
+#' @param bipartite  Whether the object is an incident matrix
 #'
 #' @return This function returns a distance matrix between nodes of the same matrix.
 #'
@@ -413,10 +414,15 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
 #' dist_sim_matrix(A, method = "euclidean")
 #' @export
 
-# TODO: Expand for bipartite and more than one matrix
+# TODO: Expand for more than one matrix
 
-dist_sim_matrix <- function(A, method = c("euclidean", "hamming", "jaccard")) {
+dist_sim_matrix <- function(A, method = c("euclidean", "hamming", "jaccard"),
+                            bipartite = FALSE) {
   A <- as.matrix(A)
+  if (!bipartite) {
+    if (ncol(A) != nrow(A)) message("The object is an incident matrix. The `bipartite=TRUE` parameter should be specified.")
+  }
+
   method <- switch(sim_method(method),
     "euclidean" = 1,
     "hamming" = 2,
@@ -426,41 +432,85 @@ dist_sim_matrix <- function(A, method = c("euclidean", "hamming", "jaccard")) {
   profile2 <- list()
 
   if (method == 1) { # euclidean
-    for (i in 1:nrow(A)) {
-      for (j in 1:ncol(A)) {
-        profile[[j]] <- sqrt(sum((A[i, ] - A[j, ])^2))
+
+    if (bipartite == TRUE) {
+      for (i in 1:nrow(A)) {
+        for (j in i:nrow(A)) {
+          profile[[j]] <- sqrt(sum((A[i, ] - A[j, ])^2))
+        }
+        profile2[[i]] <- unlist(profile)
       }
-      profile2[[i]] <- unlist(profile)
+      m1 <- do.call(rbind, profile2)
+      m1[lower.tri(m1)] <- t(m1)[lower.tri(m1)] # Symmetrize
+      return(m1)
+    } else {
+      for (i in 1:nrow(A)) {
+        for (j in 1:ncol(A)) {
+          profile[[j]] <- sqrt(sum((A[i, ] - A[j, ])^2))
+        }
+        profile2[[i]] <- unlist(profile)
+      }
+      m1 <- do.call(rbind, profile2)
+      return(m1)
     }
-    m1 <- do.call(rbind, profile2)
-    return(m1)
   }
 
   if (method == 2) { # hamming
-    for (i in 1:nrow(A)) {
-      for (j in 1:ncol(A)) {
-        profile[[j]] <- sum(A[i, ] != A[j, ])
+
+    if (bipartite == TRUE) {
+      for (i in 1:nrow(A)) {
+        for (j in i:ncol(A)) {
+          profile[[j]] <- sum(A[i, ] != A[j, ])
+        }
+        profile2[[i]] <- unlist(profile)
       }
-      profile2[[i]] <- unlist(profile)
+      m1 <- do.call(rbind, profile2)
+      m1[lower.tri(m1)] <- t(m1)[lower.tri(m1)] # Symmetrize
+      return(m1)
+    } else {
+      for (i in 1:nrow(A)) {
+        for (j in 1:ncol(A)) {
+          profile[[j]] <- sum(A[i, ] != A[j, ])
+        }
+        profile2[[i]] <- unlist(profile)
+      }
+      m1 <- do.call(rbind, profile2)
+      return(m1)
     }
-    m1 <- do.call(rbind, profile2)
-    return(m1)
   }
 
   if (method == 3) { # jaccard
-    for (i in 1:nrow(A)) {
-      for (j in 1:ncol(A)) {
-        t <- table(A[i, ], A[j, ])
-        n11 <- t[2, 2]
-        n10 <- t[2, 1]
-        n01 <- t[1, 2]
-        n00 <- t[1, 1]
-        profile[[j]] <- n11 / (n11 + n01 + n10)
+    if (bipartite == TRUE) {
+      for (i in 1:nrow(A)) {
+        for (j in i:nrow(A)) {
+          t <- table(A[i, ], A[j, ])
+          n11 <- t[2, 2]
+          n10 <- t[2, 1]
+          n01 <- t[1, 2]
+          n00 <- t[1, 1]
+          profile[[j]] <- n11 / (n11 + n01 + n10)
+        }
+        profile2[[i]] <- unlist(profile)
       }
-      profile2[[i]] <- unlist(profile)
+      m1 <- do.call(rbind, profile2)
+      m1[lower.tri(m1)] <- t(m1)[lower.tri(m1)] # Symmetrize
+
+      return(1 - m1)
+    } else {
+      for (i in 1:nrow(A)) {
+        for (j in 1:ncol(A)) {
+          t <- table(A[i, ], A[j, ])
+          n11 <- t[2, 2]
+          n10 <- t[2, 1]
+          n01 <- t[1, 2]
+          n00 <- t[1, 1]
+          profile[[j]] <- n11 / (n11 + n01 + n10)
+        }
+        profile2[[i]] <- unlist(profile)
+      }
+      m1 <- do.call(rbind, profile2)
+      return(1 - m1)
     }
-    m1 <- do.call(rbind, profile2)
-    return(1 - m1)
   }
 }
 
@@ -476,7 +526,8 @@ sim_method <- function(arg, choices, several.ok = FALSE) {
   match.arg(arg = arg, choices = choices, several.ok = several.ok)
 }
 
-#' Bonacich Normalisation
+
+#' Bonacich normalisation
 #'
 #' The function provide a normalisation provided by Bonacich (1972).
 #'
