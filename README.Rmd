@@ -45,7 +45,7 @@ citation(package="netmem")
 
 Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
-1. `bonacich_norm()`: Bonacich Normalisation
+1. `bonacich_norm()`: Bonacich normalisation
 2. `clique_table()`: Clique table
 3. `co_ocurrence()`: Co‐occurrence
 4. `dist_sim_matrix()`: Structural similarities
