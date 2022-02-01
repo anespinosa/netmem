@@ -67,28 +67,29 @@ Functions currently available in
 11. `fractional_approach()`: Fractional approach
 12. `gen_degree()`: Generalized degree
 13. `gen_density()`: Generalized density
-14. `ind_rand_matrix()`: Independent random matrix
-15. `heterogeneity()`: Blau’s and IQV Index
-16. `jaccard()`: Jaccard similarity
-17. `k_core()`: Generalized K-core
-18. `kp_reciprocity()`: Reciprocity of Katz and Powell
-19. `matrix_adjlist`: Transform a matrix to an adjacency list
-20. `matrix_projection()`: Unipartite projections
-21. `matrix_report()`: Matrix report
-22. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
-23. `mix_matrix()`: Mixing matrix
-24. `meta_matrix()`: Meta matrix for multilevel networks
-25. `mixed_census()`: Multilevel triad and quadrilateral census
-26. `multilevel_degree()`: Degree centrality for multilevel networks
-27. `multiplex_census()`: Multiplex triad census
-28. `redundancy()`: Redundancy measures
-29. `posneg_index()`: Positive-negative centrality
-30. `struc_balance()`: Structural balance
-31. `structural_na()`: Structural missing data
-32. `trans_coef()`: Transitivity
-33. `triad_uman()`: Triad census analysis assuming U\|MAN
-34. `z_arctest()`: Z test of the number of arcs
-35. `zone_sample()`: Zone-2 sampling from second-mode
+14. `local_geodesic()` `all_geodesic()`: Geodesic
+15. `ind_rand_matrix()`: Independent random matrix
+16. `heterogeneity()`: Blau’s and IQV Index
+17. `jaccard()`: Jaccard similarity
+18. `k_core()`: Generalized K-core
+19. `kp_reciprocity()`: Reciprocity of Katz and Powell
+20. `matrix_adjlist`: Transform a matrix to an adjacency list
+21. `matrix_projection()`: Unipartite projections
+22. `matrix_report()`: Matrix report
+23. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
+24. `mix_matrix()`: Mixing matrix
+25. `meta_matrix()`: Meta matrix for multilevel networks
+26. `mixed_census()`: Multilevel triad and quadrilateral census
+27. `multilevel_degree()`: Degree centrality for multilevel networks
+28. `multiplex_census()`: Multiplex triad census
+29. `redundancy()`: Redundancy measures
+30. `posneg_index()`: Positive-negative centrality
+31. `struc_balance()`: Structural balance
+32. `structural_na()`: Structural missing data
+33. `trans_coef()`: Transitivity
+34. `triad_uman()`: Triad census analysis assuming U\|MAN
+35. `z_arctest()`: Z test of the number of arcs
+36. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in
 [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):

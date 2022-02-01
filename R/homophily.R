@@ -81,7 +81,7 @@ mix_matrix <- function(A, att = NULL) {
 #' )
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- letters[1:ncol(A)]
-#' 
+#'
 #' att <- rbinom(sqrt(n), 3, 0.5)
 #' ei_index(A, mixed = FALSE, att = att)
 #' @export
