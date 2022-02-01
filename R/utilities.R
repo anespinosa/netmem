@@ -268,6 +268,40 @@ edgelist_to_matrix <- function(E, digraph = TRUE, label = NULL,
   return(A)
 }
 
+#' Transform a matrix to an adjacency list
+#'
+#' @param A   A matrix
+#'
+#' @return This function transform a matrix to an adjacency list
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 1, 0, 0, 0, 0, 1, 0,
+#'   1, 0, 1, 0, 0, 0, 0, 0, 0,
+#'   1, 1, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1, 1, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 1, 1, 0,
+#'   0, 0, 0, 0, 0, 1, 0, 1, 0,
+#'   1, 0, 0, 0, 0, 1, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0
+#' ), byrow = TRUE, ncol = 9)
+#' rownames(A) <- letters[1:nrow(A)]
+#' colnames(A) <- rownames(A)
+#' matrix_adjlist(A)
+#' @export
+
+matrix_adjlist <- function(A) {
+  adj_list <- list()
+  for (i in 1:ncol(A)) {
+    adj_list[[i]] <- names(A[i, ][A[i, ] >= 1])
+    names(adj_list)[i] <- rownames(A)[i]
+  }
+  return(adj_list)
+}
+
 
 #' Unipartite projections
 #'
@@ -767,6 +801,7 @@ structural_na <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
 #' colnames(X) <- c("a", "b", "c", "d")
 #' rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 #'
+#' set.seed(18051889)
 #' zone_sample(A, X, core = TRUE)
 #' @export
 

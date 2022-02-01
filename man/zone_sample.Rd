@@ -49,6 +49,7 @@ X <- matrix(c(
 colnames(X) <- c("a", "b", "c", "d")
 rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 
+set.seed(18051889)
 zone_sample(A, X, core = TRUE)
 }
 \references{

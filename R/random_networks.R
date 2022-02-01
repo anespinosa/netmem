@@ -41,7 +41,7 @@
 #' ind_rand_matrix(5, type = "probability")
 #' ind_rand_matrix(n = 5, m = 2, p = 0.20, type = "probability", multilevel = TRUE)
 #' @importFrom stats rbinom
-#' 
+#'
 #' @export
 
 ind_rand_matrix <- function(n, m = NULL,

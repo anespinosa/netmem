@@ -59,7 +59,7 @@ Functions currently available in
 3.  `co_ocurrence()`: Co‐occurrence
 4.  `dist_sim_matrix()`: Structural similarities
 5.  `dyad_triad_table()`: Forbidden triad table
-6.  `dyad_census()`: Dyad census
+6.  `dyadic_census()`: Dyad census
 7.  `eb_constraint()`: Constraint
 8.  `edgelist_to_matrix()`: Transform an edgelist to a matrix
 9.  `ego_net()`: Ego network
@@ -72,22 +72,23 @@ Functions currently available in
 16. `jaccard()`: Jaccard similarity
 17. `k_core()`: Generalized K-core
 18. `kp_reciprocity()`: Reciprocity of Katz and Powell
-19. `matrix_projection()`: Unipartite projections
-20. `matrix_report()`: Matrix report
-21. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
-22. `mix_matrix()`: Mixing matrix
-23. `meta_matrix()`: Meta matrix for multilevel networks
-24. `mixed_census()`: Multilevel triad and quadrilateral census
-25. `multilevel_degree()`: Degree centrality for multilevel networks
-26. `multiplex_census()`: Multiplex triad census
-27. `redundancy()`: Redundancy measures
-28. `posneg_index()`: Positive-negative centrality
-29. `struc_balance()`: Structural balance
-30. `structural_na()`: Structural missing data
-31. `trans_coef()`: Transitivity
-32. `triad_uman()`: Triad census analysis assuming U\|MAN
-33. `z_arctest()`: Z test of the number of arcs
-34. `zone_sample()`: Zone-2 sampling from second-mode
+19. `matrix_adjlist`: Transform a matrix to an adjacency list
+20. `matrix_projection()`: Unipartite projections
+21. `matrix_report()`: Matrix report
+22. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
+23. `mix_matrix()`: Mixing matrix
+24. `meta_matrix()`: Meta matrix for multilevel networks
+25. `mixed_census()`: Multilevel triad and quadrilateral census
+26. `multilevel_degree()`: Degree centrality for multilevel networks
+27. `multiplex_census()`: Multiplex triad census
+28. `redundancy()`: Redundancy measures
+29. `posneg_index()`: Positive-negative centrality
+30. `struc_balance()`: Structural balance
+31. `structural_na()`: Structural missing data
+32. `trans_coef()`: Transitivity
+33. `triad_uman()`: Triad census analysis assuming U\|MAN
+34. `z_arctest()`: Z test of the number of arcs
+35. `zone_sample()`: Zone-2 sampling from second-mode
 
 Data currently available in
 [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
@@ -385,7 +386,7 @@ This package also implements some analysis of dyads.
 
 ``` r
 # dyad census
-dyad_census(A1)
+dyadic_census(A1)
 #>      Mutual Asymmetrics       Nulls 
 #>           7           0           3
 

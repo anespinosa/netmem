@@ -16,13 +16,13 @@
 #' @examples
 #'
 #' data(krackhardt_friends)
-#' dyad_census(krackhardt_friends)
+#' dyadic_census(krackhardt_friends)
 #'
 #' data(FIFAin)
-#' dyad_census(FIFAin[[1]], directed = FALSE)
+#' dyadic_census(FIFAin[[1]], directed = FALSE)
 #' @export
 
-dyad_census <- function(G, directed = TRUE) {
+dyadic_census <- function(G, directed = TRUE) {
   G <- as.matrix(G)
   A <- G
   if (any(abs(G > 1), na.rm = TRUE)) stop("The matrix should be binary")

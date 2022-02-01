@@ -22,12 +22,14 @@ of between and within-group ties. This measure can be interpreted as homophily a
 }
 \examples{
 
+set.seed(18051889)
 n <- 100
 A <- matrix(c(rbinom(n, 1, 0.5)),
   ncol = sqrt(n), nrow = sqrt(n), byrow = TRUE
 )
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
+
 att <- rbinom(sqrt(n), 3, 0.5)
 ei_index(A, mixed = FALSE, att = att)
 }
