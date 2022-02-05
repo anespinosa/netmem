@@ -58,7 +58,7 @@ Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/
 11. `fractional_approach()`: Fractional approach
 12. `gen_degree()`: Generalized degree
 13. `gen_density()`: Generalized density
-14. `local_geodesic()` `all_geodesic()`: Geodesic
+14. `local_distances()` `all_distances()` `bfs()`: Distances
 15. `ind_rand_matrix()`: Independent random matrix
 16. `heterogeneity()`: Blau's and IQV Index
 17. `jaccard()`: Jaccard similarity

@@ -856,11 +856,11 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
   return(subgraphs)
 }
 
-#' Geodesic
+#' Distances
 #'
-#' Shortest path between two nodes using Dijkstra's algorithm
+#' Distances between nodes using breadth-first search (BFS) or Dijkstra's algorithm
 #'
-#' @name geodesic
+#' @name distances
 #'
 #' @param A   A symmetric matrix object
 #' @param select   Whether to consider all sender and receiver ties of ego (\code{all}), only incoming ties (\code{in}), or outgoing ties (\code{out}). By default, \code{all}.
@@ -868,7 +868,7 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
 #' @param to  Node in which the path end
 #' @param path  Path of the nodes
 #'
-#' @return This function returns the geodesic o shortest path distance between two nodes
+#' @return This function returns the distances o shortest path distance between two nodes
 #'
 #' @references
 #'
@@ -878,7 +878,73 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
 
 NULL
 
-#' @rdname geodesic
+#' @rdname distances
+#' @examples
+#' A <- matrix(c(0,1,1,0,0,0,
+#' 0,0,0,1,1,0,
+#' 0,0,0,0,1,0,
+#' 0,0,0,0,0,0,
+#' 0,0,0,0,0,1,
+#' 0,0,0,0,0,0), byrow = TRUE, nrow = 6)
+#' rownames(A) <- letters[1:nrow(A)]
+#' colnames(A) <- letters[1:ncol(A)]
+#' 
+#' bfs(A, from = 'a')
+#' @export
+
+bfs <- function(A, from = NULL){
+  if(is.null(from)){
+    m <- list()
+    for(j in 1:nrow(A)){
+      first_buffer <- j
+      visited <- rep(FALSE, nrow(A))
+      visited[j] = TRUE
+      distances = rep(Inf, nrow(A))
+      distances[j] = 0
+      
+      while(length(first_buffer) > 0){
+        node = first_buffer[1]
+        first_buffer = first_buffer[-1]
+        for(i in seq_along(A[node,])) {
+          if(A[node,i] && !visited[i]){
+            visited[i] = TRUE
+            distances[i] = distances[node] + 1
+            first_buffer = c(first_buffer, i)
+          }
+        } 
+      }
+      m[[j]] <- distances
+      
+    }
+    m <- as.matrix(do.call(rbind, m))
+    return (distances = m)
+    
+  }else{  
+    from <- which(rownames(A) %in% from)
+    first_buffer <- from
+    visited <- rep(FALSE, nrow(A))
+    visited[from] = TRUE
+    distances = rep(Inf, nrow(A))
+    distances[from] = 0
+    pointers = rep(NULL, nrow(A))
+    
+    while(length(first_buffer) > 0){
+      node = first_buffer[1]
+      first_buffer = first_buffer[-1]
+      for(i in seq_along(A[node,])) {
+        if(A[node,i] && !visited[i]){
+          visited[i] = TRUE
+          distances[i] = distances[node] + 1
+          pointers[i] = node 
+          first_buffer = c(first_buffer, i)
+        }
+      }
+    }
+    return (list(pointers = pointers, distances = distances))
+  }
+}
+
+#' @rdname distances
 #' @examples
 #' A <- matrix(c(
 #'   0, 3, 3, 10, 15, 0, 0, 0,
@@ -894,20 +960,20 @@ NULL
 #' )
 #' rownames(A) <- c("a", "b", "s", "c", "d", "e", "f", "z")
 #' colnames(A) <- rownames(A)
-#' local_geodesic(A, from = "a", to = "d")
+#' local_distances(A, from = "a", to = "d")
 #' @export
 
-local_geodesic <- function(A, select = c("all", "in", "out"),
+local_distances <- function(A, select = c("all", "in", "out"),
                            from, to, path = c()) {
   adjlist <- matrix_adjlist(A)
   edgelist <- as.data.frame(matrix_to_edgelist(A, valued = TRUE, digraph = TRUE))
   edgelist$V3 <- as.numeric(edgelist$V3)
   test <- list()
-  test <- internal_geodesic(adjlist, init = from, fin = to, walk = path)
+  test <- internal_distances(adjlist, init = from, fin = to, walk = path)
   return(list(path = test))
 }
 
-internal_geodesic <- function(A, init, fin, walk = c()) {
+internal_distances <- function(A, init, fin, walk = c()) {
   if (is.null(A[[init]])) {
     return(NULL)
   }
@@ -920,7 +986,7 @@ internal_geodesic <- function(A, init, fin, walk = c()) {
   short_path <- NULL
   for (node in A[[init]]) {
     if (!(node %in% walk)) {
-      newwalk <- internal_geodesic(A, node, fin, walk)
+      newwalk <- internal_distances(A, node, fin, walk)
       if (walk_length(newwalk) < walk_length(short_path)) {
         short_path <- newwalk
       }
@@ -942,7 +1008,7 @@ walk_length <- function(walk) {
   sum(merge(pairs, edgelist)[, "V3"])
 }
 
-#' @rdname geodesic
+#' @rdname distances
 #' @examples
 #' A <- matrix(c(
 #'   0, 3, 3, 10, 15, 0, 0, 0,
@@ -958,10 +1024,10 @@ walk_length <- function(walk) {
 #' )
 #' rownames(A) <- c("a", "b", "s", "c", "d", "e", "f", "z")
 #' colnames(A) <- rownames(A)
-#' all_geodesic(A, select = "in")
+#' all_distances(A, select = "in")
 #' @export
 
-all_geodesic <- function(A, select = c("all", "in", "out")) {
+all_distances <- function(A, select = c("all", "in", "out")) {
   adjlist <- matrix_adjlist(A)
   edgelist <- as.data.frame(matrix_to_edgelist(A, valued = TRUE, digraph = TRUE))
   edgelist$V3 <- as.numeric(edgelist$V3)
@@ -977,7 +1043,7 @@ all_geodesic <- function(A, select = c("all", "in", "out")) {
     temp4 <- list()
     for (i in 1:ncol(A)) {
       for (j in i:ncol(A)) {
-        temp4[[j]] <- internal_geodesic(adjlist, init = rownames(A)[j], fin = rownames(A)[i])
+        temp4[[j]] <- internal_distances(adjlist, init = rownames(A)[j], fin = rownames(A)[i])
       }
       temp3[[i]] <- temp4[[j]]
       names(temp3)[i] <- rownames(A)[i]
@@ -990,7 +1056,7 @@ all_geodesic <- function(A, select = c("all", "in", "out")) {
     temp2 <- list()
     for (i in 1:ncol(A)) {
       for (j in i:ncol(A)) {
-        temp2[[j]] <- internal_geodesic(adjlist, init = rownames(A)[i], fin = rownames(A)[j])
+        temp2[[j]] <- internal_distances(adjlist, init = rownames(A)[i], fin = rownames(A)[j])
       }
       temp1[[i]] <- temp2[[j]]
       names(temp1)[i] <- rownames(A)[i]
@@ -1004,7 +1070,7 @@ all_geodesic <- function(A, select = c("all", "in", "out")) {
     temp2 <- list()
     for (i in 1:ncol(A)) {
       for (j in i:ncol(A)) {
-        temp2[[j]] <- internal_geodesic(adjlist, init = rownames(A)[i], fin = rownames(A)[j])
+        temp2[[j]] <- internal_distances(adjlist, init = rownames(A)[i], fin = rownames(A)[j])
       }
       temp1[[i]] <- temp2[[j]]
       names(temp1)[i] <- rownames(A)[i]
@@ -1015,7 +1081,7 @@ all_geodesic <- function(A, select = c("all", "in", "out")) {
     temp4 <- list()
     for (i in 1:ncol(A)) {
       for (j in i:ncol(A)) {
-        temp4[[j]] <- internal_geodesic(adjlist, init = rownames(A)[j], fin = rownames(A)[i])
+        temp4[[j]] <- internal_distances(adjlist, init = rownames(A)[j], fin = rownames(A)[i])
       }
       temp3[[i]] <- temp4[[j]]
       names(temp3)[i] <- rownames(A)[i]
