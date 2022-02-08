@@ -551,7 +551,7 @@
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1 3 1 2 3</span></code></pre></div>
-<p>This package also allows performing complex census for multilevel networks.</p>
+<p>This package also allows performing complex census for multilevel networks</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span>
@@ -560,22 +560,200 @@
 <span class="co">#&gt;     0     0     8     0     3     0     1     3     1     0     0     0     0 </span>
 <span class="co">#&gt;  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 </span>
 <span class="co">#&gt;    11    13     0     0     0     0     3     0     0     0</span></code></pre></div>
+<p>Also, there are some functions that allowed performing the zone-2 sampling from second-mode (2-path distance from an ego in the second level)</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span>
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span><span class="op">)</span>
+<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html" class="external-link">graph.adjacency</a></span><span class="op">(</span><span class="va">m</span>, mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'undirected'</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">g</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span>, <span class="st">'blue'</span>, <span class="st">'red'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="multilayer_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">two_mode_sam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/zone_sample.html">zone_sample</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, ego <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+   <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="st">'blue'</span>, <span class="st">'red'</span><span class="op">)</span>
+   
+   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as.directed.html" class="external-link">as.undirected</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+   
+<span class="op">}</span></code></pre></div>
+<p><img src="multilayer_files/figure-html/unnamed-chunk-7-2.png" width="700"><img src="multilayer_files/figure-html/unnamed-chunk-7-3.png" width="700"><img src="multilayer_files/figure-html/unnamed-chunk-7-4.png" width="700"></p>
+<p>Willing to create a multilevel network? We can simulate a multilevel network with 30 actors in the first level and 20 nodes in the second level.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">26091949</span><span class="op">)</span>
+<span class="fu"><a href="../reference/ind_rand_matrix.html">ind_rand_matrix</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, m <span class="op">=</span> <span class="fl">20</span>, type <span class="op">=</span> <span class="st">'probability'</span>, p <span class="op">=</span> <span class="fl">0.2</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt;     n1 n2 n3 n4 n5 n6 n7 n8 n9 n10 n11 n12 n13 n14 n15 n16 n17 n18 n19 n20 n21</span>
+<span class="co">#&gt; n1   0  0  1  0  0  0  1  0  0   1   0   0   1   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n2   0  0  0  0  0  0  0  0  0   0   0   1   0   0   1   0   1   0   0   1   0</span>
+<span class="co">#&gt; n3   0  0  0  0  0  0  1  0  0   0   0   0   1   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n4   0  0  1  0  0  0  0  0  0   0   0   0   1   0   1   0   0   0   0   1   0</span>
+<span class="co">#&gt; n5   0  0  1  0  0  0  0  0  1   0   1   0   0   1   0   0   1   0   0   0   0</span>
+<span class="co">#&gt; n6   1  0  0  0  0  0  0  0  0   0   0   0   1   1   1   0   0   0   0   0   1</span>
+<span class="co">#&gt; n7   0  0  1  0  0  0  0  0  0   0   0   1   0   0   0   0   1   0   0   0   1</span>
+<span class="co">#&gt; n8   0  0  0  0  0  0  0  0  0   0   0   1   0   0   1   1   1   0   0   0   0</span>
+<span class="co">#&gt; n9   0  0  0  0  1  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n10  0  0  1  0  1  0  0  0  0   0   0   0   0   0   0   0   0   0   1   0   0</span>
+<span class="co">#&gt; n11  1  0  0  1  0  1  0  0  0   0   0   0   0   1   0   0   1   0   0   0   0</span>
+<span class="co">#&gt; n12  0  0  0  0  0  0  0  0  0   1   0   0   0   0   0   0   0   0   1   0   0</span>
+<span class="co">#&gt; n13  0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   0   0   0   1   0   0</span>
+<span class="co">#&gt; n14  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   1   1   0   0</span>
+<span class="co">#&gt; n15  0  0  0  0  1  0  0  1  1   0   0   0   0   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n16  0  1  0  0  1  0  0  0  0   1   1   0   0   0   1   0   0   0   0   0   1</span>
+<span class="co">#&gt; n17  0  1  0  0  0  0  1  0  0   0   0   0   0   0   0   1   0   0   0   0   0</span>
+<span class="co">#&gt; n18  1  0  0  0  0  0  1  0  1   0   0   0   0   0   0   0   0   0   1   0   0</span>
+<span class="co">#&gt; n19  1  0  1  0  0  1  0  0  0   1   0   0   0   0   0   1   0   0   0   0   0</span>
+<span class="co">#&gt; n20  0  1  0  0  0  0  0  1  0   1   0   0   1   0   0   0   1   1   0   0   0</span>
+<span class="co">#&gt; n21  0  0  0  1  1  1  0  0  0   0   0   0   0   1   0   0   0   0   1   0   0</span>
+<span class="co">#&gt; n22  0  0  0  0  0  0  0  0  0   0   1   0   0   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n23  1  0  0  0  0  1  1  0  1   0   0   0   0   0   0   0   1   0   0   1   0</span>
+<span class="co">#&gt; n24  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n25  1  0  0  0  1  0  0  0  0   0   0   0   1   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n26  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1</span>
+<span class="co">#&gt; n27  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n28  1  0  1  0  0  1  0  0  0   0   0   0   0   1   0   0   1   1   1   0   0</span>
+<span class="co">#&gt; n29  0  0  0  0  0  0  0  0  0   0   1   0   0   0   0   0   0   0   1   0   0</span>
+<span class="co">#&gt; n30  0  0  0  1  0  0  0  1  0   0   0   0   1   0   1   0   0   0   0   1   0</span>
+<span class="co">#&gt; m1   0  0  0  0  0  0  0  0  0   1   0   0   0   1   0   0   0   1   0   0   0</span>
+<span class="co">#&gt; m2   0  1  0  0  1  1  0  1  0   0   0   0   0   0   0   0   0   1   0   0   0</span>
+<span class="co">#&gt; m3   0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   1   0   1   1   0   0</span>
+<span class="co">#&gt; m4   0  0  0  0  1  1  0  0  0   0   0   0   0   0   0   0   1   1   1   0   0</span>
+<span class="co">#&gt; m5   0  0  0  1  0  0  0  0  0   0   0   0   1   1   0   0   0   1   0   1   0</span>
+<span class="co">#&gt; m6   0  0  0  0  0  0  0  1  1   0   0   1   0   0   1   0   0   0   0   0   1</span>
+<span class="co">#&gt; m7   0  0  0  1  0  0  1  0  1   0   0   0   0   0   0   0   1   0   0   1   0</span>
+<span class="co">#&gt; m8   0  0  0  0  0  0  0  0  0   1   0   0   0   0   1   0   0   0   0   1   0</span>
+<span class="co">#&gt; m9   1  0  0  1  0  0  1  0  0   0   0   0   0   0   0   0   0   0   0   1   0</span>
+<span class="co">#&gt; m10  1  0  0  1  0  1  0  0  0   1   0   0   0   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m11  0  0  0  1  1  1  0  0  0   1   0   1   0   0   0   0   0   1   0   1   1</span>
+<span class="co">#&gt; m12  0  1  0  0  0  1  0  0  0   0   0   0   0   0   1   1   0   1   0   0   0</span>
+<span class="co">#&gt; m13  0  0  1  0  0  0  1  0  0   0   0   0   0   0   0   0   1   1   0   0   0</span>
+<span class="co">#&gt; m14  0  0  0  0  0  0  0  0  0   0   0   0   0   1   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m15  0  0  0  0  0  0  0  0  0   0   0   0   1   0   1   1   0   1   0   1   0</span>
+<span class="co">#&gt; m16  0  0  0  0  0  1  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1</span>
+<span class="co">#&gt; m17  0  1  0  0  1  0  1  1  0   0   0   0   0   1   1   0   1   0   0   0   0</span>
+<span class="co">#&gt; m18  0  1  0  0  1  0  0  0  0   1   0   0   0   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m19  1  0  0  0  0  0  0  1  0   1   0   0   0   1   0   0   1   1   0   0   0</span>
+<span class="co">#&gt; m20  0  0  0  0  0  1  0  1  0   0   0   0   0   0   0   1   0   0   0   0   0</span>
+<span class="co">#&gt;     n22 n23 n24 n25 n26 n27 n28 n29 n30 m1 m2 m3 m4 m5 m6 m7 m8 m9 m10 m11 m12</span>
+<span class="co">#&gt; n1    0   1   1   0   1   0   0   1   0  0  0  0  0  0  0  0  0  1   1   0   0</span>
+<span class="co">#&gt; n2    1   0   0   1   0   0   0   1   0  0  1  0  0  0  0  0  0  0   0   0   1</span>
+<span class="co">#&gt; n3    0   1   0   0   0   1   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; n4    0   0   0   1   0   1   0   0   0  0  0  0  0  1  0  1  0  1   1   1   0</span>
+<span class="co">#&gt; n5    0   1   0   0   0   1   0   1   0  0  1  0  1  0  0  0  0  0   0   1   0</span>
+<span class="co">#&gt; n6    0   0   0   0   0   0   0   0   0  0  1  0  1  0  0  0  0  0   1   1   1</span>
+<span class="co">#&gt; n7    1   0   0   0   1   0   0   0   1  0  0  0  0  0  0  1  0  1   0   0   0</span>
+<span class="co">#&gt; n8    0   0   0   0   1   1   0   0   0  0  1  0  0  0  1  0  0  0   0   0   0</span>
+<span class="co">#&gt; n9    0   0   1   1   1   0   1   0   0  0  0  0  0  0  1  1  0  0   0   0   0</span>
+<span class="co">#&gt; n10   0   1   1   0   1   0   0   1   0  1  0  0  0  0  0  0  1  0   1   1   0</span>
+<span class="co">#&gt; n11   0   0   0   0   0   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; n12   0   0   0   1   0   0   0   0   0  0  0  0  0  0  1  0  0  0   0   1   0</span>
+<span class="co">#&gt; n13   0   1   0   0   1   1   1   0   0  0  0  0  0  1  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; n14   0   0   1   0   0   1   0   0   0  1  0  0  0  1  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; n15   1   0   0   1   0   0   0   0   0  0  0  1  0  0  1  0  1  0   0   0   1</span>
+<span class="co">#&gt; n16   0   1   1   0   0   0   1   0   1  0  0  1  0  0  0  0  0  0   0   0   1</span>
+<span class="co">#&gt; n17   0   0   0   0   0   0   0   0   0  0  0  0  1  0  0  1  0  0   0   0   0</span>
+<span class="co">#&gt; n18   0   0   0   0   1   0   0   0   1  1  1  1  1  1  0  0  0  0   0   1   1</span>
+<span class="co">#&gt; n19   0   0   0   0   0   0   0   0   0  0  0  1  1  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; n20   0   0   0   1   0   0   1   0   0  0  0  0  0  1  0  1  1  1   0   1   0</span>
+<span class="co">#&gt; n21   0   0   0   1   0   1   0   1   0  0  0  0  0  0  1  0  0  0   0   1   0</span>
+<span class="co">#&gt; n22   0   0   1   0   0   0   1   0   1  0  1  0  0  0  1  1  1  0   1   0   0</span>
+<span class="co">#&gt; n23   0   0   0   0   0   0   1   0   0  0  1  0  0  0  1  0  0  0   0   0   0</span>
+<span class="co">#&gt; n24   0   0   0   0   0   0   0   1   1  0  1  0  0  0  0  1  1  1   0   1   0</span>
+<span class="co">#&gt; n25   0   0   0   0   0   1   1   0   0  0  0  0  0  0  0  0  0  1   0   0   0</span>
+<span class="co">#&gt; n26   1   0   0   0   0   0   0   1   0  0  0  0  0  0  0  0  1  0   0   0   0</span>
+<span class="co">#&gt; n27   1   1   0   0   0   0   0   1   0  0  0  1  1  0  0  1  1  0   0   0   0</span>
+<span class="co">#&gt; n28   0   0   0   0   0   0   0   0   1  0  0  1  0  0  1  1  0  0   0   0   0</span>
+<span class="co">#&gt; n29   1   0   0   0   0   1   1   0   0  0  1  0  1  0  0  0  1  0   0   0   1</span>
+<span class="co">#&gt; n30   1   0   1   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   1   1   1</span>
+<span class="co">#&gt; m1    0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m2    1   1   1   0   0   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m3    0   0   0   0   0   1   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m4    0   0   0   0   0   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m5    0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m6    1   1   0   0   0   0   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m7    1   0   1   0   0   1   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m8    1   0   1   0   1   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m9    0   0   1   1   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m10   1   0   0   0   0   0   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m11   0   0   1   0   0   0   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m12   0   0   0   0   0   0   0   1   1  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m13   0   0   0   0   0   0   1   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m14   0   0   0   0   1   1   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m15   0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m16   0   1   1   0   1   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m17   1   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m18   0   0   0   0   0   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m19   0   0   1   0   1   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt; m20   0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
+<span class="co">#&gt;     m13 m14 m15 m16 m17 m18 m19 m20</span>
+<span class="co">#&gt; n1    0   0   0   0   0   0   1   0</span>
+<span class="co">#&gt; n2    0   0   0   0   1   1   0   0</span>
+<span class="co">#&gt; n3    1   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n4    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n5    0   0   0   0   1   1   0   0</span>
+<span class="co">#&gt; n6    0   0   0   1   0   0   0   1</span>
+<span class="co">#&gt; n7    1   0   0   0   1   0   0   0</span>
+<span class="co">#&gt; n8    0   0   0   0   1   0   1   1</span>
+<span class="co">#&gt; n9    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n10   0   0   0   0   0   1   1   0</span>
+<span class="co">#&gt; n11   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n12   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n13   0   0   1   0   0   0   0   0</span>
+<span class="co">#&gt; n14   0   1   0   0   1   0   1   0</span>
+<span class="co">#&gt; n15   0   0   1   0   1   0   0   0</span>
+<span class="co">#&gt; n16   0   0   1   0   0   0   0   1</span>
+<span class="co">#&gt; n17   1   0   0   0   1   0   1   0</span>
+<span class="co">#&gt; n18   1   0   1   0   0   0   1   0</span>
+<span class="co">#&gt; n19   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n20   0   0   1   0   0   0   0   0</span>
+<span class="co">#&gt; n21   0   0   0   1   0   0   0   0</span>
+<span class="co">#&gt; n22   0   0   0   0   1   0   0   0</span>
+<span class="co">#&gt; n23   0   0   0   1   0   0   0   0</span>
+<span class="co">#&gt; n24   0   0   0   1   0   0   1   0</span>
+<span class="co">#&gt; n25   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n26   0   1   0   1   0   0   1   0</span>
+<span class="co">#&gt; n27   0   1   0   0   0   0   0   0</span>
+<span class="co">#&gt; n28   1   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; n29   1   0   0   1   0   1   0   0</span>
+<span class="co">#&gt; n30   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m1    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m2    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m3    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m4    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m5    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m6    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m7    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m8    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m9    0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m10   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m11   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m12   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m13   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m14   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m15   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m16   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m17   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m18   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m19   0   0   0   0   0   0   0   0</span>
+<span class="co">#&gt; m20   0   0   0   0   0   0   0   0</span></code></pre></div>
 <hr>
 </div>
 </div>
 <div class="section level2">
 <h2 id="multiplex-networks">Multiplex networks<a class="anchor" aria-label="anchor" href="#multiplex-networks"></a>
 </h2>
-<p>Gluckman (1955) described multiplexity as:</p>
-<p>“…”</p>
 <p>In multiplex networks, interlayer edges can only connect nodes that represent the same actor in different layer (<a href="https://www.frontiersin.org/articles/10.3389/fvets.2020.00596/full" class="external-link">Kinsley et al., 2020</a>)</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<p>As mentioned by <a href="https://books.google.ch/books/about/The_Judicial_Process_Among_the_Barotse_o.html?id=Eja8AAAAIAAJ&amp;redir_esc=y" class="external-link">Gluckman (1955: 19)</a>:</p>
+<p>“As we shall have constantly to refer to the consistency of Lozi law with these relationships which serve many interests, I propose, for brevity, to call them <em>multiplex</em> relationships. I require also a term to cover the structure of relationships in which a person tends to occupy the same position relative to the same set of other persons in all networks of purposive ties - economic, political, procreative, religious, educational.”</p>
+<p>To explore some of the functions available in <code>netmem</code> we will use data from <a href="https://books.google.ch/books/about/The_Collegial_Phenomenon.html?id=zRNaURgLOhYC&amp;redir_esc=y" class="external-link">Lazega (2001)</a></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"lazega_lawfirm"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span>
+
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>Which are the densities of the networks?</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, 
                  <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $`Density of matrix [[1]]`</span>
@@ -586,8 +764,37 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $`Density of matrix [[3]]`</span>
 <span class="co">#&gt; [1] 0.1251509</span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>
+<p>How about computing the Jaccard index between matrices?</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span>
+<span class="co">#&gt; $jaccard</span>
+<span class="co">#&gt; [1] 0.4115983</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $proportion</span>
+<span class="co">#&gt; [1] 0.5271739</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $table</span>
+<span class="co">#&gt;       B</span>
+<span class="co">#&gt; A         0    1 &lt;NA&gt;</span>
+<span class="co">#&gt;   0    3556  310    0</span>
+<span class="co">#&gt;   1     522  582    0</span>
+<span class="co">#&gt;   &lt;NA&gt;    0    0    0</span>
+
+<span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>
+<span class="co">#&gt; $jaccard</span>
+<span class="co">#&gt; [1] 0.2210909</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $proportion</span>
+<span class="co">#&gt; [1] 0.2753623</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $table</span>
+<span class="co">#&gt;       B</span>
+<span class="co">#&gt; A         0    1 &lt;NA&gt;</span>
+<span class="co">#&gt;   0    3595  271    0</span>
+<span class="co">#&gt;   1     800  304    0</span>
+<span class="co">#&gt;   &lt;NA&gt;    0    0    0</span>
+
+<span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>
 <span class="co">#&gt; $jaccard</span>
 <span class="co">#&gt; [1] 0.3228133</span>
 <span class="co">#&gt; </span>
@@ -600,11 +807,9 @@
 <span class="co">#&gt;   0    3861  217    0</span>
 <span class="co">#&gt;   1     534  358    0</span>
 <span class="co">#&gt;   &lt;NA&gt;    0    0    0</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<p>Finally, we can conduct a multiplex census between two matrices. For the moment, one matrix has to be asymmetric (directed) and the other symmetric (undirected).</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/multiplex_census.html">multiplex_census</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>
-<span class="co">#&gt; Warning in multiplex_census(lazega_lawfirm$advice, lazega_lawfirm$friends):</span>
-<span class="co">#&gt; Measure only implemented for a directed and an undirected network. For the</span>
-<span class="co">#&gt; `second` network, the underlying graph is used</span>
 <span class="co">#&gt;            003_003            003_102            003_201            003_300 </span>
 <span class="co">#&gt;               9541              17745              11384              10799 </span>
 <span class="co">#&gt;            012_003           012_102a           012_102b           012_102c </span>
@@ -639,6 +844,26 @@
 <span class="co">#&gt;                489              20620                136                465 </span>
 <span class="co">#&gt;           120c_300        210_003_210            210_300        300_003_300 </span>
 <span class="co">#&gt;                334                616                485                336</span></code></pre></div>
+<p>Note: the temporal networks are a special case of a multiplex network. Links are dynamic, and nodes can join or leave at different stages of the network evolution. For example, in this <code>toy example</code>, maybe two authors are no longer available. In this case, we might prefer maintaining their name in the matrix and assign a <code>NA</code> in their row and/or column:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,
+  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>
+<span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
+
+<span class="co"># complete list of actors</span>
+<span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/structural_na.html">structural_na</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">label</span><span class="op">)</span>
+<span class="co">#&gt;    A  B  C  D  E</span>
+<span class="co">#&gt; A  0 NA  1  1 NA</span>
+<span class="co">#&gt; B NA NA NA NA NA</span>
+<span class="co">#&gt; C  1 NA  0  1 NA</span>
+<span class="co">#&gt; D  0 NA  0  0 NA</span>
+<span class="co">#&gt; E NA NA NA NA NA</span></code></pre></div>
 </div>
   </div>
 

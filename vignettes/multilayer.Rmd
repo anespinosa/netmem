@@ -70,7 +70,6 @@ As a common practice, an incident matrix is often converted to adjacent matrices
 ```{r}
 matrix_projection(A)
 ```
-
 Another concept often used is *bipartite network*, which means that the graph's nodes can be partitioned into two classes. While in some cases, these classes can be different entities (e.g., actors participating in activities or belonging to clubs), this assumption is not always clear. For example, dichotomic attributes of ascribed characteristics also have a bipartite property.
 
 An approach that was devised specifically for affiliation data, was provided by [Bonacich (1972)](https://doi.org/10.1080/0022250X.1972.9989806):
@@ -191,43 +190,89 @@ Besides, we can perform a *k*-core analysis of one of the levels using the infor
 k_core(A1, B1, multilevel=TRUE)
 ```
 
-This package also allows performing complex census for multilevel networks.
+This package also allows performing complex census for multilevel networks
 ```{r multil3}
 mixed_census(A2, t(B1), B2, quad=TRUE)
 ```
+
+Also, there are some functions that allowed performing the zone-2 sampling from second-mode (2-path distance from an ego in the second level)
+```{r, message=FALSE}
+library(igraph)
+m <- meta_matrix(A1, B1)
+g <- graph.adjacency(m, mode = c('undirected'))
+V(g)$type <- ifelse(V(g)$name %in% colnames(B1), TRUE, FALSE)
+plot(g, vertex.color = ifelse(V(g)$type == TRUE, 'blue', 'red'))
+
+two_mode_sam <- zone_sample(A1, B1, ego = TRUE)
+for(i in 1:ncol(B1)){
+   V(two_mode_sam[[i]])$color <- ifelse(V(two_mode_sam[[i]])$name %in% colnames(B1), 'blue', 'red')
+   
+   plot(as.undirected(two_mode_sam[[i]]), vertex.color = V(two_mode_sam[[i]])$color, main = names(two_mode_sam)[i])
+   
+}
+```
+
+Willing to create a multilevel network? We can simulate a multilevel network with 30 actors in the first level and 20 nodes in the second level.
+```{r}
+set.seed(26091949)
+ind_rand_matrix(n = 30, m = 20, type = 'probability', p = 0.2, multilevel = TRUE)
+
+```
+
 
 -----
 
 ## Multiplex networks
 
-Gluckman (1955) described multiplexity as:
-
-"..."
-
 In multiplex networks, interlayer edges can only connect nodes that represent the same actor in different layer ([Kinsley et al., 2020](https://www.frontiersin.org/articles/10.3389/fvets.2020.00596/full))
 
+As mentioned by [Gluckman (1955: 19)](https://books.google.ch/books/about/The_Judicial_Process_Among_the_Barotse_o.html?id=Eja8AAAAIAAJ&redir_esc=y):
+
+"As we shall have constantly to refer to the consistency of Lozi law with these relationships which serve many interests, I propose, for brevity, to call them *multiplex* relationships. I require also a term to cover the structure of relationships in which a person tends to occupy the same position relative to the same set of other persons in all networks of purposive ties - economic, political, procreative, religious, educational."
+
+To explore some of the functions available in  `netmem` we will use data from [Lazega (2001)](https://books.google.ch/books/about/The_Collegial_Phenomenon.html?id=zRNaURgLOhYC&redir_esc=y)
 ```{r}
 data("lazega_lawfirm")
 rownames(lazega_lawfirm$advice) <- as.character(1:ncol(lazega_lawfirm$advice))
 colnames(lazega_lawfirm$advice) <- rownames(lazega_lawfirm$advice)
+
 colnames(lazega_lawfirm$friends) <- rownames(lazega_lawfirm$advice)
 rownames(lazega_lawfirm$friends) <- colnames(lazega_lawfirm$friends)
 ```
 
-
+Which are the densities of the networks?
 ```{r}
 gen_density(list(lazega_lawfirm$cowork, lazega_lawfirm$advice, 
                  lazega_lawfirm$friends), multilayer = TRUE)
 ```
 
-
+How about computing the Jaccard index between matrices?
 ```{r}
+jaccard(lazega_lawfirm$cowork, lazega_lawfirm$advice)
+
+jaccard(lazega_lawfirm$cowork, lazega_lawfirm$friends)
+
 jaccard(lazega_lawfirm$advice, lazega_lawfirm$friends)
 ```
 
-```{r}
+Finally, we can conduct a multiplex census between two matrices. For the moment, one matrix has to be asymmetric (directed) and the other symmetric (undirected).
+```{r, warning=FALSE}
 multiplex_census(lazega_lawfirm$advice, lazega_lawfirm$friends)
 ```
 
+Note: the temporal networks are a special case of a multiplex network. Links are dynamic, and nodes can join or leave at different stages of the network evolution. For example, in this `toy example`, maybe two authors are no longer available. In this case, we might prefer maintaining their name in the matrix and assign a `NA` in their row and/or column:
+```{r}
+A <- matrix(c(
+  0, 1, 1,
+  1, 0, 1,
+  0, 0, 0
+), byrow = TRUE, ncol = 3)
+colnames(A) <- c("A", "C", "D")
+rownames(A) <- c("A", "C", "D")
 
+# complete list of actors
+label <- c("A", "B", "C", "D", "E")
+
+structural_na(A, label)
+```
 
