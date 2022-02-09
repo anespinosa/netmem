@@ -155,7 +155,7 @@ colnames(B2) <- colnames(A3)
 We will start with a report of the matrices:
 ```{r}
 matrix_report(A1)
-matrix_report(B1)
+matrix_report(B1) # correct this!
 matrix_report(A2)
 matrix_report(B2)
 matrix_report(A3)
@@ -168,6 +168,7 @@ matrix_report(A3)
 In some cases we have an incident matrix and also the relationships of the node of the same class. In which case, we can use the *'meta-matrix'* ([Krackhardt & Carley, 1998](https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf); [Carley, 2002](http://sds.hss.cmu.edu/faculty/carley/carley.htm)) to represent a multilevel network. 
 ```{r meta_matrix, message=FALSE}
 meta_matrix(A1, B1, A2, B2, A3)
+meta_matrix(A1, B1, A2, B2)
 
 library(igraph)
 plot(graph.adjacency(meta_matrix(A1, B1, A2, B2, A3), mode = c('directed')))

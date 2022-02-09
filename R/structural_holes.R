@@ -62,7 +62,7 @@ redundancy <- function(A, ego = NULL, digraph = FALSE, weighted = FALSE) {
 
 #' Constraint
 #'
-#' Everett and Borgatti specification of the constraint measure for binary matrixes
+#' Everett and Borgatti specification of the constraint measure for binary matrices
 #'
 #' @param A   A symmetric matrix object
 #' @param ego   Name of ego in the matrix

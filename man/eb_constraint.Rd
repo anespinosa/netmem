@@ -20,7 +20,7 @@ This function returns term 1, 2 and 3, the normalization and the maximum value o
 and the constraint of Burt (1992).
 }
 \description{
-Everett and Borgatti specification of the constraint measure for binary matrixes
+Everett and Borgatti specification of the constraint measure for binary matrices
 }
 \examples{
 

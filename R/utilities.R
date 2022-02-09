@@ -87,7 +87,7 @@ matrix_report <- function(A) {
     return(cbind(
       nodes_rows = mode_level1,
       nodes_columns = mode_level2,
-      incident_lines = edges
+      incident_lines = sum(A, na.rm = TRUE)
     ))
   }
 }
