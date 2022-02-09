@@ -41,48 +41,70 @@ The package implements different measures to analyse and manipulate complex mult
 citation(package="netmem")
 ```
 
-## All functions
+## Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
-Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
+Utilities:
+
+1. `matrix_report()`: Matrix report
+2. `matrix_adjlist`: Transform a matrix to an adjacency list
+3. `matrix_projection()`: Unipartite projections
+4. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
+5. `edgelist_to_matrix()`: Transform an edgelist to a matrix
+6. `meta_matrix()`: Meta matrix for multilevel networks
+7. `minmax_overlap()`: Minimum/maximum overlap
+8. `mix_matrix()`: Mixing matrix
+9. `structural_na()`: Structural missing data
+10. `ego_net()`: Ego network
+11. `zone_sample()`: Zone-2 sampling from second-mode
+
+Ego and personal networks:
+
+1. `eb_constraint()`: Constraint
+2. `ei_index()`: Krackhardt and Stern's E-I index
+3. `heterogeneity()`: Blau's and IQV Index
+4. `redundancy()`: Redundancy measures
+
+Path distances:
+
+1. `bfs_ugraph()`: Breath-first algorithm 
+2. `short_path()`: Shortest path  
+3. `wlocal_distances()`: Dijikstra's algorithm (one actor)
+4. `wall_distances()`: Dijikstra's algorithm (all actors)
+
+Signed networks:
+
+1. `posneg_index()`: Positive-negative centrality
+2. `struc_balance()`: Structural balance
+
+Structural measures:
+
+1. `gen_density()`: Generalized density
+2. `gen_degree()`: Generalized degree
+3. `multilevel_degree()`: Degree centrality for multilevel networks
+4. `trans_coef()`: Transitivity
+5. `clique_table()`: Clique table
+6. `dyad_triad_table()`: Forbidden triad table
+7. `k_core()`: Generalized K-core
+8. `dyadic_census()`: Dyad census
+9. `multiplex_census()`: Multiplex triad census
+10. `mixed_census()`: Multilevel triad and quadrilateral census
+
+Similarity measures:
 
 1. `bonacich_norm()`: Bonacich normalisation
-2. `clique_table()`: Clique table
-3. `co_ocurrence()`: Co‐occurrence
-4. `dist_sim_matrix()`: Structural similarities
-5. `dyad_triad_table()`: Forbidden triad table
-6. `dyadic_census()`: Dyad census
-7. `eb_constraint()`: Constraint
-8. `edgelist_to_matrix()`: Transform an edgelist to a matrix
-9. `ego_net()`: Ego network
-10. `ei_index()`: Krackhardt and Stern's E-I index
-11. `fractional_approach()`: Fractional approach
-12. `gen_degree()`: Generalized degree
-13. `gen_density()`: Generalized density
-14. `bfs_ugraph()` `short_path()` `wlocal_distances()` `wall_distances`: Path distances
-15. `ind_rand_matrix()`: Independent random matrix
-16. `heterogeneity()`: Blau's and IQV Index
-17. `jaccard()`: Jaccard similarity
-18. `k_core()`: Generalized K-core
-19. `kp_reciprocity()`: Reciprocity of Katz and Powell
-20. `matrix_adjlist`: Transform a matrix to an adjacency list
-21. `matrix_projection()`: Unipartite projections
-22. `matrix_report()`: Matrix report
-23. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
-24. `mix_matrix()`: Mixing matrix
-25. `meta_matrix()`: Meta matrix for multilevel networks
-26. `mixed_census()`: Multilevel triad and quadrilateral census
-27. `multilevel_degree()`: Degree centrality for multilevel networks
-28. `multiplex_census()`: Multiplex triad census
-29. `redundancy()`: Redundancy measures
-30. `posneg_index()`: Positive-negative centrality
-31. `struc_balance()`: Structural balance
-32. `structural_na()`: Structural missing data
-33. `trans_coef()`: Transitivity
-34. `triad_uman()`: Triad census analysis assuming U|MAN
-35. `z_arctest()`: Z test of the number of arcs
-36. `zone_sample()`: Zone-2 sampling from second-mode
+2. `co_ocurrence()`: Co‐occurrence
+3. `dist_sim_matrix()`: Structural similarities
+4. `fractional_approach()`: Fractional approach
+5. `jaccard()`: Jaccard similarity
 
-Data currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
+Network inference:
+
+1. `kp_reciprocity()`: Reciprocity of Katz and Powell
+2. `z_arctest()`: Z test of the number of arcs
+3. `triad_uman()`: Triad census analysis assuming U|MAN
+4. `ind_rand_matrix()`: Independent random matrix
+
+Data currently available:
 
 1. `FIFAego`: Ego FIFA
 2. `FIFAex`: Outside FIFA

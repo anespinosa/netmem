@@ -101,84 +101,111 @@
 <p>@Manual{, title = {netmem: Social Network Measures using Matrices}, author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package version 1.0-3}, url = {<a href="https://github.com/anespinosa/netmem" class="external-link uri">https://github.com/anespinosa/netmem</a>}, }</p>
 </div>
 <div class="section level2">
-<h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a>
+<h2 id="functions-currently-available-in-netmem">Functions currently available in <a href="https://anespinosa.github.io/netmem/reference/index.html" class="external-link"><code>netmem</code></a>:<a class="anchor" aria-label="anchor" href="#functions-currently-available-in-netmem"></a>
 </h2>
-<p>Functions currently available in <a href="https://anespinosa.github.io/netmem/reference/index.html" class="external-link"><code>netmem</code></a>:</p>
+<p>Utilities:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code><a href="reference/bonacich_norm.html">bonacich_norm()</a></code>: Bonacich normalisation</li>
-<li>
-<code><a href="reference/clique_table.html">clique_table()</a></code>: Clique table</li>
-<li>
-<code><a href="reference/co_ocurrence.html">co_ocurrence()</a></code>: Co‐occurrence</li>
-<li>
-<code><a href="reference/dist_sim_matrix.html">dist_sim_matrix()</a></code>: Structural similarities</li>
-<li>
-<code><a href="reference/dyad_triad_table.html">dyad_triad_table()</a></code>: Forbidden triad table</li>
-<li>
-<code><a href="reference/dyadic_census.html">dyadic_census()</a></code>: Dyad census</li>
-<li>
-<code><a href="reference/eb_constraint.html">eb_constraint()</a></code>: Constraint</li>
-<li>
-<code><a href="reference/edgelist_to_matrix.html">edgelist_to_matrix()</a></code>: Transform an edgelist to a matrix</li>
-<li>
-<code><a href="reference/ego_net.html">ego_net()</a></code>: Ego network</li>
-<li>
-<code><a href="reference/ei_index.html">ei_index()</a></code>: Krackhardt and Stern’s E-I index</li>
-<li>
-<code><a href="reference/fractional_approach.html">fractional_approach()</a></code>: Fractional approach</li>
-<li>
-<code><a href="reference/gen_degree.html">gen_degree()</a></code>: Generalized degree</li>
-<li>
-<code><a href="reference/gen_density.html">gen_density()</a></code>: Generalized density</li>
-<li>
-<code><a href="reference/distances.html">bfs_ugraph()</a></code> <code><a href="reference/distances.html">short_path()</a></code> <code><a href="reference/distances.html">wlocal_distances()</a></code> <code>wall_distances</code>: Path distances</li>
-<li>
-<code><a href="reference/ind_rand_matrix.html">ind_rand_matrix()</a></code>: Independent random matrix</li>
-<li>
-<code><a href="reference/heterogeneity.html">heterogeneity()</a></code>: Blau’s and IQV Index</li>
-<li>
-<code><a href="reference/jaccard.html">jaccard()</a></code>: Jaccard similarity</li>
-<li>
-<code><a href="reference/k_core.html">k_core()</a></code>: Generalized K-core</li>
-<li>
-<code><a href="reference/kp_reciprocity.html">kp_reciprocity()</a></code>: Reciprocity of Katz and Powell</li>
+<code><a href="reference/matrix_report.html">matrix_report()</a></code>: Matrix report</li>
 <li>
 <code>matrix_adjlist</code>: Transform a matrix to an adjacency list</li>
 <li>
 <code><a href="reference/matrix_projection.html">matrix_projection()</a></code>: Unipartite projections</li>
 <li>
-<code><a href="reference/matrix_report.html">matrix_report()</a></code>: Matrix report</li>
-<li>
 <code><a href="reference/matrix_to_edgelist.html">matrix_to_edgelist()</a></code>: Transform a square matrix to an edge-list</li>
 <li>
-<code><a href="reference/mix_matrix.html">mix_matrix()</a></code>: Mixing matrix</li>
+<code><a href="reference/edgelist_to_matrix.html">edgelist_to_matrix()</a></code>: Transform an edgelist to a matrix</li>
 <li>
 <code><a href="reference/meta_matrix.html">meta_matrix()</a></code>: Meta matrix for multilevel networks</li>
 <li>
-<code><a href="reference/mixed_census.html">mixed_census()</a></code>: Multilevel triad and quadrilateral census</li>
+<code><a href="reference/minmax_overlap.html">minmax_overlap()</a></code>: Minimum/maximum overlap</li>
 <li>
-<code><a href="reference/multilevel_degree.html">multilevel_degree()</a></code>: Degree centrality for multilevel networks</li>
+<code><a href="reference/mix_matrix.html">mix_matrix()</a></code>: Mixing matrix</li>
 <li>
-<code><a href="reference/multiplex_census.html">multiplex_census()</a></code>: Multiplex triad census</li>
+<code><a href="reference/structural_na.html">structural_na()</a></code>: Structural missing data</li>
+<li>
+<code><a href="reference/ego_net.html">ego_net()</a></code>: Ego network</li>
+<li>
+<code><a href="reference/zone_sample.html">zone_sample()</a></code>: Zone-2 sampling from second-mode</li>
+</ol>
+<p>Ego and personal networks:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code><a href="reference/eb_constraint.html">eb_constraint()</a></code>: Constraint</li>
+<li>
+<code><a href="reference/ei_index.html">ei_index()</a></code>: Krackhardt and Stern’s E-I index</li>
+<li>
+<code><a href="reference/heterogeneity.html">heterogeneity()</a></code>: Blau’s and IQV Index</li>
 <li>
 <code><a href="reference/redundancy.html">redundancy()</a></code>: Redundancy measures</li>
+</ol>
+<p>Path distances:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code><a href="reference/distances.html">bfs_ugraph()</a></code>: Breath-first algorithm</li>
+<li>
+<code><a href="reference/distances.html">short_path()</a></code>: Shortest path<br>
+</li>
+<li>
+<code><a href="reference/distances.html">wlocal_distances()</a></code>: Dijikstra’s algorithm (one actor)</li>
+<li>
+<code><a href="reference/distances.html">wall_distances()</a></code>: Dijikstra’s algorithm (all actors)</li>
+</ol>
+<p>Signed networks:</p>
+<ol style="list-style-type: decimal">
 <li>
 <code><a href="reference/posneg_index.html">posneg_index()</a></code>: Positive-negative centrality</li>
 <li>
 <code><a href="reference/struc_balance.html">struc_balance()</a></code>: Structural balance</li>
+</ol>
+<p>Structural measures:</p>
+<ol style="list-style-type: decimal">
 <li>
-<code><a href="reference/structural_na.html">structural_na()</a></code>: Structural missing data</li>
+<code><a href="reference/gen_density.html">gen_density()</a></code>: Generalized density</li>
+<li>
+<code><a href="reference/gen_degree.html">gen_degree()</a></code>: Generalized degree</li>
+<li>
+<code><a href="reference/multilevel_degree.html">multilevel_degree()</a></code>: Degree centrality for multilevel networks</li>
 <li>
 <code><a href="reference/trans_coef.html">trans_coef()</a></code>: Transitivity</li>
 <li>
-<code><a href="reference/triad_uman.html">triad_uman()</a></code>: Triad census analysis assuming U|MAN</li>
+<code><a href="reference/clique_table.html">clique_table()</a></code>: Clique table</li>
+<li>
+<code><a href="reference/dyad_triad_table.html">dyad_triad_table()</a></code>: Forbidden triad table</li>
+<li>
+<code><a href="reference/k_core.html">k_core()</a></code>: Generalized K-core</li>
+<li>
+<code><a href="reference/dyadic_census.html">dyadic_census()</a></code>: Dyad census</li>
+<li>
+<code><a href="reference/multiplex_census.html">multiplex_census()</a></code>: Multiplex triad census</li>
+<li>
+<code><a href="reference/mixed_census.html">mixed_census()</a></code>: Multilevel triad and quadrilateral census</li>
+</ol>
+<p>Similarity measures:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code><a href="reference/bonacich_norm.html">bonacich_norm()</a></code>: Bonacich normalisation</li>
+<li>
+<code><a href="reference/co_ocurrence.html">co_ocurrence()</a></code>: Co‐occurrence</li>
+<li>
+<code><a href="reference/dist_sim_matrix.html">dist_sim_matrix()</a></code>: Structural similarities</li>
+<li>
+<code><a href="reference/fractional_approach.html">fractional_approach()</a></code>: Fractional approach</li>
+<li>
+<code><a href="reference/jaccard.html">jaccard()</a></code>: Jaccard similarity</li>
+</ol>
+<p>Network inference:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code><a href="reference/kp_reciprocity.html">kp_reciprocity()</a></code>: Reciprocity of Katz and Powell</li>
 <li>
 <code><a href="reference/z_arctest.html">z_arctest()</a></code>: Z test of the number of arcs</li>
 <li>
-<code><a href="reference/zone_sample.html">zone_sample()</a></code>: Zone-2 sampling from second-mode</li>
+<code><a href="reference/triad_uman.html">triad_uman()</a></code>: Triad census analysis assuming U|MAN</li>
+<li>
+<code><a href="reference/ind_rand_matrix.html">ind_rand_matrix()</a></code>: Independent random matrix</li>
 </ol>
-<p>Data currently available in <a href="https://anespinosa.github.io/netmem/reference/index.html" class="external-link"><code>netmem</code></a>:</p>
+<p>Data currently available:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>FIFAego</code>: Ego FIFA</li>
@@ -279,7 +306,7 @@
 <span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
 <span class="co">#&gt; --&gt; The matrix is rectangular, 3 by 5</span>
 <span class="co">#&gt;      nodes_rows nodes_columns incident_lines</span>
-<span class="co">#&gt; [1,] 3          5             ?</span>
+<span class="co">#&gt; [1,]          3             5              7</span>
 <span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>
 <span class="co">#&gt; The matrix A might have the following characteristics:</span>
 <span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
@@ -296,7 +323,7 @@
 <span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
 <span class="co">#&gt; --&gt; The matrix is rectangular, 4 by 3</span>
 <span class="co">#&gt;      nodes_rows nodes_columns incident_lines</span>
-<span class="co">#&gt; [1,] 4          3             ?</span>
+<span class="co">#&gt; [1,]          4             3              5</span>
 <span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span>
 <span class="co">#&gt; The matrix A might have the following characteristics:</span>
 <span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
