@@ -262,7 +262,7 @@ edgelist_to_matrix <- function(E, digraph = TRUE, label = NULL,
     order(colnames(empty))
   ]
 
-  if (!digraph) {
+  if (!digraph && !bipartite) {
     A[lower.tri(A)] <- t(A)[lower.tri(A)]
   }
   return(A)
@@ -295,7 +295,7 @@ edgelist_to_matrix <- function(E, digraph = TRUE, label = NULL,
 
 matrix_adjlist <- function(A) {
   adj_list <- list()
-  for (i in 1:ncol(A)) {
+  for (i in 1:nrow(A)) {
     adj_list[[i]] <- names(A[i, ][A[i, ] >= 1])
     names(adj_list)[i] <- rownames(A)[i]
   }
@@ -719,6 +719,8 @@ meta_matrix <- function(A1, B1,
 #' label <- c("A", "B", "C", "D", "E")
 #' structural_na(A, label)
 #' @export
+
+# TODO: check label for bipartite
 
 structural_na <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
   if (bipartite) {

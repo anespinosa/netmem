@@ -90,3 +90,53 @@ method_option <- function(arg, choices, several.ok = FALSE) {
 
   match.arg(arg = arg, choices = choices, several.ok = several.ok)
 }
+
+
+#' Components
+#'
+#' This function assigns an id to the components that each of the nodes of the matrix belongs
+#'
+#' @param A   A matrix
+#'
+#' @return A vector assigning an id the components that each of the nodes of the matrix belongs
+#'
+#' @references
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#'
+#' A <- matrix(c(
+#'   0, 1, 1, 0, 0,
+#'   1, 0, 1, 0, 0,
+#'   1, 1, 0, 0, 0,
+#'   0, 0, 0, 0, 1,
+#'   0, 0, 0, 1, 0
+#' ), byrow = TRUE, ncol = 5)
+#' rownames(A) <- letters[1:ncol(A)]
+#' colnames(A) <- rownames(A)
+#' components_id(A)
+#' @export
+
+# TODO: add direction (weak or strong connection)
+# TODO: correct for two-mode networks
+components_id <- function(A) {
+  A <- as.matrix(A)
+
+  # if(bipartite){
+  #   A <- A%*%t(A)
+  # }
+
+  A[A > 0] <- 1
+  dist <- bfs_ugraph(A)
+  dist[dist != Inf] <- 1
+  reachable <- list()
+  for (i in 1:ncol(dist)) {
+    reachable[[i]] <- which(dist[i, ] == 1)
+  }
+  components <- as.numeric(as.factor(as.character(paste(reachable))))
+  t <- table(components)
+  return(list(components = components, size = t))
+}

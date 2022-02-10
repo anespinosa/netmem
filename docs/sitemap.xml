@@ -58,6 +58,9 @@
     <loc>/reference/co_ocurrence.html</loc>
   </url>
   <url>
+    <loc>/reference/components_id.html</loc>
+  </url>
+  <url>
     <loc>/reference/coocurrence.html</loc>
   </url>
   <url>
@@ -158,6 +161,9 @@
   </url>
   <url>
     <loc>/reference/multiplex_census.html</loc>
+  </url>
+  <url>
+    <loc>/reference/percolation_clique.html</loc>
   </url>
   <url>
     <loc>/reference/pkp.html</loc>
