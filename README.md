@@ -89,11 +89,12 @@ Structural measures:
 1.  `gen_density()`: Generalized density
 2.  `gen_degree()`: Generalized degree
 3.  `multilevel_degree()`: Degree centrality for multilevel networks
-4.  `trans_coef()`: Transitivity 5.`components_id()`: Components
-5.  `k_core()`: Generalized K-core
-6.  `dyadic_census()`: Dyad census
-7.  `multiplex_census()`: Multiplex triad census
-8.  `mixed_census()`: Multilevel triad and quadrilateral census
+4.  `trans_coef()`: Transitivity
+5.  `components_id()`: Components
+6.  `k_core()`: Generalized K-core
+7.  `dyadic_census()`: Dyad census
+8.  `multiplex_census()`: Multiplex triad census
+9.  `mixed_census()`: Multilevel triad and quadrilateral census
 
 Cohesive subgroups:
 
