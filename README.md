@@ -117,6 +117,10 @@ Network inference:
 3.  `triad_uman()`: Triad census analysis assuming U\|MAN
 4.  `ind_rand_matrix()`: Independent random matrix
 
+Geographic information:
+
+1.  `dist_geographic()`: Geographical distances
+
 Data currently available:
 
 1.  `FIFAego`: Ego FIFA
