@@ -8,7 +8,7 @@ Adapted from Mario Pineda-Krch (Great-circle distance calculations in R)
 }
 \usage{
 dist_geographic(
-  latitute,
+  latitude,
   longitud,
   method = c("spherical", "harvesine"),
   places = NULL,
@@ -16,7 +16,7 @@ dist_geographic(
 )
 }
 \arguments{
-\item{latitute}{A vector with latitute}
+\item{latitude}{A vector with latitude}
 
 \item{longitud}{A vector with longitud}
 
