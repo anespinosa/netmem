@@ -63,9 +63,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dist_geographic</span><span class="op">(</span>
   <span class="va">latitude</span>,
   <span class="va">longitud</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spherical"</span>, <span class="st">"harvesine"</span><span class="op">)</span>,
+  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spherical"</span>, <span class="st">"harvesine"</span>, <span class="st">"manhattan"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,
   places <span class="op">=</span> <span class="cn">NULL</span>,
-  dd_to_radians <span class="op">=</span> <span class="cn">FALSE</span>
+  dd_to_radians <span class="op">=</span> <span class="cn">FALSE</span>,
+  p <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -80,11 +81,13 @@
 <dt>longitud</dt>
 <dd><p>A vector with longitud</p></dd>
 <dt>method</dt>
-<dd><p>Whether to use the Spherical Law of Cosines <code>spherical</code> (default) or Haversine formula <code>harvesine</code></p></dd>
+<dd><p>Whether to use the Spherical Law of Cosines <code>spherical</code> (default), Haversine formula <code>harvesine</code>, Manhattan Distance <code>manhattan</code> or Minkoowski distance <code>minkowski</code></p></dd>
 <dt>places</dt>
 <dd><p>A vector with the names of the places</p></dd>
 <dt>dd_to_radians</dt>
 <dd><p>Whether to transform degree decimal format to radians</p></dd>
+<dt>p</dt>
+<dd><p>Parameter p for the estimation of Minkowski distance (default = 2, which is equivalent to an Euclidian Distance)</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

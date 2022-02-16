@@ -120,6 +120,7 @@ Network inference:
 Geographic information:
 
 1.  `dist_geographic()`: Geographical distances
+2.  `spatial_cor()`: Spatial autocorrelation
 
 Data currently available:
 

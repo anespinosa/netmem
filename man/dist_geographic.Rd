@@ -10,9 +10,10 @@ Adapted from Mario Pineda-Krch (Great-circle distance calculations in R)
 dist_geographic(
   latitude,
   longitud,
-  method = c("spherical", "harvesine"),
+  method = c("spherical", "harvesine", "manhattan", "minkowski"),
   places = NULL,
-  dd_to_radians = FALSE
+  dd_to_radians = FALSE,
+  p = NULL
 )
 }
 \arguments{
@@ -20,11 +21,13 @@ dist_geographic(
 
 \item{longitud}{A vector with longitud}
 
-\item{method}{Whether to use the Spherical Law of Cosines \code{spherical} (default) or Haversine formula \code{harvesine}}
+\item{method}{Whether to use the Spherical Law of Cosines \code{spherical} (default), Haversine formula \code{harvesine}, Manhattan Distance \code{manhattan} or Minkoowski distance \code{minkowski}}
 
 \item{places}{A vector with the names of the places}
 
 \item{dd_to_radians}{Whether to transform degree decimal format to radians}
+
+\item{p}{Parameter p for the estimation of Minkowski distance (default = 2, which is equivalent to an Euclidian Distance)}
 }
 \value{
 This function return a distance matrix.
