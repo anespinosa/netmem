@@ -112,6 +112,9 @@
     <loc>/reference/heterogeneity.html</loc>
   </url>
   <url>
+    <loc>/reference/hypergraph.html</loc>
+  </url>
+  <url>
     <loc>/reference/ind_rand_matrix.html</loc>
   </url>
   <url>
@@ -176,6 +179,9 @@
   </url>
   <url>
     <loc>/reference/redundancy.html</loc>
+  </url>
+  <url>
+    <loc>/reference/simplicial_complexes.html</loc>
   </url>
   <url>
     <loc>/reference/spatial_cor.html</loc>

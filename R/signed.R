@@ -73,7 +73,7 @@ struc_balance <- function(A, B = NULL, score = c("triangle", "walk")) {
   C <- ifelse(abs(Csign) >= 1, 1, 0)
 
   triads <- do.call(rbind, clique_table(C, list_cliques = TRUE)$neighbours)
-  edgelist <- matrix_to_edgelist(C)
+  edgelist <- matrix_to_edgelist(C, valued = FALSE, digraph = FALSE, loops = FALSE)
   sign <- c(Csign)[c(Csign) != 0]
   edgesign <- cbind(edgelist, sign)
   colnames(edgesign) <- c("from", "to", "sign")

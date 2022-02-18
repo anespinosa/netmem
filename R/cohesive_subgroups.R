@@ -167,7 +167,7 @@ dyad_triad_table <- function(A, adjacency_list = FALSE, min = NULL, max = NULL) 
 #' colnames(A) <- rownames(A)
 #' clique_table(A, list_cliques = TRUE, number = TRUE)
 #' @export
-#'
+
 clique_table <- function(A, list_cliques = FALSE, number = FALSE) {
   A <- as.matrix(A)
   if (any(is.na(A) == TRUE)) {

@@ -54,16 +54,18 @@ version 1.0-3}, url = {<https://github.com/anespinosa/netmem>}, }
 Utilities:
 
 1.  `matrix_report()`: Matrix report
-2.  `matrix_adjlist`: Transform a matrix to an adjacency list
+2.  `matrix_adjlist()`: Transform a matrix to an adjacency list
 3.  `matrix_projection()`: Unipartite projections
 4.  `matrix_to_edgelist()`: Transform a square matrix to an edge-list
 5.  `edgelist_to_matrix()`: Transform an edgelist to a matrix
-6.  `meta_matrix()`: Meta matrix for multilevel networks
-7.  `minmax_overlap()`: Minimum/maximum overlap
-8.  `mix_matrix()`: Mixing matrix
-9.  `structural_na()`: Structural missing data
-10. `ego_net()`: Ego network
-11. `zone_sample()`: Zone-2 sampling from second-mode
+6.  `hypergraph()`: Hypergraphs
+7.  `meta_matrix()`: Meta matrix for multilevel networks
+8.  `minmax_overlap()`: Minimum/maximum overlap
+9.  `mix_matrix()`: Mixing matrix
+10. `simplicial_complexes()`: Simplicial Complexes
+11. `structural_na()`: Structural missing data
+12. `ego_net()`: Ego network
+13. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 

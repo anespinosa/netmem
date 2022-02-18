@@ -117,72 +117,57 @@ matrix_report <- function(A) {
 
 matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE) {
   M <- A
+  if (is.null(colnames(M))) {
+    colnames(M) <- 1:ncol(M)
+  }
+  if (is.null(rownames(M))) {
+    rownames(M) <- 1:nrow(M)
+  }
+  edge <- NULL
 
   if (digraph) {
-    if (all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) message("The network might be undirected")
-  } else {
-    if (!all(A[lower.tri(M)] == t(M)[lower.tri(M)], na.rm = TRUE)) message("The network might be directed")
-    M[lower.tri(M)] <- 0
-  }
-
-  if (is.null(colnames(M))) colnames(M) <- 1:ncol(M)
-  if (is.null(rownames(M))) rownames(M) <- 1:nrow(M)
-
-  if (any(is.na(M) == TRUE)) {
-    M <- ifelse(is.na(M), 0, M)
-  }
-
-  if (!digraph) {
-    M[lower.tri(M)] <- 0
-  }
-
-  edge <- NULL
-  for (i in 1:nrow(M)) {
-    for (j in 1:ncol(M)) {
-      if (M[i, j] != 0) {
-        edge <- c(
-          edge,
-          rep(c(
-            dimnames(M)[[1]][i],
-            dimnames(M)[[2]][j]
-          ))
-        )
+    for (i in 1:nrow(M)) {
+      for (j in 1:ncol(M)) {
+        if (M[i, j] != 0) {
+          edge <- c(edge, rep(c(dimnames(M)[[1]][i], dimnames(M)[[2]][j])))
+        }
       }
     }
+    edge <- matrix(edge, byrow = TRUE, ncol = 2)
+  } else {
+    for (i in 1:nrow(M)) {
+      for (j in i:ncol(M)) {
+        if (M[i, j] != 0) {
+          edge <- c(edge, rep(c(dimnames(M)[[1]][i], dimnames(M)[[2]][j])))
+        }
+      }
+    }
+    edge <- matrix(edge, byrow = TRUE, ncol = 2)
   }
-  edge <- matrix(edge, byrow = TRUE, ncol = 2)
 
   if (valued) {
     edge <- NULL
     for (i in 1:nrow(M)) {
       for (j in 1:ncol(M)) {
         if (M[i, j] != 0) {
-          edge <- c(
-            edge,
-            rep(
-              c(
-                dimnames(M)[[1]][i],
-                dimnames(M)[[2]][j]
-              ),
-              M[i, j]
-            )
-          )
+          edge <- c(edge, rep(c(
+            dimnames(M)[[1]][i],
+            dimnames(M)[[2]][j]
+          ), M[i, j]))
         }
       }
     }
     edge <- matrix(edge, byrow = TRUE, ncol = 2)
     df <- as.data.frame(edge)
-    edge <- as.matrix(stats::aggregate(list(valued = rep(1, nrow(df))), df, length))
+    edge <- as.matrix(aggregate(
+      list(valued = rep(1, nrow(df))),
+      df, length
+    ))
     colnames(edge) <- NULL
-  } else {
-    if (any(abs(A) > 1)) message("The networks is valued")
   }
-
   if (loops == FALSE) {
-    if (any(diag(M > 0))) message("There are loops in the network")
     edge <- edge[edge[, 1] != edge[, 2], ]
   }
-
   return(edge)
 }
 
@@ -856,4 +841,121 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
   }
 
   return(subgraphs)
+}
+
+#' Hypergraphs
+#'
+#' Hypergraph consist of a set of objects and a collection of subsets of objects, in which each object belongs to at least one subset, and no subset is empy (Berge, 1989)
+#'
+#' @param A   An incident matrix.
+#' @param dual   Whether to return the dual hypergraph (which rever the role of the pointes and the edges)
+#' @param both   Whether to return the hypergraph and the dual hypergraph
+#'
+#' @return This function returns an adjacent list of the subsets of entities in the hypergraph.
+#'
+#' @references
+#'
+#' Berge, C. (1973). Graphs and hypergraphs.Amsterdam: North-Holland.
+#'
+#' Berge, C. (1989). Hypergraphs: Combinatorics of finite sets. Amsterdam: North-Holland.
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   1, 0, 1,
+#'   0, 1, 0,
+#'   0, 1, 1,
+#'   0, 0, 1,
+#'   1, 1, 1,
+#'   1, 1, 0
+#' ), byrow = TRUE, ncol = 3)
+#' colnames(A) <- letters[1:ncol(A)]
+#' rownames(A) <- letters[(ncol(A) + 1):(nrow(A) + ncol(A))]
+#' hypergraph(A, both = TRUE)
+#' @export
+
+hypergraph <- function(A, dual = TRUE, both = TRUE) {
+  A <- as.matrix(A)
+  if (ncol(A) == nrow(A)) warning("For hypergraphs, an incident matrix should be used")
+
+  if (!both) {
+    if (!dual) {
+      A <- t(A)
+    }
+    A <- matrix_adjlist(A)
+    return(A)
+  } else {
+    A1 <- A
+    A1 <- matrix_adjlist(A1)
+
+    A2 <- t(A)
+    A2 <- matrix_adjlist(A2)
+    return(list(hypergraph = A1, dual_hypergraph = A2))
+  }
+}
+
+#' Simplicial Complexes
+#'
+#' Incident matrix of simplexes or cliques
+#'
+#' @param A   A symmetric matrix object.
+#' @param zero_simplex   Whether to include the zero simple.
+#'
+#' @return This function return an incident matrix of actors participating in simplices or simplicial complexes
+#'
+#' @references
+#'
+#' Atkin, R. H. (1974). Mathematical structure in human affairs. New York: Crane, Rusak.
+#'
+#' Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. https://doi.org/10.1016/S0020-7373(80)80021-6
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 1, 0, 0, 0, 0, 1, 0,
+#'   1, 0, 1, 0, 0, 0, 0, 0, 0,
+#'   1, 1, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1, 1, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0, 1, 1, 0,
+#'   0, 0, 0, 0, 0, 1, 0, 1, 0,
+#'   1, 0, 0, 0, 0, 1, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0
+#' ), byrow = TRUE, ncol = 9)
+#' rownames(A) <- letters[1:nrow(A)]
+#' colnames(A) <- rownames(A)
+#' simplicial_complexes(A, zero_simplex = FALSE)
+#' @export
+
+simplicial_complexes <- function(A, zero_simplex = TRUE) {
+  if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
+  if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
+  if (ncol(A) != nrow(A)) warning("Matrix should be square")
+
+  clique <- clique_table(A)$table
+  edge <- matrix_to_edgelist(A, digraph = FALSE)
+  d <- edge
+  n <- length(unique(clique[, 2]))
+  edge <- cbind(d, (n + 1):(nrow(d) + n))
+  edge <- rbind(edge[, c(1, 3)], edge[, c(2, 3)])
+  n <- max(as.numeric(edge[, 2]))
+
+  if (zero_simplex) {
+    zero_simplex <- cbind(rownames(A), (n + 1):(nrow(d) + n))
+    simplex <- rbind(clique, edge, zero_simplex)
+    simplex <- edgelist_to_matrix(simplex, bipartite = TRUE)
+    colnames(simplex) <- 1:ncol(simplex)
+    return(simplex)
+  } else {
+    simplex <- rbind(clique, edge)
+    simplex <- edgelist_to_matrix(simplex, bipartite = TRUE)
+    colnames(simplex) <- 1:ncol(simplex)
+    return(simplex)
+  }
 }
