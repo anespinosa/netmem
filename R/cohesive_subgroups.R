@@ -308,3 +308,104 @@ percolation_clique <- function(A) {
   clique_matrix <- rbind(clique_matrix, no_clique)
   return(clique_matrix)
 }
+
+#' Q-analysis
+#'
+#' Q-structure of a simplicial complex.
+#'
+#' @param A   An incident matrix
+#' @param simplicial_complex   Whether the incident matrix is a simplices or simplicial complexes representation
+#' @param dimensions  Return the successively chains from high to low dimensions ($q$) and the number of components ($Q_{p}$)
+#'
+#' @return This function return a q-analysis of a simplicial complex matrix
+#'
+#' @references
+#'
+#' Atkin, R. H. (1974). Mathematical structure in human affairs. New York: Crane, Rusak.
+#'
+#' Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. https://doi.org/10.1016/S0020-7373(80)80021-6
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0,
+#'   0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+#'   0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+#'   0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0
+#' ), byrow = TRUE, ncol = 19)
+#' colnames(A) <- letters[1:ncol(A)]
+#' rownames(A) <- 1:nrow(A)
+#'
+#' q_analysis(A, simplicial_complex = TRUE)
+#' @export
+
+q_analysis <- function(A, simplicial_complex = FALSE, dimensions = FALSE) {
+  A <- as.matrix(A)
+  if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
+  if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
+
+  if (!simplicial_complex) {
+    if (ncol(A) != nrow(A)) stop("Matrix should be square")
+    A <- simplicial_complexes(A, zero_simplex = FALSE)
+  } else {
+    if (ncol(A) == nrow(A)) stop("Matrix should be rectangular")
+  }
+
+  # Q ANALYSIS
+  q_analysis <- list()
+  vector <- sort(unique(rowSums(A)), decreasing = TRUE)
+  for (i in 1:length(vector)) {
+    q_analysis[[i]] <- unique(which(rowSums(A) == vector[i]))
+    names(q_analysis)[i] <- vector[i]
+  }
+
+  Q_table <- list()
+  comp <- list()
+  ac <- NULL
+  for (i in 1:length(q_analysis[names(q_analysis) != 0])) {
+    temp <- minmax_overlap(A, row = TRUE, min = TRUE)
+    diag(temp) <- 0
+    temp <- ifelse(temp >= as.numeric(names(q_analysis)[i]), 1, 0)
+    ac <- unique(c(ac, q_analysis[[i]]))
+    temp <- temp[ac, ac]
+    comp_temp <- components_id(temp)
+    comp[[i]] <- comp_temp$components
+    comp[[i]] <- as.data.frame(cbind(component = comp[[i]], node = rownames(temp)))
+    comp[[i]] <- comp[[i]][order(as.numeric(comp[[i]]$component)), ]
+    rownames(comp[[i]]) <- 1:nrow(comp[[i]])
+    names(comp)[i] <- length(comp_temp$size)
+    Q_table[[i]] <- cbind(q = vector[i] - 1, Qp = length(comp_temp$size))
+  }
+
+  if (dimensions) {
+    return(list(components = comp, q_table = do.call(rbind, Q_table)))
+  } else {
+    return(components = comp)
+  }
+}

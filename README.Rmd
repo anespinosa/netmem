@@ -95,6 +95,7 @@ Cohesive subgroups:
 1. `clique_table()`: Clique table
 2. `dyad_triad_table()`: Forbidden triad table
 3. `percolation_clique()`: Clique percolation
+4. `q_analysis()`: Q-analysis
 
 Similarity measures:
 

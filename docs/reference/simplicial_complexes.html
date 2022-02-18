@@ -60,7 +60,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">simplicial_complexes</span><span class="op">(</span><span class="va">A</span>, zero_simplex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">simplicial_complexes</span><span class="op">(</span><span class="va">A</span>, zero_simplex <span class="op">=</span> <span class="cn">FALSE</span>, projection <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -69,6 +69,8 @@
 <dd><p>A symmetric matrix object.</p></dd>
 <dt>zero_simplex</dt>
 <dd><p>Whether to include the zero simple.</p></dd>
+<dt>projection</dt>
+<dd><p>Whether to return the links between actors (i.e., rows) through their shared linking events (i.e., columns).</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

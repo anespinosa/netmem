@@ -903,6 +903,7 @@ hypergraph <- function(A, dual = TRUE, both = TRUE) {
 #'
 #' @param A   A symmetric matrix object.
 #' @param zero_simplex   Whether to include the zero simple.
+#' @param projection  Whether to return the links between actors (i.e., rows) through their shared linking events (i.e., columns).
 #'
 #' @return This function return an incident matrix of actors participating in simplices or simplicial complexes
 #'
@@ -933,7 +934,7 @@ hypergraph <- function(A, dual = TRUE, both = TRUE) {
 #' simplicial_complexes(A, zero_simplex = FALSE)
 #' @export
 
-simplicial_complexes <- function(A, zero_simplex = TRUE) {
+simplicial_complexes <- function(A, zero_simplex = FALSE, projection = FALSE) {
   if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
   if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
   if (ncol(A) != nrow(A)) warning("Matrix should be square")
@@ -951,11 +952,22 @@ simplicial_complexes <- function(A, zero_simplex = TRUE) {
     simplex <- rbind(clique, edge, zero_simplex)
     simplex <- edgelist_to_matrix(simplex, bipartite = TRUE)
     colnames(simplex) <- 1:ncol(simplex)
-    return(simplex)
   } else {
     simplex <- rbind(clique, edge)
     simplex <- edgelist_to_matrix(simplex, bipartite = TRUE)
     colnames(simplex) <- 1:ncol(simplex)
+  }
+  if (projection) {
+    proj1 <- t(simplex) %*% simplex
+    proj1 <- ifelse(proj1 >= 1, 1, 0)
+    diag(proj1) <- 0
+
+    proj2 <- simplex %*% t(simplex)
+    proj2 <- ifelse(proj2 >= 1, 1, 0)
+    diag(proj2) <- 0
+
+    return(list(simplex = simplex, projection1 = proj1, projection2 = proj2))
+  } else {
     return(simplex)
   }
 }

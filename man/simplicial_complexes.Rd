@@ -4,12 +4,14 @@
 \alias{simplicial_complexes}
 \title{Simplicial Complexes}
 \usage{
-simplicial_complexes(A, zero_simplex = TRUE)
+simplicial_complexes(A, zero_simplex = FALSE, projection = FALSE)
 }
 \arguments{
 \item{A}{A symmetric matrix object.}
 
 \item{zero_simplex}{Whether to include the zero simple.}
+
+\item{projection}{Whether to return the links between actors (i.e., rows) through their shared linking events (i.e., columns).}
 }
 \value{
 This function return an incident matrix of actors participating in simplices or simplicial complexes
