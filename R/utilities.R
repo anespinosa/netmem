@@ -971,3 +971,67 @@ simplicial_complexes <- function(A, zero_simplex = FALSE, projection = FALSE) {
     return(simplex)
   }
 }
+
+#' Extract components
+#'
+#' This function extract the matrix of different components
+#'
+#' @param A   A matrix
+#' @param maximum   Whether to extract the maximum component
+#' @param position   Whether to extract the component in the ith size position
+#'
+#' @return A matrix or a list of matrices with the required components
+#'
+#' @references
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#'
+#' A <- FIFAex$Matrix
+#' rownames(A) <- FIFAex$label
+#' colnames(A) <- rownames(A)
+#' extract_component(A, maximum = TRUE)
+#' extract_component(A, maximum = FALSE, position = 2)
+#' @export
+
+extract_component <- function(A, maximum = TRUE, position = NULL) {
+  temp <- components_id(A)
+  if (maximum) {
+    position <- 1
+  }
+  if (!is.null(position)) {
+    if (!is.numeric(position)) stop("The position should be a number")
+    if (max(as.numeric(names(temp$size))) < position) stop(paste("The maximum number of components is", max(as.numeric(names(temp$size)))))
+    if (position < 0) stop("Please specify a number greater than 0")
+    id_comp <- sort(temp$size, decreasing = T)[position]
+
+    same_size <- c(temp$size == as.numeric(id_comp))
+    if (sum(same_size == TRUE) > 1) {
+      same_size <- as.numeric(names(which(same_size == TRUE)))
+      components <- list()
+      for (i in same_size) {
+        component_temp <- which(temp$components == same_size[i])
+        if (length(component_temp) == 1) {
+          components[[i]] <- matrix(0, ncol = 1, nrow = 1)
+          rownames(components[[i]]) <- rownames(A)[component_temp]
+          colnames(components[[i]]) <- colnames(A)[component_temp]
+        } else {
+          components[[i]] <- A[component_temp, component_temp]
+        }
+      }
+    } else {
+      max_comp <- which(temp$components == names(id_comp))
+      if (length(max_comp) == 1) {
+        components <- matrix(0, ncol = 1, nrow = 1)
+        rownames(components) <- rownames(A)[max_comp]
+        colnames(components) <- colnames(A)[max_comp]
+      } else {
+        components <- A[max_comp, max_comp]
+      }
+    }
+  }
+  return(components)
+}

@@ -367,6 +367,10 @@ percolation_clique <- function(A) {
 
 q_analysis <- function(A, simplicial_complex = FALSE, dimensions = FALSE) {
   A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+
   if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
   if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
 
@@ -398,7 +402,7 @@ q_analysis <- function(A, simplicial_complex = FALSE, dimensions = FALSE) {
     comp[[i]] <- comp_temp$components
     comp[[i]] <- as.data.frame(cbind(component = comp[[i]], node = rownames(temp)))
     comp[[i]] <- comp[[i]][order(as.numeric(comp[[i]]$component)), ]
-    rownames(comp[[i]]) <- 1:nrow(comp[[i]])
+    # rownames(comp[[i]]) <- 1:nrow(comp[[i]])
     names(comp)[i] <- length(comp_temp$size)
     Q_table[[i]] <- cbind(q = vector[i] - 1, Qp = length(comp_temp$size))
   }
