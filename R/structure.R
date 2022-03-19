@@ -28,6 +28,9 @@
 #'
 #' trans_coef(A, method = "local")
 #' @export
+
+# TODO: BUG! trans_coef(A, method = "mean") unlist(local_trans(A))
+
 trans_coef <- function(A, method = c("global", "mean", "local"),
                        select = c("all", "in", "out")) {
   A <- as.matrix(A)
