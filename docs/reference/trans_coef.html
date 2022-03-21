@@ -62,7 +62,7 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">trans_coef</span><span class="op">(</span>
   <span class="va">A</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"global"</span>, <span class="st">"mean"</span>, <span class="st">"local"</span><span class="op">)</span>,
+  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"weakcensus"</span>, <span class="st">"global"</span>, <span class="st">"mean"</span>, <span class="st">"local"</span><span class="op">)</span>,
   select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"in"</span>, <span class="st">"out"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -72,7 +72,7 @@
     <dl><dt>A</dt>
 <dd><p>A matrix</p></dd>
 <dt>method</dt>
-<dd><p>Whether to calculate the <code>global</code> transitivity ratio, the <code>mean</code> transitivity or the <code>local</code> transitivity.</p></dd>
+<dd><p>Whether to calculate the <code>weakcensus</code>, <code>global</code> transitivity ratio, the <code>mean</code> transitivity or the <code>local</code> transitivity.</p></dd>
 <dt>select</dt>
 <dd><p>Whether to consider <code>all</code>, <code>in</code> or <code>out</code> ties for the local transitivity.</p></dd>
 </dl></div>

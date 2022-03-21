@@ -6,14 +6,14 @@
 \usage{
 trans_coef(
   A,
-  method = c("global", "mean", "local"),
+  method = c("weakcensus", "global", "mean", "local"),
   select = c("all", "in", "out")
 )
 }
 \arguments{
 \item{A}{A matrix}
 
-\item{method}{Whether to calculate the \code{global} transitivity ratio, the \code{mean} transitivity or the \code{local} transitivity.}
+\item{method}{Whether to calculate the \code{weakcensus}, \code{global} transitivity ratio, the \code{mean} transitivity or the \code{local} transitivity.}
 
 \item{select}{Whether to consider \code{all}, \code{in} or \code{out} ties for the local transitivity.}
 }

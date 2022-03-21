@@ -3,7 +3,7 @@
 #' This measure is sometimes called clustering coefficient.
 #'
 #' @param A   A matrix
-#' @param method   Whether to calculate the \code{global} transitivity ratio, the \code{mean} transitivity or the \code{local} transitivity.
+#' @param method   Whether to calculate the \code{weakcensus}, \code{global} transitivity ratio, the \code{mean} transitivity or the \code{local} transitivity.
 #' @param select    Whether to consider \code{all}, \code{in} or \code{out} ties for the local transitivity.
 #'
 #' @return Return a transitivity measure
@@ -29,9 +29,9 @@
 #' trans_coef(A, method = "local")
 #' @export
 
-# TODO: BUG! trans_coef(A, method = "mean") unlist(local_trans(A))
+# TODO: Improve documentation, add Barrat's measure, rank condition, correlation option of Dekker, strong census, and expand if necessary.
 
-trans_coef <- function(A, method = c("global", "mean", "local"),
+trans_coef <- function(A, method = c("weakcensus", "global", "mean", "local"),
                        select = c("all", "in", "out")) {
   A <- as.matrix(A)
   if (any(is.na(A) == TRUE)) {
@@ -39,18 +39,37 @@ trans_coef <- function(A, method = c("global", "mean", "local"),
   }
 
   method <- switch(method_option(method),
-    "global" = 1,
-    "mean" = 2,
-    "local" = 3
+    "weakcensus" = 1,
+    "global" = 2,
+    "mean" = 3,
+    "local" = 4
   )
 
   if (method == 1) {
+    path2_A <- (A %*% A)
+    diag(path2_A) <- 0
+    return(sum(A * path2_A, na.rm = TRUE) / sum(path2_A, na.rm = TRUE))
+  }
+
+  if (method == 2) {
+    if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
+      message("Matrix is asymmetric (network is directed), the underlying graph is used")
+    }
+    A <- A + t(A) # Symmetrize
+    A[A > 0] <- 1
+
     B <- A %*% A
     diag(B) <- 0
     return(sum(diag(A %*% A %*% A)) / sum(B))
   }
 
-  if (method == 2 | method == 3) {
+  if (method == 3 | method == 4) {
+    if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
+      message("Matrix is asymmetric (network is directed), the underlying graph is used")
+    }
+    A <- A + t(A) # Symmetrize
+    A[A > 0] <- 1
+
     select <- switch(node_direction(select),
       "out" = 1,
       "in" = 2,
@@ -72,11 +91,11 @@ trans_coef <- function(A, method = c("global", "mean", "local"),
     }
   }
 
-  if (method == 2) {
+  if (method == 3) {
     return(mean = mean(unlist(local_trans(A)), na.rm = TRUE))
   }
 
-  if (method == 3) {
+  if (method == 4) {
     return(local_trans)
   }
 }
