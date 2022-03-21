@@ -1,3 +1,54 @@
+#' Reciprocity
+#'
+#' This measure calculated the reciprocity of an asymmetric matrix (directed graph).
+#'
+#' @param A   A matrix
+#' @param diag   Whether to consider the diagonal of the matrix
+#' @param method   Whether to use \code{total_ratio}, \code{ratio_nonnull} or \code{global} reciprocity
+#'
+#' @return Return a reciprocity coefficient
+#'
+#' @references
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#' A <- matrix(c(0,1,1,0,
+#' 1,0,1,0,
+#' 0,0,0,0,
+#' 1,0,0,0), byrow = TRUE, ncol = 4)
+#' recip_coef(A)
+#' @export
+
+recip_coef <- function(A, diag = NULL, method = c("total_ratio", "ratio_nonnull", "global")) {
+  if (all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
+    message("Matrix is symmetric (network is undirected)")
+  }
+
+  if (is.null) {
+    diag(A) <- 0
+  }
+
+  method <- switch(method_option(method),
+    "total_ratio" = 1,
+    "ratio_nonnull" = 2,
+    "global" = 3
+  )
+  dyad <- dyadic_census(A)
+  if (method == 1) {
+    # proportion of dyads that are symmetric
+    return((dyad[1] + dyad[3]) / sum(unlist(dyad)))
+  }
+  if (method == 2) {
+    # reciprocity, ignoring the null dyads
+    return((dyad[1]) / (dyad[1] + dyad[2]))
+  }
+  if (method == 3) {
+    # global reciprocity
+    return(sum(A * t(A)) / sum(A))
+  }
+}
+
 #' Transitivity
 #'
 #' This measure is sometimes called clustering coefficient.
