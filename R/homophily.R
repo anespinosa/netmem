@@ -102,7 +102,7 @@ ei_index <- function(A, mixed = TRUE, att = NULL) {
   diag(pI) <- 0
   E <- sum(pI)
   EIindex <- E - I
-  return(E - I)
+  return(EIindex)
 }
 
 #' Blau's and IQV Index
