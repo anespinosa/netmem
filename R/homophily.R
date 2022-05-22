@@ -108,7 +108,7 @@ ei_index <- function(A, mixed = TRUE, att = NULL) {
 #' Blau's and IQV Index
 #'
 #' This index was proposed by Blau (1977) to distinguish between the relative prevalence
-#' of between and within-group ties. This measure can be interpreted as homophily at the network level.
+#' of between and within-group ties. This measure can be interpreted as heterogeneity at the network level.
 #'
 #' @param att  Categorical attribute of the nodes
 #' @param normalized  Whether to return IQV index

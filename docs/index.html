@@ -50,7 +50,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,22 +83,33 @@
   <div class="contents col-md-9">
 
 <div class="section level1">
-<div class="page-header"><h1 id="netmem-network-measures-using-matrices-">netmem: Network Measures using Matrices <img src="reference/figures/logo.png" align="right" width="180px"><a class="anchor" aria-label="anchor" href="#netmem-network-measures-using-matrices-"></a>
+<div class="page-header"><h1 id="netmem-network-measures-using-matrices-">netmem: Network Measures using Matrices
+<img src="reference/figures/logo.png" align="right" width="180px"><a class="anchor" aria-label="anchor" href="#netmem-network-measures-using-matrices-"></a>
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <a href="https://anespinosa.github.io/netmem/" class="external-link"><code>netmem</code></a> is to make available different measures to analyse and manipulate complex networks using matrices.</p>
-<p>🖊 Author/mantainer: <a href="https://github.com/anespinosa" class="external-link">Alejandro Espinosa-Rada</a></p>
-<p>🏫 <a href="https://sn.ethz.ch" class="external-link">Social Networks Lab ETH Zürich</a></p>
+<p>The goal of <a href="https://anespinosa.github.io/netmem/" class="external-link"><code>netmem</code></a> is
+to make available different measures to analyse and manipulate complex
+networks using matrices.</p>
+<p>🖊 Author/mantainer: <a href="https://github.com/anespinosa" class="external-link">Alejandro
+Espinosa-Rada</a></p>
+<p>🏫 <a href="https://sn.ethz.ch" class="external-link">Social Networks Lab ETH
+Zürich</a></p>
 <p><a href="https://twitter.com/aespinosarada" class="external-link"><img src="https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg" alt="Follow me on Twitter"></a></p>
-<p>The package implements different measures to analyse and manipulate complex multilayer networks, from an ego-centric perspective, considering one-mode networks, valued ties (i.e. <em>weighted</em> or <em>multiplex</em>) or with multiple levels.</p>
+<p>The package implements different measures to analyse and manipulate
+complex multilayer networks, from an ego-centric perspective,
+considering one-mode networks, valued ties (i.e. <em>weighted</em> or
+<em>multiplex</em>) or with multiple levels.</p>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>To cite package ‘netmem’ in publications use:</p>
-<p>Alejandro Espinosa-Rada (2020). netmem: Social Network Measures using Matrices. R package version 1.0-3. <a href="https://github.com/anespinosa/netmem" class="external-link uri">https://github.com/anespinosa/netmem</a></p>
+<p>Alejandro Espinosa-Rada (2020). netmem: Social Network Measures using
+Matrices. R package version 1.0-3. <a href="https://github.com/anespinosa/netmem" class="external-link uri">https://github.com/anespinosa/netmem</a></p>
 <p>A BibTeX entry for LaTeX users is</p>
-<p>@Manual{, title = {netmem: Social Network Measures using Matrices}, author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package version 1.0-3}, url = {<a href="https://github.com/anespinosa/netmem" class="external-link uri">https://github.com/anespinosa/netmem</a>}, }</p>
+<p>@Manual{, title = {netmem: Social Network Measures using Matrices},
+author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package
+version 1.0-3}, url = {<a href="https://github.com/anespinosa/netmem" class="external-link uri">https://github.com/anespinosa/netmem</a>}, }</p>
 </div>
 <div class="section level2">
 <h2 id="functions-currently-available-in-netmem">Functions currently available in <a href="https://anespinosa.github.io/netmem/reference/index.html" class="external-link"><code>netmem</code></a>:<a class="anchor" aria-label="anchor" href="#functions-currently-available-in-netmem"></a>
@@ -108,13 +119,16 @@
 <li>
 <code><a href="reference/matrix_report.html">matrix_report()</a></code>: Matrix report</li>
 <li>
-<code><a href="reference/matrix_adjlist.html">matrix_adjlist()</a></code>: Transform a matrix to an adjacency list</li>
+<code><a href="reference/matrix_adjlist.html">matrix_adjlist()</a></code>: Transform a matrix to an adjacency
+list</li>
 <li>
 <code><a href="reference/matrix_projection.html">matrix_projection()</a></code>: Unipartite projections</li>
 <li>
-<code><a href="reference/matrix_to_edgelist.html">matrix_to_edgelist()</a></code>: Transform a square matrix to an edge-list</li>
+<code><a href="reference/matrix_to_edgelist.html">matrix_to_edgelist()</a></code>: Transform a square matrix to an
+edge-list</li>
 <li>
-<code><a href="reference/edgelist_to_matrix.html">edgelist_to_matrix()</a></code>: Transform an edgelist to a matrix</li>
+<code><a href="reference/edgelist_to_matrix.html">edgelist_to_matrix()</a></code>: Transform an edgelist to a
+matrix</li>
 <li>
 <code><a href="reference/extract_component.html">extract_component()</a></code>: Extract components</li>
 <li>
@@ -153,9 +167,11 @@
 <code><a href="reference/distances.html">short_path()</a></code>: Shortest path<br>
 </li>
 <li>
-<code><a href="reference/distances.html">wlocal_distances()</a></code>: Dijikstra’s algorithm (one actor)</li>
+<code><a href="reference/distances.html">wlocal_distances()</a></code>: Dijikstra’s algorithm (one
+actor)</li>
 <li>
-<code><a href="reference/distances.html">wall_distances()</a></code>: Dijikstra’s algorithm (all actors)</li>
+<code><a href="reference/distances.html">wall_distances()</a></code>: Dijikstra’s algorithm (all
+actors)</li>
 </ol>
 <p>Signed networks:</p>
 <ol style="list-style-type: decimal">
@@ -171,7 +187,8 @@
 <li>
 <code><a href="reference/gen_degree.html">gen_degree()</a></code>: Generalized degree</li>
 <li>
-<code><a href="reference/multilevel_degree.html">multilevel_degree()</a></code>: Degree centrality for multilevel networks</li>
+<code><a href="reference/multilevel_degree.html">multilevel_degree()</a></code>: Degree centrality for multilevel
+networks</li>
 <li>
 <code><a href="reference/recip_coef.html">recip_coef()</a></code>: Reciprocity</li>
 <li>
@@ -185,7 +202,8 @@
 <li>
 <code><a href="reference/multiplex_census.html">multiplex_census()</a></code>: Multiplex triad census</li>
 <li>
-<code><a href="reference/mixed_census.html">mixed_census()</a></code>: Multilevel triad and quadrilateral census</li>
+<code><a href="reference/mixed_census.html">mixed_census()</a></code>: Multilevel triad and quadrilateral
+census</li>
 </ol>
 <p>Cohesive subgroups:</p>
 <ol style="list-style-type: decimal">
@@ -247,7 +265,8 @@
 </div>
 </div>
 <div class="section level1">
-<h1 id="quick-overview-of-netmem-network-measures-using-matrices">Quick overview of <code>netmem: Network Measures using Matrices</code>
+<h1 id="quick-overview-of-netmem-network-measures-using-matrices">Quick overview of
+<code>netmem: Network Measures using Matrices</code>
 <a class="anchor" aria-label="anchor" href="#quick-overview-of-netmem-network-measures-using-matrices"></a>
 </h1>
 <hr>
@@ -265,14 +284,28 @@
 <div class="section level2">
 <h2 id="multilevel-networks">Multilevel Networks<a class="anchor" aria-label="anchor" href="#multilevel-networks"></a>
 </h2>
-<p>Connections between individuals are often embedded in complex structures, which shape actors’ expectations, behaviours and outcomes over time. These structures can themselves be interdependent and exist at different levels. Multilevel networks are a means by which we can represent this complex system by using nodes and edges of different types. Check <a href="https://www.springer.com/gp/book/9783319245188" class="external-link">this book</a> edited by Emmanuel Lazega and Tom A.B. Snijders or <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link">this book</a> edited by David Knoke, Mario Diani, James Hollway and Dimitris Christopoulos.</p>
+<p>Connections between individuals are often embedded in complex
+structures, which shape actors’ expectations, behaviours and outcomes
+over time. These structures can themselves be interdependent and exist
+at different levels. Multilevel networks are a means by which we can
+represent this complex system by using nodes and edges of different
+types. Check <a href="https://www.springer.com/gp/book/9783319245188" class="external-link">this book</a>
+edited by Emmanuel Lazega and Tom A.B. Snijders or <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link">this
+book</a> edited by David Knoke, Mario Diani, James Hollway and Dimitris
+Christopoulos.</p>
 <p><img src="reference/figures/multilevel.png"></p>
-<p>For multilevel structures, we tend to collect the data in different matrices representing the variation of ties within and between levels. Often, we describe the connection between actors as an adjacency matrix and the relations between levels through incident matrices. The comfortable combination of these matrices into a common structure would represent the multilevel network that could be highly complex.</p>
+<p>For multilevel structures, we tend to collect the data in different
+matrices representing the variation of ties within and between levels.
+Often, we describe the connection between actors as an adjacency matrix
+and the relations between levels through incident matrices. The
+comfortable combination of these matrices into a common structure would
+represent the multilevel network that could be highly complex.</p>
 <div class="section level3">
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
 <div class="alert alert-info">
-<p>Let’s assume that we have a multilevel network with two adjacency matrices, one valued matrix and two incident matrices between them.</p>
+<p>Let’s assume that we have a multilevel network with two adjacency
+matrices, one valued matrix and two incident matrices between them.</p>
 <ul>
 <li>
 <code>A1</code>: Adjacency Matrix of the level 1</li>
@@ -402,11 +435,13 @@
 <span class="co">#&gt; k2               1               1</span>
 <span class="co">#&gt; k3               2               2</span>
 <span class="co">#&gt; k4               1               1</span></code></pre></div>
-<p>Besides, we can perform a <em>k</em>-core analysis of one of the levels using the information of an incident matrix</p>
+<p>Besides, we can perform a <em>k</em>-core analysis of one of the
+levels using the information of an incident matrix</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1 3 1 2 3</span></code></pre></div>
-<p>This package also allows performing complex census for multilevel networks.</p>
+<p>This package also allows performing complex census for multilevel
+networks.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span>
@@ -420,7 +455,10 @@
 <div class="section level3">
 <h3 id="ego-measures">Ego measures<a class="anchor" aria-label="anchor" href="#ego-measures"></a>
 </h3>
-<p>When we are interested in one particular actor, we could perform different network measures. For example, actor <code>e</code> has connections with all the other actors in the network. Therefore, we could estimate some of Ronald Burt’s measures.</p>
+<p>When we are interested in one particular actor, we could perform
+different network measures. For example, actor <code>e</code> has
+connections with all the other actors in the network. Therefore, we
+could estimate some of Ronald Burt’s measures.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First we will assign names to the matrix</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span>
@@ -443,7 +481,8 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $efficiency</span>
 <span class="co">#&gt; [1] 0.625</span></code></pre></div>
-<p>Also, sometimes we might want to subset a group of actors surrounding an ego.</p>
+<p>Also, sometimes we might want to subset a group of actors surrounding
+an ego.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/ego_net.html">ego_net</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span>
 <span class="co">#&gt;   a b c d</span>
@@ -456,11 +495,17 @@
 <div class="section level3">
 <h3 id="one-mode-network">One-mode network<a class="anchor" aria-label="anchor" href="#one-mode-network"></a>
 </h3>
-<p>This package expand some measures for one-mode networks, such as the generalized degree centrality. Suppose we consider a valued matrix <code>A3</code>. If <code>alpha=0</code> then it would only count the direct connections. But, adding the tuning parameter <code>alpha=0.5</code> would determine the relative importance of the number of ties compared to tie weights.</p>
+<p>This package expand some measures for one-mode networks, such as the
+generalized degree centrality. Suppose we consider a valued matrix
+<code>A3</code>. If <code>alpha=0</code> then it would only count the
+direct connections. But, adding the tuning parameter
+<code>alpha=0.5</code> would determine the relative importance of the
+number of ties compared to tie weights.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">A3</span>, digraph <span class="op">=</span> <span class="cn">FALSE</span>, weighted<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 3.872983 1.000000 4.000000 3.464102</span></code></pre></div>
-<p>Also, we could conduct some exploratory analysis using the normalized degree of an incident matrix.</p>
+<p>Also, we could conduct some exploratory analysis using the normalized
+degree of an incident matrix.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">B1</span>, bipartite <span class="op">=</span> <span class="cn">TRUE</span>, normalized<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $bipartiteL1</span>
@@ -483,7 +528,9 @@
 <span class="fu"><a href="reference/z_arctest.html">z_arctest</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
 <span class="co">#&gt;     z     p </span>
 <span class="co">#&gt; 1.789 0.074</span></code></pre></div>
-<p>We can also check the triad census assuming conditional uniform distribution considering different types of dyads <strong>(U|MAN)</strong></p>
+<p>We can also check the triad census assuming conditional uniform
+distribution considering different types of dyads
+<strong>(U|MAN)</strong></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/triad_uman.html">triad_uman</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
 <span class="co">#&gt;    label OBS   EXP   VAR   STD</span>
@@ -508,7 +555,9 @@
 <div class="section level3">
 <h3 id="code-of-conduct">Code of conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h3>
-<p>Please note that this project is released with a <a href="https://anespinosa.github.io/netmem/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+<p>Please note that this project is released with a <a href="https://anespinosa.github.io/netmem/CODE_OF_CONDUCT.html" class="external-link">Contributor
+Code of Conduct</a>. By participating in this project you agree to abide
+by its terms.</p>
 <hr>
 </div>
 <div class="section level3">
@@ -743,7 +792,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>

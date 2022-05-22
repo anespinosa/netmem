@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -106,14 +106,32 @@
 <div class="section level3">
 <h3 id="multilayers">Multilayers<a class="anchor" aria-label="anchor" href="#multilayers"></a>
 </h3>
-<p><em>Multilayer networks</em> is a framework that considers complex patterns of relationships between the same and/or different nodes. However, from a social network and sociological perspective, different types of multilayer structures are often referred to as <em>multiplex networks</em> (or <em>multi-relational</em>), <em>multilevel networks</em>, <em>network of networks</em> <a href="https://doi.org/10.1093/comnet/cnu016" class="external-link">Kivelä et al. (2014)</a>, <em>two-mode networks</em>, among others. Furthermore, and from a matrix perspective, the ‘backbone’ of these complex structures are mainly represented through the comfortable combination of different types of matrices. The primary matrix used in social network analysis is the adjacency matrix or sociomatrix and the incidence matrix.</p>
+<p><em>Multilayer networks</em> is a framework that considers complex
+patterns of relationships between the same and/or different nodes.
+However, from a social network and sociological perspective, different
+types of multilayer structures are often referred to as <em>multiplex
+networks</em> (or <em>multi-relational</em>), <em>multilevel
+networks</em>, <em>network of networks</em> <a href="https://doi.org/10.1093/comnet/cnu016" class="external-link">Kivelä et al. (2014)</a>,
+<em>two-mode networks</em>, among others. Furthermore, and from a matrix
+perspective, the ‘backbone’ of these complex structures are mainly
+represented through the comfortable combination of different types of
+matrices. The primary matrix used in social network analysis is the
+adjacency matrix or sociomatrix and the incidence matrix.</p>
 <hr>
 </div>
 <div class="section level3">
 <h3 id="two-mode-networks">Two-mode networks<a class="anchor" aria-label="anchor" href="#two-mode-networks"></a>
 </h3>
-<p>There are different ways of referring to incident matrices. From the social network perspective is often considered as <em>affiliation network</em>, which consist of a set of binary relationships between members of two sets of items (i.e., “is a member of” or “is a participant in” or “has”) (<a href="https://methods.sagepub.com/book/the-sage-handbook-of-social-network-analysis/n28.xml" class="external-link">Borgatti and Halgin, 2011</a>). In general, these networks have a bipartite property in which there are two classes such that all ties occur only between classes and never within classes.</p>
-<p>For example, in this section we will use the classical example of the Southern Woman extracted from the <code>R</code> package <a href="https://github.com/anespinosa/classicnets" class="external-link">classicnets</a>:</p>
+<p>There are different ways of referring to incident matrices. From the
+social network perspective is often considered as <em>affiliation
+network</em>, which consist of a set of binary relationships between
+members of two sets of items (i.e., “is a member of” or “is a
+participant in” or “has”) (<a href="https://methods.sagepub.com/book/the-sage-handbook-of-social-network-analysis/n28.xml" class="external-link">Borgatti
+and Halgin, 2011</a>). In general, these networks have a bipartite
+property in which there are two classes such that all ties occur only
+between classes and never within classes.</p>
+<p>For example, in this section we will use the classical example of the
+Southern Woman extracted from the <code>R</code> package <a href="https://github.com/anespinosa/classicnets" class="external-link">classicnets</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"> <span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
    <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
@@ -137,7 +155,9 @@
  <span class="op">)</span>,
  byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">14</span>
  <span class="op">)</span></code></pre></div>
-<p>As a common practice, an incident matrix is often converted to adjacent matrices. These are given by the matrix product <span class="math inline">\(AA^T\)</span> and <span class="math inline">\(A^TA\)</span>, where <span class="math inline">\(A\)</span> is the incident matrix and matrix <span class="math inline">\(A^T\)</span> is the transpose of <span class="math inline">\(A\)</span>. The relationship between these matrices in the context of social networks was explored by <a href="https://doi.org/10.2307/2576011" class="external-link">Breiger (1974)</a>.</p>
+<p>As a common practice, an incident matrix is often converted to
+adjacent matrices. These are given by the matrix product <span class="math inline">\(AA^T\)</span> and <span class="math inline">\(A^TA\)</span>, where <span class="math inline">\(A\)</span> is the incident matrix and matrix <span class="math inline">\(A^T\)</span> is the transpose of <span class="math inline">\(A\)</span>. The relationship between these
+matrices in the context of social networks was explored by <a href="https://doi.org/10.2307/2576011" class="external-link">Breiger (1974)</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/matrix_projection.html">matrix_projection</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
 <span class="co">#&gt; $matrix1</span>
@@ -211,8 +231,15 @@
 <span class="co">#&gt; [16,]     1     1     2     1     1</span>
 <span class="co">#&gt; [17,]     2     1     1     2     2</span>
 <span class="co">#&gt; [18,]     2     1     1     2     2</span></code></pre></div>
-<p>Another concept often used is <em>bipartite network</em>, which means that the graph’s nodes can be partitioned into two classes. While in some cases, these classes can be different entities (e.g., actors participating in activities or belonging to clubs), this assumption is not always clear. For example, dichotomic attributes of ascribed characteristics also have a bipartite property.</p>
-<p>An approach that was devised specifically for affiliation data, was provided by <a href="https://doi.org/10.1080/0022250X.1972.9989806" class="external-link">Bonacich (1972)</a>:</p>
+<p>Another concept often used is <em>bipartite network</em>, which means
+that the graph’s nodes can be partitioned into two classes. While in
+some cases, these classes can be different entities (e.g., actors
+participating in activities or belonging to clubs), this assumption is
+not always clear. For example, dichotomic attributes of ascribed
+characteristics also have a bipartite property.</p>
+<p>An approach that was devised specifically for affiliation data, was
+provided by <a href="https://doi.org/10.1080/0022250X.1972.9989806" class="external-link">Bonacich
+(1972)</a>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/bonacich_norm.html">bonacich_norm</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
 <span class="co">#&gt;            [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]</span>
@@ -272,10 +299,26 @@
 <span class="co">#&gt; [16,] 0.5857864 1.0000000 0.7683375 0.7683375</span>
 <span class="co">#&gt; [17,] 0.5857864 0.7683375 1.0000000 1.0000000</span>
 <span class="co">#&gt; [18,] 0.5857864 0.7683375 1.0000000 1.0000000</span></code></pre></div>
-<p>The difference between <em>affiliation networks</em> and <em>bipartite networks</em> allowed us to avoid confounding the concept of social proximity (e.g., being part of the same laboratory) with social similarity (e.g., having an ascribed gender) (<a href="https://doi.org/10.1146/annurev.soc.34.040507.134743" class="external-link">Rivera et al., 2010</a>). In addition, this distinction is important because these mechanisms are often considered competing alternatives to understanding social relationships.</p>
-<p><em>Two-mode networks</em> is a broader concept that emphasizes the difference between entities of different levels. Therefore, these entities are likewise differentiated as rows and columns in the incident matrix.</p>
-<p>Some researchers differentiate between the informational or socio-cognitive dimensions and social networks of concrete relations - or proxies - between agents (<a href="https://doi.org/10.1002/asi.20732" class="external-link">Leydesdorff, 2008</a>). For example, informational or socio-cognitive networks can be an incident matrix of actors and survey’s items, citation networks or a tweet message. Therefore, the incident matrix of socio-cognitive networks are often called <em>occurrence networks</em>.</p>
-<p>For example, in scientometric, information is often explored using co-occurrence of overlapping ties:</p>
+<p>The difference between <em>affiliation networks</em> and
+<em>bipartite networks</em> allowed us to avoid confounding the concept
+of social proximity (e.g., being part of the same laboratory) with
+social similarity (e.g., having an ascribed gender) (<a href="https://doi.org/10.1146/annurev.soc.34.040507.134743" class="external-link">Rivera et
+al., 2010</a>). In addition, this distinction is important because these
+mechanisms are often considered competing alternatives to understanding
+social relationships.</p>
+<p><em>Two-mode networks</em> is a broader concept that emphasizes the
+difference between entities of different levels. Therefore, these
+entities are likewise differentiated as rows and columns in the incident
+matrix.</p>
+<p>Some researchers differentiate between the informational or
+socio-cognitive dimensions and social networks of concrete relations -
+or proxies - between agents (<a href="https://doi.org/10.1002/asi.20732" class="external-link">Leydesdorff, 2008</a>). For
+example, informational or socio-cognitive networks can be an incident
+matrix of actors and survey’s items, citation networks or a tweet
+message. Therefore, the incident matrix of socio-cognitive networks are
+often called <em>occurrence networks</em>.</p>
+<p>For example, in scientometric, information is often explored using
+co-occurrence of overlapping ties:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/minmax_overlap.html">minmax_overlap</a></span><span class="op">(</span><span class="va">A</span>, row <span class="op">=</span> <span class="cn">TRUE</span>, min <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
 <span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span>
@@ -385,13 +428,26 @@
 <div class="section level2">
 <h2 id="multilevel-networks">Multilevel Networks<a class="anchor" aria-label="anchor" href="#multilevel-networks"></a>
 </h2>
-<p>Connections between individuals are often embedded in complex structures, which shape actors’ expectations, behaviours and outcomes over time. These structures can themselves be interdependent and exist at different levels. Multilevel networks are a means by which we can represent this complex system by using nodes and edges of different types (<a href="https://www.springer.com/gp/book/9783319245188" class="external-link">Lazega and Snijders, 2016</a>, <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link">Knoke et a., 2021</a>.</p>
-<p>For multilevel structures, we tend to collect the data in different matrices representing the variation of ties within and between levels. Often, we describe the connection between actors as an adjacency matrix and the relations between levels through incident matrices. The comfortable combination of these matrices into a common structure would represent the multilevel network that could be highly complex.</p>
+<p>Connections between individuals are often embedded in complex
+structures, which shape actors’ expectations, behaviours and outcomes
+over time. These structures can themselves be interdependent and exist
+at different levels. Multilevel networks are a means by which we can
+represent this complex system by using nodes and edges of different
+types (<a href="https://www.springer.com/gp/book/9783319245188" class="external-link">Lazega
+and Snijders, 2016</a>, <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link">Knoke
+et a., 2021</a>.</p>
+<p>For multilevel structures, we tend to collect the data in different
+matrices representing the variation of ties within and between levels.
+Often, we describe the connection between actors as an adjacency matrix
+and the relations between levels through incident matrices. The
+comfortable combination of these matrices into a common structure would
+represent the multilevel network that could be highly complex.</p>
 <div class="section level3">
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
 <div class="alert alert-info">
-<p>Let’s assume that we have a multilevel network with two adjacency matrices, one valued matrix and two incident matrices between them.</p>
+<p>Let’s assume that we have a multilevel network with two adjacency
+matrices, one valued matrix and two incident matrices between them.</p>
 <ul>
 <li>
 <code>A1</code>: Adjacency Matrix of the level 1</li>
@@ -483,7 +539,11 @@
 <div class="section level3">
 <h3 id="ties-within-and-between-modes">Ties within and between modes<a class="anchor" aria-label="anchor" href="#ties-within-and-between-modes"></a>
 </h3>
-<p>In some cases we have an incident matrix and also the relationships of the node of the same class. In which case, we can use the <em>‘meta-matrix’</em> (<a href="https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf" class="external-link">Krackhardt &amp; Carley, 1998</a>; <a href="http://sds.hss.cmu.edu/faculty/carley/carley.htm" class="external-link">Carley, 2002</a>) to represent a multilevel network.</p>
+<p>In some cases we have an incident matrix and also the relationships
+of the node of the same class. In which case, we can use the
+<em>‘meta-matrix’</em> (<a href="https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf" class="external-link">Krackhardt
+&amp; Carley, 1998</a>; <a href="http://sds.hss.cmu.edu/faculty/carley/carley.htm" class="external-link">Carley,
+2002</a>) to represent a multilevel network.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span><span class="op">)</span>
 <span class="co">#&gt;   a b c d e f g h i j k l</span>
@@ -561,11 +621,13 @@
 <span class="co">#&gt; k2               1               1</span>
 <span class="co">#&gt; k3               2               2</span>
 <span class="co">#&gt; k4               1               1</span></code></pre></div>
-<p>Besides, we can perform a <em>k</em>-core analysis of one of the levels using the information of an incident matrix</p>
+<p>Besides, we can perform a <em>k</em>-core analysis of one of the
+levels using the information of an incident matrix</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1 3 1 2 3</span></code></pre></div>
-<p>This package also allows performing complex census for multilevel networks</p>
+<p>This package also allows performing complex census for multilevel
+networks</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span>
@@ -574,7 +636,9 @@
 <span class="co">#&gt;     0     0     8     0     3     0     1     3     1     0     0     0     0 </span>
 <span class="co">#&gt;  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 </span>
 <span class="co">#&gt;    11    13     0     0     0     0     3     0     0     0</span></code></pre></div>
-<p>Also, there are some functions that allowed performing the zone-2 sampling from second-mode (2-path distance from an ego in the second level)</p>
+<p>Also, there are some functions that allowed performing the zone-2
+sampling from second-mode (2-path distance from an ego in the second
+level)</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span>
 <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span><span class="op">)</span>
@@ -592,7 +656,9 @@
    
 <span class="op">}</span></code></pre></div>
 <p><img src="multilayer_files/figure-html/unnamed-chunk-7-2.png" width="700"><img src="multilayer_files/figure-html/unnamed-chunk-7-3.png" width="700"><img src="multilayer_files/figure-html/unnamed-chunk-7-4.png" width="700"></p>
-<p>Willing to create a multilevel network? We can simulate a multilevel network with 30 actors in the first level and 20 nodes in the second level.</p>
+<p>Willing to create a multilevel network? We can simulate a multilevel
+network with 30 actors in the first level and 20 nodes in the second
+level.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">26091949</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ind_rand_matrix.html">ind_rand_matrix</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, m <span class="op">=</span> <span class="fl">20</span>, type <span class="op">=</span> <span class="st">'probability'</span>, p <span class="op">=</span> <span class="fl">0.2</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -755,10 +821,21 @@
 <div class="section level2">
 <h2 id="multiplex-networks">Multiplex networks<a class="anchor" aria-label="anchor" href="#multiplex-networks"></a>
 </h2>
-<p>In multiplex networks, interlayer edges can only connect nodes that represent the same actor in different layer (<a href="https://www.frontiersin.org/articles/10.3389/fvets.2020.00596/full" class="external-link">Kinsley et al., 2020</a>)</p>
-<p>As mentioned by <a href="https://books.google.ch/books/about/The_Judicial_Process_Among_the_Barotse_o.html?id=Eja8AAAAIAAJ&amp;redir_esc=y" class="external-link">Gluckman (1955: 19)</a>:</p>
-<p>“As we shall have constantly to refer to the consistency of Lozi law with these relationships which serve many interests, I propose, for brevity, to call them <em>multiplex</em> relationships. I require also a term to cover the structure of relationships in which a person tends to occupy the same position relative to the same set of other persons in all networks of purposive ties - economic, political, procreative, religious, educational.”</p>
-<p>To explore some of the functions available in <code>netmem</code> we will use data from <a href="https://books.google.ch/books/about/The_Collegial_Phenomenon.html?id=zRNaURgLOhYC&amp;redir_esc=y" class="external-link">Lazega (2001)</a></p>
+<p>In multiplex networks, interlayer edges can only connect nodes that
+represent the same actor in different layer (<a href="https://www.frontiersin.org/articles/10.3389/fvets.2020.00596/full" class="external-link">Kinsley
+et al., 2020</a>)</p>
+<p>As mentioned by <a href="https://books.google.ch/books/about/The_Judicial_Process_Among_the_Barotse_o.html?id=Eja8AAAAIAAJ&amp;redir_esc=y" class="external-link">Gluckman
+(1955: 19)</a>:</p>
+<p>“As we shall have constantly to refer to the consistency of Lozi law
+with these relationships which serve many interests, I propose, for
+brevity, to call them <em>multiplex</em> relationships. I require also a
+term to cover the structure of relationships in which a person tends to
+occupy the same position relative to the same set of other persons in
+all networks of purposive ties - economic, political, procreative,
+religious, educational.”</p>
+<p>To explore some of the functions available in <code>netmem</code> we
+will use data from <a href="https://books.google.ch/books/about/The_Collegial_Phenomenon.html?id=zRNaURgLOhYC&amp;redir_esc=y" class="external-link">Lazega
+(2001)</a></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"lazega_lawfirm"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span><span class="op">)</span>
@@ -821,7 +898,9 @@
 <span class="co">#&gt;   0    3861  217    0</span>
 <span class="co">#&gt;   1     534  358    0</span>
 <span class="co">#&gt;   &lt;NA&gt;    0    0    0</span></code></pre></div>
-<p>Finally, we can conduct a multiplex census between two matrices. For the moment, one matrix has to be asymmetric (directed) and the other symmetric (undirected).</p>
+<p>Finally, we can conduct a multiplex census between two matrices. For
+the moment, one matrix has to be asymmetric (directed) and the other
+symmetric (undirected).</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/multiplex_census.html">multiplex_census</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>
 <span class="co">#&gt;            003_003            003_102            003_201            003_300 </span>
@@ -858,7 +937,12 @@
 <span class="co">#&gt;                489              20620                136                465 </span>
 <span class="co">#&gt;           120c_300        210_003_210            210_300        300_003_300 </span>
 <span class="co">#&gt;                334                616                485                336</span></code></pre></div>
-<p>Note: the temporal networks are a special case of a multiplex network. Links are dynamic, and nodes can join or leave at different stages of the network evolution. For example, in this <code>toy example</code>, maybe two authors are no longer available. In this case, we might prefer maintaining their name in the matrix and assign a <code>NA</code> in their row and/or column:</p>
+<p>Note: the temporal networks are a special case of a multiplex
+network. Links are dynamic, and nodes can join or leave at different
+stages of the network evolution. For example, in this
+<code>toy example</code>, maybe two authors are no longer available. In
+this case, we might prefer maintaining their name in the matrix and
+assign a <code>NA</code> in their row and/or column:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
   <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,
@@ -898,7 +982,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>
