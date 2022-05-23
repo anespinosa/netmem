@@ -89,8 +89,11 @@ mix_matrix <- function(A, att = NULL) {
 # TODO: select a better example!
 
 ei_index <- function(A, mixed = TRUE, att = NULL) {
+  A <- as.matrix(A)
   if (!mixed) {
-    matrix <- mix_matrix(A, att)
+    matrix <- netmem::mix_matrix(A, att)
+  } else {
+    m <- A
   }
   if (length(dim(matrix)) == 3) {
     m <- matrix[, , 2]
