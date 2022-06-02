@@ -22,9 +22,11 @@ of between and within-group ties. This measure can be interpreted as heterogenei
 }
 \examples{
 
-n <- 100
-att <- rbinom(sqrt(n), 3, 0.5)
-heterogeneity(n, normalized = TRUE)
+a <- rep(1:10, 10)
+heterogeneity(a, normalized = TRUE)
+
+a <- rep(1:2, 10)
+heterogeneity(a, normalized = TRUE)
 }
 \references{
 Agresti, A. and Agresti, B. (1978). Statistical Analysis of Qualitative Variation. Sociological Methodology, 9, 204-237. doi: \url{https://doi.org/10.2307/270810}
