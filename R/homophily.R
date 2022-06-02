@@ -128,12 +128,12 @@ ei_index <- function(A, mixed = TRUE, att = NULL) {
 #'
 #' @examples
 #'
-#' n <- 100
-#' att <- rbinom(sqrt(n), 3, 0.5)
-#' heterogeneity(n, normalized = TRUE)
+#' a <- rep(1:10, 10)
+#' heterogeneity(a, normalized = TRUE)
+#'
+#' a <- rep(1:2, 10)
+#' heterogeneity(a, normalized = TRUE)
 #' @export
-
-# TODO: select a better example!
 
 heterogeneity <- function(att, normalized = FALSE) {
   att <- as.character(att)
