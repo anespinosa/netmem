@@ -17,7 +17,7 @@ Numerical value of the Blau index.
 If \code{normalized = TRUE}, then the function also return IQV index.
 }
 \description{
-This index was proposed by Blau (1977) to distinguish between the relative prevalence
+This index was used by Blau (1977) to distinguish between the relative prevalence
 of between and within-group ties. This measure can be interpreted as heterogeneity at the network level.
 }
 \examples{

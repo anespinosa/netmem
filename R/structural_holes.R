@@ -108,7 +108,7 @@ eb_constraint <- function(A, ego = NULL, digraph = FALSE, weighted = FALSE) {
   if (dim(A)[1] != dim(A)[2]) stop("Matrix should be square")
   if (dim(A)[1] <= 2 & dim(A)[2] <= 2) stop("No constraint for 2x2 network")
 
-  if (class(ego) == "numeric") stop("Label of the name of ego should be in character format")
+  if (is.numeric(ego)) stop("Label of the name of ego should be in character format")
   if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
   if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
 

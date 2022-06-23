@@ -287,6 +287,112 @@ matrix_adjlist <- function(A) {
   return(adj_list)
 }
 
+#' Transform an adjacency list to a matrix
+#'
+#' @param A   An adjacent list
+#' @param type   Transform the adjacent list into an \code{adjacency} matrix, an \code{incident} matrix or a \code{weighted} matrix
+#' @param loops   Whether to include loops into the matrix
+#'
+#' @return This function transform an adjacency list to a matrix
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' adj_groups <- rbind(
+#'   c("a", "b", "c"), c("a", "c", NA),
+#'   c("b", "c", NA), c("c", NA, NA),
+#'   c("c", "a", NA)
+#' )
+#' M <- adj_to_matrix(adj_groups, type = "adjacency", loops = TRUE)
+#' M
+#' @export
+
+adj_to_matrix <- function(A, type = c("adjacency", "incident", "weighted"),
+                          loops = FALSE) {
+  A <- as.matrix(A)
+
+  type <- switch(type_matrix(type),
+    "adjacency" = 1,
+    "incident" = 2,
+    "weighted" = 3
+  )
+
+  if (type == 1) {
+    EMPTY <- matrix(NA, nrow = NROW(A), ncol = NROW(A), byrow = TRUE)
+    rownames(EMPTY) <- A[, 1]
+    colnames(EMPTY) <- A[, 1]
+
+    # SAME A
+    for (i in 1:NROW(A)) {
+      EMPTY[i, ] <- names(EMPTY[i, ]) %in% A[i, ]
+    }
+    A <- abs(EMPTY)
+    if (!loops) {
+      diag(A) <- 0
+    }
+  }
+
+  if (type == 2) {
+    Ab <- A[, -1]
+    B <- unique(c(Ab))
+    B <- sort(B) # sort is removing NA cases
+    EMPTY <- matrix(NA, nrow = NROW(A), ncol = length(B), byrow = TRUE)
+    rownames(EMPTY) <- A[, 1]
+    colnames(EMPTY) <- B
+
+    # SAME A
+    for (i in 1:NROW(A)) {
+      EMPTY[i, ] <- names(EMPTY[i, ]) %in% A[i, ]
+    }
+    A <- abs(EMPTY)
+
+    if (!loops) {
+      for (i in 1:NROW(A)) {
+        for (j in 1:NCOL(A)) {
+          A[i, j] <- ifelse(rownames(A)[i] == colnames(A)[j], 0, A[i, j])
+        }
+      }
+    }
+  }
+
+  if (type == 3) {
+    B <- unique(c(A))
+    B <- sort(B)
+    EMPTY <- matrix(NA, nrow = length(B), ncol = length(B), byrow = TRUE)
+    rownames(EMPTY) <- B
+    colnames(EMPTY) <- B
+
+    for (i in 1:NROW(EMPTY)) {
+      weight <- A[A[, 1] %in% B[i]]
+      weight <- sort(weight)
+      t <- table(weight)
+      temp <- as.data.frame(t)
+      if (any(table(c(weight)) > 1)) {
+        EMPTY[i, ][which(names(EMPTY[i, ]) %in% temp$weight)] <- temp$Freq
+      } else {
+        EMPTY[i, ] <- names(EMPTY[i, ]) %in% weight
+      }
+      EMPTY <- ifelse(is.na(EMPTY), 0, EMPTY)
+    }
+    A <- EMPTY
+    if (!loops) {
+      diag(A) <- 0
+    }
+  }
+  return(A)
+}
+type_matrix <- function(arg, choices, several.ok = FALSE) {
+  if (missing(choices)) {
+    formal.args <- formals(sys.function(sys.parent()))
+    choices <- eval(formal.args[[deparse(substitute(arg))]])
+  }
+
+  arg <- tolower(arg)
+  choices <- tolower(choices)
+
+  match.arg(arg = arg, choices = choices, several.ok = several.ok)
+}
+
 
 #' Unipartite projections
 #'
@@ -409,7 +515,7 @@ minmax_overlap <- function(A, row = TRUE, min = TRUE) {
 
 ego_net <- function(A, ego = NULL, bipartite = FALSE, addEgo = FALSE,
                     select = c("all", "in", "out")) {
-  if (class(ego) == "numeric") stop("Label of the name of ego should be in character format")
+  if (is.numeric(ego)) stop("Label of the name of ego should be in character format")
   if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
   if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
   if (!(ego %in% sort(unique(c(rownames(A), colnames(A)))))) stop("Ego name does not match with the names of the enlisted nodes")

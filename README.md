@@ -39,9 +39,9 @@ considering one-mode networks, valued ties (i.e. *weighted* or
 
 To cite package ‘netmem’ in publications use:
 
-Alejandro Espinosa-Rada (2020). netmem: Social Network Measures using
-Matrices. R package version 1.0-3.
-<https://github.com/anespinosa/netmem>
+Espinosa-Rada A (2020). *netmem: Social Network Measures using
+Matrices*. R package version 1.0-3,
+<https://github.com/anespinosa/netmem>.
 
 A BibTeX entry for LaTeX users is
 
@@ -57,16 +57,17 @@ Utilities:
 2.  `matrix_adjlist()`: Transform a matrix to an adjacency list
 3.  `matrix_projection()`: Unipartite projections
 4.  `matrix_to_edgelist()`: Transform a square matrix to an edge-list
-5.  `edgelist_to_matrix()`: Transform an edgelist to a matrix
-6.  `extract_component()`: Extract components
-7.  `hypergraph()`: Hypergraphs
-8.  `meta_matrix()`: Meta matrix for multilevel networks
-9.  `minmax_overlap()`: Minimum/maximum overlap
-10. `mix_matrix()`: Mixing matrix
-11. `simplicial_complexes()`: Simplicial Complexes
-12. `structural_na()`: Structural missing data
-13. `ego_net()`: Ego network
-14. `zone_sample()`: Zone-2 sampling from second-mode
+5.  `adj_to_matrix()`: Transform an adjacency list to a matrix
+6.  `edgelist_to_matrix()`: Transform an edgelist to a matrix
+7.  `extract_component()`: Extract components
+8.  `hypergraph()`: Hypergraphs
+9.  `meta_matrix()`: Meta matrix for multilevel networks
+10. `minmax_overlap()`: Minimum/maximum overlap
+11. `mix_matrix()`: Mixing matrix
+12. `simplicial_complexes()`: Simplicial Complexes
+13. `structural_na()`: Structural missing data
+14. `ego_net()`: Ego network
+15. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 
