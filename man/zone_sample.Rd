@@ -9,7 +9,7 @@ zone_sample(A, X, ego = TRUE, core = FALSE)
 \arguments{
 \item{A}{A symmetric matrix object.}
 
-\item{X}{X an incident matrix object.}
+\item{X}{X an incidence matrix object.}
 
 \item{ego}{Whether to add or not ego into the subgraph.}
 

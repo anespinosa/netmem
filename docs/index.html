@@ -108,15 +108,15 @@
 <li>
 <code><a href="reference/matrix_report.html">matrix_report()</a></code>: Matrix report</li>
 <li>
-<code><a href="reference/matrix_adjlist.html">matrix_adjlist()</a></code>: Transform a matrix to an adjacency list</li>
+<code><a href="reference/matrix_adjlist.html">matrix_adjlist()</a></code>: Transform a matrix into an adjacency list</li>
 <li>
 <code><a href="reference/matrix_projection.html">matrix_projection()</a></code>: Unipartite projections</li>
 <li>
-<code><a href="reference/matrix_to_edgelist.html">matrix_to_edgelist()</a></code>: Transform a square matrix to an edge-list</li>
+<code><a href="reference/matrix_to_edgelist.html">matrix_to_edgelist()</a></code>: Transform a square matrix into an edge-list</li>
 <li>
-<code><a href="reference/adj_to_matrix.html">adj_to_matrix()</a></code>: Transform an adjacency list to a matrix</li>
+<code><a href="reference/adj_to_matrix.html">adj_to_matrix()</a></code>: Transform an adjacency list into a matrix</li>
 <li>
-<code><a href="reference/edgelist_to_matrix.html">edgelist_to_matrix()</a></code>: Transform an edgelist to a matrix</li>
+<code><a href="reference/edgelist_to_matrix.html">edgelist_to_matrix()</a></code>: Transform an edgelist into a matrix</li>
 <li>
 <code><a href="reference/extract_component.html">extract_component()</a></code>: Extract components</li>
 <li>
@@ -269,21 +269,21 @@
 </h2>
 <p>Connections between individuals are often embedded in complex structures, which shape actors’ expectations, behaviours and outcomes over time. These structures can themselves be interdependent and exist at different levels. Multilevel networks are a means by which we can represent this complex system by using nodes and edges of different types. Check <a href="https://www.springer.com/gp/book/9783319245188" class="external-link">this book</a> edited by Emmanuel Lazega and Tom A.B. Snijders or <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link">this book</a> edited by David Knoke, Mario Diani, James Hollway and Dimitris Christopoulos.</p>
 <p><img src="reference/figures/multilevel.png"></p>
-<p>For multilevel structures, we tend to collect the data in different matrices representing the variation of ties within and between levels. Often, we describe the connection between actors as an adjacency matrix and the relations between levels through incident matrices. The comfortable combination of these matrices into a common structure would represent the multilevel network that could be highly complex.</p>
+<p>For multilevel structures, we tend to collect the data in different matrices representing the variation of ties within and between levels. Often, we describe the connection between actors as an adjacency matrix and the relations between levels through incidence matrices. The comfortable combination of these matrices into a common structure would represent the multilevel network that could be highly complex.</p>
 <div class="section level3">
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
 <div class="alert alert-info">
-<p>Let’s assume that we have a multilevel network with two adjacency matrices, one valued matrix and two incident matrices between them.</p>
+<p>Let’s assume that we have a multilevel network with two adjacency matrices, one valued matrix and two incidence matrices between them.</p>
 <ul>
 <li>
 <code>A1</code>: Adjacency Matrix of the level 1</li>
 <li>
-<code>B1</code>: Incident Matrix between level 1 and level 2</li>
+<code>B1</code>: incidence Matrix between level 1 and level 2</li>
 <li>
 <code>A2</code>: Adjacency Matrix of the level 2</li>
 <li>
-<code>B2</code>: Incident Matrix between level 2 and level 3</li>
+<code>B2</code>: incidence Matrix between level 2 and level 3</li>
 <li>
 <code>A3</code>: Valued Matrix of the level 3</li>
 </ul>
@@ -331,8 +331,8 @@
 <span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span>
 <span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
 <span class="co">#&gt; --&gt; The matrix is rectangular, 3 by 5</span>
-<span class="co">#&gt;      nodes_rows nodes_columns incident_lines</span>
-<span class="co">#&gt; [1,]          3             5              7</span>
+<span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span>
+<span class="co">#&gt; [1,]          3             5               7</span>
 <span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>
 <span class="co">#&gt; The matrix A might have the following characteristics:</span>
 <span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
@@ -348,8 +348,8 @@
 <span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span>
 <span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
 <span class="co">#&gt; --&gt; The matrix is rectangular, 4 by 3</span>
-<span class="co">#&gt;      nodes_rows nodes_columns incident_lines</span>
-<span class="co">#&gt; [1,]          4             3              5</span>
+<span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span>
+<span class="co">#&gt; [1,]          4             3               5</span>
 <span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span>
 <span class="co">#&gt; The matrix A might have the following characteristics:</span>
 <span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
@@ -404,7 +404,7 @@
 <span class="co">#&gt; k2               1               1</span>
 <span class="co">#&gt; k3               2               2</span>
 <span class="co">#&gt; k4               1               1</span></code></pre></div>
-<p>Besides, we can perform a <em>k</em>-core analysis of one of the levels using the information of an incident matrix</p>
+<p>Besides, we can perform a <em>k</em>-core analysis of one of the levels using the information of an incidence matrix</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1 3 1 2 3</span></code></pre></div>
@@ -462,7 +462,7 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">A3</span>, digraph <span class="op">=</span> <span class="cn">FALSE</span>, weighted<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 3.872983 1.000000 4.000000 3.464102</span></code></pre></div>
-<p>Also, we could conduct some exploratory analysis using the normalized degree of an incident matrix.</p>
+<p>Also, we could conduct some exploratory analysis using the normalized degree of an incidence matrix.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">B1</span>, bipartite <span class="op">=</span> <span class="cn">TRUE</span>, normalized<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $bipartiteL1</span>

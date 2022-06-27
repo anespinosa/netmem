@@ -1,6 +1,6 @@
 #' Generalized density
 #'
-#' @param A   A symmetric or incident matrix object
+#' @param A   A symmetric or incidence matrix object
 #' @param directed    Whether the matrix is directed
 #' @param bipartite   Whether the matrix is bipartite
 #' @param loops   Whether to consider the loops
@@ -161,7 +161,7 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
     return(dens)
   } else {
     if (bipartite) {
-      if (dim(A)[1] == dim(A)[2]) warning("Incident matrix should be rectangular")
+      if (dim(A)[1] == dim(A)[2]) warning("incidence matrix should be rectangular")
       high <- ncol(A)
       low <- nrow(A)
       L <- sum(A, na.rm = TRUE)
@@ -284,7 +284,7 @@ gen_degree <- function(A,
 
   if (bipartite) {
     m <- ncol(A)
-    if (dim(A)[1] == dim(A)[2]) warning("Incident matrix should be rectangular")
+    if (dim(A)[1] == dim(A)[2]) warning("incidence matrix should be rectangular")
 
     deg1 <- diag(A %*% t(A))
     deg2 <- diag(t(A) %*% A)
@@ -307,11 +307,11 @@ gen_degree <- function(A,
 #' Degree centrality for multilevel networks
 #'
 #' @param A1  The square matrix of the lowest level
-#' @param B1  The incident matrix of the ties between the nodes of first level and the nodes of the second level
+#' @param B1  The incidence matrix of the ties between the nodes of first level and the nodes of the second level
 #' @param A2  The square matrix of the second level
-#' @param B2  The incident matrix of the ties between the nodes of the second level and the nodes of the third level
+#' @param B2  The incidence matrix of the ties between the nodes of the second level and the nodes of the third level
 #' @param A3  The square matrix of the third level
-#' @param B3  The incident matrix of the ties between the nodes of the third level and the nodes of the first level
+#' @param B3  The incidence matrix of the ties between the nodes of the third level and the nodes of the first level
 #' @param complete  Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree
 #' @param digraphA1  Whether A1 is a directed network
 #' @param digraphA2  Whether A2 is a directed network
@@ -846,7 +846,7 @@ multilevel_degree <- function(A1, B1,
 #' Generalized k-core for undirected, directed, weighted and multilevel networks
 #'
 #' @param A   A matrix object.
-#' @param B1  An incident matrix for multilevel networks.
+#' @param B1  An incidence matrix for multilevel networks.
 #' @param multilevel   Whether the measure of k-core is for multilevel networks.
 #' @param weighted    Whether the measure of k-core is for valued matrices
 #' @param type    Character string, \dQuote{out} (outdegree), \dQuote{in} (indegree) and \dQuote{all} (degree)

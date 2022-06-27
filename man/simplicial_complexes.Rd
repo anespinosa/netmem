@@ -14,10 +14,10 @@ simplicial_complexes(A, zero_simplex = FALSE, projection = FALSE)
 \item{projection}{Whether to return the links between actors (i.e., rows) through their shared linking events (i.e., columns).}
 }
 \value{
-This function return an incident matrix of actors participating in simplices or simplicial complexes
+This function return an incidence matrix of actors participating in simplices or simplicial complexes
 }
 \description{
-Incident matrix of simplexes or cliques
+incidence matrix of simplexes or cliques
 }
 \examples{
 A <- matrix(c(

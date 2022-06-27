@@ -13,7 +13,7 @@ percolation_clique(A)
 A matrix that assign each node to a clique
 }
 \description{
-Clique Percolation Method (CPM) is an algorithm for finding overlapping communities within networks, introduced by Palla et al. (2005). This function firstly identify cliques of size k, then creates a incident matrix as an affiliation network.
+Clique Percolation Method (CPM) is an algorithm for finding overlapping communities within networks, introduced by Palla et al. (2005). This function firstly identify cliques of size k, then creates a incidence matrix as an affiliation network.
 }
 \examples{
 

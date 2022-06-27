@@ -1,9 +1,9 @@
 #' Fractional approach
 #'
-#' Matrix transformation from incident matrices to citation networks, fractional counting for co-citation or fractional counting for bibliographic coupling
+#' Matrix transformation from incidence matrices to citation networks, fractional counting for co-citation or fractional counting for bibliographic coupling
 #'
-#' @param A1   From incident matrix (e.g. paper and authors)
-#' @param A2   To incident matrix (e.g. author to paper)
+#' @param A1   From incidence matrix (e.g. paper and authors)
+#' @param A2   To incidence matrix (e.g. author to paper)
 #' @param approach    Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}
 #'
 #' @return Return a type of "citation network"
@@ -198,7 +198,7 @@ similarity_option <- function(arg, choices, several.ok = FALSE) {
 #' @param directed  Whether the matrix is symmetric
 #' @param diag  Whether the diagonal should be considered
 #' @param coparticipation  Select nodes that co-participate in both matrices
-#' @param bipartite  Whether the matrix is incident
+#' @param bipartite  Whether the matrix is incidence
 #'
 #' @return The output are: \code{jaccard} = Jaccard similarity, \code{proportion} =
 #' proportion among the ties present at a given observation of ties that
@@ -380,7 +380,7 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
 #'
 #' @param A  A matrix
 #' @param method  The similarities/distance currently available are either \code{Euclidean} (default), \code{Hamming}, or \code{Jaccard}.
-#' @param bipartite  Whether the object is an incident matrix
+#' @param bipartite  Whether the object is an incidence matrix
 #'
 #' @return This function returns a distance matrix between nodes of the same matrix.
 #'
@@ -420,7 +420,7 @@ dist_sim_matrix <- function(A, method = c("euclidean", "hamming", "jaccard"),
                             bipartite = FALSE) {
   A <- as.matrix(A)
   if (!bipartite) {
-    if (ncol(A) != nrow(A)) message("The object is an incident matrix. The `bipartite=TRUE` parameter should be specified.")
+    if (ncol(A) != nrow(A)) message("The object is an incidence matrix. The `bipartite=TRUE` parameter should be specified.")
   }
 
   method <- switch(sim_method(method),
@@ -531,7 +531,7 @@ sim_method <- function(arg, choices, several.ok = FALSE) {
 #'
 #' The function provide a normalisation provided by Bonacich (1972).
 #'
-#' @param A  An incident matrix
+#' @param A  An incidence matrix
 #' @param projection  Whether to normalise by \code{rows} (default), or \code{columns} of the matrix.
 #' @param normalisation  Normalise the measure
 #'

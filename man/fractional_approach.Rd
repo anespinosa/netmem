@@ -11,9 +11,9 @@ fractional_approach(
 )
 }
 \arguments{
-\item{A1}{From incident matrix (e.g. paper and authors)}
+\item{A1}{From incidence matrix (e.g. paper and authors)}
 
-\item{A2}{To incident matrix (e.g. author to paper)}
+\item{A2}{To incidence matrix (e.g. author to paper)}
 
 \item{approach}{Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}}
 }
@@ -21,7 +21,7 @@ fractional_approach(
 Return a type of "citation network"
 }
 \description{
-Matrix transformation from incident matrices to citation networks, fractional counting for co-citation or fractional counting for bibliographic coupling
+Matrix transformation from incidence matrices to citation networks, fractional counting for co-citation or fractional counting for bibliographic coupling
 }
 \examples{
 

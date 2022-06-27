@@ -18,7 +18,7 @@ k_core(
 \arguments{
 \item{A}{A matrix object.}
 
-\item{B1}{An incident matrix for multilevel networks.}
+\item{B1}{An incidence matrix for multilevel networks.}
 
 \item{multilevel}{Whether the measure of k-core is for multilevel networks.}
 
