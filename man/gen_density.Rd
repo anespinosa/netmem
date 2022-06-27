@@ -14,7 +14,7 @@ gen_density(
 )
 }
 \arguments{
-\item{A}{A symmetric or incident matrix object}
+\item{A}{A symmetric or incidence matrix object}
 
 \item{directed}{Whether the matrix is directed}
 

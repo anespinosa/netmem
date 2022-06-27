@@ -253,8 +253,8 @@ multiplex_census <- function(A, B) {
 #' Multilevel triad and quadrilateral census
 #'
 #' @param A1   An adjacent matrix object.
-#' @param B1   An incident matrix object.
-#' @param B2   An incident matrix object.
+#' @param B1   An incidence matrix object.
+#' @param B2   An incidence matrix object.
 #' @param quad  Whether the matrix is a quadrilateral census or not.
 #'
 #' @return This function return the counts of a multilevel census.

@@ -9,9 +9,9 @@ mixed_census(A1, B1, B2 = NULL, quad = FALSE)
 \arguments{
 \item{A1}{An adjacent matrix object.}
 
-\item{B1}{An incident matrix object.}
+\item{B1}{An incidence matrix object.}
 
-\item{B2}{An incident matrix object.}
+\item{B2}{An incidence matrix object.}
 
 \item{quad}{Whether the matrix is a quadrilateral census or not.}
 }

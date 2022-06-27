@@ -7,9 +7,9 @@
 q_analysis(A, simplicial_complex = FALSE, dimensions = FALSE)
 }
 \arguments{
-\item{A}{An incident matrix}
+\item{A}{An incidence matrix}
 
-\item{simplicial_complex}{Whether the incident matrix is a simplices or simplicial complexes representation}
+\item{simplicial_complex}{Whether the incidence matrix is a simplices or simplicial complexes representation}
 
 \item{dimensions}{Return the successively chains from high to low dimensions ($q$) and the number of components ($Q_{p}$)}
 }

@@ -87,7 +87,7 @@ matrix_report <- function(A) {
     return(cbind(
       nodes_rows = mode_level1,
       nodes_columns = mode_level2,
-      incident_lines = sum(A, na.rm = TRUE)
+      incidence_lines = sum(A, na.rm = TRUE)
     ))
   }
 }
@@ -287,13 +287,13 @@ matrix_adjlist <- function(A) {
   return(adj_list)
 }
 
-#' Transform an adjacency list to a matrix
+#' Transform an adjacency list into a matrix
 #'
 #' @param A   An adjacent list
-#' @param type   Transform the adjacent list into an \code{adjacency} matrix, an \code{incident} matrix or a \code{weighted} matrix
+#' @param type   Transform the adjacent list into an \code{adjacency} matrix, an \code{incidence} matrix or a \code{weighted} matrix
 #' @param loops   Whether to include loops into the matrix
 #'
-#' @return This function transform an adjacency list to a matrix
+#' @return This function transforms an adjacency list into a matrix
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -307,13 +307,13 @@ matrix_adjlist <- function(A) {
 #' M
 #' @export
 
-adj_to_matrix <- function(A, type = c("adjacency", "incident", "weighted"),
+adj_to_matrix <- function(A, type = c("adjacency", "incidence", "weighted"),
                           loops = FALSE) {
   A <- as.matrix(A)
 
   type <- switch(type_matrix(type),
     "adjacency" = 1,
-    "incident" = 2,
+    "incidence" = 2,
     "weighted" = 3
   )
 
@@ -606,11 +606,11 @@ node_direction <- function(arg, choices, several.ok = FALSE) {
 #' Meta matrix for multilevel networks
 #'
 #' @param A1  The square matrix of the lowest level
-#' @param B1  The incident matrix of the ties between the nodes of first level and the nodes of the second level
+#' @param B1  The incidence matrix of the ties between the nodes of first level and the nodes of the second level
 #' @param A2  The square matrix of the second level
-#' @param B2  The incident matrix of the ties between the nodes of the second level and the nodes of the third level
+#' @param B2  The incidence matrix of the ties between the nodes of the second level and the nodes of the third level
 #' @param A3  The square matrix of the third level
-#' @param B3  The incident matrix of the ties between the nodes of the third level and the nodes of the first level
+#' @param B3  The incidence matrix of the ties between the nodes of the third level and the nodes of the first level
 #'
 #' @return Return a meta matrix for multilevel networks
 #'
@@ -789,7 +789,7 @@ meta_matrix <- function(A1, B1,
 #'
 #' Assign NA to missing data in the matrices
 #'
-#' @param A   A symmetric or incident matrix object
+#' @param A   A symmetric or incidence matrix object
 #' @param label   String vector with the names of the theoretical complete matrix
 #' @param bipartite   Whether the matrix is bipartite or not.
 #' @param column   Whether the assignation of NA is for columns in the biparite network, row by default.
@@ -815,7 +815,7 @@ meta_matrix <- function(A1, B1,
 
 structural_na <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
   if (bipartite) {
-    if (dim(A)[1] == dim(A)[2]) warning("Incident matrix should be rectangular")
+    if (dim(A)[1] == dim(A)[2]) warning("incidence matrix should be rectangular")
     if (column) {
       for (i in 1:dim(A)[2]) {
         A[, i] <- ifelse((A[, i] | sum(A[, i])) == 0,
@@ -852,7 +852,7 @@ structural_na <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
 #' Second-zone multilevel sampling considering a second-mode focal actor
 #'
 #' @param A   A symmetric matrix object.
-#' @param X   X an incident matrix object.
+#' @param X   X an incidence matrix object.
 #' @param ego   Whether to add or not ego into the subgraph.
 #' @param core  Whether to add actors at distance one from ego
 #'
@@ -903,8 +903,8 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
   X <- as.matrix(X)
   if (is.null(rownames(A))) stop("Assign `rownames` to the adjacent matrix")
   if (is.null(colnames(A))) stop("Assign `colnames` to the adjacent matrix")
-  if (is.null(rownames(X))) stop("Assign `rownames` to the incident matrix")
-  if (is.null(colnames(X))) stop("Assign `colnames` to the incident matrix")
+  if (is.null(rownames(X))) stop("Assign `rownames` to the incidence matrix")
+  if (is.null(colnames(X))) stop("Assign `colnames` to the incidence matrix")
   if (dim(A)[1] != dim(X)[1]) {
     X <- t(X)
   }
@@ -953,7 +953,7 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
 #'
 #' Hypergraph consist of a set of objects and a collection of subsets of objects, in which each object belongs to at least one subset, and no subset is empy (Berge, 1989)
 #'
-#' @param A   An incident matrix.
+#' @param A   An incidence matrix.
 #' @param dual   Whether to return the dual hypergraph (which rever the role of the pointes and the edges)
 #' @param both   Whether to return the hypergraph and the dual hypergraph
 #'
@@ -985,7 +985,7 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
 
 hypergraph <- function(A, dual = TRUE, both = TRUE) {
   A <- as.matrix(A)
-  if (ncol(A) == nrow(A)) warning("For hypergraphs, an incident matrix should be used")
+  if (ncol(A) == nrow(A)) warning("For hypergraphs, an incidence matrix should be used")
 
   if (!both) {
     if (!dual) {
@@ -1005,13 +1005,13 @@ hypergraph <- function(A, dual = TRUE, both = TRUE) {
 
 #' Simplicial Complexes
 #'
-#' Incident matrix of simplexes or cliques
+#' incidence matrix of simplexes or cliques
 #'
 #' @param A   A symmetric matrix object.
 #' @param zero_simplex   Whether to include the zero simple.
 #' @param projection  Whether to return the links between actors (i.e., rows) through their shared linking events (i.e., columns).
 #'
-#' @return This function return an incident matrix of actors participating in simplices or simplicial complexes
+#' @return This function return an incidence matrix of actors participating in simplices or simplicial complexes
 #'
 #' @references
 #'

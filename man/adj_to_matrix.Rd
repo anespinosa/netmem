@@ -2,27 +2,29 @@
 % Please edit documentation in R/utilities.R
 \name{adj_to_matrix}
 \alias{adj_to_matrix}
-\title{Transform an adjacency list to a matrix}
+\title{Transform an adjacency list into a matrix}
 \usage{
-adj_to_matrix(A, type = c("adjacency", "incident", "weighted"), loops = FALSE)
+adj_to_matrix(A, type = c("adjacency", "incidence", "weighted"), loops = FALSE)
 }
 \arguments{
 \item{A}{An adjacent list}
 
-\item{type}{Transform the adjacent list into an \code{adjacency} matrix, an \code{incident} matrix or a \code{weighted} matrix}
+\item{type}{Transform the adjacent list into an \code{adjacency} matrix, an \code{incidence} matrix or a \code{weighted} matrix}
 
 \item{loops}{Whether to include loops into the matrix}
 }
 \value{
-This function transform an adjacency list to a matrix
+This function transforms an adjacency list into a matrix
 }
 \description{
-Transform an adjacency list to a matrix
+Transform an adjacency list into a matrix
 }
 \examples{
-adj_groups <- rbind(c("a","b", "c"), c("a","c", NA),
-                    c("b", "c", NA), c("c", NA, NA),
-                    c("c", "a", NA))
+adj_groups <- rbind(
+  c("a", "b", "c"), c("a", "c", NA),
+  c("b", "c", NA), c("c", NA, NA),
+  c("c", "a", NA)
+)
 M <- adj_to_matrix(adj_groups, type = "adjacency", loops = TRUE)
 M
 }

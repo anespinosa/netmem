@@ -46,11 +46,11 @@ citation(package="netmem")
 Utilities:
 
 1. `matrix_report()`: Matrix report
-2. `matrix_adjlist()`: Transform a matrix to an adjacency list
+2. `matrix_adjlist()`: Transform a matrix into an adjacency list
 3. `matrix_projection()`: Unipartite projections
-4. `matrix_to_edgelist()`: Transform a square matrix to an edge-list
-5. `adj_to_matrix()`: Transform an adjacency list to a matrix
-6. `edgelist_to_matrix()`: Transform an edgelist to a matrix
+4. `matrix_to_edgelist()`: Transform a square matrix into an edge-list
+5. `adj_to_matrix()`: Transform an adjacency list into a matrix
+6. `edgelist_to_matrix()`: Transform an edgelist into a matrix
 7. `extract_component()`: Extract components
 8. `hypergraph()`: Hypergraphs
 9. `meta_matrix()`: Meta matrix for multilevel networks

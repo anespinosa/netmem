@@ -7,7 +7,7 @@
 structural_na(A, label = NULL, bipartite = FALSE, column = FALSE)
 }
 \arguments{
-\item{A}{A symmetric or incident matrix object}
+\item{A}{A symmetric or incidence matrix object}
 
 \item{label}{String vector with the names of the theoretical complete matrix}
 

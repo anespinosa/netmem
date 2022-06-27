@@ -24,7 +24,7 @@ jaccard(
 
 \item{coparticipation}{Select nodes that co-participate in both matrices}
 
-\item{bipartite}{Whether the matrix is incident}
+\item{bipartite}{Whether the matrix is incidence}
 }
 \value{
 The output are: \code{jaccard} = Jaccard similarity, \code{proportion} =

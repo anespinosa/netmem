@@ -10,7 +10,7 @@ Adapted from Borgatti, S., Everett, M., Johnson, J. and Agneessens, P. (2022) An
 bonacich_norm(A, projection = c("rows", "columns"), normalisation = FALSE)
 }
 \arguments{
-\item{A}{An incident matrix}
+\item{A}{An incidence matrix}
 
 \item{projection}{Whether to normalise by \code{rows} (default), or \code{columns} of the matrix.}
 

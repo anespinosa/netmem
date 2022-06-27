@@ -7,7 +7,7 @@
 hypergraph(A, dual = TRUE, both = TRUE)
 }
 \arguments{
-\item{A}{An incident matrix.}
+\item{A}{An incidence matrix.}
 
 \item{dual}{Whether to return the dual hypergraph (which rever the role of the pointes and the edges)}
 

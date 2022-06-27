@@ -15,7 +15,7 @@ dist_sim_matrix(
 
 \item{method}{The similarities/distance currently available are either \code{Euclidean} (default), \code{Hamming}, or \code{Jaccard}.}
 
-\item{bipartite}{Whether the object is an incident matrix}
+\item{bipartite}{Whether the object is an incidence matrix}
 }
 \value{
 This function returns a distance matrix between nodes of the same matrix.

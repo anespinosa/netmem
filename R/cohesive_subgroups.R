@@ -256,7 +256,7 @@ clique_table <- function(A, list_cliques = FALSE, number = FALSE) {
 
 #' Clique percolation
 #'
-#' Clique Percolation Method (CPM) is an algorithm for finding overlapping communities within networks, introduced by Palla et al. (2005). This function firstly identify cliques of size k, then creates a incident matrix as an affiliation network.
+#' Clique Percolation Method (CPM) is an algorithm for finding overlapping communities within networks, introduced by Palla et al. (2005). This function firstly identify cliques of size k, then creates a incidence matrix as an affiliation network.
 #'
 #' @param A   A matrix
 #'
@@ -313,8 +313,8 @@ percolation_clique <- function(A) {
 #'
 #' Q-structure of a simplicial complex.
 #'
-#' @param A   An incident matrix
-#' @param simplicial_complex   Whether the incident matrix is a simplices or simplicial complexes representation
+#' @param A   An incidence matrix
+#' @param simplicial_complex   Whether the incidence matrix is a simplices or simplicial complexes representation
 #' @param dimensions  Return the successively chains from high to low dimensions ($q$) and the number of components ($Q_{p}$)
 #'
 #' @return This function return a q-analysis of a simplicial complex matrix

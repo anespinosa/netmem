@@ -122,7 +122,7 @@ adjacency matrix or sociomatrix and the incidence matrix.</p>
 <div class="section level3">
 <h3 id="two-mode-networks">Two-mode networks<a class="anchor" aria-label="anchor" href="#two-mode-networks"></a>
 </h3>
-<p>There are different ways of referring to incident matrices. From the
+<p>There are different ways of referring to incidence matrices. From the
 social network perspective is often considered as <em>affiliation
 network</em>, which consist of a set of binary relationships between
 members of two sets of items (i.e., “is a member of” or “is a
@@ -155,8 +155,9 @@ Southern Woman extracted from the <code>R</code> package <a href="https://github
  <span class="op">)</span>,
  byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">14</span>
  <span class="op">)</span></code></pre></div>
-<p>As a common practice, an incident matrix is often converted to
-adjacent matrices. These are given by the matrix product <span class="math inline">\(AA^T\)</span> and <span class="math inline">\(A^TA\)</span>, where <span class="math inline">\(A\)</span> is the incident matrix and matrix <span class="math inline">\(A^T\)</span> is the transpose of <span class="math inline">\(A\)</span>. The relationship between these
+<p>As a common practice, an incidence matrix is often converted to
+adjacent matrices. These are given by the matrix product <span class="math inline">\(AA^T\)</span> and <span class="math inline">\(A^TA\)</span>, where <span class="math inline">\(A\)</span> is the incidence matrix and matrix
+<span class="math inline">\(A^T\)</span> is the transpose of <span class="math inline">\(A\)</span>. The relationship between these
 matrices in the context of social networks was explored by <a href="https://doi.org/10.2307/2576011" class="external-link">Breiger (1974)</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/matrix_projection.html">matrix_projection</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
@@ -308,14 +309,14 @@ mechanisms are often considered competing alternatives to understanding
 social relationships.</p>
 <p><em>Two-mode networks</em> is a broader concept that emphasizes the
 difference between entities of different levels. Therefore, these
-entities are likewise differentiated as rows and columns in the incident
-matrix.</p>
+entities are likewise differentiated as rows and columns in the
+incidence matrix.</p>
 <p>Some researchers differentiate between the informational or
 socio-cognitive dimensions and social networks of concrete relations -
 or proxies - between agents (<a href="https://doi.org/10.1002/asi.20732" class="external-link">Leydesdorff, 2008</a>). For
-example, informational or socio-cognitive networks can be an incident
+example, informational or socio-cognitive networks can be an incidence
 matrix of actors and survey’s items, citation networks or a tweet
-message. Therefore, the incident matrix of socio-cognitive networks are
+message. Therefore, the incidence matrix of socio-cognitive networks are
 often called <em>occurrence networks</em>.</p>
 <p>For example, in scientometric, information is often explored using
 co-occurrence of overlapping ties:</p>
@@ -439,7 +440,7 @@ et a., 2021</a>.</p>
 <p>For multilevel structures, we tend to collect the data in different
 matrices representing the variation of ties within and between levels.
 Often, we describe the connection between actors as an adjacency matrix
-and the relations between levels through incident matrices. The
+and the relations between levels through incidence matrices. The
 comfortable combination of these matrices into a common structure would
 represent the multilevel network that could be highly complex.</p>
 <div class="section level3">
@@ -447,16 +448,16 @@ represent the multilevel network that could be highly complex.</p>
 </h3>
 <div class="alert alert-info">
 <p>Let’s assume that we have a multilevel network with two adjacency
-matrices, one valued matrix and two incident matrices between them.</p>
+matrices, one valued matrix and two incidence matrices between them.</p>
 <ul>
 <li>
 <code>A1</code>: Adjacency Matrix of the level 1</li>
 <li>
-<code>B1</code>: Incident Matrix between level 1 and level 2</li>
+<code>B1</code>: incidence Matrix between level 1 and level 2</li>
 <li>
 <code>A2</code>: Adjacency Matrix of the level 2</li>
 <li>
-<code>B2</code>: Incident Matrix between level 2 and level 3</li>
+<code>B2</code>: incidence Matrix between level 2 and level 3</li>
 <li>
 <code>A3</code>: Valued Matrix of the level 3</li>
 </ul>
@@ -511,8 +512,8 @@ matrices, one valued matrix and two incident matrices between them.</p>
 <span class="co">#&gt; The matrix A might have the following characteristics:</span>
 <span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
 <span class="co">#&gt; --&gt; The matrix is rectangular, 3 by 5</span>
-<span class="co">#&gt;      nodes_rows nodes_columns incident_lines</span>
-<span class="co">#&gt; [1,]          3             5              7</span>
+<span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span>
+<span class="co">#&gt; [1,]          3             5               7</span>
 <span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>
 <span class="co">#&gt; The matrix A might have the following characteristics:</span>
 <span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
@@ -524,8 +525,8 @@ matrices, one valued matrix and two incident matrices between them.</p>
 <span class="co">#&gt; The matrix A might have the following characteristics:</span>
 <span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
 <span class="co">#&gt; --&gt; The matrix is rectangular, 4 by 3</span>
-<span class="co">#&gt;      nodes_rows nodes_columns incident_lines</span>
-<span class="co">#&gt; [1,]          4             3              5</span>
+<span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span>
+<span class="co">#&gt; [1,]          4             3               5</span>
 <span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span>
 <span class="co">#&gt; The matrix A might have the following characteristics:</span>
 <span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
@@ -539,7 +540,7 @@ matrices, one valued matrix and two incident matrices between them.</p>
 <div class="section level3">
 <h3 id="ties-within-and-between-modes">Ties within and between modes<a class="anchor" aria-label="anchor" href="#ties-within-and-between-modes"></a>
 </h3>
-<p>In some cases we have an incident matrix and also the relationships
+<p>In some cases we have an incidence matrix and also the relationships
 of the node of the same class. In which case, we can use the
 <em>‘meta-matrix’</em> (<a href="https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf" class="external-link">Krackhardt
 &amp; Carley, 1998</a>; <a href="http://sds.hss.cmu.edu/faculty/carley/carley.htm" class="external-link">Carley,
@@ -622,7 +623,7 @@ of the node of the same class. In which case, we can use the
 <span class="co">#&gt; k3               2               2</span>
 <span class="co">#&gt; k4               1               1</span></code></pre></div>
 <p>Besides, we can perform a <em>k</em>-core analysis of one of the
-levels using the information of an incident matrix</p>
+levels using the information of an incidence matrix</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1 3 1 2 3</span></code></pre></div>
