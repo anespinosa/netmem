@@ -158,17 +158,17 @@ Connections between individuals are often embedded in complex structures, which 
 
 <img src="man/figures/multilevel.png"/>
 
-For multilevel structures, we tend to collect the data in different matrices representing the variation of ties within and between levels. Often, we describe the connection between actors as an adjacency matrix and the relations between levels through incident matrices. The comfortable combination of these matrices into a common structure would represent the multilevel network that could be highly complex.
+For multilevel structures, we tend to collect the data in different matrices representing the variation of ties within and between levels. Often, we describe the connection between actors as an adjacency matrix and the relations between levels through incidence matrices. The comfortable combination of these matrices into a common structure would represent the multilevel network that could be highly complex.
 
 ### Example
 
 <div class="alert alert-info">
-Let's assume that we have a multilevel network with two adjacency matrices, one valued matrix and two incident matrices between them.
+Let's assume that we have a multilevel network with two adjacency matrices, one valued matrix and two incidence matrices between them.
 
 - `A1`: Adjacency Matrix of the level 1
-- `B1`: Incident Matrix between level 1 and level 2
+- `B1`: incidence Matrix between level 1 and level 2
 - `A2`: Adjacency Matrix of the level 2
-- `B2`: Incident Matrix between level 2 and level 3
+- `B2`: incidence Matrix between level 2 and level 3
 - `A3`: Valued Matrix of the level 3
 </div>
 
@@ -220,7 +220,7 @@ How about the degree centrality of the entire structure?
 multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 ```
 
-Besides, we can perform a *k*-core analysis of one of the levels using the information of an incident matrix
+Besides, we can perform a *k*-core analysis of one of the levels using the information of an incidence matrix
 ```{r multil2, warning=FALSE}
 k_core(A1, B1, multilevel=TRUE)
 ```
@@ -261,7 +261,7 @@ This package expand some measures for one-mode networks, such as the generalized
 gen_degree(A3, digraph = FALSE, weighted=TRUE)
 ```
 
-Also, we could conduct some exploratory analysis using the normalized degree of an incident matrix.
+Also, we could conduct some exploratory analysis using the normalized degree of an incidence matrix.
 ```{r onem2}
 gen_degree(B1, bipartite = TRUE, normalized=TRUE)
 ```

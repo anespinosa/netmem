@@ -54,11 +54,11 @@ version 1.0-3}, url = {<https://github.com/anespinosa/netmem>}, }
 Utilities:
 
 1.  `matrix_report()`: Matrix report
-2.  `matrix_adjlist()`: Transform a matrix to an adjacency list
+2.  `matrix_adjlist()`: Transform a matrix into an adjacency list
 3.  `matrix_projection()`: Unipartite projections
-4.  `matrix_to_edgelist()`: Transform a square matrix to an edge-list
-5.  `adj_to_matrix()`: Transform an adjacency list to a matrix
-6.  `edgelist_to_matrix()`: Transform an edgelist to a matrix
+4.  `matrix_to_edgelist()`: Transform a square matrix into an edge-list
+5.  `adj_to_matrix()`: Transform an adjacency list into a matrix
+6.  `edgelist_to_matrix()`: Transform an edgelist into a matrix
 7.  `extract_component()`: Extract components
 8.  `hypergraph()`: Hypergraphs
 9.  `meta_matrix()`: Meta matrix for multilevel networks
@@ -179,7 +179,7 @@ Christopoulos.
 For multilevel structures, we tend to collect the data in different
 matrices representing the variation of ties within and between levels.
 Often, we describe the connection between actors as an adjacency matrix
-and the relations between levels through incident matrices. The
+and the relations between levels through incidence matrices. The
 comfortable combination of these matrices into a common structure would
 represent the multilevel network that could be highly complex.
 
@@ -188,12 +188,12 @@ represent the multilevel network that could be highly complex.
 <div class="alert alert-info">
 
 Let’s assume that we have a multilevel network with two adjacency
-matrices, one valued matrix and two incident matrices between them.
+matrices, one valued matrix and two incidence matrices between them.
 
 -   `A1`: Adjacency Matrix of the level 1
--   `B1`: Incident Matrix between level 1 and level 2
+-   `B1`: incidence Matrix between level 1 and level 2
 -   `A2`: Adjacency Matrix of the level 2
--   `B2`: Incident Matrix between level 2 and level 3
+-   `B2`: incidence Matrix between level 2 and level 3
 -   `A3`: Valued Matrix of the level 3
 
 </div>
@@ -245,8 +245,8 @@ matrix_report(B1)
 #> --> No names assigned to the rows of the matrix
 #> --> No names assigned to the columns of the matrix
 #> --> The matrix is rectangular, 3 by 5
-#>      nodes_rows nodes_columns incident_lines
-#> [1,]          3             5              7
+#>      nodes_rows nodes_columns incidence_lines
+#> [1,]          3             5               7
 matrix_report(A2)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -262,8 +262,8 @@ matrix_report(B2)
 #> --> No names assigned to the rows of the matrix
 #> --> No names assigned to the columns of the matrix
 #> --> The matrix is rectangular, 4 by 3
-#>      nodes_rows nodes_columns incident_lines
-#> [1,]          4             3              5
+#>      nodes_rows nodes_columns incidence_lines
+#> [1,]          4             3               5
 matrix_report(A3)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -327,7 +327,7 @@ multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 ```
 
 Besides, we can perform a *k*-core analysis of one of the levels using
-the information of an incident matrix
+the information of an incidence matrix
 
 ``` r
 k_core(A1, B1, multilevel=TRUE)
@@ -408,7 +408,7 @@ gen_degree(A3, digraph = FALSE, weighted=TRUE)
 ```
 
 Also, we could conduct some exploratory analysis using the normalized
-degree of an incident matrix.
+degree of an incidence matrix.
 
 ``` r
 gen_degree(B1, bipartite = TRUE, normalized=TRUE)
