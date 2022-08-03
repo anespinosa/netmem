@@ -60,19 +60,24 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dyadic_census</span><span class="op">(</span><span class="va">G</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dyadic_census</span><span class="op">(</span><span class="va">G</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>G</dt>
 <dd><p>A symmetric matrix object.</p></dd>
+
+
 <dt>directed</dt>
 <dd><p>Whether the matrix is directed or not</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>This function return the counts of the dyad census.</p>
+    
+
+<p>This function return the counts of the dyad census.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -85,14 +90,14 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">krackhardt_friends</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">dyadic_census</span><span class="op">(</span><span class="va">krackhardt_friends</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">krackhardt_friends</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dyadic_census</span><span class="op">(</span><span class="va">krackhardt_friends</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Mutual Asymmetrics       Nulls </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          23          56         131 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">FIFAin</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">dyadic_census</span><span class="op">(</span><span class="va">FIFAin</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">FIFAin</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dyadic_census</span><span class="op">(</span><span class="va">FIFAin</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mutual  Nulls </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    111    709 </span>
 </code></pre></div>
@@ -109,7 +114,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

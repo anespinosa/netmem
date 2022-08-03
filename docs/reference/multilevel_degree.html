@@ -60,85 +60,132 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">multilevel_degree</span><span class="op">(</span>
-  <span class="va">A1</span>,
-  <span class="va">B1</span>,
-  A2 <span class="op">=</span> <span class="cn">NULL</span>,
-  B2 <span class="op">=</span> <span class="cn">NULL</span>,
-  A3 <span class="op">=</span> <span class="cn">NULL</span>,
-  B3 <span class="op">=</span> <span class="cn">NULL</span>,
-  complete <span class="op">=</span> <span class="cn">FALSE</span>,
-  digraphA1 <span class="op">=</span> <span class="cn">FALSE</span>,
-  digraphA2 <span class="op">=</span> <span class="cn">FALSE</span>,
-  digraphA3 <span class="op">=</span> <span class="cn">FALSE</span>,
-  typeA1 <span class="op">=</span> <span class="st">"out"</span>,
-  typeA2 <span class="op">=</span> <span class="st">"out"</span>,
-  typeA3 <span class="op">=</span> <span class="st">"out"</span>,
-  loopsA1 <span class="op">=</span> <span class="cn">FALSE</span>,
-  loopsA2 <span class="op">=</span> <span class="cn">FALSE</span>,
-  loopsA3 <span class="op">=</span> <span class="cn">FALSE</span>,
-  normalized <span class="op">=</span> <span class="cn">FALSE</span>,
-  weightedA1 <span class="op">=</span> <span class="cn">FALSE</span>,
-  weightedA2 <span class="op">=</span> <span class="cn">FALSE</span>,
-  weightedA3 <span class="op">=</span> <span class="cn">FALSE</span>,
-  alphaA1 <span class="op">=</span> <span class="fl">0.5</span>,
-  alphaA2 <span class="op">=</span> <span class="fl">0.5</span>,
-  alphaA3 <span class="op">=</span> <span class="fl">0.5</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">multilevel_degree</span><span class="op">(</span></span>
+<span>  <span class="va">A1</span>,</span>
+<span>  <span class="va">B1</span>,</span>
+<span>  A2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  B2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  A3 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  B3 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  complete <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  digraphA1 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  digraphA2 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  digraphA3 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  typeA1 <span class="op">=</span> <span class="st">"out"</span>,</span>
+<span>  typeA2 <span class="op">=</span> <span class="st">"out"</span>,</span>
+<span>  typeA3 <span class="op">=</span> <span class="st">"out"</span>,</span>
+<span>  loopsA1 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  loopsA2 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  loopsA3 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  normalized <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  weightedA1 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  weightedA2 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  weightedA3 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  alphaA1 <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  alphaA2 <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  alphaA3 <span class="op">=</span> <span class="fl">0.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>A1</dt>
 <dd><p>The square matrix of the lowest level</p></dd>
+
+
 <dt>B1</dt>
 <dd><p>The incidence matrix of the ties between the nodes of first level and the nodes of the second level</p></dd>
+
+
 <dt>A2</dt>
 <dd><p>The square matrix of the second level</p></dd>
+
+
 <dt>B2</dt>
 <dd><p>The incidence matrix of the ties between the nodes of the second level and the nodes of the third level</p></dd>
+
+
 <dt>A3</dt>
 <dd><p>The square matrix of the third level</p></dd>
+
+
 <dt>B3</dt>
 <dd><p>The incidence matrix of the ties between the nodes of the third level and the nodes of the first level</p></dd>
+
+
 <dt>complete</dt>
 <dd><p>Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree</p></dd>
+
+
 <dt>digraphA1</dt>
 <dd><p>Whether A1 is a directed network</p></dd>
+
+
 <dt>digraphA2</dt>
 <dd><p>Whether A2 is a directed network</p></dd>
+
+
 <dt>digraphA3</dt>
 <dd><p>Whether A3 is a directed network</p></dd>
+
+
 <dt>typeA1</dt>
 <dd><p>Type of degree of the network for A1, "out" for out-degree, "in" for in-degree or "all" for the sum of the two</p></dd>
+
+
 <dt>typeA2</dt>
 <dd><p>Type of degree of the network for A2, "out" for out-degree, "in" for in-degree or "all" for the sum of the two</p></dd>
+
+
 <dt>typeA3</dt>
 <dd><p>Type of degree of the network for A3, "out" for out-degree, "in" for in-degree or "all" for the sum of the two</p></dd>
+
+
 <dt>loopsA1</dt>
 <dd><p>Whether the loops of the edges are considered in matrix A1</p></dd>
+
+
 <dt>loopsA2</dt>
 <dd><p>Whether the loops of the edges are considered in matrix A2</p></dd>
+
+
 <dt>loopsA3</dt>
 <dd><p>Whether the loops of the edges are considered in matrix A3</p></dd>
+
+
 <dt>normalized</dt>
 <dd><p>If TRUE then the result is divided by (n-1)+k+m for the first level, (m-1)+n+k for the second level, and (k-1)+m+n according to Espinosa-Rada et al. (2021)</p></dd>
+
+
 <dt>weightedA1</dt>
 <dd><p>Whether A1 is weighted</p></dd>
+
+
 <dt>weightedA2</dt>
 <dd><p>Whether A2 is weighted</p></dd>
+
+
 <dt>weightedA3</dt>
 <dd><p>Whether A3 is weighted</p></dd>
+
+
 <dt>alphaA1</dt>
 <dd><p>The alpha parameter of A1 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.</p></dd>
+
+
 <dt>alphaA2</dt>
 <dd><p>The alpha parameter of A2 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.</p></dd>
+
+
 <dt>alphaA3</dt>
 <dd><p>The alpha parameter of A3 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Return a data.frame of multilevel degree</p>
+    
+
+<p>Return a data.frame of multilevel degree</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -153,50 +200,50 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">B1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">A2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">B2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">A3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">B3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">multilevel_degree</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span>, <span class="va">B3</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">B1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">A2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">B2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">A3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">B3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">multilevel_degree</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span>, <span class="va">B3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    multilevel</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n1          3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n2          5</span>
@@ -210,10 +257,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> k2          4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> k3          4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> k4          3</span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">multilevel_degree</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span>, <span class="va">B3</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">multilevel_degree</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span>, <span class="va">B3</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -228,7 +275,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

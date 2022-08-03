@@ -60,55 +60,79 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">jaccard</span><span class="op">(</span>
-  <span class="va">A</span>,
-  <span class="va">B</span>,
-  directed <span class="op">=</span> <span class="cn">TRUE</span>,
-  diag <span class="op">=</span> <span class="cn">FALSE</span>,
-  coparticipation <span class="op">=</span> <span class="cn">FALSE</span>,
-  bipartite <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">jaccard</span><span class="op">(</span></span>
+<span>  <span class="va">A</span>,</span>
+<span>  <span class="va">B</span>,</span>
+<span>  directed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  diag <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  coparticipation <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  bipartite <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>A</dt>
 <dd><p>Binary matrix A</p></dd>
+
+
 <dt>B</dt>
 <dd><p>Binary matrix B</p></dd>
+
+
 <dt>directed</dt>
 <dd><p>Whether the matrix is symmetric</p></dd>
+
+
 <dt>diag</dt>
 <dd><p>Whether the diagonal should be considered</p></dd>
+
+
 <dt>coparticipation</dt>
 <dd><p>Select nodes that co-participate in both matrices</p></dd>
+
+
 <dt>bipartite</dt>
 <dd><p>Whether the matrix is incidence</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The output are: <code>jaccard</code> = Jaccard similarity, <code>proportion</code> =
+    
+
+<p>The output are: <code>jaccard</code> = Jaccard similarity, <code>proportion</code> =
 proportion among the ties present at a given observation of ties that
 are also present in the other matrix, and <code>table</code> = a table with the
-tie changes between matrices.
-If <code>coparticipation = TRUE</code>, then
-also: <code>match</code> = The number of nodes present in both matrices;
-<code>size_matrix1</code> = The size of the first matrix;
-<code>size_matrix2</code> = The size of the second matrix;
+tie changes between matrices.</p>
+
+
+<p>If <code>coparticipation = TRUE</code>, then
+also: <code>match</code> = The number of nodes present in both matrices;</p>
+<p></p>
+<p><code>size_matrix1</code> = The size of the first matrix;</p>
+<p></p>
+<p><code>size_matrix2</code> = The size of the second matrix;
 <code>coparticipation1</code> = The percentage of nodes in the first matrix also present in the second matrix;
 <code>coparticipation2</code> = The percentage of nodes in the second matrix also present in the first matrix:
-<code>overlap_actors</code> = Overlap of nodes between two matrices
-#' If <code>coparticipation = TRUE</code> and <code>bipartite = TRUE</code>, then
+<code>overlap_actors</code> = Overlap of nodes between two matrices</p>
+
+
+<p>#' If <code>coparticipation = TRUE</code> and <code>bipartite = TRUE</code>, then
 also: <code>matchM1</code> = The number of nodes in the first 'mode' present in both matrices;
-<code>matchM2</code> = The number of nodes in the second 'mode' present in both matrices;
-<code>size_matrix1_M1</code> = The number of nodes in the first 'mode' of the first matrix;
-<code>size_matrix1_M2</code> = The number of nodes in the second 'mode' of the first matrix;
-<code>size_matrix2_M1</code> = The number of nodes in the first 'mode' of the second matrix;
-<code>size_matrix2_M2</code> = The number of nodes in the second 'mode' of the second matrix;
+<code>matchM2</code> = The number of nodes in the second 'mode' present in both matrices;</p>
+<p></p>
+<p><code>size_matrix1_M1</code> = The number of nodes in the first 'mode' of the first matrix;</p>
+<p></p>
+<p><code>size_matrix1_M2</code> = The number of nodes in the second 'mode' of the first matrix;</p>
+<p></p>
+<p><code>size_matrix2_M1</code> = The number of nodes in the first 'mode' of the second matrix;</p>
+<p></p>
+<p><code>size_matrix2_M2</code> = The number of nodes in the second 'mode' of the second matrix;
 <code>coparticipation1_M2</code> = The percentage of nodes of the first 'mode' in the first matrix present in the second matrix.
 <code>coparticipation1_M2</code> = The percentage of nodes of the second 'mode' in the first matrix present in the second matrix.
-<code>coparticipation2_M1</code> = The percentage of nodes of the first 'mode' in the second matrix present in the first matrix.
-<code>coparticipation2_M2</code> = The percentage of nodes of the second 'mode' in the second matrix present in the first matrix.
+<code>coparticipation2_M1</code> = The percentage of nodes of the first 'mode' in the second matrix present in the first matrix.</p>
+<p></p>
+<p><code>coparticipation2_M2</code> = The percentage of nodes of the second 'mode' in the second matrix present in the first matrix.
 <code>overlap_actors_M1</code> = Overlap between two matrices (nodes of the first 'mode')
 <code>overlap_actors_M2</code> = Overlap between two matrices (nodes of the second 'mode')</p>
     </div>
@@ -123,20 +147,20 @@ also: <code>matchM1</code> = The number of nodes in the first 'mode' present in 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">jaccard</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">jaccard</span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $jaccard</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -164,7 +188,7 @@ also: <code>matchM1</code> = The number of nodes in the first 'mode' present in 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -98,10 +98,10 @@
 </h2>
 <p>You can install the development version from <a href="(https://github.com/anespinosa/netmem)" class="external-link">github/anespinosa</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"anespinosa/netmem"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"anespinosa/netmem"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/anespinosa/netmem" class="external-link">netmem</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/anespinosa/netmem" class="external-link">netmem</a></span><span class="op">)</span></span></code></pre></div>
 <hr>
 <div class="section level3">
 <h3 id="multilayers">Multilayers<a class="anchor" aria-label="anchor" href="#multilayers"></a>
@@ -133,105 +133,105 @@ between classes and never within classes.</p>
 <p>For example, in this section we will use the classical example of the
 Southern Woman extracted from the <code>R</code> package <a href="https://github.com/anespinosa/classicnets" class="external-link">classicnets</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-   <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>
- <span class="op">)</span>,
- byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">14</span>
- <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span> <span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>   <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>   <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span></span>
+<span> <span class="op">)</span>,</span>
+<span> byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">14</span></span>
+<span> <span class="op">)</span></span></code></pre></div>
 <p>As a common practice, an incidence matrix is often converted to
 adjacent matrices. These are given by the matrix product <span class="math inline">\(AA^T\)</span> and <span class="math inline">\(A^TA\)</span>, where <span class="math inline">\(A\)</span> is the incidence matrix and matrix
 <span class="math inline">\(A^T\)</span> is the transpose of <span class="math inline">\(A\)</span>. The relationship between these
 matrices in the context of social networks was explored by <a href="https://doi.org/10.2307/2576011" class="external-link">Breiger (1974)</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/matrix_projection.html">matrix_projection</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
-<span class="co">#&gt; $matrix1</span>
-<span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span>
-<span class="co">#&gt;  [1,]    3    2    3    2    3    3    2    3    1     0     0     0     0</span>
-<span class="co">#&gt;  [2,]    2    3    3    2    3    3    2    3    2     0     0     0     0</span>
-<span class="co">#&gt;  [3,]    3    3    6    4    6    5    4    5    2     0     0     0     0</span>
-<span class="co">#&gt;  [4,]    2    2    4    4    4    3    3    3    2     0     0     0     0</span>
-<span class="co">#&gt;  [5,]    3    3    6    4    8    6    6    7    3     0     0     0     0</span>
-<span class="co">#&gt;  [6,]    3    3    5    3    6    8    5    7    4     1     1     1     1</span>
-<span class="co">#&gt;  [7,]    2    2    4    3    6    5   10    8    5     3     2     4     2</span>
-<span class="co">#&gt;  [8,]    3    3    5    3    7    7    8   14    9     4     1     5     2</span>
-<span class="co">#&gt;  [9,]    1    2    2    2    3    4    5    9   12     4     3     5     3</span>
-<span class="co">#&gt; [10,]    0    0    0    0    0    1    3    4    4     5     2     5     3</span>
-<span class="co">#&gt; [11,]    0    0    0    0    0    1    2    1    3     2     4     2     1</span>
-<span class="co">#&gt; [12,]    0    0    0    0    0    1    4    5    5     5     2     6     3</span>
-<span class="co">#&gt; [13,]    0    0    0    0    0    1    2    2    3     3     1     3     3</span>
-<span class="co">#&gt; [14,]    0    0    0    0    0    1    2    2    3     3     1     3     3</span>
-<span class="co">#&gt;       [,14]</span>
-<span class="co">#&gt;  [1,]     0</span>
-<span class="co">#&gt;  [2,]     0</span>
-<span class="co">#&gt;  [3,]     0</span>
-<span class="co">#&gt;  [4,]     0</span>
-<span class="co">#&gt;  [5,]     0</span>
-<span class="co">#&gt;  [6,]     1</span>
-<span class="co">#&gt;  [7,]     2</span>
-<span class="co">#&gt;  [8,]     2</span>
-<span class="co">#&gt;  [9,]     3</span>
-<span class="co">#&gt; [10,]     3</span>
-<span class="co">#&gt; [11,]     1</span>
-<span class="co">#&gt; [12,]     3</span>
-<span class="co">#&gt; [13,]     3</span>
-<span class="co">#&gt; [14,]     3</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $matrix2</span>
-<span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span>
-<span class="co">#&gt;  [1,]    8    6    7    6    3    4    3    3    3     2     2     2     2</span>
-<span class="co">#&gt;  [2,]    6    7    6    6    3    4    4    2    3     2     1     1     2</span>
-<span class="co">#&gt;  [3,]    7    6    8    6    4    4    4    3    4     3     2     2     3</span>
-<span class="co">#&gt;  [4,]    6    6    6    7    4    4    4    2    3     2     1     1     2</span>
-<span class="co">#&gt;  [5,]    3    3    4    4    4    2    2    0    2     1     0     0     1</span>
-<span class="co">#&gt;  [6,]    4    4    4    4    2    4    3    2    2     1     1     1     1</span>
-<span class="co">#&gt;  [7,]    3    4    4    4    2    3    4    2    3     2     1     1     2</span>
-<span class="co">#&gt;  [8,]    3    2    3    2    0    2    2    3    2     2     2     2     2</span>
-<span class="co">#&gt;  [9,]    3    3    4    3    2    2    3    2    4     3     2     2     3</span>
-<span class="co">#&gt; [10,]    2    2    3    2    1    1    2    2    3     4     3     3     4</span>
-<span class="co">#&gt; [11,]    2    1    2    1    0    1    1    2    2     3     4     4     4</span>
-<span class="co">#&gt; [12,]    2    1    2    1    0    1    1    2    2     3     4     6     6</span>
-<span class="co">#&gt; [13,]    2    2    3    2    1    1    2    2    3     4     4     6     7</span>
-<span class="co">#&gt; [14,]    2    2    3    2    1    1    2    2    2     3     3     5     6</span>
-<span class="co">#&gt; [15,]    1    2    2    2    1    1    2    1    2     3     3     3     4</span>
-<span class="co">#&gt; [16,]    2    1    2    1    0    1    1    2    2     2     2     2     2</span>
-<span class="co">#&gt; [17,]    1    0    1    0    0    0    0    1    1     1     1     1     1</span>
-<span class="co">#&gt; [18,]    1    0    1    0    0    0    0    1    1     1     1     1     1</span>
-<span class="co">#&gt;       [,14] [,15] [,16] [,17] [,18]</span>
-<span class="co">#&gt;  [1,]     2     1     2     1     1</span>
-<span class="co">#&gt;  [2,]     2     2     1     0     0</span>
-<span class="co">#&gt;  [3,]     3     2     2     1     1</span>
-<span class="co">#&gt;  [4,]     2     2     1     0     0</span>
-<span class="co">#&gt;  [5,]     1     1     0     0     0</span>
-<span class="co">#&gt;  [6,]     1     1     1     0     0</span>
-<span class="co">#&gt;  [7,]     2     2     1     0     0</span>
-<span class="co">#&gt;  [8,]     2     1     2     1     1</span>
-<span class="co">#&gt;  [9,]     2     2     2     1     1</span>
-<span class="co">#&gt; [10,]     3     3     2     1     1</span>
-<span class="co">#&gt; [11,]     3     3     2     1     1</span>
-<span class="co">#&gt; [12,]     5     3     2     1     1</span>
-<span class="co">#&gt; [13,]     6     4     2     1     1</span>
-<span class="co">#&gt; [14,]     8     4     1     2     2</span>
-<span class="co">#&gt; [15,]     4     5     1     1     1</span>
-<span class="co">#&gt; [16,]     1     1     2     1     1</span>
-<span class="co">#&gt; [17,]     2     1     1     2     2</span>
-<span class="co">#&gt; [18,]     2     1     1     2     2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/matrix_projection.html">matrix_projection</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $matrix1</span></span>
+<span><span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></span>
+<span><span class="co">#&gt;  [1,]    3    2    3    2    3    3    2    3    1     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [2,]    2    3    3    2    3    3    2    3    2     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [3,]    3    3    6    4    6    5    4    5    2     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [4,]    2    2    4    4    4    3    3    3    2     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [5,]    3    3    6    4    8    6    6    7    3     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [6,]    3    3    5    3    6    8    5    7    4     1     1     1     1</span></span>
+<span><span class="co">#&gt;  [7,]    2    2    4    3    6    5   10    8    5     3     2     4     2</span></span>
+<span><span class="co">#&gt;  [8,]    3    3    5    3    7    7    8   14    9     4     1     5     2</span></span>
+<span><span class="co">#&gt;  [9,]    1    2    2    2    3    4    5    9   12     4     3     5     3</span></span>
+<span><span class="co">#&gt; [10,]    0    0    0    0    0    1    3    4    4     5     2     5     3</span></span>
+<span><span class="co">#&gt; [11,]    0    0    0    0    0    1    2    1    3     2     4     2     1</span></span>
+<span><span class="co">#&gt; [12,]    0    0    0    0    0    1    4    5    5     5     2     6     3</span></span>
+<span><span class="co">#&gt; [13,]    0    0    0    0    0    1    2    2    3     3     1     3     3</span></span>
+<span><span class="co">#&gt; [14,]    0    0    0    0    0    1    2    2    3     3     1     3     3</span></span>
+<span><span class="co">#&gt;       [,14]</span></span>
+<span><span class="co">#&gt;  [1,]     0</span></span>
+<span><span class="co">#&gt;  [2,]     0</span></span>
+<span><span class="co">#&gt;  [3,]     0</span></span>
+<span><span class="co">#&gt;  [4,]     0</span></span>
+<span><span class="co">#&gt;  [5,]     0</span></span>
+<span><span class="co">#&gt;  [6,]     1</span></span>
+<span><span class="co">#&gt;  [7,]     2</span></span>
+<span><span class="co">#&gt;  [8,]     2</span></span>
+<span><span class="co">#&gt;  [9,]     3</span></span>
+<span><span class="co">#&gt; [10,]     3</span></span>
+<span><span class="co">#&gt; [11,]     1</span></span>
+<span><span class="co">#&gt; [12,]     3</span></span>
+<span><span class="co">#&gt; [13,]     3</span></span>
+<span><span class="co">#&gt; [14,]     3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $matrix2</span></span>
+<span><span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></span>
+<span><span class="co">#&gt;  [1,]    8    6    7    6    3    4    3    3    3     2     2     2     2</span></span>
+<span><span class="co">#&gt;  [2,]    6    7    6    6    3    4    4    2    3     2     1     1     2</span></span>
+<span><span class="co">#&gt;  [3,]    7    6    8    6    4    4    4    3    4     3     2     2     3</span></span>
+<span><span class="co">#&gt;  [4,]    6    6    6    7    4    4    4    2    3     2     1     1     2</span></span>
+<span><span class="co">#&gt;  [5,]    3    3    4    4    4    2    2    0    2     1     0     0     1</span></span>
+<span><span class="co">#&gt;  [6,]    4    4    4    4    2    4    3    2    2     1     1     1     1</span></span>
+<span><span class="co">#&gt;  [7,]    3    4    4    4    2    3    4    2    3     2     1     1     2</span></span>
+<span><span class="co">#&gt;  [8,]    3    2    3    2    0    2    2    3    2     2     2     2     2</span></span>
+<span><span class="co">#&gt;  [9,]    3    3    4    3    2    2    3    2    4     3     2     2     3</span></span>
+<span><span class="co">#&gt; [10,]    2    2    3    2    1    1    2    2    3     4     3     3     4</span></span>
+<span><span class="co">#&gt; [11,]    2    1    2    1    0    1    1    2    2     3     4     4     4</span></span>
+<span><span class="co">#&gt; [12,]    2    1    2    1    0    1    1    2    2     3     4     6     6</span></span>
+<span><span class="co">#&gt; [13,]    2    2    3    2    1    1    2    2    3     4     4     6     7</span></span>
+<span><span class="co">#&gt; [14,]    2    2    3    2    1    1    2    2    2     3     3     5     6</span></span>
+<span><span class="co">#&gt; [15,]    1    2    2    2    1    1    2    1    2     3     3     3     4</span></span>
+<span><span class="co">#&gt; [16,]    2    1    2    1    0    1    1    2    2     2     2     2     2</span></span>
+<span><span class="co">#&gt; [17,]    1    0    1    0    0    0    0    1    1     1     1     1     1</span></span>
+<span><span class="co">#&gt; [18,]    1    0    1    0    0    0    0    1    1     1     1     1     1</span></span>
+<span><span class="co">#&gt;       [,14] [,15] [,16] [,17] [,18]</span></span>
+<span><span class="co">#&gt;  [1,]     2     1     2     1     1</span></span>
+<span><span class="co">#&gt;  [2,]     2     2     1     0     0</span></span>
+<span><span class="co">#&gt;  [3,]     3     2     2     1     1</span></span>
+<span><span class="co">#&gt;  [4,]     2     2     1     0     0</span></span>
+<span><span class="co">#&gt;  [5,]     1     1     0     0     0</span></span>
+<span><span class="co">#&gt;  [6,]     1     1     1     0     0</span></span>
+<span><span class="co">#&gt;  [7,]     2     2     1     0     0</span></span>
+<span><span class="co">#&gt;  [8,]     2     1     2     1     1</span></span>
+<span><span class="co">#&gt;  [9,]     2     2     2     1     1</span></span>
+<span><span class="co">#&gt; [10,]     3     3     2     1     1</span></span>
+<span><span class="co">#&gt; [11,]     3     3     2     1     1</span></span>
+<span><span class="co">#&gt; [12,]     5     3     2     1     1</span></span>
+<span><span class="co">#&gt; [13,]     6     4     2     1     1</span></span>
+<span><span class="co">#&gt; [14,]     8     4     1     2     2</span></span>
+<span><span class="co">#&gt; [15,]     4     5     1     1     1</span></span>
+<span><span class="co">#&gt; [16,]     1     1     2     1     1</span></span>
+<span><span class="co">#&gt; [17,]     2     1     1     2     2</span></span>
+<span><span class="co">#&gt; [18,]     2     1     1     2     2</span></span></code></pre></div>
 <p>Another concept often used is <em>bipartite network</em>, which means
 that the graph’s nodes can be partitioned into two classes. While in
 some cases, these classes can be different entities (e.g., actors
@@ -242,64 +242,64 @@ characteristics also have a bipartite property.</p>
 provided by <a href="https://doi.org/10.1080/0022250X.1972.9989806" class="external-link">Bonacich
 (1972)</a>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/bonacich_norm.html">bonacich_norm</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
-<span class="co">#&gt;            [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]</span>
-<span class="co">#&gt;  [1,] 1.0000000 0.7947869 0.8554094 0.7947869 0.6339746 1.0000000 0.6339746</span>
-<span class="co">#&gt;  [2,] 0.7947869 1.0000000 0.7947869 0.8571429 0.6796228 1.0000000 1.0000000</span>
-<span class="co">#&gt;  [3,] 0.8554094 0.7947869 1.0000000 0.7947869 1.0000000 1.0000000 1.0000000</span>
-<span class="co">#&gt;  [4,] 0.7947869 0.8571429 0.7947869 1.0000000 1.0000000 1.0000000 1.0000000</span>
-<span class="co">#&gt;  [5,] 0.6339746 0.6796228 1.0000000 1.0000000 1.0000000 0.6666667 0.6666667</span>
-<span class="co">#&gt;  [6,] 1.0000000 1.0000000 1.0000000 1.0000000 0.6666667 1.0000000 0.8386095</span>
-<span class="co">#&gt;  [7,] 0.6339746 1.0000000 1.0000000 1.0000000 0.6666667 0.8386095 1.0000000</span>
-<span class="co">#&gt;  [8,] 1.0000000 0.6077190 1.0000000 0.6077190 0.0000000 0.7500000 0.7500000</span>
-<span class="co">#&gt;  [9,] 0.6339746 0.6796228 1.0000000 0.6796228 0.6666667 0.6666667 0.8386095</span>
-<span class="co">#&gt; [10,] 0.4494897 0.5000000 0.6339746 0.5000000 0.4686270 0.4686270 0.6666667</span>
-<span class="co">#&gt; [11,] 0.4494897 0.3203772 0.4494897 0.3203772 0.0000000 0.4686270 0.4686270</span>
-<span class="co">#&gt; [12,] 0.2898979 0.2052131 0.2898979 0.2052131 0.0000000 0.3660254 0.3660254</span>
-<span class="co">#&gt; [13,] 0.2052131 0.2857143 0.3538894 0.2857143 0.3203772 0.3203772 0.5000000</span>
-<span class="co">#&gt; [14,] 0.0000000 0.2052131 0.2572843 0.2052131 0.2742919 0.2742919 0.4494897</span>
-<span class="co">#&gt; [15,] 0.2108967 0.4220645 0.3660254 0.4220645 0.4142136 0.4142136 0.6043561</span>
-<span class="co">#&gt; [16,] 1.0000000 0.5000000 1.0000000 0.5000000 0.0000000 0.6339746 0.6339746</span>
-<span class="co">#&gt; [17,] 0.4580399 0.0000000 0.4580399 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="co">#&gt; [18,] 0.4580399 0.0000000 0.4580399 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;            [,8]      [,9]     [,10]     [,11]     [,12]     [,13]     [,14]</span>
-<span class="co">#&gt;  [1,] 1.0000000 0.6339746 0.4494897 0.4494897 0.2898979 0.2052131 0.0000000</span>
-<span class="co">#&gt;  [2,] 0.6077190 0.6796228 0.5000000 0.3203772 0.2052131 0.2857143 0.2052131</span>
-<span class="co">#&gt;  [3,] 1.0000000 1.0000000 0.6339746 0.4494897 0.2898979 0.3538894 0.2572843</span>
-<span class="co">#&gt;  [4,] 0.6077190 0.6796228 0.5000000 0.3203772 0.2052131 0.2857143 0.2052131</span>
-<span class="co">#&gt;  [5,] 0.0000000 0.6666667 0.4686270 0.0000000 0.0000000 0.3203772 0.2742919</span>
-<span class="co">#&gt;  [6,] 0.7500000 0.6666667 0.4686270 0.4686270 0.3660254 0.3203772 0.2742919</span>
-<span class="co">#&gt;  [7,] 0.7500000 0.8386095 0.6666667 0.4686270 0.3660254 0.5000000 0.4494897</span>
-<span class="co">#&gt;  [8,] 1.0000000 0.7500000 0.7500000 0.7500000 0.6516685 0.6077190 0.5635083</span>
-<span class="co">#&gt;  [9,] 0.7500000 1.0000000 0.8386095 0.6666667 0.5505103 0.6796228 0.4494897</span>
-<span class="co">#&gt; [10,] 0.7500000 0.8386095 1.0000000 0.8386095 0.7257081 1.0000000 0.6339746</span>
-<span class="co">#&gt; [11,] 0.7500000 0.6666667 0.8386095 1.0000000 1.0000000 1.0000000 0.6339746</span>
-<span class="co">#&gt; [12,] 0.6516685 0.5505103 0.7257081 1.0000000 1.0000000 1.0000000 0.7427157</span>
-<span class="co">#&gt; [13,] 0.6077190 0.6796228 1.0000000 1.0000000 1.0000000 1.0000000 0.7947869</span>
-<span class="co">#&gt; [14,] 0.5635083 0.4494897 0.6339746 0.6339746 0.7427157 0.7947869 1.0000000</span>
-<span class="co">#&gt; [15,] 0.4833148 0.6043561 0.7759908 0.7759908 0.6339746 0.7387961 0.6909830</span>
-<span class="co">#&gt; [16,] 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 0.4580399</span>
-<span class="co">#&gt; [17,] 0.6909830 0.6339746 0.6339746 0.6339746 0.5419601 0.5000000 1.0000000</span>
-<span class="co">#&gt; [18,] 0.6909830 0.6339746 0.6339746 0.6339746 0.5419601 0.5000000 1.0000000</span>
-<span class="co">#&gt;           [,15]     [,16]     [,17]     [,18]</span>
-<span class="co">#&gt;  [1,] 0.2108967 1.0000000 0.4580399 0.4580399</span>
-<span class="co">#&gt;  [2,] 0.4220645 0.5000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [3,] 0.3660254 1.0000000 0.4580399 0.4580399</span>
-<span class="co">#&gt;  [4,] 0.4220645 0.5000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [5,] 0.4142136 0.0000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [6,] 0.4142136 0.6339746 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [7,] 0.6043561 0.6339746 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [8,] 0.4833148 1.0000000 0.6909830 0.6909830</span>
-<span class="co">#&gt;  [9,] 0.6043561 1.0000000 0.6339746 0.6339746</span>
-<span class="co">#&gt; [10,] 0.7759908 1.0000000 0.6339746 0.6339746</span>
-<span class="co">#&gt; [11,] 0.7759908 1.0000000 0.6339746 0.6339746</span>
-<span class="co">#&gt; [12,] 0.6339746 1.0000000 0.5419601 0.5419601</span>
-<span class="co">#&gt; [13,] 0.7387961 1.0000000 0.5000000 0.5000000</span>
-<span class="co">#&gt; [14,] 0.6909830 0.4580399 1.0000000 1.0000000</span>
-<span class="co">#&gt; [15,] 1.0000000 0.5857864 0.5857864 0.5857864</span>
-<span class="co">#&gt; [16,] 0.5857864 1.0000000 0.7683375 0.7683375</span>
-<span class="co">#&gt; [17,] 0.5857864 0.7683375 1.0000000 1.0000000</span>
-<span class="co">#&gt; [18,] 0.5857864 0.7683375 1.0000000 1.0000000</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/bonacich_norm.html">bonacich_norm</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]</span></span>
+<span><span class="co">#&gt;  [1,] 1.0000000 0.7947869 0.8554094 0.7947869 0.6339746 1.0000000 0.6339746</span></span>
+<span><span class="co">#&gt;  [2,] 0.7947869 1.0000000 0.7947869 0.8571429 0.6796228 1.0000000 1.0000000</span></span>
+<span><span class="co">#&gt;  [3,] 0.8554094 0.7947869 1.0000000 0.7947869 1.0000000 1.0000000 1.0000000</span></span>
+<span><span class="co">#&gt;  [4,] 0.7947869 0.8571429 0.7947869 1.0000000 1.0000000 1.0000000 1.0000000</span></span>
+<span><span class="co">#&gt;  [5,] 0.6339746 0.6796228 1.0000000 1.0000000 1.0000000 0.6666667 0.6666667</span></span>
+<span><span class="co">#&gt;  [6,] 1.0000000 1.0000000 1.0000000 1.0000000 0.6666667 1.0000000 0.8386095</span></span>
+<span><span class="co">#&gt;  [7,] 0.6339746 1.0000000 1.0000000 1.0000000 0.6666667 0.8386095 1.0000000</span></span>
+<span><span class="co">#&gt;  [8,] 1.0000000 0.6077190 1.0000000 0.6077190 0.0000000 0.7500000 0.7500000</span></span>
+<span><span class="co">#&gt;  [9,] 0.6339746 0.6796228 1.0000000 0.6796228 0.6666667 0.6666667 0.8386095</span></span>
+<span><span class="co">#&gt; [10,] 0.4494897 0.5000000 0.6339746 0.5000000 0.4686270 0.4686270 0.6666667</span></span>
+<span><span class="co">#&gt; [11,] 0.4494897 0.3203772 0.4494897 0.3203772 0.0000000 0.4686270 0.4686270</span></span>
+<span><span class="co">#&gt; [12,] 0.2898979 0.2052131 0.2898979 0.2052131 0.0000000 0.3660254 0.3660254</span></span>
+<span><span class="co">#&gt; [13,] 0.2052131 0.2857143 0.3538894 0.2857143 0.3203772 0.3203772 0.5000000</span></span>
+<span><span class="co">#&gt; [14,] 0.0000000 0.2052131 0.2572843 0.2052131 0.2742919 0.2742919 0.4494897</span></span>
+<span><span class="co">#&gt; [15,] 0.2108967 0.4220645 0.3660254 0.4220645 0.4142136 0.4142136 0.6043561</span></span>
+<span><span class="co">#&gt; [16,] 1.0000000 0.5000000 1.0000000 0.5000000 0.0000000 0.6339746 0.6339746</span></span>
+<span><span class="co">#&gt; [17,] 0.4580399 0.0000000 0.4580399 0.0000000 0.0000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt; [18,] 0.4580399 0.0000000 0.4580399 0.0000000 0.0000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;            [,8]      [,9]     [,10]     [,11]     [,12]     [,13]     [,14]</span></span>
+<span><span class="co">#&gt;  [1,] 1.0000000 0.6339746 0.4494897 0.4494897 0.2898979 0.2052131 0.0000000</span></span>
+<span><span class="co">#&gt;  [2,] 0.6077190 0.6796228 0.5000000 0.3203772 0.2052131 0.2857143 0.2052131</span></span>
+<span><span class="co">#&gt;  [3,] 1.0000000 1.0000000 0.6339746 0.4494897 0.2898979 0.3538894 0.2572843</span></span>
+<span><span class="co">#&gt;  [4,] 0.6077190 0.6796228 0.5000000 0.3203772 0.2052131 0.2857143 0.2052131</span></span>
+<span><span class="co">#&gt;  [5,] 0.0000000 0.6666667 0.4686270 0.0000000 0.0000000 0.3203772 0.2742919</span></span>
+<span><span class="co">#&gt;  [6,] 0.7500000 0.6666667 0.4686270 0.4686270 0.3660254 0.3203772 0.2742919</span></span>
+<span><span class="co">#&gt;  [7,] 0.7500000 0.8386095 0.6666667 0.4686270 0.3660254 0.5000000 0.4494897</span></span>
+<span><span class="co">#&gt;  [8,] 1.0000000 0.7500000 0.7500000 0.7500000 0.6516685 0.6077190 0.5635083</span></span>
+<span><span class="co">#&gt;  [9,] 0.7500000 1.0000000 0.8386095 0.6666667 0.5505103 0.6796228 0.4494897</span></span>
+<span><span class="co">#&gt; [10,] 0.7500000 0.8386095 1.0000000 0.8386095 0.7257081 1.0000000 0.6339746</span></span>
+<span><span class="co">#&gt; [11,] 0.7500000 0.6666667 0.8386095 1.0000000 1.0000000 1.0000000 0.6339746</span></span>
+<span><span class="co">#&gt; [12,] 0.6516685 0.5505103 0.7257081 1.0000000 1.0000000 1.0000000 0.7427157</span></span>
+<span><span class="co">#&gt; [13,] 0.6077190 0.6796228 1.0000000 1.0000000 1.0000000 1.0000000 0.7947869</span></span>
+<span><span class="co">#&gt; [14,] 0.5635083 0.4494897 0.6339746 0.6339746 0.7427157 0.7947869 1.0000000</span></span>
+<span><span class="co">#&gt; [15,] 0.4833148 0.6043561 0.7759908 0.7759908 0.6339746 0.7387961 0.6909830</span></span>
+<span><span class="co">#&gt; [16,] 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 0.4580399</span></span>
+<span><span class="co">#&gt; [17,] 0.6909830 0.6339746 0.6339746 0.6339746 0.5419601 0.5000000 1.0000000</span></span>
+<span><span class="co">#&gt; [18,] 0.6909830 0.6339746 0.6339746 0.6339746 0.5419601 0.5000000 1.0000000</span></span>
+<span><span class="co">#&gt;           [,15]     [,16]     [,17]     [,18]</span></span>
+<span><span class="co">#&gt;  [1,] 0.2108967 1.0000000 0.4580399 0.4580399</span></span>
+<span><span class="co">#&gt;  [2,] 0.4220645 0.5000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [3,] 0.3660254 1.0000000 0.4580399 0.4580399</span></span>
+<span><span class="co">#&gt;  [4,] 0.4220645 0.5000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [5,] 0.4142136 0.0000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [6,] 0.4142136 0.6339746 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [7,] 0.6043561 0.6339746 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [8,] 0.4833148 1.0000000 0.6909830 0.6909830</span></span>
+<span><span class="co">#&gt;  [9,] 0.6043561 1.0000000 0.6339746 0.6339746</span></span>
+<span><span class="co">#&gt; [10,] 0.7759908 1.0000000 0.6339746 0.6339746</span></span>
+<span><span class="co">#&gt; [11,] 0.7759908 1.0000000 0.6339746 0.6339746</span></span>
+<span><span class="co">#&gt; [12,] 0.6339746 1.0000000 0.5419601 0.5419601</span></span>
+<span><span class="co">#&gt; [13,] 0.7387961 1.0000000 0.5000000 0.5000000</span></span>
+<span><span class="co">#&gt; [14,] 0.6909830 0.4580399 1.0000000 1.0000000</span></span>
+<span><span class="co">#&gt; [15,] 1.0000000 0.5857864 0.5857864 0.5857864</span></span>
+<span><span class="co">#&gt; [16,] 0.5857864 1.0000000 0.7683375 0.7683375</span></span>
+<span><span class="co">#&gt; [17,] 0.5857864 0.7683375 1.0000000 1.0000000</span></span>
+<span><span class="co">#&gt; [18,] 0.5857864 0.7683375 1.0000000 1.0000000</span></span></code></pre></div>
 <p>The difference between <em>affiliation networks</em> and
 <em>bipartite networks</em> allowed us to avoid confounding the concept
 of social proximity (e.g., being part of the same laboratory) with
@@ -321,108 +321,108 @@ often called <em>occurrence networks</em>.</p>
 <p>For example, in scientometric, information is often explored using
 co-occurrence of overlapping ties:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/minmax_overlap.html">minmax_overlap</a></span><span class="op">(</span><span class="va">A</span>, row <span class="op">=</span> <span class="cn">TRUE</span>, min <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-<span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span>
-<span class="co">#&gt;  [1,]    8    6    7    6    3    4    3    3    3     2     2     2     2</span>
-<span class="co">#&gt;  [2,]    6    7    6    6    3    4    4    2    3     2     1     1     2</span>
-<span class="co">#&gt;  [3,]    7    6    8    6    4    4    4    3    4     3     2     2     3</span>
-<span class="co">#&gt;  [4,]    6    6    6    7    4    4    4    2    3     2     1     1     2</span>
-<span class="co">#&gt;  [5,]    3    3    4    4    4    2    2    0    2     1     0     0     1</span>
-<span class="co">#&gt;  [6,]    4    4    4    4    2    4    3    2    2     1     1     1     1</span>
-<span class="co">#&gt;  [7,]    3    4    4    4    2    3    4    2    3     2     1     1     2</span>
-<span class="co">#&gt;  [8,]    3    2    3    2    0    2    2    3    2     2     2     2     2</span>
-<span class="co">#&gt;  [9,]    3    3    4    3    2    2    3    2    4     3     2     2     3</span>
-<span class="co">#&gt; [10,]    2    2    3    2    1    1    2    2    3     4     3     3     4</span>
-<span class="co">#&gt; [11,]    2    1    2    1    0    1    1    2    2     3     4     4     4</span>
-<span class="co">#&gt; [12,]    2    1    2    1    0    1    1    2    2     3     4     6     6</span>
-<span class="co">#&gt; [13,]    2    2    3    2    1    1    2    2    3     4     4     6     7</span>
-<span class="co">#&gt; [14,]    2    2    3    2    1    1    2    2    2     3     3     5     6</span>
-<span class="co">#&gt; [15,]    1    2    2    2    1    1    2    1    2     3     3     3     4</span>
-<span class="co">#&gt; [16,]    2    1    2    1    0    1    1    2    2     2     2     2     2</span>
-<span class="co">#&gt; [17,]    1    0    1    0    0    0    0    1    1     1     1     1     1</span>
-<span class="co">#&gt; [18,]    1    0    1    0    0    0    0    1    1     1     1     1     1</span>
-<span class="co">#&gt;       [,14] [,15] [,16] [,17] [,18]</span>
-<span class="co">#&gt;  [1,]     2     1     2     1     1</span>
-<span class="co">#&gt;  [2,]     2     2     1     0     0</span>
-<span class="co">#&gt;  [3,]     3     2     2     1     1</span>
-<span class="co">#&gt;  [4,]     2     2     1     0     0</span>
-<span class="co">#&gt;  [5,]     1     1     0     0     0</span>
-<span class="co">#&gt;  [6,]     1     1     1     0     0</span>
-<span class="co">#&gt;  [7,]     2     2     1     0     0</span>
-<span class="co">#&gt;  [8,]     2     1     2     1     1</span>
-<span class="co">#&gt;  [9,]     2     2     2     1     1</span>
-<span class="co">#&gt; [10,]     3     3     2     1     1</span>
-<span class="co">#&gt; [11,]     3     3     2     1     1</span>
-<span class="co">#&gt; [12,]     5     3     2     1     1</span>
-<span class="co">#&gt; [13,]     6     4     2     1     1</span>
-<span class="co">#&gt; [14,]     8     4     1     2     2</span>
-<span class="co">#&gt; [15,]     4     5     1     1     1</span>
-<span class="co">#&gt; [16,]     1     1     2     1     1</span>
-<span class="co">#&gt; [17,]     2     1     1     2     2</span>
-<span class="co">#&gt; [18,]     2     1     1     2     2</span>
-<span class="fu"><a href="../reference/minmax_overlap.html">minmax_overlap</a></span><span class="op">(</span><span class="va">A</span>, row <span class="op">=</span> <span class="cn">FALSE</span>, min <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-<span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span>
-<span class="co">#&gt;  [1,]    3    2    3    2    3    3    2    3    1     0     0     0     0</span>
-<span class="co">#&gt;  [2,]    2    3    3    2    3    3    2    3    2     0     0     0     0</span>
-<span class="co">#&gt;  [3,]    3    3    6    4    6    5    4    5    2     0     0     0     0</span>
-<span class="co">#&gt;  [4,]    2    2    4    4    4    3    3    3    2     0     0     0     0</span>
-<span class="co">#&gt;  [5,]    3    3    6    4    8    6    6    7    3     0     0     0     0</span>
-<span class="co">#&gt;  [6,]    3    3    5    3    6    8    5    7    4     1     1     1     1</span>
-<span class="co">#&gt;  [7,]    2    2    4    3    6    5   10    8    5     3     2     4     2</span>
-<span class="co">#&gt;  [8,]    3    3    5    3    7    7    8   14    9     4     1     5     2</span>
-<span class="co">#&gt;  [9,]    1    2    2    2    3    4    5    9   12     4     3     5     3</span>
-<span class="co">#&gt; [10,]    0    0    0    0    0    1    3    4    4     5     2     5     3</span>
-<span class="co">#&gt; [11,]    0    0    0    0    0    1    2    1    3     2     4     2     1</span>
-<span class="co">#&gt; [12,]    0    0    0    0    0    1    4    5    5     5     2     6     3</span>
-<span class="co">#&gt; [13,]    0    0    0    0    0    1    2    2    3     3     1     3     3</span>
-<span class="co">#&gt; [14,]    0    0    0    0    0    1    2    2    3     3     1     3     3</span>
-<span class="co">#&gt;       [,14]</span>
-<span class="co">#&gt;  [1,]     0</span>
-<span class="co">#&gt;  [2,]     0</span>
-<span class="co">#&gt;  [3,]     0</span>
-<span class="co">#&gt;  [4,]     0</span>
-<span class="co">#&gt;  [5,]     0</span>
-<span class="co">#&gt;  [6,]     1</span>
-<span class="co">#&gt;  [7,]     2</span>
-<span class="co">#&gt;  [8,]     2</span>
-<span class="co">#&gt;  [9,]     3</span>
-<span class="co">#&gt; [10,]     3</span>
-<span class="co">#&gt; [11,]     1</span>
-<span class="co">#&gt; [12,]     3</span>
-<span class="co">#&gt; [13,]     3</span>
-<span class="co">#&gt; [14,]     3</span>
-
-<span class="fu"><a href="../reference/co_ocurrence.html">co_ocurrence</a></span><span class="op">(</span><span class="va">A</span>, similarity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ochiai'</span><span class="op">)</span>, occurrence <span class="op">=</span> <span class="cn">TRUE</span>, projection <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt;            [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]</span>
-<span class="co">#&gt;  [1,] 1.0000000 0.6666667 0.7071068 0.5773503 0.6123724 0.6123724 0.3651484</span>
-<span class="co">#&gt;  [2,] 0.6666667 1.0000000 0.7071068 0.5773503 0.6123724 0.6123724 0.3651484</span>
-<span class="co">#&gt;  [3,] 0.7071068 0.7071068 1.0000000 0.8164966 0.8660254 0.7216878 0.5163978</span>
-<span class="co">#&gt;  [4,] 0.5773503 0.5773503 0.8164966 1.0000000 0.7071068 0.5303301 0.4743416</span>
-<span class="co">#&gt;  [5,] 0.6123724 0.6123724 0.8660254 0.7071068 1.0000000 0.7500000 0.6708204</span>
-<span class="co">#&gt;  [6,] 0.6123724 0.6123724 0.7216878 0.5303301 0.7500000 1.0000000 0.5590170</span>
-<span class="co">#&gt;  [7,] 0.3651484 0.3651484 0.5163978 0.4743416 0.6708204 0.5590170 1.0000000</span>
-<span class="co">#&gt;  [8,] 0.4629100 0.4629100 0.5455447 0.4008919 0.6614378 0.6614378 0.6761234</span>
-<span class="co">#&gt;  [9,] 0.1666667 0.3333333 0.2357023 0.2886751 0.3061862 0.4082483 0.4564355</span>
-<span class="co">#&gt; [10,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.1581139 0.4242641</span>
-<span class="co">#&gt; [11,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.1767767 0.3162278</span>
-<span class="co">#&gt; [12,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.1443376 0.5163978</span>
-<span class="co">#&gt; [13,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.2041241 0.3651484</span>
-<span class="co">#&gt; [14,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.2041241 0.3651484</span>
-<span class="co">#&gt;            [,8]      [,9]     [,10]     [,11]     [,12]     [,13]     [,14]</span>
-<span class="co">#&gt;  [1,] 0.4629100 0.1666667 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [2,] 0.4629100 0.3333333 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [3,] 0.5455447 0.2357023 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [4,] 0.4008919 0.2886751 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [5,] 0.6614378 0.3061862 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="co">#&gt;  [6,] 0.6614378 0.4082483 0.1581139 0.1767767 0.1443376 0.2041241 0.2041241</span>
-<span class="co">#&gt;  [7,] 0.6761234 0.4564355 0.4242641 0.3162278 0.5163978 0.3651484 0.3651484</span>
-<span class="co">#&gt;  [8,] 1.0000000 0.6943651 0.4780914 0.1336306 0.5455447 0.3086067 0.3086067</span>
-<span class="co">#&gt;  [9,] 0.6943651 1.0000000 0.5163978 0.4330127 0.5892557 0.5000000 0.5000000</span>
-<span class="co">#&gt; [10,] 0.4780914 0.5163978 1.0000000 0.4472136 0.9128709 0.7745967 0.7745967</span>
-<span class="co">#&gt; [11,] 0.1336306 0.4330127 0.4472136 1.0000000 0.4082483 0.2886751 0.2886751</span>
-<span class="co">#&gt; [12,] 0.5455447 0.5892557 0.9128709 0.4082483 1.0000000 0.7071068 0.7071068</span>
-<span class="co">#&gt; [13,] 0.3086067 0.5000000 0.7745967 0.2886751 0.7071068 1.0000000 1.0000000</span>
-<span class="co">#&gt; [14,] 0.3086067 0.5000000 0.7745967 0.2886751 0.7071068 1.0000000 1.0000000</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/minmax_overlap.html">minmax_overlap</a></span><span class="op">(</span><span class="va">A</span>, row <span class="op">=</span> <span class="cn">TRUE</span>, min <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></span>
+<span><span class="co">#&gt;  [1,]    8    6    7    6    3    4    3    3    3     2     2     2     2</span></span>
+<span><span class="co">#&gt;  [2,]    6    7    6    6    3    4    4    2    3     2     1     1     2</span></span>
+<span><span class="co">#&gt;  [3,]    7    6    8    6    4    4    4    3    4     3     2     2     3</span></span>
+<span><span class="co">#&gt;  [4,]    6    6    6    7    4    4    4    2    3     2     1     1     2</span></span>
+<span><span class="co">#&gt;  [5,]    3    3    4    4    4    2    2    0    2     1     0     0     1</span></span>
+<span><span class="co">#&gt;  [6,]    4    4    4    4    2    4    3    2    2     1     1     1     1</span></span>
+<span><span class="co">#&gt;  [7,]    3    4    4    4    2    3    4    2    3     2     1     1     2</span></span>
+<span><span class="co">#&gt;  [8,]    3    2    3    2    0    2    2    3    2     2     2     2     2</span></span>
+<span><span class="co">#&gt;  [9,]    3    3    4    3    2    2    3    2    4     3     2     2     3</span></span>
+<span><span class="co">#&gt; [10,]    2    2    3    2    1    1    2    2    3     4     3     3     4</span></span>
+<span><span class="co">#&gt; [11,]    2    1    2    1    0    1    1    2    2     3     4     4     4</span></span>
+<span><span class="co">#&gt; [12,]    2    1    2    1    0    1    1    2    2     3     4     6     6</span></span>
+<span><span class="co">#&gt; [13,]    2    2    3    2    1    1    2    2    3     4     4     6     7</span></span>
+<span><span class="co">#&gt; [14,]    2    2    3    2    1    1    2    2    2     3     3     5     6</span></span>
+<span><span class="co">#&gt; [15,]    1    2    2    2    1    1    2    1    2     3     3     3     4</span></span>
+<span><span class="co">#&gt; [16,]    2    1    2    1    0    1    1    2    2     2     2     2     2</span></span>
+<span><span class="co">#&gt; [17,]    1    0    1    0    0    0    0    1    1     1     1     1     1</span></span>
+<span><span class="co">#&gt; [18,]    1    0    1    0    0    0    0    1    1     1     1     1     1</span></span>
+<span><span class="co">#&gt;       [,14] [,15] [,16] [,17] [,18]</span></span>
+<span><span class="co">#&gt;  [1,]     2     1     2     1     1</span></span>
+<span><span class="co">#&gt;  [2,]     2     2     1     0     0</span></span>
+<span><span class="co">#&gt;  [3,]     3     2     2     1     1</span></span>
+<span><span class="co">#&gt;  [4,]     2     2     1     0     0</span></span>
+<span><span class="co">#&gt;  [5,]     1     1     0     0     0</span></span>
+<span><span class="co">#&gt;  [6,]     1     1     1     0     0</span></span>
+<span><span class="co">#&gt;  [7,]     2     2     1     0     0</span></span>
+<span><span class="co">#&gt;  [8,]     2     1     2     1     1</span></span>
+<span><span class="co">#&gt;  [9,]     2     2     2     1     1</span></span>
+<span><span class="co">#&gt; [10,]     3     3     2     1     1</span></span>
+<span><span class="co">#&gt; [11,]     3     3     2     1     1</span></span>
+<span><span class="co">#&gt; [12,]     5     3     2     1     1</span></span>
+<span><span class="co">#&gt; [13,]     6     4     2     1     1</span></span>
+<span><span class="co">#&gt; [14,]     8     4     1     2     2</span></span>
+<span><span class="co">#&gt; [15,]     4     5     1     1     1</span></span>
+<span><span class="co">#&gt; [16,]     1     1     2     1     1</span></span>
+<span><span class="co">#&gt; [17,]     2     1     1     2     2</span></span>
+<span><span class="co">#&gt; [18,]     2     1     1     2     2</span></span>
+<span><span class="fu"><a href="../reference/minmax_overlap.html">minmax_overlap</a></span><span class="op">(</span><span class="va">A</span>, row <span class="op">=</span> <span class="cn">FALSE</span>, min <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></span>
+<span><span class="co">#&gt;  [1,]    3    2    3    2    3    3    2    3    1     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [2,]    2    3    3    2    3    3    2    3    2     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [3,]    3    3    6    4    6    5    4    5    2     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [4,]    2    2    4    4    4    3    3    3    2     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [5,]    3    3    6    4    8    6    6    7    3     0     0     0     0</span></span>
+<span><span class="co">#&gt;  [6,]    3    3    5    3    6    8    5    7    4     1     1     1     1</span></span>
+<span><span class="co">#&gt;  [7,]    2    2    4    3    6    5   10    8    5     3     2     4     2</span></span>
+<span><span class="co">#&gt;  [8,]    3    3    5    3    7    7    8   14    9     4     1     5     2</span></span>
+<span><span class="co">#&gt;  [9,]    1    2    2    2    3    4    5    9   12     4     3     5     3</span></span>
+<span><span class="co">#&gt; [10,]    0    0    0    0    0    1    3    4    4     5     2     5     3</span></span>
+<span><span class="co">#&gt; [11,]    0    0    0    0    0    1    2    1    3     2     4     2     1</span></span>
+<span><span class="co">#&gt; [12,]    0    0    0    0    0    1    4    5    5     5     2     6     3</span></span>
+<span><span class="co">#&gt; [13,]    0    0    0    0    0    1    2    2    3     3     1     3     3</span></span>
+<span><span class="co">#&gt; [14,]    0    0    0    0    0    1    2    2    3     3     1     3     3</span></span>
+<span><span class="co">#&gt;       [,14]</span></span>
+<span><span class="co">#&gt;  [1,]     0</span></span>
+<span><span class="co">#&gt;  [2,]     0</span></span>
+<span><span class="co">#&gt;  [3,]     0</span></span>
+<span><span class="co">#&gt;  [4,]     0</span></span>
+<span><span class="co">#&gt;  [5,]     0</span></span>
+<span><span class="co">#&gt;  [6,]     1</span></span>
+<span><span class="co">#&gt;  [7,]     2</span></span>
+<span><span class="co">#&gt;  [8,]     2</span></span>
+<span><span class="co">#&gt;  [9,]     3</span></span>
+<span><span class="co">#&gt; [10,]     3</span></span>
+<span><span class="co">#&gt; [11,]     1</span></span>
+<span><span class="co">#&gt; [12,]     3</span></span>
+<span><span class="co">#&gt; [13,]     3</span></span>
+<span><span class="co">#&gt; [14,]     3</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/co_ocurrence.html">co_ocurrence</a></span><span class="op">(</span><span class="va">A</span>, similarity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ochiai'</span><span class="op">)</span>, occurrence <span class="op">=</span> <span class="cn">TRUE</span>, projection <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]</span></span>
+<span><span class="co">#&gt;  [1,] 1.0000000 0.6666667 0.7071068 0.5773503 0.6123724 0.6123724 0.3651484</span></span>
+<span><span class="co">#&gt;  [2,] 0.6666667 1.0000000 0.7071068 0.5773503 0.6123724 0.6123724 0.3651484</span></span>
+<span><span class="co">#&gt;  [3,] 0.7071068 0.7071068 1.0000000 0.8164966 0.8660254 0.7216878 0.5163978</span></span>
+<span><span class="co">#&gt;  [4,] 0.5773503 0.5773503 0.8164966 1.0000000 0.7071068 0.5303301 0.4743416</span></span>
+<span><span class="co">#&gt;  [5,] 0.6123724 0.6123724 0.8660254 0.7071068 1.0000000 0.7500000 0.6708204</span></span>
+<span><span class="co">#&gt;  [6,] 0.6123724 0.6123724 0.7216878 0.5303301 0.7500000 1.0000000 0.5590170</span></span>
+<span><span class="co">#&gt;  [7,] 0.3651484 0.3651484 0.5163978 0.4743416 0.6708204 0.5590170 1.0000000</span></span>
+<span><span class="co">#&gt;  [8,] 0.4629100 0.4629100 0.5455447 0.4008919 0.6614378 0.6614378 0.6761234</span></span>
+<span><span class="co">#&gt;  [9,] 0.1666667 0.3333333 0.2357023 0.2886751 0.3061862 0.4082483 0.4564355</span></span>
+<span><span class="co">#&gt; [10,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.1581139 0.4242641</span></span>
+<span><span class="co">#&gt; [11,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.1767767 0.3162278</span></span>
+<span><span class="co">#&gt; [12,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.1443376 0.5163978</span></span>
+<span><span class="co">#&gt; [13,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.2041241 0.3651484</span></span>
+<span><span class="co">#&gt; [14,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.2041241 0.3651484</span></span>
+<span><span class="co">#&gt;            [,8]      [,9]     [,10]     [,11]     [,12]     [,13]     [,14]</span></span>
+<span><span class="co">#&gt;  [1,] 0.4629100 0.1666667 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [2,] 0.4629100 0.3333333 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [3,] 0.5455447 0.2357023 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [4,] 0.4008919 0.2886751 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [5,] 0.6614378 0.3061862 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span></span>
+<span><span class="co">#&gt;  [6,] 0.6614378 0.4082483 0.1581139 0.1767767 0.1443376 0.2041241 0.2041241</span></span>
+<span><span class="co">#&gt;  [7,] 0.6761234 0.4564355 0.4242641 0.3162278 0.5163978 0.3651484 0.3651484</span></span>
+<span><span class="co">#&gt;  [8,] 1.0000000 0.6943651 0.4780914 0.1336306 0.5455447 0.3086067 0.3086067</span></span>
+<span><span class="co">#&gt;  [9,] 0.6943651 1.0000000 0.5163978 0.4330127 0.5892557 0.5000000 0.5000000</span></span>
+<span><span class="co">#&gt; [10,] 0.4780914 0.5163978 1.0000000 0.4472136 0.9128709 0.7745967 0.7745967</span></span>
+<span><span class="co">#&gt; [11,] 0.1336306 0.4330127 0.4472136 1.0000000 0.4082483 0.2886751 0.2886751</span></span>
+<span><span class="co">#&gt; [12,] 0.5455447 0.5892557 0.9128709 0.4082483 1.0000000 0.7071068 0.7071068</span></span>
+<span><span class="co">#&gt; [13,] 0.3086067 0.5000000 0.7745967 0.2886751 0.7071068 1.0000000 1.0000000</span></span>
+<span><span class="co">#&gt; [14,] 0.3086067 0.5000000 0.7745967 0.2886751 0.7071068 1.0000000 1.0000000</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -464,77 +464,77 @@ matrices, one valued matrix and two incidence matrices between them.</p>
 </div>
 <p>Create the data</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,
-              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,
-              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,
-              <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">5</span><span class="op">)</span>
-              
-<span class="va">B1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,
-              <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-
-<span class="va">A2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-
-<span class="va">B2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
-
-<span class="va">A3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,
-              <span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">5</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">5</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">B2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+<span>              </span>
+<span><span class="va">B1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">A2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">B2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">A3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">5</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">5</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">B2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span></span></code></pre></div>
 <p>We will start with a report of the matrices:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span>
-<span class="co">#&gt; --&gt; The matrix is square, 5 by 5</span>
-<span class="co">#&gt;      nodes edges</span>
-<span class="co">#&gt; [1,]     5     7</span>
-<span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span> <span class="co"># correct this!</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; The matrix is rectangular, 3 by 5</span>
-<span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span>
-<span class="co">#&gt; [1,]          3             5               7</span>
-<span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span>
-<span class="co">#&gt; --&gt; The matrix is square, 3 by 3</span>
-<span class="co">#&gt;      nodes edges</span>
-<span class="co">#&gt; [1,]     3     2</span>
-<span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">B2</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; The matrix is rectangular, 4 by 3</span>
-<span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span>
-<span class="co">#&gt; [1,]          4             3               5</span>
-<span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; Valued matrix</span>
-<span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span>
-<span class="co">#&gt; --&gt; The matrix is square, 4 by 4</span>
-<span class="co">#&gt;      nodes edges</span>
-<span class="co">#&gt; [1,]     4    10</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is square, 5 by 5</span></span>
+<span><span class="co">#&gt;      nodes edges</span></span>
+<span><span class="co">#&gt; [1,]     5     7</span></span>
+<span><span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span> <span class="co"># correct this!</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is rectangular, 3 by 5</span></span>
+<span><span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span></span>
+<span><span class="co">#&gt; [1,]          3             5               7</span></span>
+<span><span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is square, 3 by 3</span></span>
+<span><span class="co">#&gt;      nodes edges</span></span>
+<span><span class="co">#&gt; [1,]     3     2</span></span>
+<span><span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">B2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is rectangular, 4 by 3</span></span>
+<span><span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span></span>
+<span><span class="co">#&gt; [1,]          4             3               5</span></span>
+<span><span class="fu"><a href="../reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; Valued matrix</span></span>
+<span><span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is square, 4 by 4</span></span>
+<span><span class="co">#&gt;      nodes edges</span></span>
+<span><span class="co">#&gt; [1,]     4    10</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level3">
@@ -546,276 +546,276 @@ of the node of the same class. In which case, we can use the
 &amp; Carley, 1998</a>; <a href="http://sds.hss.cmu.edu/faculty/carley/carley.htm" class="external-link">Carley,
 2002</a>) to represent a multilevel network.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span><span class="op">)</span>
-<span class="co">#&gt;   a b c d e f g h i j k l</span>
-<span class="co">#&gt; a 0 1 0 0 1 1 0 0 0 0 0 0</span>
-<span class="co">#&gt; b 1 0 0 1 1 1 1 0 0 0 0 0</span>
-<span class="co">#&gt; c 0 0 0 1 1 0 1 0 0 0 0 0</span>
-<span class="co">#&gt; d 0 1 1 0 1 0 1 0 0 0 0 0</span>
-<span class="co">#&gt; e 1 1 1 1 0 0 1 1 0 0 0 0</span>
-<span class="co">#&gt; f 1 1 0 0 0 0 1 1 1 1 0 0</span>
-<span class="co">#&gt; g 0 1 1 1 1 1 0 0 0 0 1 0</span>
-<span class="co">#&gt; h 0 0 0 0 1 1 0 0 0 0 1 1</span>
-<span class="co">#&gt; i 0 0 0 0 0 0 0 0 0 1 3 1</span>
-<span class="co">#&gt; j 0 0 0 0 0 0 0 0 1 0 0 0</span>
-<span class="co">#&gt; k 0 0 0 0 0 0 0 0 3 0 0 5</span>
-<span class="co">#&gt; l 0 0 0 0 0 0 0 0 1 0 5 0</span>
-<span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span>
-<span class="co">#&gt;   a b c d e f g h i j k l</span>
-<span class="co">#&gt; a 0 1 0 0 1 1 0 0 0 0 0 0</span>
-<span class="co">#&gt; b 1 0 0 1 1 1 1 0 0 0 0 0</span>
-<span class="co">#&gt; c 0 0 0 1 1 0 1 0 0 0 0 0</span>
-<span class="co">#&gt; d 0 1 1 0 1 0 1 0 0 0 0 0</span>
-<span class="co">#&gt; e 1 1 1 1 0 0 1 1 0 0 0 0</span>
-<span class="co">#&gt; f 1 1 0 0 0 0 1 1 1 1 0 0</span>
-<span class="co">#&gt; g 0 1 1 1 1 1 0 0 0 0 1 0</span>
-<span class="co">#&gt; h 0 0 0 0 1 1 0 0 0 0 1 1</span>
-<span class="co">#&gt; i 0 0 0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt; j 0 0 0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt; k 0 0 0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt; l 0 0 0 0 0 0 0 0 0 0 0 0</span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html" class="external-link">graph.adjacency</a></span><span class="op">(</span><span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'directed'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a b c d e f g h i j k l</span></span>
+<span><span class="co">#&gt; a 0 1 0 0 1 1 0 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; b 1 0 0 1 1 1 1 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; c 0 0 0 1 1 0 1 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; d 0 1 1 0 1 0 1 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; e 1 1 1 1 0 0 1 1 0 0 0 0</span></span>
+<span><span class="co">#&gt; f 1 1 0 0 0 0 1 1 1 1 0 0</span></span>
+<span><span class="co">#&gt; g 0 1 1 1 1 1 0 0 0 0 1 0</span></span>
+<span><span class="co">#&gt; h 0 0 0 0 1 1 0 0 0 0 1 1</span></span>
+<span><span class="co">#&gt; i 0 0 0 0 0 0 0 0 0 1 3 1</span></span>
+<span><span class="co">#&gt; j 0 0 0 0 0 0 0 0 1 0 0 0</span></span>
+<span><span class="co">#&gt; k 0 0 0 0 0 0 0 0 3 0 0 5</span></span>
+<span><span class="co">#&gt; l 0 0 0 0 0 0 0 0 1 0 5 0</span></span>
+<span><span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a b c d e f g h i j k l</span></span>
+<span><span class="co">#&gt; a 0 1 0 0 1 1 0 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; b 1 0 0 1 1 1 1 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; c 0 0 0 1 1 0 1 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; d 0 1 1 0 1 0 1 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; e 1 1 1 1 0 0 1 1 0 0 0 0</span></span>
+<span><span class="co">#&gt; f 1 1 0 0 0 0 1 1 1 1 0 0</span></span>
+<span><span class="co">#&gt; g 0 1 1 1 1 1 0 0 0 0 1 0</span></span>
+<span><span class="co">#&gt; h 0 0 0 0 1 1 0 0 0 0 1 1</span></span>
+<span><span class="co">#&gt; i 0 0 0 0 0 0 0 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; j 0 0 0 0 0 0 0 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; k 0 0 0 0 0 0 0 0 0 0 0 0</span></span>
+<span><span class="co">#&gt; l 0 0 0 0 0 0 0 0 0 0 0 0</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html" class="external-link">graph.adjacency</a></span><span class="op">(</span><span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'directed'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="multilayer_files/figure-html/meta_matrix-1.png" width="700"></p>
 <p>What is the density of some of the matrices?</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span>
-<span class="fu"><a href="../reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="va">matrices</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; $`Density of matrix [[1]]`</span>
-<span class="co">#&gt; [1] 0.7</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Density of matrix [[2]]`</span>
-<span class="co">#&gt; [1] 0.4666667</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Density of matrix [[3]]`</span>
-<span class="co">#&gt; [1] 0.6666667</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Density of matrix [[4]]`</span>
-<span class="co">#&gt; [1] 0.4166667</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="va">matrices</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $`Density of matrix [[1]]`</span></span>
+<span><span class="co">#&gt; [1] 0.7</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Density of matrix [[2]]`</span></span>
+<span><span class="co">#&gt; [1] 0.4666667</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Density of matrix [[3]]`</span></span>
+<span><span class="co">#&gt; [1] 0.6666667</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Density of matrix [[4]]`</span></span>
+<span><span class="co">#&gt; [1] 0.4166667</span></span></code></pre></div>
 <p>How about the degree centrality of the entire structure?</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/multilevel_degree.html">multilevel_degree</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt;    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel</span>
-<span class="co">#&gt; n1          3           1          NA              1              3</span>
-<span class="co">#&gt; n2          5           2          NA              2              5</span>
-<span class="co">#&gt; n3          3           1          NA              1              3</span>
-<span class="co">#&gt; n4          4           1          NA              1              4</span>
-<span class="co">#&gt; n5          6           2          NA              2              6</span>
-<span class="co">#&gt; m1          6           2           2              4              4</span>
-<span class="co">#&gt; m2          6           4           1              5              5</span>
-<span class="co">#&gt; m3          4           1           2              3              3</span>
-<span class="co">#&gt; k1          4          NA           1              1              1</span>
-<span class="co">#&gt; k2          2          NA           1              1              1</span>
-<span class="co">#&gt; k3          3          NA           2              2              2</span>
-<span class="co">#&gt; k4          1          NA           1              1              1</span>
-<span class="co">#&gt;    meso_multilevel high_multilevel</span>
-<span class="co">#&gt; n1               1               1</span>
-<span class="co">#&gt; n2               2               2</span>
-<span class="co">#&gt; n3               1               1</span>
-<span class="co">#&gt; n4               1               1</span>
-<span class="co">#&gt; n5               2               2</span>
-<span class="co">#&gt; m1               6               4</span>
-<span class="co">#&gt; m2               6               5</span>
-<span class="co">#&gt; m3               4               3</span>
-<span class="co">#&gt; k1               1               1</span>
-<span class="co">#&gt; k2               1               1</span>
-<span class="co">#&gt; k3               2               2</span>
-<span class="co">#&gt; k4               1               1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/multilevel_degree.html">multilevel_degree</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel</span></span>
+<span><span class="co">#&gt; n1          3           1          NA              1              3</span></span>
+<span><span class="co">#&gt; n2          5           2          NA              2              5</span></span>
+<span><span class="co">#&gt; n3          3           1          NA              1              3</span></span>
+<span><span class="co">#&gt; n4          4           1          NA              1              4</span></span>
+<span><span class="co">#&gt; n5          6           2          NA              2              6</span></span>
+<span><span class="co">#&gt; m1          6           2           2              4              4</span></span>
+<span><span class="co">#&gt; m2          6           4           1              5              5</span></span>
+<span><span class="co">#&gt; m3          4           1           2              3              3</span></span>
+<span><span class="co">#&gt; k1          4          NA           1              1              1</span></span>
+<span><span class="co">#&gt; k2          2          NA           1              1              1</span></span>
+<span><span class="co">#&gt; k3          3          NA           2              2              2</span></span>
+<span><span class="co">#&gt; k4          1          NA           1              1              1</span></span>
+<span><span class="co">#&gt;    meso_multilevel high_multilevel</span></span>
+<span><span class="co">#&gt; n1               1               1</span></span>
+<span><span class="co">#&gt; n2               2               2</span></span>
+<span><span class="co">#&gt; n3               1               1</span></span>
+<span><span class="co">#&gt; n4               1               1</span></span>
+<span><span class="co">#&gt; n5               2               2</span></span>
+<span><span class="co">#&gt; m1               6               4</span></span>
+<span><span class="co">#&gt; m2               6               5</span></span>
+<span><span class="co">#&gt; m3               4               3</span></span>
+<span><span class="co">#&gt; k1               1               1</span></span>
+<span><span class="co">#&gt; k2               1               1</span></span>
+<span><span class="co">#&gt; k3               2               2</span></span>
+<span><span class="co">#&gt; k4               1               1</span></span></code></pre></div>
 <p>Besides, we can perform a <em>k</em>-core analysis of one of the
 levels using the information of an incidence matrix</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1 3 1 2 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1 3 1 2 3</span></span></code></pre></div>
 <p>This package also allows performing complex census for multilevel
 networks</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span>
-<span class="co">#&gt;     2     6     1     0     0     2     0     0     4     0     1     1     0 </span>
-<span class="co">#&gt;  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W </span>
-<span class="co">#&gt;     0     0     8     0     3     0     1     3     1     0     0     0     0 </span>
-<span class="co">#&gt;  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 </span>
-<span class="co">#&gt;    11    13     0     0     0     0     3     0     0     0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span></span>
+<span><span class="co">#&gt;     2     6     1     0     0     2     0     0     4     0     1     1     0 </span></span>
+<span><span class="co">#&gt;  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W </span></span>
+<span><span class="co">#&gt;     0     0     8     0     3     0     1     3     1     0     0     0     0 </span></span>
+<span><span class="co">#&gt;  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 </span></span>
+<span><span class="co">#&gt;    11    13     0     0     0     0     3     0     0     0</span></span></code></pre></div>
 <p>Also, there are some functions that allowed performing the zone-2
 sampling from second-mode (2-path distance from an ego in the second
 level)</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span>
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html" class="external-link">graph.adjacency</a></span><span class="op">(</span><span class="va">m</span>, mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'undirected'</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">g</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span>, <span class="st">'blue'</span>, <span class="st">'red'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html" class="external-link">graph.adjacency</a></span><span class="op">(</span><span class="va">m</span>, mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'undirected'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">g</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span>, <span class="st">'blue'</span>, <span class="st">'red'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="multilayer_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">two_mode_sam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/zone_sample.html">zone_sample</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, ego <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-   <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="st">'blue'</span>, <span class="st">'red'</span><span class="op">)</span>
-   
-   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as.directed.html" class="external-link">as.undirected</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
-   
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">two_mode_sam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/zone_sample.html">zone_sample</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, ego <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>   <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="st">'blue'</span>, <span class="st">'red'</span><span class="op">)</span></span>
+<span>   </span>
+<span>   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as.directed.html" class="external-link">as.undirected</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>   </span>
+<span><span class="op">}</span></span></code></pre></div>
 <p><img src="multilayer_files/figure-html/unnamed-chunk-7-2.png" width="700"><img src="multilayer_files/figure-html/unnamed-chunk-7-3.png" width="700"><img src="multilayer_files/figure-html/unnamed-chunk-7-4.png" width="700"></p>
 <p>Willing to create a multilevel network? We can simulate a multilevel
 network with 30 actors in the first level and 20 nodes in the second
 level.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">26091949</span><span class="op">)</span>
-<span class="fu"><a href="../reference/ind_rand_matrix.html">ind_rand_matrix</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, m <span class="op">=</span> <span class="fl">20</span>, type <span class="op">=</span> <span class="st">'probability'</span>, p <span class="op">=</span> <span class="fl">0.2</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt;     n1 n2 n3 n4 n5 n6 n7 n8 n9 n10 n11 n12 n13 n14 n15 n16 n17 n18 n19 n20 n21</span>
-<span class="co">#&gt; n1   0  0  1  0  0  0  1  0  0   1   0   0   1   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n2   0  0  0  0  0  0  0  0  0   0   0   1   0   0   1   0   1   0   0   1   0</span>
-<span class="co">#&gt; n3   0  0  0  0  0  0  1  0  0   0   0   0   1   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n4   0  0  1  0  0  0  0  0  0   0   0   0   1   0   1   0   0   0   0   1   0</span>
-<span class="co">#&gt; n5   0  0  1  0  0  0  0  0  1   0   1   0   0   1   0   0   1   0   0   0   0</span>
-<span class="co">#&gt; n6   1  0  0  0  0  0  0  0  0   0   0   0   1   1   1   0   0   0   0   0   1</span>
-<span class="co">#&gt; n7   0  0  1  0  0  0  0  0  0   0   0   1   0   0   0   0   1   0   0   0   1</span>
-<span class="co">#&gt; n8   0  0  0  0  0  0  0  0  0   0   0   1   0   0   1   1   1   0   0   0   0</span>
-<span class="co">#&gt; n9   0  0  0  0  1  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n10  0  0  1  0  1  0  0  0  0   0   0   0   0   0   0   0   0   0   1   0   0</span>
-<span class="co">#&gt; n11  1  0  0  1  0  1  0  0  0   0   0   0   0   1   0   0   1   0   0   0   0</span>
-<span class="co">#&gt; n12  0  0  0  0  0  0  0  0  0   1   0   0   0   0   0   0   0   0   1   0   0</span>
-<span class="co">#&gt; n13  0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   0   0   0   1   0   0</span>
-<span class="co">#&gt; n14  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   1   1   0   0</span>
-<span class="co">#&gt; n15  0  0  0  0  1  0  0  1  1   0   0   0   0   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n16  0  1  0  0  1  0  0  0  0   1   1   0   0   0   1   0   0   0   0   0   1</span>
-<span class="co">#&gt; n17  0  1  0  0  0  0  1  0  0   0   0   0   0   0   0   1   0   0   0   0   0</span>
-<span class="co">#&gt; n18  1  0  0  0  0  0  1  0  1   0   0   0   0   0   0   0   0   0   1   0   0</span>
-<span class="co">#&gt; n19  1  0  1  0  0  1  0  0  0   1   0   0   0   0   0   1   0   0   0   0   0</span>
-<span class="co">#&gt; n20  0  1  0  0  0  0  0  1  0   1   0   0   1   0   0   0   1   1   0   0   0</span>
-<span class="co">#&gt; n21  0  0  0  1  1  1  0  0  0   0   0   0   0   1   0   0   0   0   1   0   0</span>
-<span class="co">#&gt; n22  0  0  0  0  0  0  0  0  0   0   1   0   0   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n23  1  0  0  0  0  1  1  0  1   0   0   0   0   0   0   0   1   0   0   1   0</span>
-<span class="co">#&gt; n24  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n25  1  0  0  0  1  0  0  0  0   0   0   0   1   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n26  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1</span>
-<span class="co">#&gt; n27  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n28  1  0  1  0  0  1  0  0  0   0   0   0   0   1   0   0   1   1   1   0   0</span>
-<span class="co">#&gt; n29  0  0  0  0  0  0  0  0  0   0   1   0   0   0   0   0   0   0   1   0   0</span>
-<span class="co">#&gt; n30  0  0  0  1  0  0  0  1  0   0   0   0   1   0   1   0   0   0   0   1   0</span>
-<span class="co">#&gt; m1   0  0  0  0  0  0  0  0  0   1   0   0   0   1   0   0   0   1   0   0   0</span>
-<span class="co">#&gt; m2   0  1  0  0  1  1  0  1  0   0   0   0   0   0   0   0   0   1   0   0   0</span>
-<span class="co">#&gt; m3   0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   1   0   1   1   0   0</span>
-<span class="co">#&gt; m4   0  0  0  0  1  1  0  0  0   0   0   0   0   0   0   0   1   1   1   0   0</span>
-<span class="co">#&gt; m5   0  0  0  1  0  0  0  0  0   0   0   0   1   1   0   0   0   1   0   1   0</span>
-<span class="co">#&gt; m6   0  0  0  0  0  0  0  1  1   0   0   1   0   0   1   0   0   0   0   0   1</span>
-<span class="co">#&gt; m7   0  0  0  1  0  0  1  0  1   0   0   0   0   0   0   0   1   0   0   1   0</span>
-<span class="co">#&gt; m8   0  0  0  0  0  0  0  0  0   1   0   0   0   0   1   0   0   0   0   1   0</span>
-<span class="co">#&gt; m9   1  0  0  1  0  0  1  0  0   0   0   0   0   0   0   0   0   0   0   1   0</span>
-<span class="co">#&gt; m10  1  0  0  1  0  1  0  0  0   1   0   0   0   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m11  0  0  0  1  1  1  0  0  0   1   0   1   0   0   0   0   0   1   0   1   1</span>
-<span class="co">#&gt; m12  0  1  0  0  0  1  0  0  0   0   0   0   0   0   1   1   0   1   0   0   0</span>
-<span class="co">#&gt; m13  0  0  1  0  0  0  1  0  0   0   0   0   0   0   0   0   1   1   0   0   0</span>
-<span class="co">#&gt; m14  0  0  0  0  0  0  0  0  0   0   0   0   0   1   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m15  0  0  0  0  0  0  0  0  0   0   0   0   1   0   1   1   0   1   0   1   0</span>
-<span class="co">#&gt; m16  0  0  0  0  0  1  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1</span>
-<span class="co">#&gt; m17  0  1  0  0  1  0  1  1  0   0   0   0   0   1   1   0   1   0   0   0   0</span>
-<span class="co">#&gt; m18  0  1  0  0  1  0  0  0  0   1   0   0   0   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m19  1  0  0  0  0  0  0  1  0   1   0   0   0   1   0   0   1   1   0   0   0</span>
-<span class="co">#&gt; m20  0  0  0  0  0  1  0  1  0   0   0   0   0   0   0   1   0   0   0   0   0</span>
-<span class="co">#&gt;     n22 n23 n24 n25 n26 n27 n28 n29 n30 m1 m2 m3 m4 m5 m6 m7 m8 m9 m10 m11 m12</span>
-<span class="co">#&gt; n1    0   1   1   0   1   0   0   1   0  0  0  0  0  0  0  0  0  1   1   0   0</span>
-<span class="co">#&gt; n2    1   0   0   1   0   0   0   1   0  0  1  0  0  0  0  0  0  0   0   0   1</span>
-<span class="co">#&gt; n3    0   1   0   0   0   1   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; n4    0   0   0   1   0   1   0   0   0  0  0  0  0  1  0  1  0  1   1   1   0</span>
-<span class="co">#&gt; n5    0   1   0   0   0   1   0   1   0  0  1  0  1  0  0  0  0  0   0   1   0</span>
-<span class="co">#&gt; n6    0   0   0   0   0   0   0   0   0  0  1  0  1  0  0  0  0  0   1   1   1</span>
-<span class="co">#&gt; n7    1   0   0   0   1   0   0   0   1  0  0  0  0  0  0  1  0  1   0   0   0</span>
-<span class="co">#&gt; n8    0   0   0   0   1   1   0   0   0  0  1  0  0  0  1  0  0  0   0   0   0</span>
-<span class="co">#&gt; n9    0   0   1   1   1   0   1   0   0  0  0  0  0  0  1  1  0  0   0   0   0</span>
-<span class="co">#&gt; n10   0   1   1   0   1   0   0   1   0  1  0  0  0  0  0  0  1  0   1   1   0</span>
-<span class="co">#&gt; n11   0   0   0   0   0   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; n12   0   0   0   1   0   0   0   0   0  0  0  0  0  0  1  0  0  0   0   1   0</span>
-<span class="co">#&gt; n13   0   1   0   0   1   1   1   0   0  0  0  0  0  1  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; n14   0   0   1   0   0   1   0   0   0  1  0  0  0  1  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; n15   1   0   0   1   0   0   0   0   0  0  0  1  0  0  1  0  1  0   0   0   1</span>
-<span class="co">#&gt; n16   0   1   1   0   0   0   1   0   1  0  0  1  0  0  0  0  0  0   0   0   1</span>
-<span class="co">#&gt; n17   0   0   0   0   0   0   0   0   0  0  0  0  1  0  0  1  0  0   0   0   0</span>
-<span class="co">#&gt; n18   0   0   0   0   1   0   0   0   1  1  1  1  1  1  0  0  0  0   0   1   1</span>
-<span class="co">#&gt; n19   0   0   0   0   0   0   0   0   0  0  0  1  1  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; n20   0   0   0   1   0   0   1   0   0  0  0  0  0  1  0  1  1  1   0   1   0</span>
-<span class="co">#&gt; n21   0   0   0   1   0   1   0   1   0  0  0  0  0  0  1  0  0  0   0   1   0</span>
-<span class="co">#&gt; n22   0   0   1   0   0   0   1   0   1  0  1  0  0  0  1  1  1  0   1   0   0</span>
-<span class="co">#&gt; n23   0   0   0   0   0   0   1   0   0  0  1  0  0  0  1  0  0  0   0   0   0</span>
-<span class="co">#&gt; n24   0   0   0   0   0   0   0   1   1  0  1  0  0  0  0  1  1  1   0   1   0</span>
-<span class="co">#&gt; n25   0   0   0   0   0   1   1   0   0  0  0  0  0  0  0  0  0  1   0   0   0</span>
-<span class="co">#&gt; n26   1   0   0   0   0   0   0   1   0  0  0  0  0  0  0  0  1  0   0   0   0</span>
-<span class="co">#&gt; n27   1   1   0   0   0   0   0   1   0  0  0  1  1  0  0  1  1  0   0   0   0</span>
-<span class="co">#&gt; n28   0   0   0   0   0   0   0   0   1  0  0  1  0  0  1  1  0  0   0   0   0</span>
-<span class="co">#&gt; n29   1   0   0   0   0   1   1   0   0  0  1  0  1  0  0  0  1  0   0   0   1</span>
-<span class="co">#&gt; n30   1   0   1   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   1   1   1</span>
-<span class="co">#&gt; m1    0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m2    1   1   1   0   0   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m3    0   0   0   0   0   1   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m4    0   0   0   0   0   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m5    0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m6    1   1   0   0   0   0   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m7    1   0   1   0   0   1   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m8    1   0   1   0   1   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m9    0   0   1   1   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m10   1   0   0   0   0   0   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m11   0   0   1   0   0   0   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m12   0   0   0   0   0   0   0   1   1  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m13   0   0   0   0   0   0   1   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m14   0   0   0   0   1   1   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m15   0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m16   0   1   1   0   1   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m17   1   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m18   0   0   0   0   0   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m19   0   0   1   0   1   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt; m20   0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span>
-<span class="co">#&gt;     m13 m14 m15 m16 m17 m18 m19 m20</span>
-<span class="co">#&gt; n1    0   0   0   0   0   0   1   0</span>
-<span class="co">#&gt; n2    0   0   0   0   1   1   0   0</span>
-<span class="co">#&gt; n3    1   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n4    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n5    0   0   0   0   1   1   0   0</span>
-<span class="co">#&gt; n6    0   0   0   1   0   0   0   1</span>
-<span class="co">#&gt; n7    1   0   0   0   1   0   0   0</span>
-<span class="co">#&gt; n8    0   0   0   0   1   0   1   1</span>
-<span class="co">#&gt; n9    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n10   0   0   0   0   0   1   1   0</span>
-<span class="co">#&gt; n11   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n12   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n13   0   0   1   0   0   0   0   0</span>
-<span class="co">#&gt; n14   0   1   0   0   1   0   1   0</span>
-<span class="co">#&gt; n15   0   0   1   0   1   0   0   0</span>
-<span class="co">#&gt; n16   0   0   1   0   0   0   0   1</span>
-<span class="co">#&gt; n17   1   0   0   0   1   0   1   0</span>
-<span class="co">#&gt; n18   1   0   1   0   0   0   1   0</span>
-<span class="co">#&gt; n19   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n20   0   0   1   0   0   0   0   0</span>
-<span class="co">#&gt; n21   0   0   0   1   0   0   0   0</span>
-<span class="co">#&gt; n22   0   0   0   0   1   0   0   0</span>
-<span class="co">#&gt; n23   0   0   0   1   0   0   0   0</span>
-<span class="co">#&gt; n24   0   0   0   1   0   0   1   0</span>
-<span class="co">#&gt; n25   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n26   0   1   0   1   0   0   1   0</span>
-<span class="co">#&gt; n27   0   1   0   0   0   0   0   0</span>
-<span class="co">#&gt; n28   1   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; n29   1   0   0   1   0   1   0   0</span>
-<span class="co">#&gt; n30   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m1    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m2    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m3    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m4    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m5    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m6    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m7    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m8    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m9    0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m10   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m11   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m12   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m13   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m14   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m15   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m16   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m17   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m18   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m19   0   0   0   0   0   0   0   0</span>
-<span class="co">#&gt; m20   0   0   0   0   0   0   0   0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">26091949</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/ind_rand_matrix.html">ind_rand_matrix</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, m <span class="op">=</span> <span class="fl">20</span>, type <span class="op">=</span> <span class="st">'probability'</span>, p <span class="op">=</span> <span class="fl">0.2</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     n1 n2 n3 n4 n5 n6 n7 n8 n9 n10 n11 n12 n13 n14 n15 n16 n17 n18 n19 n20 n21</span></span>
+<span><span class="co">#&gt; n1   0  0  1  0  0  0  1  0  0   1   0   0   1   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n2   0  0  0  0  0  0  0  0  0   0   0   1   0   0   1   0   1   0   0   1   0</span></span>
+<span><span class="co">#&gt; n3   0  0  0  0  0  0  1  0  0   0   0   0   1   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n4   0  0  1  0  0  0  0  0  0   0   0   0   1   0   1   0   0   0   0   1   0</span></span>
+<span><span class="co">#&gt; n5   0  0  1  0  0  0  0  0  1   0   1   0   0   1   0   0   1   0   0   0   0</span></span>
+<span><span class="co">#&gt; n6   1  0  0  0  0  0  0  0  0   0   0   0   1   1   1   0   0   0   0   0   1</span></span>
+<span><span class="co">#&gt; n7   0  0  1  0  0  0  0  0  0   0   0   1   0   0   0   0   1   0   0   0   1</span></span>
+<span><span class="co">#&gt; n8   0  0  0  0  0  0  0  0  0   0   0   1   0   0   1   1   1   0   0   0   0</span></span>
+<span><span class="co">#&gt; n9   0  0  0  0  1  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n10  0  0  1  0  1  0  0  0  0   0   0   0   0   0   0   0   0   0   1   0   0</span></span>
+<span><span class="co">#&gt; n11  1  0  0  1  0  1  0  0  0   0   0   0   0   1   0   0   1   0   0   0   0</span></span>
+<span><span class="co">#&gt; n12  0  0  0  0  0  0  0  0  0   1   0   0   0   0   0   0   0   0   1   0   0</span></span>
+<span><span class="co">#&gt; n13  0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   0   0   0   1   0   0</span></span>
+<span><span class="co">#&gt; n14  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   1   1   0   0</span></span>
+<span><span class="co">#&gt; n15  0  0  0  0  1  0  0  1  1   0   0   0   0   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n16  0  1  0  0  1  0  0  0  0   1   1   0   0   0   1   0   0   0   0   0   1</span></span>
+<span><span class="co">#&gt; n17  0  1  0  0  0  0  1  0  0   0   0   0   0   0   0   1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n18  1  0  0  0  0  0  1  0  1   0   0   0   0   0   0   0   0   0   1   0   0</span></span>
+<span><span class="co">#&gt; n19  1  0  1  0  0  1  0  0  0   1   0   0   0   0   0   1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n20  0  1  0  0  0  0  0  1  0   1   0   0   1   0   0   0   1   1   0   0   0</span></span>
+<span><span class="co">#&gt; n21  0  0  0  1  1  1  0  0  0   0   0   0   0   1   0   0   0   0   1   0   0</span></span>
+<span><span class="co">#&gt; n22  0  0  0  0  0  0  0  0  0   0   1   0   0   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n23  1  0  0  0  0  1  1  0  1   0   0   0   0   0   0   0   1   0   0   1   0</span></span>
+<span><span class="co">#&gt; n24  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n25  1  0  0  0  1  0  0  0  0   0   0   0   1   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n26  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1</span></span>
+<span><span class="co">#&gt; n27  0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n28  1  0  1  0  0  1  0  0  0   0   0   0   0   1   0   0   1   1   1   0   0</span></span>
+<span><span class="co">#&gt; n29  0  0  0  0  0  0  0  0  0   0   1   0   0   0   0   0   0   0   1   0   0</span></span>
+<span><span class="co">#&gt; n30  0  0  0  1  0  0  0  1  0   0   0   0   1   0   1   0   0   0   0   1   0</span></span>
+<span><span class="co">#&gt; m1   0  0  0  0  0  0  0  0  0   1   0   0   0   1   0   0   0   1   0   0   0</span></span>
+<span><span class="co">#&gt; m2   0  1  0  0  1  1  0  1  0   0   0   0   0   0   0   0   0   1   0   0   0</span></span>
+<span><span class="co">#&gt; m3   0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   1   0   1   1   0   0</span></span>
+<span><span class="co">#&gt; m4   0  0  0  0  1  1  0  0  0   0   0   0   0   0   0   0   1   1   1   0   0</span></span>
+<span><span class="co">#&gt; m5   0  0  0  1  0  0  0  0  0   0   0   0   1   1   0   0   0   1   0   1   0</span></span>
+<span><span class="co">#&gt; m6   0  0  0  0  0  0  0  1  1   0   0   1   0   0   1   0   0   0   0   0   1</span></span>
+<span><span class="co">#&gt; m7   0  0  0  1  0  0  1  0  1   0   0   0   0   0   0   0   1   0   0   1   0</span></span>
+<span><span class="co">#&gt; m8   0  0  0  0  0  0  0  0  0   1   0   0   0   0   1   0   0   0   0   1   0</span></span>
+<span><span class="co">#&gt; m9   1  0  0  1  0  0  1  0  0   0   0   0   0   0   0   0   0   0   0   1   0</span></span>
+<span><span class="co">#&gt; m10  1  0  0  1  0  1  0  0  0   1   0   0   0   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m11  0  0  0  1  1  1  0  0  0   1   0   1   0   0   0   0   0   1   0   1   1</span></span>
+<span><span class="co">#&gt; m12  0  1  0  0  0  1  0  0  0   0   0   0   0   0   1   1   0   1   0   0   0</span></span>
+<span><span class="co">#&gt; m13  0  0  1  0  0  0  1  0  0   0   0   0   0   0   0   0   1   1   0   0   0</span></span>
+<span><span class="co">#&gt; m14  0  0  0  0  0  0  0  0  0   0   0   0   0   1   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m15  0  0  0  0  0  0  0  0  0   0   0   0   1   0   1   1   0   1   0   1   0</span></span>
+<span><span class="co">#&gt; m16  0  0  0  0  0  1  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1</span></span>
+<span><span class="co">#&gt; m17  0  1  0  0  1  0  1  1  0   0   0   0   0   1   1   0   1   0   0   0   0</span></span>
+<span><span class="co">#&gt; m18  0  1  0  0  1  0  0  0  0   1   0   0   0   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m19  1  0  0  0  0  0  0  1  0   1   0   0   0   1   0   0   1   1   0   0   0</span></span>
+<span><span class="co">#&gt; m20  0  0  0  0  0  1  0  1  0   0   0   0   0   0   0   1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt;     n22 n23 n24 n25 n26 n27 n28 n29 n30 m1 m2 m3 m4 m5 m6 m7 m8 m9 m10 m11 m12</span></span>
+<span><span class="co">#&gt; n1    0   1   1   0   1   0   0   1   0  0  0  0  0  0  0  0  0  1   1   0   0</span></span>
+<span><span class="co">#&gt; n2    1   0   0   1   0   0   0   1   0  0  1  0  0  0  0  0  0  0   0   0   1</span></span>
+<span><span class="co">#&gt; n3    0   1   0   0   0   1   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n4    0   0   0   1   0   1   0   0   0  0  0  0  0  1  0  1  0  1   1   1   0</span></span>
+<span><span class="co">#&gt; n5    0   1   0   0   0   1   0   1   0  0  1  0  1  0  0  0  0  0   0   1   0</span></span>
+<span><span class="co">#&gt; n6    0   0   0   0   0   0   0   0   0  0  1  0  1  0  0  0  0  0   1   1   1</span></span>
+<span><span class="co">#&gt; n7    1   0   0   0   1   0   0   0   1  0  0  0  0  0  0  1  0  1   0   0   0</span></span>
+<span><span class="co">#&gt; n8    0   0   0   0   1   1   0   0   0  0  1  0  0  0  1  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n9    0   0   1   1   1   0   1   0   0  0  0  0  0  0  1  1  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n10   0   1   1   0   1   0   0   1   0  1  0  0  0  0  0  0  1  0   1   1   0</span></span>
+<span><span class="co">#&gt; n11   0   0   0   0   0   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n12   0   0   0   1   0   0   0   0   0  0  0  0  0  0  1  0  0  0   0   1   0</span></span>
+<span><span class="co">#&gt; n13   0   1   0   0   1   1   1   0   0  0  0  0  0  1  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n14   0   0   1   0   0   1   0   0   0  1  0  0  0  1  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n15   1   0   0   1   0   0   0   0   0  0  0  1  0  0  1  0  1  0   0   0   1</span></span>
+<span><span class="co">#&gt; n16   0   1   1   0   0   0   1   0   1  0  0  1  0  0  0  0  0  0   0   0   1</span></span>
+<span><span class="co">#&gt; n17   0   0   0   0   0   0   0   0   0  0  0  0  1  0  0  1  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n18   0   0   0   0   1   0   0   0   1  1  1  1  1  1  0  0  0  0   0   1   1</span></span>
+<span><span class="co">#&gt; n19   0   0   0   0   0   0   0   0   0  0  0  1  1  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n20   0   0   0   1   0   0   1   0   0  0  0  0  0  1  0  1  1  1   0   1   0</span></span>
+<span><span class="co">#&gt; n21   0   0   0   1   0   1   0   1   0  0  0  0  0  0  1  0  0  0   0   1   0</span></span>
+<span><span class="co">#&gt; n22   0   0   1   0   0   0   1   0   1  0  1  0  0  0  1  1  1  0   1   0   0</span></span>
+<span><span class="co">#&gt; n23   0   0   0   0   0   0   1   0   0  0  1  0  0  0  1  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n24   0   0   0   0   0   0   0   1   1  0  1  0  0  0  0  1  1  1   0   1   0</span></span>
+<span><span class="co">#&gt; n25   0   0   0   0   0   1   1   0   0  0  0  0  0  0  0  0  0  1   0   0   0</span></span>
+<span><span class="co">#&gt; n26   1   0   0   0   0   0   0   1   0  0  0  0  0  0  0  0  1  0   0   0   0</span></span>
+<span><span class="co">#&gt; n27   1   1   0   0   0   0   0   1   0  0  0  1  1  0  0  1  1  0   0   0   0</span></span>
+<span><span class="co">#&gt; n28   0   0   0   0   0   0   0   0   1  0  0  1  0  0  1  1  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; n29   1   0   0   0   0   1   1   0   0  0  1  0  1  0  0  0  1  0   0   0   1</span></span>
+<span><span class="co">#&gt; n30   1   0   1   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   1   1   1</span></span>
+<span><span class="co">#&gt; m1    0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m2    1   1   1   0   0   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m3    0   0   0   0   0   1   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m4    0   0   0   0   0   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m5    0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m6    1   1   0   0   0   0   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m7    1   0   1   0   0   1   1   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m8    1   0   1   0   1   1   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m9    0   0   1   1   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m10   1   0   0   0   0   0   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m11   0   0   1   0   0   0   0   0   1  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m12   0   0   0   0   0   0   0   1   1  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m13   0   0   0   0   0   0   1   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m14   0   0   0   0   1   1   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m15   0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m16   0   1   1   0   1   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m17   1   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m18   0   0   0   0   0   0   0   1   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m19   0   0   1   0   1   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt; m20   0   0   0   0   0   0   0   0   0  0  0  0  0  0  0  0  0  0   0   0   0</span></span>
+<span><span class="co">#&gt;     m13 m14 m15 m16 m17 m18 m19 m20</span></span>
+<span><span class="co">#&gt; n1    0   0   0   0   0   0   1   0</span></span>
+<span><span class="co">#&gt; n2    0   0   0   0   1   1   0   0</span></span>
+<span><span class="co">#&gt; n3    1   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n4    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n5    0   0   0   0   1   1   0   0</span></span>
+<span><span class="co">#&gt; n6    0   0   0   1   0   0   0   1</span></span>
+<span><span class="co">#&gt; n7    1   0   0   0   1   0   0   0</span></span>
+<span><span class="co">#&gt; n8    0   0   0   0   1   0   1   1</span></span>
+<span><span class="co">#&gt; n9    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n10   0   0   0   0   0   1   1   0</span></span>
+<span><span class="co">#&gt; n11   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n12   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n13   0   0   1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n14   0   1   0   0   1   0   1   0</span></span>
+<span><span class="co">#&gt; n15   0   0   1   0   1   0   0   0</span></span>
+<span><span class="co">#&gt; n16   0   0   1   0   0   0   0   1</span></span>
+<span><span class="co">#&gt; n17   1   0   0   0   1   0   1   0</span></span>
+<span><span class="co">#&gt; n18   1   0   1   0   0   0   1   0</span></span>
+<span><span class="co">#&gt; n19   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n20   0   0   1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n21   0   0   0   1   0   0   0   0</span></span>
+<span><span class="co">#&gt; n22   0   0   0   0   1   0   0   0</span></span>
+<span><span class="co">#&gt; n23   0   0   0   1   0   0   0   0</span></span>
+<span><span class="co">#&gt; n24   0   0   0   1   0   0   1   0</span></span>
+<span><span class="co">#&gt; n25   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n26   0   1   0   1   0   0   1   0</span></span>
+<span><span class="co">#&gt; n27   0   1   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n28   1   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; n29   1   0   0   1   0   1   0   0</span></span>
+<span><span class="co">#&gt; n30   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m1    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m2    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m3    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m4    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m5    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m6    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m7    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m8    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m9    0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m10   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m11   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m12   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m13   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m14   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m15   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m16   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m17   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m18   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m19   0   0   0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; m20   0   0   0   0   0   0   0   0</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -838,106 +838,106 @@ religious, educational.”</p>
 will use data from <a href="https://books.google.ch/books/about/The_Collegial_Phenomenon.html?id=zRNaURgLOhYC&amp;redir_esc=y" class="external-link">Lazega
 (2001)</a></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"lazega_lawfirm"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"lazega_lawfirm"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span></span></code></pre></div>
 <p>Which are the densities of the networks?</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, 
-                 <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; $`Density of matrix [[1]]`</span>
-<span class="co">#&gt; [1] 0.2317907</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Density of matrix [[2]]`</span>
-<span class="co">#&gt; [1] 0.2486922</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Density of matrix [[3]]`</span>
-<span class="co">#&gt; [1] 0.1251509</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, </span>
+<span>                 <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $`Density of matrix [[1]]`</span></span>
+<span><span class="co">#&gt; [1] 0.2317907</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Density of matrix [[2]]`</span></span>
+<span><span class="co">#&gt; [1] 0.2486922</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Density of matrix [[3]]`</span></span>
+<span><span class="co">#&gt; [1] 0.1251509</span></span></code></pre></div>
 <p>How about computing the Jaccard index between matrices?</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span>
-<span class="co">#&gt; $jaccard</span>
-<span class="co">#&gt; [1] 0.4115983</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $proportion</span>
-<span class="co">#&gt; [1] 0.5271739</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $table</span>
-<span class="co">#&gt;       B</span>
-<span class="co">#&gt; A         0    1 &lt;NA&gt;</span>
-<span class="co">#&gt;   0    3556  310    0</span>
-<span class="co">#&gt;   1     522  582    0</span>
-<span class="co">#&gt;   &lt;NA&gt;    0    0    0</span>
-
-<span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>
-<span class="co">#&gt; $jaccard</span>
-<span class="co">#&gt; [1] 0.2210909</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $proportion</span>
-<span class="co">#&gt; [1] 0.2753623</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $table</span>
-<span class="co">#&gt;       B</span>
-<span class="co">#&gt; A         0    1 &lt;NA&gt;</span>
-<span class="co">#&gt;   0    3595  271    0</span>
-<span class="co">#&gt;   1     800  304    0</span>
-<span class="co">#&gt;   &lt;NA&gt;    0    0    0</span>
-
-<span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>
-<span class="co">#&gt; $jaccard</span>
-<span class="co">#&gt; [1] 0.3228133</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $proportion</span>
-<span class="co">#&gt; [1] 0.4013453</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $table</span>
-<span class="co">#&gt;       B</span>
-<span class="co">#&gt; A         0    1 &lt;NA&gt;</span>
-<span class="co">#&gt;   0    3861  217    0</span>
-<span class="co">#&gt;   1     534  358    0</span>
-<span class="co">#&gt;   &lt;NA&gt;    0    0    0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $jaccard</span></span>
+<span><span class="co">#&gt; [1] 0.4115983</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $proportion</span></span>
+<span><span class="co">#&gt; [1] 0.5271739</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $table</span></span>
+<span><span class="co">#&gt;       B</span></span>
+<span><span class="co">#&gt; A         0    1 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   0    3556  310    0</span></span>
+<span><span class="co">#&gt;   1     522  582    0</span></span>
+<span><span class="co">#&gt;   &lt;NA&gt;    0    0    0</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">cowork</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $jaccard</span></span>
+<span><span class="co">#&gt; [1] 0.2210909</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $proportion</span></span>
+<span><span class="co">#&gt; [1] 0.2753623</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $table</span></span>
+<span><span class="co">#&gt;       B</span></span>
+<span><span class="co">#&gt; A         0    1 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   0    3595  271    0</span></span>
+<span><span class="co">#&gt;   1     800  304    0</span></span>
+<span><span class="co">#&gt;   &lt;NA&gt;    0    0    0</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $jaccard</span></span>
+<span><span class="co">#&gt; [1] 0.3228133</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $proportion</span></span>
+<span><span class="co">#&gt; [1] 0.4013453</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $table</span></span>
+<span><span class="co">#&gt;       B</span></span>
+<span><span class="co">#&gt; A         0    1 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   0    3861  217    0</span></span>
+<span><span class="co">#&gt;   1     534  358    0</span></span>
+<span><span class="co">#&gt;   &lt;NA&gt;    0    0    0</span></span></code></pre></div>
 <p>Finally, we can conduct a multiplex census between two matrices. For
 the moment, one matrix has to be asymmetric (directed) and the other
 symmetric (undirected).</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/multiplex_census.html">multiplex_census</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span>
-<span class="co">#&gt;            003_003            003_102            003_201            003_300 </span>
-<span class="co">#&gt;               9541              17745              11384              10799 </span>
-<span class="co">#&gt;            012_003           012_102a           012_102b           012_102c </span>
-<span class="co">#&gt;              30047              14872              10660              10711 </span>
-<span class="co">#&gt;           012_201b          012_201ac            012_300           021u_003 </span>
-<span class="co">#&gt;               9891              10263               9760              21434 </span>
-<span class="co">#&gt;         021u_102ac          021u_102b         021u_201ab          021u_201c </span>
-<span class="co">#&gt;               2099               1157               1279               1650 </span>
-<span class="co">#&gt;           021u_300           021d_003         021d_102ac          021d_120b </span>
-<span class="co">#&gt;               1148              21295               1908               1058 </span>
-<span class="co">#&gt;         021d_201ab          021d_201c           021d_300       102_003_102a </span>
-<span class="co">#&gt;               1139               1511                910               8319 </span>
-<span class="co">#&gt;    102_102bc_201ac            102_300           021c_003          021c_102a </span>
-<span class="co">#&gt;               3710               3109              21445               2059 </span>
-<span class="co">#&gt;          021c_103b          021c_102c         021c_210ab          021c_201c </span>
-<span class="co">#&gt;                961               2110               1290               1661 </span>
-<span class="co">#&gt;           021c_300           030t_003         030t_102ab          030t_102b </span>
-<span class="co">#&gt;               1159              21022                538                745 </span>
-<span class="co">#&gt;          030t_102c         030t_210ab      030t_201c_300           030c_003 </span>
-<span class="co">#&gt;                785                866                735              20555 </span>
-<span class="co">#&gt;        030c_102abc        030c_201abc           030c_300           111d_003 </span>
-<span class="co">#&gt;                 71                400                269              21338 </span>
-<span class="co">#&gt;     111d_102a_201a          111d_102b     111d_102c_201b      111d_201c_300 </span>
-<span class="co">#&gt;               1182               1215               1554               1051 </span>
-<span class="co">#&gt;           111u_003     111u_102a_201a    111u_102bc_201b      111u_201c_300 </span>
-<span class="co">#&gt;              21227               1071               1443                940 </span>
-<span class="co">#&gt;      120u_003_102b   120u_102ab_201ab      120u_201c_300      120d_003_120b </span>
-<span class="co">#&gt;                457                579                448                580 </span>
-<span class="co">#&gt;   120d_102ab_201ab      120d_201c_300            201_003    201_102ac_201ab </span>
-<span class="co">#&gt;                661                530              20776                992 </span>
-<span class="co">#&gt; 201_102c_201bc_300           120c_003          120c_120c           120c_210 </span>
-<span class="co">#&gt;                489              20620                136                465 </span>
-<span class="co">#&gt;           120c_300        210_003_210            210_300        300_003_300 </span>
-<span class="co">#&gt;                334                616                485                336</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/multiplex_census.html">multiplex_census</a></span><span class="op">(</span><span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">advice</span>, <span class="va">lazega_lawfirm</span><span class="op">$</span><span class="va">friends</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            003_003            003_102            003_201            003_300 </span></span>
+<span><span class="co">#&gt;               9541              17745              11384              10799 </span></span>
+<span><span class="co">#&gt;            012_003           012_102a           012_102b           012_102c </span></span>
+<span><span class="co">#&gt;              30047              14872              10660              10711 </span></span>
+<span><span class="co">#&gt;           012_201b          012_201ac            012_300           021u_003 </span></span>
+<span><span class="co">#&gt;               9891              10263               9760              21434 </span></span>
+<span><span class="co">#&gt;         021u_102ac          021u_102b         021u_201ab          021u_201c </span></span>
+<span><span class="co">#&gt;               2099               1157               1279               1650 </span></span>
+<span><span class="co">#&gt;           021u_300           021d_003         021d_102ac          021d_120b </span></span>
+<span><span class="co">#&gt;               1148              21295               1908               1058 </span></span>
+<span><span class="co">#&gt;         021d_201ab          021d_201c           021d_300       102_003_102a </span></span>
+<span><span class="co">#&gt;               1139               1511                910               8319 </span></span>
+<span><span class="co">#&gt;    102_102bc_201ac            102_300           021c_003          021c_102a </span></span>
+<span><span class="co">#&gt;               3710               3109              21445               2059 </span></span>
+<span><span class="co">#&gt;          021c_103b          021c_102c         021c_210ab          021c_201c </span></span>
+<span><span class="co">#&gt;                961               2110               1290               1661 </span></span>
+<span><span class="co">#&gt;           021c_300           030t_003         030t_102ab          030t_102b </span></span>
+<span><span class="co">#&gt;               1159              21022                538                745 </span></span>
+<span><span class="co">#&gt;          030t_102c         030t_210ab      030t_201c_300           030c_003 </span></span>
+<span><span class="co">#&gt;                785                866                735              20555 </span></span>
+<span><span class="co">#&gt;        030c_102abc        030c_201abc           030c_300           111d_003 </span></span>
+<span><span class="co">#&gt;                 71                400                269              21338 </span></span>
+<span><span class="co">#&gt;     111d_102a_201a          111d_102b     111d_102c_201b      111d_201c_300 </span></span>
+<span><span class="co">#&gt;               1182               1215               1554               1051 </span></span>
+<span><span class="co">#&gt;           111u_003     111u_102a_201a    111u_102bc_201b      111u_201c_300 </span></span>
+<span><span class="co">#&gt;              21227               1071               1443                940 </span></span>
+<span><span class="co">#&gt;      120u_003_102b   120u_102ab_201ab      120u_201c_300      120d_003_120b </span></span>
+<span><span class="co">#&gt;                457                579                448                580 </span></span>
+<span><span class="co">#&gt;   120d_102ab_201ab      120d_201c_300            201_003    201_102ac_201ab </span></span>
+<span><span class="co">#&gt;                661                530              20776                992 </span></span>
+<span><span class="co">#&gt; 201_102c_201bc_300           120c_003          120c_120c           120c_210 </span></span>
+<span><span class="co">#&gt;                489              20620                136                465 </span></span>
+<span><span class="co">#&gt;           120c_300        210_003_210            210_300        300_003_300 </span></span>
+<span><span class="co">#&gt;                334                616                485                336</span></span></code></pre></div>
 <p>Note: the temporal networks are a special case of a multiplex
 network. Links are dynamic, and nodes can join or leave at different
 stages of the network evolution. For example, in this
@@ -945,24 +945,24 @@ stages of the network evolution. For example, in this
 this case, we might prefer maintaining their name in the matrix and
 assign a <code>NA</code> in their row and/or column:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,
-  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,
-  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>
-<span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
-
-<span class="co"># complete list of actors</span>
-<span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/structural_na.html">structural_na</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">label</span><span class="op">)</span>
-<span class="co">#&gt;    A  B  C  D  E</span>
-<span class="co">#&gt; A  0 NA  1  1 NA</span>
-<span class="co">#&gt; B NA NA NA NA NA</span>
-<span class="co">#&gt; C  1 NA  0  1 NA</span>
-<span class="co">#&gt; D  0 NA  0  0 NA</span>
-<span class="co">#&gt; E NA NA NA NA NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
+<span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
+<span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span></span>
+<span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># complete list of actors</span></span>
+<span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/structural_na.html">structural_na</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">label</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    A  B  C  D  E</span></span>
+<span><span class="co">#&gt; A  0 NA  1  1 NA</span></span>
+<span><span class="co">#&gt; B NA NA NA NA NA</span></span>
+<span><span class="co">#&gt; C  1 NA  0  1 NA</span></span>
+<span><span class="co">#&gt; D  0 NA  0  0 NA</span></span>
+<span><span class="co">#&gt; E NA NA NA NA NA</span></span></code></pre></div>
 </div>
   </div>
 
@@ -983,7 +983,7 @@ assign a <code>NA</code> in their row and/or column:</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
