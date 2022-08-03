@@ -59,15 +59,16 @@ Utilities:
 4.  `matrix_to_edgelist()`: Transform a square matrix into an edge-list
 5.  `adj_to_matrix()`: Transform an adjacency list into a matrix
 6.  `edgelist_to_matrix()`: Transform an edgelist into a matrix
-7.  `extract_component()`: Extract components
-8.  `hypergraph()`: Hypergraphs
-9.  `meta_matrix()`: Meta matrix for multilevel networks
-10. `minmax_overlap()`: Minimum/maximum overlap
-11. `mix_matrix()`: Mixing matrix
-12. `simplicial_complexes()`: Simplicial Complexes
-13. `structural_na()`: Structural missing data
-14. `ego_net()`: Ego network
-15. `zone_sample()`: Zone-2 sampling from second-mode
+7.  `expand_matrix()`: Expand matrix
+8.  `extract_component()`: Extract components
+9.  `hypergraph()`: Hypergraphs
+10. `meta_matrix()`: Meta matrix for multilevel networks
+11. `minmax_overlap()`: Minimum/maximum overlap
+12. `mix_matrix()`: Mixing matrix
+13. `simplicial_complexes()`: Simplicial Complexes
+14. `structural_na()`: Structural missing data
+15. `ego_net()`: Ego network
+16. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 
