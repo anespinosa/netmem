@@ -164,6 +164,73 @@ method_option <- function(arg, choices, several.ok = FALSE) {
   match.arg(arg = arg, choices = choices, several.ok = several.ok)
 }
 
+#' Transitivity matrix
+#'
+#' This function assigns a one in the elements of the matrix if a group of actors are part of a transitivity structure (030T label considering the MAN triad census)
+#'
+#' @param A   A matrix
+#' @param loops  Whether to expect nonzero elements in the diagonal of the matrix
+#'
+#' @return A vector assigning an id the components that each of the nodes of the matrix belongs
+#'
+#' @references
+#'
+#' Davis, J.A. and Leinhardt, S. (1972). “The Structure of Positive Interpersonal Relations in Small Groups.” In J. Berger (Ed.), Sociological Theories in Progress, Vol. 2, 218-251. Boston: Houghton Mifflin.
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#'
+#' A <- matrix(c(
+#'   0, 1, 1, 0, 0, 0,
+#'   0, 0, 1, 0, 0, 0,
+#'   0, 0, 0, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0,
+#'   0, 0, 1, 1, 0, 0,
+#'   0, 0, 0, 0, 0, 0
+#' ),
+#' byrow = TRUE, ncol = 6
+#' )
+#' rownames(A) <- letters[1:NROW(A)]
+#' colnames(A) <- rownames(A)
+#' trans_matrix(A, loops = TRUE)
+#'
+#' @export
+
+trans_matrix <- function(A, loops = FALSE) {
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+
+  if (is.null(rownames(A))) stop("No label assigned to the columns of the matrix")
+  if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
+
+  B <- matrix(0, ncol = NCOL(A), NROW(A))
+  rownames(B) <- rownames(A)
+  colnames(B) <- colnames(A)
+  actors <- list()
+  for (i in 1:NROW(A)) {
+    C030T <- (A %*% A) * A
+    actors[[i]] <- names(which(C030T[i, ] == 1))
+    if (length(actors[[i]]) >= 1) {
+      temp <- colnames(ego_net(A, ego = actors[[i]], select = c("in")))
+      temp
+      temp2 <- names(which(rowSums(A[temp, temp]) >= 1))
+      names_030T <- c(temp2, names(which(A[temp2, ] >= 1)))
+      names_030T <- sort(names_030T)
+      B[names_030T, names_030T] <- 1
+    } else {
+      next
+    }
+  }
+
+  if (!loops) {
+    diag(B) <- 0
+  }
+  return(B)
+}
 
 #' Components
 #'

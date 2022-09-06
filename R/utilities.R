@@ -603,6 +603,59 @@ node_direction <- function(arg, choices, several.ok = FALSE) {
   match.arg(arg = arg, choices = choices, several.ok = several.ok)
 }
 
+#' Expand Matrix
+#'
+#' @param A  A square matrix
+#' @param label  Duplicated labels to expand the matrix
+#' @param loops  Whether the loops are retained or not
+#'
+#' @return Return an expanded matrix
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 1,
+#'   0, 0, 1,
+#'   1, 0, 0
+#' ), byrow = TRUE, ncol = 3, nrow = 3)
+#' rownames(A) <- letters[1:NROW(A)]
+#' colnames(A) <- rownames(A)
+#' label <- sort(rep(rownames(A), 2))
+#' expand_matrix(A, label, loops = FALSE)
+#' @export
+
+expand_matrix <- function(A, label = NULL, loops = FALSE) {
+  if (!dim(A)[1] == dim(A)[2]) stop("Matrix should be square")
+  if (is.null(colnames(A))) stop("Assign column names to the matrix.")
+  if (is.null(rownames(A))) stop("Assign column names to the matrix.")
+  if (!is.character(label)) stop("Assign a string vector with the names of the complete matrix.")
+
+  x <- array(NA, dim = list(length(label), length(label)))
+  colnames(x) <- label
+  rownames(x) <- label
+  rowmatch <- match(rownames(A), rownames(x))
+  colmatch <- match(colnames(A), colnames(x))
+  x[rowmatch, colmatch] <- A
+
+  # Expand matrix
+  for (i in 1:NROW(x)) {
+    for (j in 1:NCOL(x)) {
+      if (rownames(x)[i] == rownames(x)[j]) {
+        x[j, ] <- x[i, ]
+        x[, j] <- x[, i]
+      } else {
+        next
+      }
+    }
+  }
+
+  if (loops) {
+    x[abs(outer(rownames(x), rownames(x), "==")) == 1] <- 1
+  }
+  return(x)
+}
+
 #' Meta matrix for multilevel networks
 #'
 #' @param A1  The square matrix of the lowest level

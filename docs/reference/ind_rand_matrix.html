@@ -60,43 +60,62 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ind_rand_matrix</span><span class="op">(</span>
-  <span class="va">n</span>,
-  m <span class="op">=</span> <span class="cn">NULL</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"edges"</span>, <span class="st">"probability"</span><span class="op">)</span>,
-  digraph <span class="op">=</span> <span class="cn">TRUE</span>,
-  loops <span class="op">=</span> <span class="cn">FALSE</span>,
-  l <span class="op">=</span> <span class="cn">NULL</span>,
-  p <span class="op">=</span> <span class="cn">NULL</span>,
-  trials <span class="op">=</span> <span class="fl">1</span>,
-  multilevel <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ind_rand_matrix</span><span class="op">(</span></span>
+<span>  <span class="va">n</span>,</span>
+<span>  m <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"edges"</span>, <span class="st">"probability"</span><span class="op">)</span>,</span>
+<span>  digraph <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  loops <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  l <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  p <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trials <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  multilevel <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>n</dt>
 <dd><p>The number of nodes of the first set</p></dd>
+
+
 <dt>m</dt>
 <dd><p>The  number of nodes of a second set</p></dd>
+
+
 <dt>type</dt>
 <dd><p>The model assumes a fixed number of <code>edges</code> model (a.k.a. G(n,m)) (default) or a <code>probability</code> model (a.k.a. G(n,p))</p></dd>
+
+
 <dt>digraph</dt>
 <dd><p>Whether the matrix is symmetric or not</p></dd>
+
+
 <dt>loops</dt>
 <dd><p>Whether to expect nonzero elements in the diagonal of the matrix</p></dd>
+
+
 <dt>l</dt>
 <dd><p>The number of ties expected for the <code>edges</code> (a.k.a. G(n,m)) model</p></dd>
+
+
 <dt>p</dt>
 <dd><p>The probability of the ties expected for the <code>probability</code> (a.k.a. G(n,p)) model. If no parameter `p` is specified, a uniform distribution is considered (p=0.5).</p></dd>
+
+
 <dt>trials</dt>
 <dd><p>Whether to add counting numbers to the <code>probability</code> (a.k.a. G(n,p)) model</p></dd>
+
+
 <dt>multilevel</dt>
 <dd><p>Whether to return a meta-matrix to represent a multilevel network</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>This function return the counts of the dyad census.</p>
+    
+
+<p>This function return the counts of the dyad census.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -119,23 +138,23 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">18051889</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ind_rand_matrix</span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">"edges"</span>, l <span class="op">=</span> <span class="fl">3</span>, digraph <span class="op">=</span> <span class="cn">TRUE</span>, loops <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">18051889</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ind_rand_matrix</span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">"edges"</span>, l <span class="op">=</span> <span class="fl">3</span>, digraph <span class="op">=</span> <span class="cn">TRUE</span>, loops <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    0    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    1    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    1    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    0    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    0    0    0    0    0</span>
-<span class="r-in"><span class="fu">ind_rand_matrix</span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">"probability"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ind_rand_matrix</span><span class="op">(</span><span class="fl">5</span>, type <span class="op">=</span> <span class="st">"probability"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    1    0    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    0    1    0    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    1    0    1    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    0    1    1    1    0</span>
-<span class="r-in"><span class="fu">ind_rand_matrix</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">2</span>, p <span class="op">=</span> <span class="fl">0.20</span>, type <span class="op">=</span> <span class="st">"probability"</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ind_rand_matrix</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, m <span class="op">=</span> <span class="fl">2</span>, p <span class="op">=</span> <span class="fl">0.20</span>, type <span class="op">=</span> <span class="st">"probability"</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    n1 n2 n3 n4 n5 m1 m2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n1  0  1  0  0  0  0  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> n2  0  0  1  1  0  0  0</span>
@@ -158,7 +177,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -100,6 +100,9 @@
     <loc>/reference/ei_index.html</loc>
   </url>
   <url>
+    <loc>/reference/expand_matrix.html</loc>
+  </url>
+  <url>
     <loc>/reference/extract_component.html</loc>
   </url>
   <url>
@@ -209,6 +212,9 @@
   </url>
   <url>
     <loc>/reference/trans_coef.html</loc>
+  </url>
+  <url>
+    <loc>/reference/trans_matrix.html</loc>
   </url>
   <url>
     <loc>/reference/triad201_table.html</loc>

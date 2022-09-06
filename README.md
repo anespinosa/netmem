@@ -59,15 +59,16 @@ Utilities:
 4.  `matrix_to_edgelist()`: Transform a square matrix into an edge-list
 5.  `adj_to_matrix()`: Transform an adjacency list into a matrix
 6.  `edgelist_to_matrix()`: Transform an edgelist into a matrix
-7.  `extract_component()`: Extract components
-8.  `hypergraph()`: Hypergraphs
-9.  `meta_matrix()`: Meta matrix for multilevel networks
-10. `minmax_overlap()`: Minimum/maximum overlap
-11. `mix_matrix()`: Mixing matrix
-12. `simplicial_complexes()`: Simplicial Complexes
-13. `structural_na()`: Structural missing data
-14. `ego_net()`: Ego network
-15. `zone_sample()`: Zone-2 sampling from second-mode
+7.  `expand_matrix()`: Expand matrix
+8.  `extract_component()`: Extract components
+9.  `hypergraph()`: Hypergraphs
+10. `meta_matrix()`: Meta matrix for multilevel networks
+11. `minmax_overlap()`: Minimum/maximum overlap
+12. `mix_matrix()`: Mixing matrix
+13. `simplicial_complexes()`: Simplicial Complexes
+14. `structural_na()`: Structural missing data
+15. `ego_net()`: Ego network
+16. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 
@@ -95,11 +96,12 @@ Structural measures:
 3.  `multilevel_degree()`: Degree centrality for multilevel networks
 4.  `recip_coef()`: Reciprocity
 5.  `trans_coef()`: Transitivity
-6.  `components_id()`: Components
-7.  `k_core()`: Generalized K-core
-8.  `dyadic_census()`: Dyad census
-9.  `multiplex_census()`: Multiplex triad census
-10. `mixed_census()`: Multilevel triad and quadrilateral census
+6.  `trans_matrix()`: Transitivity matrix
+7.  `components_id()`: Components
+8.  `k_core()`: Generalized K-core
+9.  `dyadic_census()`: Dyad census
+10. `multiplex_census()`: Multiplex triad census
+11. `mixed_census()`: Multilevel triad and quadrilateral census
 
 Cohesive subgroups:
 

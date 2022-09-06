@@ -60,21 +60,28 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">extract_component</span><span class="op">(</span><span class="va">A</span>, maximum <span class="op">=</span> <span class="cn">TRUE</span>, position <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">extract_component</span><span class="op">(</span><span class="va">A</span>, maximum <span class="op">=</span> <span class="cn">TRUE</span>, position <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>A</dt>
 <dd><p>A matrix</p></dd>
+
+
 <dt>maximum</dt>
 <dd><p>Whether to extract the maximum component</p></dd>
+
+
 <dt>position</dt>
 <dd><p>Whether to extract the component in the ith size position</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix or a list of matrices with the required components</p>
+    
+
+<p>A matrix or a list of matrices with the required components</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -87,11 +94,11 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">FIFAex</span><span class="op">$</span><span class="va">Matrix</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">FIFAex</span><span class="op">$</span><span class="va">label</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">extract_component</span><span class="op">(</span><span class="va">A</span>, maximum <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">FIFAex</span><span class="op">$</span><span class="va">Matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">FIFAex</span><span class="op">$</span><span class="va">label</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">extract_component</span><span class="op">(</span><span class="va">A</span>, maximum <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      IFAB FIFA British Associations CAS WADA Countries</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> IFAB                    0    1                    1   0    0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> FIFA                    1    0                    1   1    1         1</span>
@@ -99,7 +106,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> CAS                     0    1                    0   0    1         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> WADA                    0    1                    0   1    0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Countries               0    1                    0   0    0         0</span>
-<span class="r-in"><span class="fu">extract_component</span><span class="op">(</span><span class="va">A</span>, maximum <span class="op">=</span> <span class="cn">FALSE</span>, position <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">extract_component</span><span class="op">(</span><span class="va">A</span>, maximum <span class="op">=</span> <span class="cn">FALSE</span>, position <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Olympics Games</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Olympics Games              0</span>
 </code></pre></div>
@@ -116,7 +123,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

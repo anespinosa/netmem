@@ -60,23 +60,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">kp_reciprocity</span><span class="op">(</span><span class="va">G</span>, fixed <span class="op">=</span> <span class="cn">FALSE</span>, d <span class="op">=</span> <span class="cn">NULL</span>, dichotomic <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">kp_reciprocity</span><span class="op">(</span><span class="va">G</span>, fixed <span class="op">=</span> <span class="cn">FALSE</span>, d <span class="op">=</span> <span class="cn">NULL</span>, dichotomic <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>G</dt>
 <dd><p>A symmetric matrix object.</p></dd>
+
+
 <dt>fixed</dt>
 <dd><p>Whether the choices are fixed or not</p></dd>
+
+
 <dt>d</dt>
 <dd><p>Numeric value of the number of fixed choices.</p></dd>
+
+
 <dt>dichotomic</dt>
 <dd><p>Whether the matrix is weighted or binary</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>This function gives a measurment of the tendency toward
+    
+
+<p>This function gives a measurment of the tendency toward
 reciprocation of choices.</p>
     </div>
     <div id="references">
@@ -91,9 +100,9 @@ reciprocation of choice." Sociometry, 18:659-665.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">krackhardt_friends</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">kp_reciprocity</span><span class="op">(</span><span class="va">krackhardt_friends</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span>, d <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">krackhardt_friends</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">kp_reciprocity</span><span class="op">(</span><span class="va">krackhardt_friends</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span>, d <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2507937</span>
 </code></pre></div>
     </div>
@@ -109,7 +118,7 @@ reciprocation of choice." Sociometry, 18:659-665.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

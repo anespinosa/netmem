@@ -118,6 +118,8 @@
 <li>
 <code><a href="reference/edgelist_to_matrix.html">edgelist_to_matrix()</a></code>: Transform an edgelist into a matrix</li>
 <li>
+<code><a href="reference/expand_matrix.html">expand_matrix()</a></code>: Expand matrix</li>
+<li>
 <code><a href="reference/extract_component.html">extract_component()</a></code>: Extract components</li>
 <li>
 <code><a href="reference/hypergraph.html">hypergraph()</a></code>: Hypergraphs</li>
@@ -178,6 +180,8 @@
 <code><a href="reference/recip_coef.html">recip_coef()</a></code>: Reciprocity</li>
 <li>
 <code><a href="reference/trans_coef.html">trans_coef()</a></code>: Transitivity</li>
+<li>
+<code><a href="reference/trans_matrix.html">trans_matrix()</a></code>: Transitivity matrix</li>
 <li>
 <code><a href="reference/components_id.html">components_id()</a></code>: Components</li>
 <li>
@@ -258,10 +262,10 @@
 </h2>
 <p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"anespinosa/netmem"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"anespinosa/netmem"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/anespinosa/netmem" class="external-link">netmem</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/anespinosa/netmem" class="external-link">netmem</a></span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -290,133 +294,133 @@
 </div>
 <p>Create the data</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,
-              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,
-              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,
-              <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">5</span><span class="op">)</span>
-              
-<span class="va">B1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,
-              <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-
-<span class="va">A2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
-
-<span class="va">B2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,
-              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
-
-<span class="va">A3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,
-              <span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">5</span>,
-              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">5</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
+<span>              </span>
+<span><span class="va">B1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">A2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">B2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">A3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>              <span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">5</span>,</span>
+<span>              <span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">5</span>,<span class="fl">0</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <p>We will start with a report of the matrices:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span>
-<span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
-<span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span>
-<span class="co">#&gt; --&gt; The matrix is square, 5 by 5</span>
-<span class="co">#&gt;      nodes edges</span>
-<span class="co">#&gt; [1,]     5     7</span>
-<span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span>
-<span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
-<span class="co">#&gt; --&gt; The matrix is rectangular, 3 by 5</span>
-<span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span>
-<span class="co">#&gt; [1,]          3             5               7</span>
-<span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span>
-<span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
-<span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span>
-<span class="co">#&gt; --&gt; The matrix is square, 3 by 3</span>
-<span class="co">#&gt;      nodes edges</span>
-<span class="co">#&gt; [1,]     3     2</span>
-<span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">B2</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span>
-<span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
-<span class="co">#&gt; --&gt; The matrix is rectangular, 4 by 3</span>
-<span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span>
-<span class="co">#&gt; [1,]          4             3               5</span>
-<span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span>
-<span class="co">#&gt; The matrix A might have the following characteristics:</span>
-<span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span>
-<span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span>
-<span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span>
-<span class="co">#&gt; --&gt; Valued matrix</span>
-<span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span>
-<span class="co">#&gt; --&gt; The matrix is square, 4 by 4</span>
-<span class="co">#&gt;      nodes edges</span>
-<span class="co">#&gt; [1,]     4    10</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is square, 5 by 5</span></span>
+<span><span class="co">#&gt;      nodes edges</span></span>
+<span><span class="co">#&gt; [1,]     5     7</span></span>
+<span><span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is rectangular, 3 by 5</span></span>
+<span><span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span></span>
+<span><span class="co">#&gt; [1,]          3             5               7</span></span>
+<span><span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is square, 3 by 3</span></span>
+<span><span class="co">#&gt;      nodes edges</span></span>
+<span><span class="co">#&gt; [1,]     3     2</span></span>
+<span><span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">B2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is rectangular, 4 by 3</span></span>
+<span><span class="co">#&gt;      nodes_rows nodes_columns incidence_lines</span></span>
+<span><span class="co">#&gt; [1,]          4             3               5</span></span>
+<span><span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
+<span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the rows of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; No names assigned to the columns of the matrix</span></span>
+<span><span class="co">#&gt; --&gt; Valued matrix</span></span>
+<span><span class="co">#&gt; --&gt; Matrix is symmetric (network is undirected)</span></span>
+<span><span class="co">#&gt; --&gt; The matrix is square, 4 by 4</span></span>
+<span><span class="co">#&gt;      nodes edges</span></span>
+<span><span class="co">#&gt; [1,]     4    10</span></span></code></pre></div>
 <p>What is the density of some of the matrices?</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span>
-<span class="fu"><a href="reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="va">matrices</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; $`Density of matrix [[1]]`</span>
-<span class="co">#&gt; [1] 0.7</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Density of matrix [[2]]`</span>
-<span class="co">#&gt; [1] 0.4666667</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Density of matrix [[3]]`</span>
-<span class="co">#&gt; [1] 0.6666667</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Density of matrix [[4]]`</span>
-<span class="co">#&gt; [1] 0.4166667</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="va">matrices</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $`Density of matrix [[1]]`</span></span>
+<span><span class="co">#&gt; [1] 0.7</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Density of matrix [[2]]`</span></span>
+<span><span class="co">#&gt; [1] 0.4666667</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Density of matrix [[3]]`</span></span>
+<span><span class="co">#&gt; [1] 0.6666667</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Density of matrix [[4]]`</span></span>
+<span><span class="co">#&gt; [1] 0.4166667</span></span></code></pre></div>
 <p>How about the degree centrality of the entire structure?</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/multilevel_degree.html">multilevel_degree</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt;    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel</span>
-<span class="co">#&gt; n1          3           1          NA              1              3</span>
-<span class="co">#&gt; n2          5           2          NA              2              5</span>
-<span class="co">#&gt; n3          3           1          NA              1              3</span>
-<span class="co">#&gt; n4          4           1          NA              1              4</span>
-<span class="co">#&gt; n5          6           2          NA              2              6</span>
-<span class="co">#&gt; m1          6           2           2              4              4</span>
-<span class="co">#&gt; m2          6           4           1              5              5</span>
-<span class="co">#&gt; m3          4           1           2              3              3</span>
-<span class="co">#&gt; k1          4          NA           1              1              1</span>
-<span class="co">#&gt; k2          2          NA           1              1              1</span>
-<span class="co">#&gt; k3          3          NA           2              2              2</span>
-<span class="co">#&gt; k4          1          NA           1              1              1</span>
-<span class="co">#&gt;    meso_multilevel high_multilevel</span>
-<span class="co">#&gt; n1               1               1</span>
-<span class="co">#&gt; n2               2               2</span>
-<span class="co">#&gt; n3               1               1</span>
-<span class="co">#&gt; n4               1               1</span>
-<span class="co">#&gt; n5               2               2</span>
-<span class="co">#&gt; m1               6               4</span>
-<span class="co">#&gt; m2               6               5</span>
-<span class="co">#&gt; m3               4               3</span>
-<span class="co">#&gt; k1               1               1</span>
-<span class="co">#&gt; k2               1               1</span>
-<span class="co">#&gt; k3               2               2</span>
-<span class="co">#&gt; k4               1               1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/multilevel_degree.html">multilevel_degree</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel</span></span>
+<span><span class="co">#&gt; n1          3           1          NA              1              3</span></span>
+<span><span class="co">#&gt; n2          5           2          NA              2              5</span></span>
+<span><span class="co">#&gt; n3          3           1          NA              1              3</span></span>
+<span><span class="co">#&gt; n4          4           1          NA              1              4</span></span>
+<span><span class="co">#&gt; n5          6           2          NA              2              6</span></span>
+<span><span class="co">#&gt; m1          6           2           2              4              4</span></span>
+<span><span class="co">#&gt; m2          6           4           1              5              5</span></span>
+<span><span class="co">#&gt; m3          4           1           2              3              3</span></span>
+<span><span class="co">#&gt; k1          4          NA           1              1              1</span></span>
+<span><span class="co">#&gt; k2          2          NA           1              1              1</span></span>
+<span><span class="co">#&gt; k3          3          NA           2              2              2</span></span>
+<span><span class="co">#&gt; k4          1          NA           1              1              1</span></span>
+<span><span class="co">#&gt;    meso_multilevel high_multilevel</span></span>
+<span><span class="co">#&gt; n1               1               1</span></span>
+<span><span class="co">#&gt; n2               2               2</span></span>
+<span><span class="co">#&gt; n3               1               1</span></span>
+<span><span class="co">#&gt; n4               1               1</span></span>
+<span><span class="co">#&gt; n5               2               2</span></span>
+<span><span class="co">#&gt; m1               6               4</span></span>
+<span><span class="co">#&gt; m2               6               5</span></span>
+<span><span class="co">#&gt; m3               4               3</span></span>
+<span><span class="co">#&gt; k1               1               1</span></span>
+<span><span class="co">#&gt; k2               1               1</span></span>
+<span><span class="co">#&gt; k3               2               2</span></span>
+<span><span class="co">#&gt; k4               1               1</span></span></code></pre></div>
 <p>Besides, we can perform a <em>k</em>-core analysis of one of the levels using the information of an incidence matrix</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1 3 1 2 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1 3 1 2 3</span></span></code></pre></div>
 <p>This package also allows performing complex census for multilevel networks.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span>
-<span class="co">#&gt;     2     6     1     0     0     2     0     0     4     0     1     1     0 </span>
-<span class="co">#&gt;  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W </span>
-<span class="co">#&gt;     0     0     8     0     3     0     1     3     1     0     0     0     0 </span>
-<span class="co">#&gt;  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 </span>
-<span class="co">#&gt;    11    13     0     0     0     0     3     0     0     0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span></span>
+<span><span class="co">#&gt;     2     6     1     0     0     2     0     0     4     0     1     1     0 </span></span>
+<span><span class="co">#&gt;  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W </span></span>
+<span><span class="co">#&gt;     0     0     8     0     3     0     1     3     1     0     0     0     0 </span></span>
+<span><span class="co">#&gt;  121W  121P  21D1  21U1  11D2  11U2   221   122   212   222 </span></span>
+<span><span class="co">#&gt;    11    13     0     0     0     0     3     0     0     0</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level3">
@@ -424,35 +428,35 @@
 </h3>
 <p>When we are interested in one particular actor, we could perform different network measures. For example, actor <code>e</code> has connections with all the other actors in the network. Therefore, we could estimate some of Ronald Burt’s measures.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># First we will assign names to the matrix</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span>
-
-<span class="fu"><a href="reference/eb_constraint.html">eb_constraint</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span>
-<span class="co">#&gt; $results</span>
-<span class="co">#&gt;   term1 term2 term3 constraint normalization</span>
-<span class="co">#&gt; e  0.25 0.292 0.101      0.642         0.761</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $maximum</span>
-<span class="co">#&gt;     e </span>
-<span class="co">#&gt; 0.766</span>
-<span class="fu"><a href="reference/redundancy.html">redundancy</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span>
-<span class="co">#&gt; $redundancy</span>
-<span class="co">#&gt; [1] 1.5</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $effective_size</span>
-<span class="co">#&gt; [1] 2.5</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $efficiency</span>
-<span class="co">#&gt; [1] 0.625</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># First we will assign names to the matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/eb_constraint.html">eb_constraint</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $results</span></span>
+<span><span class="co">#&gt;   term1 term2 term3 constraint normalization</span></span>
+<span><span class="co">#&gt; e  0.25 0.292 0.101      0.642         0.761</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $maximum</span></span>
+<span><span class="co">#&gt;     e </span></span>
+<span><span class="co">#&gt; 0.766</span></span>
+<span><span class="fu"><a href="reference/redundancy.html">redundancy</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $redundancy</span></span>
+<span><span class="co">#&gt; [1] 1.5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $effective_size</span></span>
+<span><span class="co">#&gt; [1] 2.5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $efficiency</span></span>
+<span><span class="co">#&gt; [1] 0.625</span></span></code></pre></div>
 <p>Also, sometimes we might want to subset a group of actors surrounding an ego.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/ego_net.html">ego_net</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span>
-<span class="co">#&gt;   a b c d</span>
-<span class="co">#&gt; a 0 1 0 0</span>
-<span class="co">#&gt; b 1 0 0 1</span>
-<span class="co">#&gt; c 0 0 0 1</span>
-<span class="co">#&gt; d 0 1 1 0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/ego_net.html">ego_net</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a b c d</span></span>
+<span><span class="co">#&gt; a 0 1 0 0</span></span>
+<span><span class="co">#&gt; b 1 0 0 1</span></span>
+<span><span class="co">#&gt; c 0 0 0 1</span></span>
+<span><span class="co">#&gt; d 0 1 1 0</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level3">
@@ -460,51 +464,51 @@
 </h3>
 <p>This package expand some measures for one-mode networks, such as the generalized degree centrality. Suppose we consider a valued matrix <code>A3</code>. If <code>alpha=0</code> then it would only count the direct connections. But, adding the tuning parameter <code>alpha=0.5</code> would determine the relative importance of the number of ties compared to tie weights.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">A3</span>, digraph <span class="op">=</span> <span class="cn">FALSE</span>, weighted<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] 3.872983 1.000000 4.000000 3.464102</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">A3</span>, digraph <span class="op">=</span> <span class="cn">FALSE</span>, weighted<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3.872983 1.000000 4.000000 3.464102</span></span></code></pre></div>
 <p>Also, we could conduct some exploratory analysis using the normalized degree of an incidence matrix.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">B1</span>, bipartite <span class="op">=</span> <span class="cn">TRUE</span>, normalized<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; $bipartiteL1</span>
-<span class="co">#&gt; [1] 0.3333333 0.6666667 0.3333333 0.3333333 0.6666667</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $bipartiteL2</span>
-<span class="co">#&gt; [1] 0.4 0.8 0.2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">B1</span>, bipartite <span class="op">=</span> <span class="cn">TRUE</span>, normalized<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $bipartiteL1</span></span>
+<span><span class="co">#&gt; [1] 0.3333333 0.6666667 0.3333333 0.3333333 0.6666667</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $bipartiteL2</span></span>
+<span><span class="co">#&gt; [1] 0.4 0.8 0.2</span></span></code></pre></div>
 <p>This package also implements some analysis of dyads.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># dyad census</span>
-<span class="fu"><a href="reference/dyadic_census.html">dyadic_census</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
-<span class="co">#&gt;      Mutual Asymmetrics       Nulls </span>
-<span class="co">#&gt;           7           0           3</span>
-
-<span class="co"># Katz and Powell reciprocity</span>
-<span class="fu"><a href="reference/kp_reciprocity.html">kp_reciprocity</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 6.333333</span>
-
-<span class="co"># Z test of the number of arcs</span>
-<span class="fu"><a href="reference/z_arctest.html">z_arctest</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
-<span class="co">#&gt;     z     p </span>
-<span class="co">#&gt; 1.789 0.074</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># dyad census</span></span>
+<span><span class="fu"><a href="reference/dyadic_census.html">dyadic_census</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      Mutual Asymmetrics       Nulls </span></span>
+<span><span class="co">#&gt;           7           0           3</span></span>
+<span></span>
+<span><span class="co"># Katz and Powell reciprocity</span></span>
+<span><span class="fu"><a href="reference/kp_reciprocity.html">kp_reciprocity</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 6.333333</span></span>
+<span></span>
+<span><span class="co"># Z test of the number of arcs</span></span>
+<span><span class="fu"><a href="reference/z_arctest.html">z_arctest</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     z     p </span></span>
+<span><span class="co">#&gt; 1.789 0.074</span></span></code></pre></div>
 <p>We can also check the triad census assuming conditional uniform distribution considering different types of dyads <strong>(U|MAN)</strong></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/triad_uman.html">triad_uman</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span>
-<span class="co">#&gt;    label OBS   EXP   VAR   STD</span>
-<span class="co">#&gt; 1    003   0 0.083 0.076 0.276</span>
-<span class="co">#&gt; 2    012   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 3    102   2 1.750 0.688 0.829</span>
-<span class="co">#&gt; 4   021D   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 5   021U   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 6   021C   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 7   111D   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 8   111U   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 9   030T   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 10  030C   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 11   201   5 5.250 1.688 1.299</span>
-<span class="co">#&gt; 12  120D   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 13  120U   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 14  120C   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 15   210   0 0.000 0.000 0.000</span>
-<span class="co">#&gt; 16   300   3 2.917 0.410 0.640</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/triad_uman.html">triad_uman</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    label OBS   EXP   VAR   STD</span></span>
+<span><span class="co">#&gt; 1    003   0 0.083 0.076 0.276</span></span>
+<span><span class="co">#&gt; 2    012   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 3    102   2 1.750 0.688 0.829</span></span>
+<span><span class="co">#&gt; 4   021D   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 5   021U   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 6   021C   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 7   111D   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 8   111U   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 9   030T   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 10  030C   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 11   201   5 5.250 1.688 1.299</span></span>
+<span><span class="co">#&gt; 12  120D   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 13  120U   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 14  120C   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 15   210   0 0.000 0.000 0.000</span></span>
+<span><span class="co">#&gt; 16   300   3 2.917 0.410 0.640</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level3">
@@ -517,8 +521,8 @@
 <h3 id="to-do-list">To-do list<a class="anchor" aria-label="anchor" href="#to-do-list"></a>
 </h3>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># library(todor)</span>
-<span class="co"># todor::todor_package(c("TODO", "FIXME"))</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># library(todor)</span></span>
+<span><span class="co"># todor::todor_package(c("TODO", "FIXME"))</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level3">
@@ -745,7 +749,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

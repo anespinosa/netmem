@@ -62,17 +62,20 @@ adjacency matrix or sociomatrix, and the incidence matrix.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">matrix_report</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">matrix_report</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>A</dt>
 <dd><p>A matrix</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>This function return a report of some of the characteristics of the matrix.</p>
+    
+
+<p>This function return a report of some of the characteristics of the matrix.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -85,22 +88,22 @@ adjacency matrix or sociomatrix, and the incidence matrix.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
-<span class="r-in">  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span></span>
-<span class="r-in"><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">matrix_report</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">matrix_report</span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The matrix A might have the following characteristics:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --&gt; The vectors of the matrix are `numeric`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --&gt; No names assigned to the rows of the matrix</span>
@@ -112,7 +115,7 @@ adjacency matrix or sociomatrix, and the incidence matrix.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --&gt; The matrix is square, 5 by 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      nodes arcs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     5   13</span>
-<span class="r-in"><span class="fu">matrix_report</span><span class="op">(</span><span class="va">B</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">matrix_report</span><span class="op">(</span><span class="va">B</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The matrix A might have the following characteristics:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --&gt; The vectors of the matrix are `numeric`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --&gt; No names assigned to the rows of the matrix</span>
@@ -135,7 +138,7 @@ adjacency matrix or sociomatrix, and the incidence matrix.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

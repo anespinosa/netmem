@@ -60,14 +60,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dist_geographic</span><span class="op">(</span>
-  <span class="va">latitude</span>,
-  <span class="va">longitud</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spherical"</span>, <span class="st">"harvesine"</span>, <span class="st">"manhattan"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,
-  places <span class="op">=</span> <span class="cn">NULL</span>,
-  dd_to_radians <span class="op">=</span> <span class="cn">FALSE</span>,
-  p <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dist_geographic</span><span class="op">(</span></span>
+<span>  <span class="va">latitude</span>,</span>
+<span>  <span class="va">longitud</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spherical"</span>, <span class="st">"harvesine"</span>, <span class="st">"manhattan"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,</span>
+<span>  places <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dd_to_radians <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  p <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="source">
@@ -78,28 +78,41 @@
     <h2>Arguments</h2>
     <dl><dt>latitude</dt>
 <dd><p>A vector with latitude</p></dd>
+
+
 <dt>longitud</dt>
 <dd><p>A vector with longitud</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Whether to use the Spherical Law of Cosines <code>spherical</code> (default), Haversine formula <code>harvesine</code>, Manhattan Distance <code>manhattan</code> or Minkoowski distance <code>minkowski</code></p></dd>
+
+
 <dt>places</dt>
 <dd><p>A vector with the names of the places</p></dd>
+
+
 <dt>dd_to_radians</dt>
 <dd><p>Whether to transform degree decimal format to radians</p></dd>
+
+
 <dt>p</dt>
 <dd><p>Parameter p for the estimation of Minkowski distance (default = 2, which is equivalent to an Euclidian Distance)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>This function return a distance matrix.</p>
+    
+
+<p>This function return a distance matrix.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>latitud <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">90</span><span class="op">)</span>, longitud <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">45</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">dist_geographic</span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"harvesine"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>latitud <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">90</span><span class="op">)</span>, longitud <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">45</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dist_geographic</span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="va">x</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"harvesine"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]      [,3]      [,4]       [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]     0.000 10082.8221 12409.829  8394.701 10610.5618</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 10082.822     0.0000  5141.096 16711.983   980.0773</span>
@@ -120,7 +133,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
