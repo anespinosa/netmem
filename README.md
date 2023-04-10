@@ -192,41 +192,51 @@ represent the multilevel network that could be highly complex.
 Let’s assume that we have a multilevel network with two adjacency
 matrices, one valued matrix and two incidence matrices between them.
 
--   `A1`: Adjacency Matrix of the level 1
--   `B1`: incidence Matrix between level 1 and level 2
--   `A2`: Adjacency Matrix of the level 2
--   `B2`: incidence Matrix between level 2 and level 3
--   `A3`: Valued Matrix of the level 3
+- `A1`: Adjacency Matrix of the level 1
+- `B1`: incidence Matrix between level 1 and level 2
+- `A2`: Adjacency Matrix of the level 2
+- `B2`: incidence Matrix between level 2 and level 3
+- `A3`: Valued Matrix of the level 3
 
 </div>
 
 Create the data
 
 ``` r
-A1 <- matrix(c(0,1,0,0,1,
-              1,0,0,1,1,
-              0,0,0,1,1,
-              0,1,1,0,1,
-              1,1,1,1,0), byrow=TRUE, ncol=5)
-              
-B1 <- matrix(c(1,0,0,
-              1,1,0,
-              0,1,0,
-              0,1,0,
-              0,1,1), byrow=TRUE, ncol=3)
+A1 <- matrix(c(
+  0, 1, 0, 0, 1,
+  1, 0, 0, 1, 1,
+  0, 0, 0, 1, 1,
+  0, 1, 1, 0, 1,
+  1, 1, 1, 1, 0
+), byrow = TRUE, ncol = 5)
 
-A2 <- matrix(c(0,1,1,
-              1,0,0,
-              1,0,0), byrow=TRUE, nrow=3)
+B1 <- matrix(c(
+  1, 0, 0,
+  1, 1, 0,
+  0, 1, 0,
+  0, 1, 0,
+  0, 1, 1
+), byrow = TRUE, ncol = 3)
 
-B2 <- matrix(c(1,1,0,0,
-              0,0,1,0,
-              0,0,1,1), byrow=TRUE, ncol=4)
+A2 <- matrix(c(
+  0, 1, 1,
+  1, 0, 0,
+  1, 0, 0
+), byrow = TRUE, nrow = 3)
 
-A3 <- matrix(c(0,1,3,1,
-              1,0,0,0,
-              3,0,0,5,
-              1,0,5,0), byrow=TRUE, ncol=4)
+B2 <- matrix(c(
+  1, 1, 0, 0,
+  0, 0, 1, 0,
+  0, 0, 1, 1
+), byrow = TRUE, ncol = 4)
+
+A3 <- matrix(c(
+  0, 1, 3, 1,
+  1, 0, 0, 0,
+  3, 0, 0, 5,
+  1, 0, 5, 0
+), byrow = TRUE, ncol = 4)
 ```
 
 We will start with a report of the matrices:
@@ -332,7 +342,7 @@ Besides, we can perform a *k*-core analysis of one of the levels using
 the information of an incidence matrix
 
 ``` r
-k_core(A1, B1, multilevel=TRUE)
+k_core(A1, B1, multilevel = TRUE)
 #> [1] 1 3 1 2 3
 ```
 
@@ -340,7 +350,7 @@ This package also allows performing complex census for multilevel
 networks.
 
 ``` r
-mixed_census(A2, t(B1), B2, quad=TRUE)
+mixed_census(A2, t(B1), B2, quad = TRUE)
 #>   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 
 #>     2     6     1     0     0     2     0     0     4     0     1     1     0 
 #>  01U1   012   021   022  101N  101P   201   102   202 11D1W 11U1P 11D1P 11U1W 
@@ -405,7 +415,7 @@ adding the tuning parameter `alpha=0.5` would determine the relative
 importance of the number of ties compared to tie weights.
 
 ``` r
-gen_degree(A3, digraph = FALSE, weighted=TRUE)
+gen_degree(A3, digraph = FALSE, weighted = TRUE)
 #> [1] 3.872983 1.000000 4.000000 3.464102
 ```
 
@@ -413,7 +423,7 @@ Also, we could conduct some exploratory analysis using the normalized
 degree of an incidence matrix.
 
 ``` r
-gen_degree(B1, bipartite = TRUE, normalized=TRUE)
+gen_degree(B1, bipartite = TRUE, normalized = TRUE)
 #> $bipartiteL1
 #> [1] 0.3333333 0.6666667 0.3333333 0.3333333 0.6666667
 #> 
@@ -479,6 +489,16 @@ participating in this project you agree to abide by its terms.
 # library(todor)
 # todor::todor_package(c("TODO", "FIXME"))
 ```
+
+------------------------------------------------------------------------
+
+### Other related R packages
+
+- [`{bipartite}`](https://github.com/biometry/bipartite)
+- [`{migraph}`](https://github.com/snlab-ch/migraph)
+- [`{multinet}`](https://CRAN.R-project.org/package=multinet)
+- [`{tnet}`](https://toreopsahl.com/tnet/)
+- [`{xUCINET}`](https://www.analyzingsocialnetworksusingr.com/xucinet)
 
 ------------------------------------------------------------------------
 
