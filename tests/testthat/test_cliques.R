@@ -1,6 +1,6 @@
 context("Test cliques")
 
-test_that("Wheter we find the same number of cliques using matrices and eigenvalues", {
+test_that("Whether we find the same number of cliques using matrices and eigenvalues", {
   A <- matrix(c(
     0, 1, 1, 0, 0, 0, 0, 1, 0,
     1, 0, 1, 0, 0, 0, 0, 0, 0,

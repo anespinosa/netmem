@@ -179,12 +179,10 @@ ind_rand_matrix <- function(n, m = NULL,
       colnames(M) <- rownames(M)
       return(M)
     } else {
-
       # ONLY TWO-MODE
       return(A)
     }
   } else {
-
     # ONE-MODE NETWORK
     if (digraph) {
       if (!loops) {

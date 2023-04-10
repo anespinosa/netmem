@@ -44,7 +44,7 @@ A <- matrix(c(
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- rownames(A)
 E <- matrix_to_edgelist(A)
-edgelist_to_matrix(E, label = c("i"))
+edgelist_to_matrix(E, label = c("i"), digraph = FALSE)
 }
 \author{
 Alejandro Espinosa-Rada

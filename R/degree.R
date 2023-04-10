@@ -130,12 +130,10 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
   if (is.list(matrices)) {
     dens <- list()
     for (j in 1:length(matrices)) {
-
       # weighted
       if (any(abs(matrices[[j]]) > 1, na.rm = TRUE)) {
         dens[[j]] <- NA
       } else {
-
         # bipartite
         if (ncol(matrices[[j]]) != nrow(matrices[[j]])) {
           high <- ncol(matrices[[j]])
@@ -143,7 +141,6 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
           L <- sum(matrices[[j]], na.rm = TRUE)
           dens[[j]] <- L / (high * low)
         } else {
-
           # directed or undirected
           if (all(matrices[[j]][lower.tri(matrices[[j]])] == t(matrices[[j]])[lower.tri(matrices[[j]])], na.rm = TRUE)) {
             dens[[j]] <- sum(matrices[[j]], na.rm = TRUE) / (ncol(matrices[[j]]) * (ncol(matrices[[j]]) - 1))

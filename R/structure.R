@@ -183,15 +183,16 @@ method_option <- function(arg, choices, several.ok = FALSE) {
 #'
 #' @examples
 #'
-#' A <- matrix(c(
-#'   0, 1, 1, 0, 0, 0,
-#'   0, 0, 1, 0, 0, 0,
-#'   0, 0, 0, 1, 0, 0,
-#'   0, 0, 0, 0, 0, 0,
-#'   0, 0, 1, 1, 0, 0,
-#'   0, 0, 0, 0, 0, 0
-#' ),
-#' byrow = TRUE, ncol = 6
+#' A <- matrix(
+#'   c(
+#'     0, 1, 1, 0, 0, 0,
+#'     0, 0, 1, 0, 0, 0,
+#'     0, 0, 0, 1, 0, 0,
+#'     0, 0, 0, 0, 0, 0,
+#'     0, 0, 1, 1, 0, 0,
+#'     0, 0, 0, 0, 0, 0
+#'   ),
+#'   byrow = TRUE, ncol = 6
 #' )
 #' rownames(A) <- letters[1:NROW(A)]
 #' colnames(A) <- rownames(A)

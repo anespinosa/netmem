@@ -42,28 +42,29 @@ There are different ways of referring to incidence matrices. From the social net
 
 For example, in this section we will use the classical example of the Southern Woman extracted from the `R` package [classicnets](https://github.com/anespinosa/classicnets):
 ```{r}
- A <- matrix(c(
-   1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0,
-   1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-   0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
-   1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-   0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-   0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0,
-   0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-   0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
-   0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0,
-   0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0,
-   0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0,
-   0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1,
-   0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1,
-   0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1,
-   0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0,
-   0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
-   0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,
-   0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0
- ),
- byrow = TRUE, ncol = 14
- )
+A <- matrix(
+  c(
+    1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+    1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+    1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1,
+    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1,
+    0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0
+  ),
+  byrow = TRUE, ncol = 14
+)
 ```
 
 As a common practice, an incidence matrix is often converted to adjacent matrices. These are given by the matrix product $AA^T$ and $A^TA$, where $A$ is the incidence matrix and matrix $A^T$ is the transpose of $A$. The relationship between these matrices in the context of social networks was explored by [Breiger (1974)](https://doi.org/10.2307/2576011). 
@@ -86,10 +87,10 @@ Some researchers differentiate between the informational or socio-cognitive dime
 
 For example, in scientometric, information is often explored using co-occurrence of overlapping ties:
 ```{r}
-minmax_overlap(A, row = TRUE, min = TRUE) 
-minmax_overlap(A, row = FALSE, min = TRUE) 
+minmax_overlap(A, row = TRUE, min = TRUE)
+minmax_overlap(A, row = FALSE, min = TRUE)
 
-co_ocurrence(A, similarity = c('ochiai'), occurrence = TRUE, projection = FALSE)
+co_ocurrence(A, similarity = c("ochiai"), occurrence = TRUE, projection = FALSE)
 ```
 
 
@@ -115,30 +116,40 @@ Let's assume that we have a multilevel network with two adjacency matrices, one 
 
 Create the data
 ```{r multilevel_example}
-A1 <- matrix(c(0,1,0,0,1,
-              1,0,0,1,1,
-              0,0,0,1,1,
-              0,1,1,0,1,
-              1,1,1,1,0), byrow=TRUE, ncol=5)
-              
-B1 <- matrix(c(1,0,0,
-              1,1,0,
-              0,1,0,
-              0,1,0,
-              0,1,1), byrow=TRUE, ncol=3)
+A1 <- matrix(c(
+  0, 1, 0, 0, 1,
+  1, 0, 0, 1, 1,
+  0, 0, 0, 1, 1,
+  0, 1, 1, 0, 1,
+  1, 1, 1, 1, 0
+), byrow = TRUE, ncol = 5)
 
-A2 <- matrix(c(0,1,1,
-              1,0,0,
-              1,0,0), byrow=TRUE, nrow=3)
+B1 <- matrix(c(
+  1, 0, 0,
+  1, 1, 0,
+  0, 1, 0,
+  0, 1, 0,
+  0, 1, 1
+), byrow = TRUE, ncol = 3)
 
-B2 <- matrix(c(1,1,0,0,
-              0,0,1,0,
-              0,0,1,1), byrow=TRUE, ncol=4)
+A2 <- matrix(c(
+  0, 1, 1,
+  1, 0, 0,
+  1, 0, 0
+), byrow = TRUE, nrow = 3)
 
-A3 <- matrix(c(0,1,3,1,
-              1,0,0,0,
-              3,0,0,5,
-              1,0,5,0), byrow=TRUE, ncol=4)
+B2 <- matrix(c(
+  1, 1, 0, 0,
+  0, 0, 1, 0,
+  0, 0, 1, 1
+), byrow = TRUE, ncol = 4)
+
+A3 <- matrix(c(
+  0, 1, 3, 1,
+  1, 0, 0, 0,
+  3, 0, 0, 5,
+  1, 0, 5, 0
+), byrow = TRUE, ncol = 4)
 
 rownames(A1) <- letters[1:nrow(A1)]
 colnames(A1) <- rownames(A1)
@@ -171,8 +182,7 @@ meta_matrix(A1, B1, A2, B2, A3)
 meta_matrix(A1, B1, A2, B2)
 
 library(igraph)
-plot(graph.adjacency(meta_matrix(A1, B1, A2, B2, A3), mode = c('directed')))
-
+plot(graph.adjacency(meta_matrix(A1, B1, A2, B2, A3), mode = c("directed")))
 ```
 
 What is the density of some of the matrices?
@@ -188,36 +198,34 @@ multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 
 Besides, we can perform a *k*-core analysis of one of the levels using the information of an incidence matrix
 ```{r multil2, warning=FALSE}
-k_core(A1, B1, multilevel=TRUE)
+k_core(A1, B1, multilevel = TRUE)
 ```
 
 This package also allows performing complex census for multilevel networks
 ```{r multil3}
-mixed_census(A2, t(B1), B2, quad=TRUE)
+mixed_census(A2, t(B1), B2, quad = TRUE)
 ```
 
 Also, there are some functions that allowed performing the zone-2 sampling from second-mode (2-path distance from an ego in the second level)
 ```{r, message=FALSE}
 library(igraph)
 m <- meta_matrix(A1, B1)
-g <- graph.adjacency(m, mode = c('undirected'))
+g <- graph.adjacency(m, mode = c("undirected"))
 V(g)$type <- ifelse(V(g)$name %in% colnames(B1), TRUE, FALSE)
-plot(g, vertex.color = ifelse(V(g)$type == TRUE, 'blue', 'red'))
+plot(g, vertex.color = ifelse(V(g)$type == TRUE, "blue", "red"))
 
 two_mode_sam <- zone_sample(A1, B1, ego = TRUE)
-for(i in 1:ncol(B1)){
-   V(two_mode_sam[[i]])$color <- ifelse(V(two_mode_sam[[i]])$name %in% colnames(B1), 'blue', 'red')
-   
-   plot(as.undirected(two_mode_sam[[i]]), vertex.color = V(two_mode_sam[[i]])$color, main = names(two_mode_sam)[i])
-   
+for (i in 1:ncol(B1)) {
+  V(two_mode_sam[[i]])$color <- ifelse(V(two_mode_sam[[i]])$name %in% colnames(B1), "blue", "red")
+
+  plot(as.undirected(two_mode_sam[[i]]), vertex.color = V(two_mode_sam[[i]])$color, main = names(two_mode_sam)[i])
 }
 ```
 
 Willing to create a multilevel network? We can simulate a multilevel network with 30 actors in the first level and 20 nodes in the second level.
 ```{r}
 set.seed(26091949)
-ind_rand_matrix(n = 30, m = 20, type = 'probability', p = 0.2, multilevel = TRUE)
-
+ind_rand_matrix(n = 30, m = 20, type = "probability", p = 0.2, multilevel = TRUE)
 ```
 
 
@@ -243,8 +251,10 @@ rownames(lazega_lawfirm$friends) <- colnames(lazega_lawfirm$friends)
 
 Which are the densities of the networks?
 ```{r}
-gen_density(list(lazega_lawfirm$cowork, lazega_lawfirm$advice, 
-                 lazega_lawfirm$friends), multilayer = TRUE)
+gen_density(list(
+  lazega_lawfirm$cowork, lazega_lawfirm$advice,
+  lazega_lawfirm$friends
+), multilayer = TRUE)
 ```
 
 How about computing the Jaccard index between matrices?

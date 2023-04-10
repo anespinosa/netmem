@@ -19,15 +19,16 @@ This function assigns a one in the elements of the matrix if a group of actors a
 }
 \examples{
 
-A <- matrix(c(
-  0, 1, 1, 0, 0, 0,
-  0, 0, 1, 0, 0, 0,
-  0, 0, 0, 1, 0, 0,
-  0, 0, 0, 0, 0, 0,
-  0, 0, 1, 1, 0, 0,
-  0, 0, 0, 0, 0, 0
-),
-byrow = TRUE, ncol = 6
+A <- matrix(
+  c(
+    0, 1, 1, 0, 0, 0,
+    0, 0, 1, 0, 0, 0,
+    0, 0, 0, 1, 0, 0,
+    0, 0, 0, 0, 0, 0,
+    0, 0, 1, 1, 0, 0,
+    0, 0, 0, 0, 0, 0
+  ),
+  byrow = TRUE, ncol = 6
 )
 rownames(A) <- letters[1:NROW(A)]
 colnames(A) <- rownames(A)
