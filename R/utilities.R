@@ -198,10 +198,12 @@ matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- rownames(A)
 #' E <- matrix_to_edgelist(A)
-#' edgelist_to_matrix(E, label = c("i"))
+#' edgelist_to_matrix(E, label = c("i"), digraph = FALSE)
 #' @export
 
 # TODO: add valued matrix
+# TODO: check whether `label2` is doing the same as `label`
+
 edgelist_to_matrix <- function(E, digraph = TRUE, label = NULL,
                                label2 = NULL, bipartite = FALSE) {
   if (bipartite) {
@@ -398,13 +400,17 @@ type_matrix <- function(arg, choices, several.ok = FALSE) {
 #'
 #' Two-mode networks can be represented (or 'projected') as one-mode networks.
 #'
-#' @param A  A matrix object
+#' @param A  A first matrix object
+#' @param B  A second matrix object
+#' @param digraph  Whether the matrix is directed or not
 #'
 #' @return This function return a list of matrices of the two projections of the original matrix.
 #'
 #' @references
 #'
 #' Davis, Allison; Gardner, Burleigh B. and Mary. R. Gardner (1941). Deep South: A Social Anthropological Study of Caste and Class. The University of Chicago Press, Chicago.
+#'
+#' Breiger, Ronald L. (1976). The Duality of Persons and Groups, 53(2), 181-190 doi: \url{https://doi.org/10.2307/2576011}
 #'
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
@@ -419,11 +425,38 @@ type_matrix <- function(arg, choices, several.ok = FALSE) {
 #'   0, 0, 1
 #' ), byrow = TRUE, ncol = 3)
 #' matrix_projection(A)
+#'
+#' A <- matrix(c(
+#'   0, 0, 0, 0, 1,
+#'   1, 0, 0, 0, 0,
+#'   1, 1, 0, 0, 0,
+#'   0, 1, 1, 1, 1,
+#'   0, 0, 1, 0, 0,
+#'   0, 0, 1, 1, 0
+#' ), byrow = TRUE, ncol = 5)
+#'
+#' B <- matrix(c(
+#'   0, 0, 0, 0, 1,
+#'   1, 0, 0, 0, 0,
+#'   1, 0, 0, 0, 0,
+#'   0, 1, 0, 0, 0,
+#'   0, 0, 1, 0, 0,
+#'   0, 0, 1, 0, 0
+#' ), byrow = TRUE, ncol = 5)
+#' matrix_projection(A, B, digraph = TRUE)
 #' @export
-matrix_projection <- function(A) {
+matrix_projection <- function(A, B = NULL, digraph = FALSE) {
   A <- as.matrix(A)
-  projection1 <- t(A) %*% A
-  projection2 <- A %*% t(A)
+  if (!digraph) {
+    projection1 <- t(A) %*% A
+    projection2 <- A %*% t(A)
+  } else {
+    if (is.null(B)) stop("A `B` matrix has to be provided")
+    B <- as.matrix(B)
+    if (!all(rowSums(B) == 1)) stop("Specify only one incident tie between nodes of different modes")
+    projection1 <- t(B) %*% A
+    projection2 <- B %*% t(A)
+  }
   return(list(matrix1 = projection1, matrix2 = projection2))
 }
 
@@ -888,7 +921,7 @@ structural_na <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
   } else {
     if (!dim(A)[1] == dim(A)[2]) stop("Matrix should be square")
     if (is.null(colnames(A))) stop("Assign column names to the matrix.")
-    if (is.null(rownames(A))) stop("Assign column names to the matrix.")
+    if (is.null(rownames(A))) stop("Assign rown names to the matrix.")
     if (!is.character(label)) stop("Assign a string vector with the names of the complete matrix.")
     x <- array(NA, dim = list(length(label), length(label)))
     colnames(x) <- label
