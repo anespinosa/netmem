@@ -80,9 +80,10 @@ Ego and personal networks:
 Path distances:
 
 1.  `bfs_ugraph()`: Breath-first algorithm
-2.  `short_path()`: Shortest path  
-3.  `wlocal_distances()`: Dijikstra’s algorithm (one actor)
-4.  `wall_distances()`: Dijikstra’s algorithm (all actors)
+2.  `count_geodesics()`: Count geodesic distances
+3.  `short_path()`: Shortest path  
+4.  `wlocal_distances()`: Dijikstra’s algorithm (one actor)
+5.  `wall_distances()`: Dijikstra’s algorithm (all actors)
 
 Signed networks:
 

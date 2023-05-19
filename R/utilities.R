@@ -618,6 +618,7 @@ ego_net <- function(A, ego = NULL, bipartite = FALSE, addEgo = FALSE,
     }
     if (length(name) == 0) {
       message(paste("actor", ego, "has no neighbour"))
+      return(0)
     } else {
       (A[name, name])
     }
