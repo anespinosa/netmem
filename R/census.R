@@ -4,6 +4,7 @@
 #'
 #' @param G   A symmetric matrix object.
 #' @param directed   Whether the matrix is directed or not
+#' @param loops   Whether to expect nonzero elements in the diagonal of the matrix
 #'
 #' @return This function return the counts of the dyad census.
 #'
@@ -22,9 +23,14 @@
 #' dyadic_census(FIFAin[[1]], directed = FALSE)
 #' @export
 
-dyadic_census <- function(G, directed = TRUE) {
+dyadic_census <- function(G, directed = TRUE, loops = FALSE) {
   G <- as.matrix(G)
   A <- G
+
+  if (!loops) {
+    diag(G) <- 0
+  }
+
   if (any(abs(G > 1), na.rm = TRUE)) stop("The matrix should be binary")
   g <- nrow(G)
   na <- sum(is.na(G)) - sum(diag(is.na(G)))
