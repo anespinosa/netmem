@@ -108,28 +108,28 @@ count_geodesics <- function(A) {
   n <- nrow(A)
   distances <- matrix(Inf, n, n)
   counts <- matrix(0, n, n)
-  
+
   for (j in 1:n) {
     first_buffer <- j
     visited <- rep(FALSE, n)
     visited[j] <- TRUE
     distances[j, j] <- 0
     counts[j, j] <- 1
-    
+
     while (length(first_buffer) > 0) {
       node <- first_buffer[1]
       first_buffer <- first_buffer[-1]
-      
+
       neighbors <- which(A[node, ] != 0 & !visited)
       visited[neighbors] <- TRUE
-      
+
       distances[j, neighbors] <- distances[j, node] + 1
       counts[j, neighbors] <- counts[j, neighbors] + counts[j, node]
-      
+
       first_buffer <- c(first_buffer, neighbors)
     }
   }
-  
+
   return(list(distances = distances, counts = counts))
 }
 

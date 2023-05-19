@@ -4,7 +4,7 @@
 \alias{expand_matrix}
 \title{Expand Matrix}
 \usage{
-expand_matrix(A, label = NULL, loops = FALSE)
+expand_matrix(A, label = NULL, loops = FALSE, normalize = FALSE)
 }
 \arguments{
 \item{A}{A square matrix}
@@ -12,6 +12,8 @@ expand_matrix(A, label = NULL, loops = FALSE)
 \item{label}{Duplicated labels to expand the matrix}
 
 \item{loops}{Whether the loops are retained or not}
+
+\item{normalize}{Whether to normalize the matrix considering the fractional counting per group}
 }
 \value{
 Return an expanded matrix
@@ -28,7 +30,7 @@ A <- matrix(c(
 rownames(A) <- letters[1:NROW(A)]
 colnames(A) <- rownames(A)
 label <- sort(rep(rownames(A), 2))
-expand_matrix(A, label, loops = FALSE)
+expand_matrix(A, label, loops = FALSE, normalize = TRUE)
 }
 \author{
 Alejandro Espinosa-Rada

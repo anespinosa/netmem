@@ -642,6 +642,7 @@ node_direction <- function(arg, choices, several.ok = FALSE) {
 #' @param A  A square matrix
 #' @param label  Duplicated labels to expand the matrix
 #' @param loops  Whether the loops are retained or not
+#' @param normalize  Whether to normalize the matrix considering the fractional counting per group
 #'
 #' @return Return an expanded matrix
 #'
@@ -656,10 +657,10 @@ node_direction <- function(arg, choices, several.ok = FALSE) {
 #' rownames(A) <- letters[1:NROW(A)]
 #' colnames(A) <- rownames(A)
 #' label <- sort(rep(rownames(A), 2))
-#' expand_matrix(A, label, loops = FALSE)
+#' expand_matrix(A, label, loops = FALSE, normalize = TRUE)
 #' @export
 
-expand_matrix <- function(A, label = NULL, loops = FALSE) {
+expand_matrix <- function(A, label = NULL, loops = FALSE, normalize = FALSE) {
   if (!dim(A)[1] == dim(A)[2]) stop("Matrix should be square")
   if (is.null(colnames(A))) stop("Assign column names to the matrix.")
   if (is.null(rownames(A))) stop("Assign column names to the matrix.")
@@ -687,6 +688,13 @@ expand_matrix <- function(A, label = NULL, loops = FALSE) {
   if (loops) {
     x[abs(outer(rownames(x), rownames(x), "==")) == 1] <- 1
   }
+
+  if (normalize) {
+    v <- rep(as.numeric(table(label)), as.numeric(table(label)))
+    D <- diag(1 / v)
+    x <- x %*% D
+  }
+
   return(x)
 }
 

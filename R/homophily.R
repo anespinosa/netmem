@@ -36,13 +36,13 @@ mix_matrix <- function(A, att = NULL) {
   data <- as.data.frame(cbind(label = colnames(A), att = att))
   edgelist <- matrix_to_edgelist(A)
 
-  edgeFROM <- as.data.frame(edgelist[, 1L])
+  edgeFROM <- as.data.frame(rbind(edgelist)[, 1L])
   colnames(edgeFROM) <- "label"
   edgeFROM$id <- 1:nrow(edgeFROM)
   edgeFROM <- merge(edgeFROM, data, by = "label")
   edgeFROM <- edgeFROM[order(edgeFROM$id), ]
 
-  edgeTO <- as.data.frame(edgelist[, 2L])
+  edgeTO <- as.data.frame(rbind(edgelist)[, 2L])
   colnames(edgeTO) <- "label"
   edgeTO$id <- 1:nrow(edgeTO)
   edgeTO <- merge(edgeTO, data, by = "label")
@@ -58,6 +58,7 @@ mix_matrix <- function(A, att = NULL) {
     mix_matrix <- mix_matrix + t(mix_matrix)
     diag(mix_matrix) <- diag(mix_matrix) %/% 2L
   }
+
   return(mix_matrix)
 }
 
@@ -93,7 +94,7 @@ ei_index <- function(A, mixed = TRUE, att = NULL) {
   if (!mixed) {
     matrix <- netmem::mix_matrix(A, att)
   } else {
-    m <- A
+    matrix <- A
   }
   if (length(dim(matrix)) == 3) {
     m <- matrix[, , 2]

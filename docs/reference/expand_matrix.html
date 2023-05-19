@@ -60,7 +60,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">expand_matrix</span><span class="op">(</span><span class="va">A</span>, label <span class="op">=</span> <span class="cn">NULL</span>, loops <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">expand_matrix</span><span class="op">(</span><span class="va">A</span>, label <span class="op">=</span> <span class="cn">NULL</span>, loops <span class="op">=</span> <span class="cn">FALSE</span>, normalize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -75,6 +75,10 @@
 
 <dt>loops</dt>
 <dd><p>Whether the loops are retained or not</p></dd>
+
+
+<dt>normalize</dt>
+<dd><p>Whether to normalize the matrix considering the fractional counting per group</p></dd>
 
 </dl></div>
     <div id="value">
@@ -98,14 +102,14 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">expand_matrix</span><span class="op">(</span><span class="va">A</span>, <span class="va">label</span>, loops <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   a a b b c c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a 0 0 1 1 1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a 0 0 1 1 1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> b 0 0 0 0 1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> b 0 0 0 0 1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> c 1 1 0 0 0 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> c 1 1 0 0 0 0</span>
+<span class="r-in"><span><span class="fu">expand_matrix</span><span class="op">(</span><span class="va">A</span>, <span class="va">label</span>, loops <span class="op">=</span> <span class="cn">FALSE</span>, normalize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3] [,4] [,5] [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a  0.0  0.0  0.5  0.5  0.5  0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a  0.0  0.0  0.5  0.5  0.5  0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b  0.0  0.0  0.0  0.0  0.5  0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b  0.0  0.0  0.0  0.0  0.5  0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c  0.5  0.5  0.0  0.0  0.0  0.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c  0.5  0.5  0.0  0.0  0.0  0.0</span>
 </code></pre></div>
     </div>
   </div>

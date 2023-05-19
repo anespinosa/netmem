@@ -4,12 +4,14 @@
 \alias{dyadic_census}
 \title{Dyad census}
 \usage{
-dyadic_census(G, directed = TRUE)
+dyadic_census(G, directed = TRUE, loops = FALSE)
 }
 \arguments{
 \item{G}{A symmetric matrix object.}
 
 \item{directed}{Whether the matrix is directed or not}
+
+\item{loops}{Whether to expect nonzero elements in the diagonal of the matrix}
 }
 \value{
 This function return the counts of the dyad census.
