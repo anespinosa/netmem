@@ -3,12 +3,15 @@
 \name{distances}
 \alias{distances}
 \alias{bfs_ugraph}
+\alias{count_geodesics}
 \alias{short_path}
 \alias{wlocal_distances}
 \alias{wall_distances}
 \title{Path distances}
 \usage{
 bfs_ugraph(A, from = NULL)
+
+count_geodesics(A)
 
 short_path(A, from = NULL, to = NULL)
 
@@ -28,7 +31,7 @@ wall_distances(A, select = c("all", "in", "out"))
 \item{path}{Path of the nodes}
 }
 \value{
-This function returns the distances o shortest path distance between two nodes for unweighted graph (\code{bfs_ugraph} and \code{short_path} respectively) and weighted graphs (\code{wlocal_distances} or \code{wall_distances})
+This function returns the distances o shortest path distance between two nodes for unweighted graph (\code{bfs_ugraph}, \code{count_geodesics} and \code{short_path} respectively) and weighted graphs (\code{wlocal_distances} or \code{wall_distances})
 }
 \description{
 Distances between nodes using breadth-first search (BFS) or Dijkstra's algorithm to find shortest path distances.
@@ -46,6 +49,18 @@ rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 
 bfs_ugraph(A, from = "a")
+A <- matrix(c(
+  0, 1, 1, 0, 0, 0,
+  0, 0, 0, 1, 1, 0,
+  0, 0, 0, 0, 1, 0,
+  0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 1,
+  0, 0, 0, 0, 0, 0
+), byrow = TRUE, nrow = 6)
+rownames(A) <- letters[1:nrow(A)]
+colnames(A) <- letters[1:ncol(A)]
+
+count_geodesics(A)
 A <- matrix(c(
   0, 1, 1, 0, 0, 0,
   0, 0, 0, 1, 1, 0,

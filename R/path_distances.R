@@ -10,7 +10,7 @@
 #' @param to  Node in which the path end
 #' @param path  Path of the nodes
 #'
-#' @return This function returns the distances o shortest path distance between two nodes for unweighted graph (\code{bfs_ugraph} and \code{short_path} respectively) and weighted graphs (\code{wlocal_distances} or \code{wall_distances})
+#' @return This function returns the distances o shortest path distance between two nodes for unweighted graph (\code{bfs_ugraph}, \code{count_geodesics} and \code{short_path} respectively) and weighted graphs (\code{wlocal_distances} or \code{wall_distances})
 #'
 #' @references
 #'
@@ -85,6 +85,52 @@ bfs_ugraph <- function(A, from = NULL) {
     }
     return(list(pointers = pointers, distances = distances))
   }
+}
+
+#' @rdname distances
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 1, 0, 0, 0,
+#'   0, 0, 0, 1, 1, 0,
+#'   0, 0, 0, 0, 1, 0,
+#'   0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 1,
+#'   0, 0, 0, 0, 0, 0
+#' ), byrow = TRUE, nrow = 6)
+#' rownames(A) <- letters[1:nrow(A)]
+#' colnames(A) <- letters[1:ncol(A)]
+#'
+#' count_geodesics(A)
+#' @export
+
+count_geodesics <- function(A) {
+  if (any(abs(A > 1))) stop("Not an unweighted matrix")
+  n <- nrow(A)
+  distances <- matrix(Inf, n, n)
+  counts <- matrix(0, n, n)
+  
+  for (j in 1:n) {
+    first_buffer <- j
+    visited <- rep(FALSE, n)
+    visited[j] <- TRUE
+    distances[j, j] <- 0
+    counts[j, j] <- 1
+    
+    while (length(first_buffer) > 0) {
+      node <- first_buffer[1]
+      first_buffer <- first_buffer[-1]
+      
+      neighbors <- which(A[node, ] != 0 & !visited)
+      visited[neighbors] <- TRUE
+      
+      distances[j, neighbors] <- distances[j, node] + 1
+      counts[j, neighbors] <- counts[j, neighbors] + counts[j, node]
+      
+      first_buffer <- c(first_buffer, neighbors)
+    }
+  }
+  
+  return(list(distances = distances, counts = counts))
 }
 
 #' @rdname distances
