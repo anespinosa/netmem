@@ -1,4 +1,3 @@
-/Users/aespinos/Desktop/bfs_corrected.R="B8F623D0"
 /Users/aespinos/Dropbox/ETH_projects/netmem/.Rbuildignore="A3A737FB"
 /Users/aespinos/Dropbox/ETH_projects/netmem/.Rhistory="0D0BE554"
 /Users/aespinos/Dropbox/ETH_projects/netmem/.github/.gitignore="F038E639"
@@ -37,6 +36,7 @@
 /Users/aespinos/Dropbox/ETH_projects/netmem/tests/testthat/test_cliques.R="D691C7DE"
 /Users/aespinos/Dropbox/ETH_projects/netmem/tests/testthat/test_degree.R="DA0A00FD"
 /Users/aespinos/Dropbox/ETH_projects/netmem/tests/testthat/test_dyads.R="D629742F"
+/Users/aespinos/Dropbox/ETH_projects/netmem/tests/testthat/test_shared_partners.R="4B26B2BF"
 /Users/aespinos/Dropbox/ETH_projects/netmem/vignettes/multilayer.Rmd="02BAFDD8"
 /Users/aespinos/Dropbox/ETH_projects/netmem_dev/bellman_ford.R="2C89C0E9"
 /Users/aespinos/Dropbox/ETH_projects/netmem_dev/betweenness.R="B51B8243"
