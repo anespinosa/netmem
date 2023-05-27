@@ -254,6 +254,102 @@ clique_table <- function(A, list_cliques = FALSE, number = FALSE) {
   }
 }
 
+#' Shared partners.
+#'
+#' @param A   A binary matrix
+#' @param loops   Whether to consider the loops
+#' @param directed   Whether the matrix is directed
+#' @param type   Whether to return the \code{dyad-wise (dsp)} (default), \code{edge-wise (esp)} or \code{non-edgewise (nsp)} shared partners (Hunter and Handcock, 2006)
+#'
+#' @return This function return the distribution of shared partners.
+#'
+#' @references
+#'
+#' Hunter, D. R. and M. S. Handcock (2006), Inference in curved exponential family models for networks, Journal of Computational and Graphical Statistics, 15: 565– 583.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 0, 0, 0, 0,
+#'   1, 0, 1, 1, 0, 1,
+#'   0, 1, 0, 1, 0, 0,
+#'   0, 1, 1, 0, 1, 1,
+#'   0, 0, 0, 1, 0, 1,
+#'   0, 1, 0, 1, 1, 0
+#' ), byrow = TRUE, ncol = 6)
+#' shared_partners(A, type = "dsp")
+#' shared_partners(A, type = "esp")
+#' shared_partners(A, type = "nsp")
+#' @export
+
+shared_partners <- function(A, loops = FALSE, directed = TRUE,
+                            type = c("dsp", "esp", "nsp")) {
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  if (nrow(A) != ncol(A)) stop("Matrix should be square")
+  if (any(abs(A > 1), na.rm = TRUE)) warning("The matrix should be binary")
+
+  twoA <- A %*% A
+
+  type <- switch(edge_dyad(type),
+    "dsp" = 1,
+    "esp" = 2,
+    "nsp" = 3
+  )
+
+  if (type == 1) {
+    dsp <- twoA
+    if (directed) {
+      if (!loops) {
+        diag(dsp) <- NA
+      }
+      return(table(dsp))
+    } else {
+      return(table(dsp[upper.tri(dsp, diag = loops)]))
+    }
+  }
+
+  if (type == 2) {
+    if (!loops) {
+      diag(A) <- 0
+    }
+    m2 <- ifelse(A & twoA != 0, twoA, NA) # only considering those who are connected!
+    m3 <- ifelse(A & twoA == 0, 0, NA)
+    vector <- c(m2, m3)
+    if (directed) {
+      return(table(vector[!is.na(vector)]))
+    } else {
+      return(table(vector[!is.na(vector)]) / 2)
+    }
+  }
+
+  if (type == 3) {
+    nsp <- ifelse(twoA >= 0 & A == 1, NA, twoA) # dyads that do not have an edge
+    if (directed) {
+      if (!loops) {
+        diag(nsp) <- NA
+      }
+      return(table(nsp))
+    } else {
+      return(table(nsp[upper.tri(nsp, diag = loops)]))
+    }
+  }
+}
+
+edge_dyad <- function(arg, choices, several.ok = FALSE) {
+  if (missing(choices)) {
+    formal.args <- formals(sys.function(sys.parent()))
+    choices <- eval(formal.args[[deparse(substitute(arg))]])
+  }
+
+  arg <- tolower(arg)
+  choices <- tolower(choices)
+
+  match.arg(arg = arg, choices = choices, several.ok = several.ok)
+}
+
 #' Clique percolation
 #'
 #' Clique Percolation Method (CPM) is an algorithm for finding overlapping communities within networks, introduced by Palla et al. (2005). This function firstly identify cliques of size k, then creates a incidence matrix as an affiliation network.

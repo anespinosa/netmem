@@ -124,13 +124,16 @@ count_geodesics <- function(A) {
       visited[neighbors] <- TRUE
 
       distances[j, neighbors] <- distances[j, node] + 1
+
+      # TODO Check the following line of code: It seems that the values are not
+      # adding, and maybe the code is overwriting the previous values.
       counts[j, neighbors] <- counts[j, neighbors] + counts[j, node]
 
       first_buffer <- c(first_buffer, neighbors)
     }
   }
 
-  return(list(distances = distances, counts = counts))
+  return(list(counts = counts, distances = distances))
 }
 
 #' @rdname distances
