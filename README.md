@@ -9,7 +9,6 @@
 status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![R-CMD-check](https://github.com/anespinosa/netmem/workflows/R-CMD-check/badge.svg)](https://github.com/anespinosa/netmem/actions)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?branch=master&svg=true)](https://ci.appveyor.com/project/anespinosa/netmem)
 [![Codecov test
@@ -56,91 +55,143 @@ version 1.0-3}, url = {<https://github.com/anespinosa/netmem>}, }
 Utilities:
 
 1.  `matrix_report()`: Matrix report
+
 2.  `matrix_adjlist()`: Transform a matrix into an adjacency list
+
 3.  `matrix_projection()`: Unipartite projections
+
 4.  `matrix_to_edgelist()`: Transform a square matrix into an edge-list
+
 5.  `adj_to_matrix()`: Transform an adjacency list into a matrix
+
 6.  `edgelist_to_matrix()`: Transform an edgelist into a matrix
+
 7.  `expand_matrix()`: Expand matrix
+
 8.  `extract_component()`: Extract components
+
 9.  `hypergraph()`: Hypergraphs
-10. `meta_matrix()`: Meta matrix for multilevel networks
-11. `minmax_overlap()`: Minimum/maximum overlap
-12. `mix_matrix()`: Mixing matrix
-13. `simplicial_complexes()`: Simplicial Complexes
-14. `structural_na()`: Structural missing data
-15. `ego_net()`: Ego network
-16. `zone_sample()`: Zone-2 sampling from second-mode
+
+10. `power_function()`: Power of a matrix
+
+11. `meta_matrix()`: Meta matrix for multilevel networks
+
+12. `minmax_overlap()`: Minimum/maximum overlap
+
+13. `mix_matrix()`: Mixing matrix
+
+14. `simplicial_complexes()`: Simplicial Complexes
+
+15. `structural_na()`: Structural missing data
+
+16. `ego_net()`: Ego network
+
+17. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 
 1.  `eb_constraint()`: Constraint
+
 2.  `ei_index()`: Krackhardt and Stern’s E-I index
+
 3.  `heterogeneity()`: Blau’s and IQV Index
+
 4.  `redundancy()`: Redundancy measures
 
 Path distances:
 
 1.  `bfs_ugraph()`: Breath-first algorithm
+
 2.  `compound_relation()`: Relational composition
+
 3.  `count_geodesics()`: Count geodesic distances
-4.  `short_path()`: Shortest path  
+
+4.  `short_path()`: Shortest path
+
 5.  `wlocal_distances()`: Dijikstra’s algorithm (one actor)
+
 6.  `wall_distances()`: Dijikstra’s algorithm (all actors)
 
 Signed networks:
 
 1.  `posneg_index()`: Positive-negative centrality
+
 2.  `struc_balance()`: Structural balance
 
 Structural measures:
 
 1.  `gen_density()`: Generalized density
+
 2.  `gen_degree()`: Generalized degree
+
 3.  `multilevel_degree()`: Degree centrality for multilevel networks
+
 4.  `recip_coef()`: Reciprocity
+
 5.  `trans_coef()`: Transitivity
+
 6.  `trans_matrix()`: Transitivity matrix
+
 7.  `components_id()`: Components
+
 8.  `k_core()`: Generalized K-core
+
 9.  `dyadic_census()`: Dyad census
+
 10. `multiplex_census()`: Multiplex triad census
+
 11. `mixed_census()`: Multilevel triad and quadrilateral census
 
 Cohesive subgroups:
 
 1.  `clique_table()`: Clique table
+
 2.  `dyad_triad_table()`: Forbidden triad table
+
 3.  `percolation_clique()`: Clique percolation
+
 4.  `q_analysis()`: Q-analysis
+
 5.  `shared_partners()`: Shared partners
 
 Similarity measures:
 
 1.  `bonacich_norm()`: Bonacich normalisation
+
 2.  `co_ocurrence()`: Co‐occurrence
+
 3.  `dist_sim_matrix()`: Structural similarities
+
 4.  `fractional_approach()`: Fractional approach
+
 5.  `jaccard()`: Jaccard similarity
 
 Network inference:
 
 1.  `kp_reciprocity()`: Reciprocity of Katz and Powell
+
 2.  `z_arctest()`: Z test of the number of arcs
+
 3.  `triad_uman()`: Triad census analysis assuming U\|MAN
+
 4.  `ind_rand_matrix()`: Independent random matrix
 
 Geographic information:
 
 1.  `dist_geographic()`: Geographical distances
+
 2.  `spatial_cor()`: Spatial autocorrelation
 
 Data currently available:
 
 1.  `FIFAego`: Ego FIFA
+
 2.  `FIFAex`: Outside FIFA
+
 3.  `FIFAin`: Inside FIFA
+
 4.  `krackhardt_friends`: Krackhardt friends
+
 5.  `lazega_lawfirm`: Lazega Law Firm
 
 Additional data in
@@ -198,12 +249,16 @@ Let’s assume that we have a multilevel network with two adjacency
 matrices, one valued matrix and two incidence matrices between them.
 
 - `A1`: Adjacency Matrix of the level 1
+
 - `B1`: incidence Matrix between level 1 and level 2
+
 - `A2`: Adjacency Matrix of the level 2
+
 - `B2`: incidence Matrix between level 2 and level 3
+
 - `A3`: Valued Matrix of the level 3
 
-</div>
+  </div>
 
 Create the data
 
@@ -500,7 +555,11 @@ participating in this project you agree to abide by its terms.
 ### Other related R packages
 
 - [`{bipartite}`](https://github.com/biometry/bipartite)
+
 - [`{migraph}`](https://github.com/snlab-ch/migraph)
+
 - [`{multinet}`](https://CRAN.R-project.org/package=multinet)
+
 - [`{tnet}`](https://toreopsahl.com/tnet/)
+
 - [`{xUCINET}`](https://www.analyzingsocialnetworksusingr.com/xucinet)

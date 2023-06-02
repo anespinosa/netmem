@@ -1236,3 +1236,37 @@ extract_component <- function(A, maximum = TRUE, position = NULL) {
   }
   return(components)
 }
+
+#' Power matrix
+#'
+#' Power of a matrix computed by succesive matrix multiplication.
+#'
+#' @param A   A matrix
+#' @param n   Positive integer
+#'
+#' @return This function return the power of a matrix by repeating matrix multiplication.
+#'
+#' @references
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(1,0,0,0,
+#'               1,1,0,0,
+#'               1,0,1,0,
+#'               0,1,1,1), byrow = TRUE, ncol = 4, nrow = 4)
+#' power_function(A, 1000)
+#' 
+#' @export
+
+power_function<- function(A, n){
+  return(powA(n))
+}
+
+powA <- function(n){
+  if (n == 1) return(A)
+  if (n == 2) return(A %*% A)
+  if (n > 2) return(A %*% powA(n-1))
+}
