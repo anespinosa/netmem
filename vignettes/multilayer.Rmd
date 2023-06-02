@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the development version from [github/anespinosa]((https://github.com/anespinosa/netmem)):
+You can install the development version from
+[github/anespinosa]((https://github.com/anespinosa/netmem)):
+
 ```{r inst, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("anespinosa/netmem")
@@ -32,15 +34,33 @@ library(netmem)
 
 ### Multilayers
 
-*Multilayer networks* is a framework that considers complex patterns of relationships between the same and/or different nodes. However, from a social network and sociological perspective, different types of multilayer structures are often referred to as *multiplex networks* (or *multi-relational*), *multilevel networks*, *network of networks* [Kivelä et al. (2014)](https://doi.org/10.1093/comnet/cnu016), *two-mode networks*, among others. Furthermore, and from a matrix perspective, the 'backbone' of these complex structures are mainly represented through the comfortable combination of different types of matrices. The primary matrix used in social network analysis is the adjacency matrix or sociomatrix and the incidence matrix.
+*Multilayer networks* is a framework that considers complex patterns of
+relationships between the same and/or different nodes. However, from a social
+network and sociological perspective, different types of multilayer structures
+are often referred to as *multiplex networks* (or *multi-relational*),
+*multilevel networks*, *network of networks* [Kivelä et al.
+(2014)](https://doi.org/10.1093/comnet/cnu016), *two-mode networks*, among
+others. Furthermore, and from a matrix perspective, the 'backbone' of these
+complex structures are mainly represented through the comfortable combination of
+different types of matrices. The primary matrix used in social network analysis
+is the adjacency matrix or sociomatrix and the incidence matrix.
 
 -----
 
 ### Two-mode networks
 
-There are different ways of referring to incidence matrices. From the social network perspective is often considered as *affiliation network*, which consist of a set of binary relationships between members of two sets of items (i.e., "is a member of" or "is a participant in" or "has") ([Borgatti and Halgin, 2011](https://methods.sagepub.com/book/the-sage-handbook-of-social-network-analysis/n28.xml)). In general, these networks have a bipartite property in which there are two classes such that all ties occur only between classes and never within classes. 
+There are different ways of referring to incidence matrices. From the social
+network perspective is often considered as *affiliation network*, which consist
+of a set of binary relationships between members of two sets of items (i.e., "is
+a member of" or "is a participant in" or "has") ([Borgatti and Halgin,
+2011](https://methods.sagepub.com/book/the-sage-handbook-of-social-network-analysis/n28.xml)).
+In general, these networks have a bipartite property in which there are two
+classes such that all ties occur only between classes and never within classes.
 
-For example, in this section we will use the classical example of the Southern Woman extracted from the `R` package [classicnets](https://github.com/anespinosa/classicnets):
+For example, in this section we will use the classical example of the Southern
+Woman extracted from the `R` package
+[classicnets](https://github.com/anespinosa/classicnets):
+
 ```{r}
 A <- matrix(
   c(
@@ -67,25 +87,46 @@ A <- matrix(
 )
 ```
 
-As a common practice, an incidence matrix is often converted to adjacent matrices. These are given by the matrix product $AA^T$ and $A^TA$, where $A$ is the incidence matrix and matrix $A^T$ is the transpose of $A$. The relationship between these matrices in the context of social networks was explored by [Breiger (1974)](https://doi.org/10.2307/2576011). 
+As a common practice, an incidence matrix is often converted to adjacent
+matrices. These are given by the matrix product $AA^T$ and $A^TA$, where $A$ is
+the incidence matrix and matrix $A^T$ is the transpose of $A$. The relationship
+between these matrices in the context of social networks was explored by
+[Breiger (1974)](https://doi.org/10.2307/2576011).
+
 ```{r}
 matrix_projection(A)
 ```
 Another concept often used is *bipartite network*, which means that the graph's nodes can be partitioned into two classes. While in some cases, these classes can be different entities (e.g., actors participating in activities or belonging to clubs), this assumption is not always clear. For example, dichotomic attributes of ascribed characteristics also have a bipartite property.
 
-An approach that was devised specifically for affiliation data, was provided by [Bonacich (1972)](https://doi.org/10.1080/0022250X.1972.9989806):
+An approach that was devised specifically for affiliation data, was provided by
+[Bonacich (1972)](https://doi.org/10.1080/0022250X.1972.9989806):
 
 ```{r}
 bonacich_norm(A)
 ```
 
-The difference between *affiliation networks* and *bipartite networks* allowed us to avoid confounding the concept of social proximity (e.g., being part of the same laboratory) with social similarity (e.g., having an ascribed gender) ([Rivera et al., 2010](https://doi.org/10.1146/annurev.soc.34.040507.134743)). In addition, this distinction is important because these mechanisms are often considered competing alternatives to understanding social relationships.
+The difference between *affiliation networks* and *bipartite networks* allowed
+us to avoid confounding the concept of social proximity (e.g., being part of the
+same laboratory) with social similarity (e.g., having an ascribed gender)
+([Rivera et al., 2010](https://doi.org/10.1146/annurev.soc.34.040507.134743)).
+In addition, this distinction is important because these mechanisms are often
+considered competing alternatives to understanding social relationships.
 
-*Two-mode networks* is a broader concept that emphasizes the difference between entities of different levels. Therefore, these entities are likewise differentiated as rows and columns in the incidence matrix. 
+*Two-mode networks* is a broader concept that emphasizes the difference between
+entities of different levels. Therefore, these entities are likewise
+differentiated as rows and columns in the incidence matrix.
 
-Some researchers differentiate between the informational or socio-cognitive dimensions and social networks of concrete relations - or proxies - between agents ([Leydesdorff, 2008](https://doi.org/10.1002/asi.20732)). For example, informational or socio-cognitive networks can be an incidence matrix of actors and survey's items, citation networks or a tweet message. Therefore, the incidence matrix of socio-cognitive networks are often called *occurrence networks*. 
+Some researchers differentiate between the informational or socio-cognitive
+dimensions and social networks of concrete relations - or proxies - between
+agents ([Leydesdorff, 2008](https://doi.org/10.1002/asi.20732)). For example,
+informational or socio-cognitive networks can be an incidence matrix of actors
+and survey's items, citation networks or a tweet message. Therefore, the
+incidence matrix of socio-cognitive networks are often called *occurrence
+networks*.
 
-For example, in scientometric, information is often explored using co-occurrence of overlapping ties:
+For example, in scientometric, information is often explored using co-occurrence
+of overlapping ties:
+
 ```{r}
 minmax_overlap(A, row = TRUE, min = TRUE)
 minmax_overlap(A, row = FALSE, min = TRUE)
@@ -93,28 +134,43 @@ minmax_overlap(A, row = FALSE, min = TRUE)
 co_ocurrence(A, similarity = c("ochiai"), occurrence = TRUE, projection = FALSE)
 ```
 
-
 -----
 
 ## Multilevel Networks
 
-Connections between individuals are often embedded in complex structures, which shape actors’ expectations, behaviours and outcomes over time. These structures can themselves be interdependent and exist at different levels. Multilevel networks are a means by which we can represent this complex system by using nodes and edges of different types ([Lazega and Snijders, 2016](https://www.springer.com/gp/book/9783319245188), [Knoke et a., 2021](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).  
+Connections between individuals are often embedded in complex structures, which
+shape actors’ expectations, behaviours and outcomes over time. These structures
+can themselves be interdependent and exist at different levels. Multilevel
+networks are a means by which we can represent this complex system by using
+nodes and edges of different types ([Lazega and Snijders,
+2016](https://www.springer.com/gp/book/9783319245188), [Knoke et a.,
+2021](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
 
-For multilevel structures, we tend to collect the data in different matrices representing the variation of ties within and between levels. Often, we describe the connection between actors as an adjacency matrix and the relations between levels through incidence matrices. The comfortable combination of these matrices into a common structure would represent the multilevel network that could be highly complex.
+For multilevel structures, we tend to collect the data in different matrices
+representing the variation of ties within and between levels. Often, we describe
+the connection between actors as an adjacency matrix and the relations between
+levels through incidence matrices. The comfortable combination of these matrices
+into a common structure would represent the multilevel network that could be
+highly complex.
 
 ### Example
 
-<div class="alert alert-info">
-Let's assume that we have a multilevel network with two adjacency matrices, one valued matrix and two incidence matrices between them.
+<div class="alert alert-info"> Let's assume that we have a multilevel network
+with two adjacency matrices, one valued matrix and two incidence matrices
+between them.
 
 - `A1`: Adjacency Matrix of the level 1
+
 - `B1`: incidence Matrix between level 1 and level 2
+
 - `A2`: Adjacency Matrix of the level 2
+
 - `B2`: incidence Matrix between level 2 and level 3
-- `A3`: Valued Matrix of the level 3
-</div>
+
+- `A3`: Valued Matrix of the level 3 </div>
 
 Create the data
+
 ```{r multilevel_example}
 A1 <- matrix(c(
   0, 1, 0, 0, 1,
@@ -164,6 +220,7 @@ colnames(B2) <- colnames(A3)
 ```
 
 We will start with a report of the matrices:
+
 ```{r}
 matrix_report(A1)
 matrix_report(B1) # correct this!
@@ -176,7 +233,13 @@ matrix_report(A3)
 
 ### Ties within and between modes
 
-In some cases we have an incidence matrix and also the relationships of the node of the same class. In which case, we can use the *'meta-matrix'* ([Krackhardt & Carley, 1998](https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf); [Carley, 2002](http://sds.hss.cmu.edu/faculty/carley/carley.htm)) to represent a multilevel network. 
+In some cases we have an incidence matrix and also the relationships of the node
+of the same class. In which case, we can use the *'meta-matrix'* ([Krackhardt &
+Carley,
+1998](https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf);
+[Carley, 2002](http://sds.hss.cmu.edu/faculty/carley/carley.htm)) to represent a
+multilevel network.
+
 ```{r meta_matrix, message=FALSE}
 meta_matrix(A1, B1, A2, B2, A3)
 meta_matrix(A1, B1, A2, B2)
@@ -186,27 +249,34 @@ plot(graph.adjacency(meta_matrix(A1, B1, A2, B2, A3), mode = c("directed")))
 ```
 
 What is the density of some of the matrices?
+
 ```{r multilevel_example2}
 matrices <- list(A1, B1, A2, B2)
 gen_density(matrices, multilayer = TRUE)
 ```
 
 How about the degree centrality of the entire structure?
+
 ```{r multil, warning=FALSE}
 multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 ```
 
-Besides, we can perform a *k*-core analysis of one of the levels using the information of an incidence matrix
+Besides, we can perform a *k*-core analysis of one of the levels using the
+information of an incidence matrix
+
 ```{r multil2, warning=FALSE}
 k_core(A1, B1, multilevel = TRUE)
 ```
 
 This package also allows performing complex census for multilevel networks
+
 ```{r multil3}
 mixed_census(A2, t(B1), B2, quad = TRUE)
 ```
 
-Also, there are some functions that allowed performing the zone-2 sampling from second-mode (2-path distance from an ego in the second level)
+Also, there are some functions that allowed performing the zone-2 sampling from
+second-mode (2-path distance from an ego in the second level)
+
 ```{r, message=FALSE}
 library(igraph)
 m <- meta_matrix(A1, B1)
@@ -222,24 +292,36 @@ for (i in 1:ncol(B1)) {
 }
 ```
 
-Willing to create a multilevel network? We can simulate a multilevel network with 30 actors in the first level and 20 nodes in the second level.
+Willing to create a multilevel network? We can simulate a multilevel network
+with 30 actors in the first level and 20 nodes in the second level.
+
 ```{r}
 set.seed(26091949)
 ind_rand_matrix(n = 30, m = 20, type = "probability", p = 0.2, multilevel = TRUE)
 ```
 
-
 -----
 
 ## Multiplex networks
 
-In multiplex networks, interlayer edges can only connect nodes that represent the same actor in different layer ([Kinsley et al., 2020](https://www.frontiersin.org/articles/10.3389/fvets.2020.00596/full))
+In multiplex networks, interlayer edges can only connect nodes that represent
+the same actor in different layer ([Kinsley et al.,
+2020](https://www.frontiersin.org/articles/10.3389/fvets.2020.00596/full))
 
-As mentioned by [Gluckman (1955: 19)](https://books.google.ch/books/about/The_Judicial_Process_Among_the_Barotse_o.html?id=Eja8AAAAIAAJ&redir_esc=y):
+As mentioned by [Gluckman (1955:
+19)](https://books.google.ch/books/about/The_Judicial_Process_Among_the_Barotse_o.html?id=Eja8AAAAIAAJ&redir_esc=y):
 
-"As we shall have constantly to refer to the consistency of Lozi law with these relationships which serve many interests, I propose, for brevity, to call them *multiplex* relationships. I require also a term to cover the structure of relationships in which a person tends to occupy the same position relative to the same set of other persons in all networks of purposive ties - economic, political, procreative, religious, educational."
+"As we shall have constantly to refer to the consistency of Lozi law with these
+relationships which serve many interests, I propose, for brevity, to call them
+*multiplex* relationships. I require also a term to cover the structure of
+relationships in which a person tends to occupy the same position relative to
+the same set of other persons in all networks of purposive ties - economic,
+political, procreative, religious, educational."
 
-To explore some of the functions available in  `netmem` we will use data from [Lazega (2001)](https://books.google.ch/books/about/The_Collegial_Phenomenon.html?id=zRNaURgLOhYC&redir_esc=y)
+To explore some of the functions available in `netmem` we will use data from
+[Lazega
+(2001)](https://books.google.ch/books/about/The_Collegial_Phenomenon.html?id=zRNaURgLOhYC&redir_esc=y)
+
 ```{r}
 data("lazega_lawfirm")
 rownames(lazega_lawfirm$advice) <- as.character(1:ncol(lazega_lawfirm$advice))
@@ -250,6 +332,7 @@ rownames(lazega_lawfirm$friends) <- colnames(lazega_lawfirm$friends)
 ```
 
 Which are the densities of the networks?
+
 ```{r}
 gen_density(list(
   lazega_lawfirm$cowork, lazega_lawfirm$advice,
@@ -258,6 +341,7 @@ gen_density(list(
 ```
 
 How about computing the Jaccard index between matrices?
+
 ```{r}
 jaccard(lazega_lawfirm$cowork, lazega_lawfirm$advice)
 
@@ -266,12 +350,20 @@ jaccard(lazega_lawfirm$cowork, lazega_lawfirm$friends)
 jaccard(lazega_lawfirm$advice, lazega_lawfirm$friends)
 ```
 
-Finally, we can conduct a multiplex census between two matrices. For the moment, one matrix has to be asymmetric (directed) and the other symmetric (undirected).
+Finally, we can conduct a multiplex census between two matrices. For the moment,
+one matrix has to be asymmetric (directed) and the other symmetric
+(undirected).
+
 ```{r, warning=FALSE}
 multiplex_census(lazega_lawfirm$advice, lazega_lawfirm$friends)
 ```
 
-Note: the temporal networks are a special case of a multiplex network. Links are dynamic, and nodes can join or leave at different stages of the network evolution. For example, in this `toy example`, maybe two authors are no longer available. In this case, we might prefer maintaining their name in the matrix and assign a `NA` in their row and/or column:
+Note: the temporal networks are a special case of a multiplex network. Links are
+dynamic, and nodes can join or leave at different stages of the network
+evolution. For example, in this `toy example`, maybe two authors are no longer
+available. In this case, we might prefer maintaining their name in the matrix
+and assign a `NA` in their row and/or column:
+
 ```{r}
 A <- matrix(c(
   0, 1, 1,

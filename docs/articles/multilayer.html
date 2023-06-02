@@ -111,7 +111,7 @@ patterns of relationships between the same and/or different nodes.
 However, from a social network and sociological perspective, different
 types of multilayer structures are often referred to as <em>multiplex
 networks</em> (or <em>multi-relational</em>), <em>multilevel
-networks</em>, <em>network of networks</em> <a href="https://doi.org/10.1093/comnet/cnu016" class="external-link">Kivelä et al. (2014)</a>,
+networks</em>, <em>network of networks</em> <a href="https://doi.org/10.1093/comnet/cnu016" class="external-link">Kivelä et al. (2014)</a>,
 <em>two-mode networks</em>, among others. Furthermore, and from a matrix
 perspective, the ‘backbone’ of these complex structures are mainly
 represented through the comfortable combination of different types of
@@ -451,18 +451,18 @@ represent the multilevel network that could be highly complex.</p>
 <p>Let’s assume that we have a multilevel network with two adjacency
 matrices, one valued matrix and two incidence matrices between them.</p>
 <ul>
+<li><p><code>A1</code>: Adjacency Matrix of the level 1</p></li>
+<li><p><code>B1</code>: incidence Matrix between level 1 and level
+2</p></li>
+<li><p><code>A2</code>: Adjacency Matrix of the level 2</p></li>
+<li><p><code>B2</code>: incidence Matrix between level 2 and level
+3</p></li>
 <li>
-<code>A1</code>: Adjacency Matrix of the level 1</li>
-<li>
-<code>B1</code>: incidence Matrix between level 1 and level 2</li>
-<li>
-<code>A2</code>: Adjacency Matrix of the level 2</li>
-<li>
-<code>B2</code>: incidence Matrix between level 2 and level 3</li>
-<li>
-<code>A3</code>: Valued Matrix of the level 3</li>
+<p><code>A3</code>: Valued Matrix of the level 3</p>
+</li>
 </ul>
 </div>
+
 <p>Create the data</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
