@@ -80,10 +80,11 @@ Ego and personal networks:
 Path distances:
 
 1.  `bfs_ugraph()`: Breath-first algorithm
-2.  `count_geodesics()`: Count geodesic distances
-3.  `short_path()`: Shortest path  
-4.  `wlocal_distances()`: Dijikstra’s algorithm (one actor)
-5.  `wall_distances()`: Dijikstra’s algorithm (all actors)
+2.  `compound_relation()`: Relational composition
+3.  `count_geodesics()`: Count geodesic distances
+4.  `short_path()`: Shortest path  
+5.  `wlocal_distances()`: Dijikstra’s algorithm (one actor)
+6.  `wall_distances()`: Dijikstra’s algorithm (all actors)
 
 Signed networks:
 
@@ -109,8 +110,8 @@ Cohesive subgroups:
 1.  `clique_table()`: Clique table
 2.  `dyad_triad_table()`: Forbidden triad table
 3.  `percolation_clique()`: Clique percolation
-4.  `shared_partners()`: Shared partners
-5.  `q_analysis()`: Q-analysis
+4.  `q_analysis()`: Q-analysis
+5.  `shared_partners()`: Shared partners
 
 Similarity measures:
 
