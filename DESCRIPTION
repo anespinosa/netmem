@@ -1,6 +1,6 @@
 Package: netmem
 Version: 1.0-3
-Date: 2020-09-02
+Date: 2023-06-02
 Depends: R (>= 4.0.0)
 Authors@R: c(
       person(given = "Alejandro", family = "Espinosa-Rada", role = c("cre","aut"),

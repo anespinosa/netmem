@@ -16,6 +16,7 @@ status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?bra
 coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://codecov.io/gh/anespinosa/netmem?branch=master)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![R-CMD-check](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make
@@ -39,14 +40,14 @@ considering one-mode networks, valued ties (i.e. *weighted* or
 
 To cite package ‘netmem’ in publications use:
 
-Espinosa-Rada A (2020). *netmem: Social Network Measures using
+Espinosa-Rada A (2023). *netmem: Social Network Measures using
 Matrices*. R package version 1.0-3,
 <https://github.com/anespinosa/netmem>.
 
 A BibTeX entry for LaTeX users is
 
 @Manual{, title = {netmem: Social Network Measures using Matrices},
-author = {Alejandro Espinosa-Rada}, year = {2020}, note = {R package
+author = {Alejandro Espinosa-Rada}, year = {2023}, note = {R package
 version 1.0-3}, url = {<https://github.com/anespinosa/netmem>}, }
 
 ## Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
@@ -502,162 +503,3 @@ participating in this project you agree to abide by its terms.
 - [`{multinet}`](https://CRAN.R-project.org/package=multinet)
 - [`{tnet}`](https://toreopsahl.com/tnet/)
 - [`{xUCINET}`](https://www.analyzingsocialnetworksusingr.com/xucinet)
-
-------------------------------------------------------------------------
-
-### JSON
-
-<script type="application/ld+json">
-      {
-  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
-  "@type": "SoftwareSourceCode",
-  "identifier": "netmem",
-  "description": "Measures to describe and manipulate networks using matrices. ",
-  "name": "netmem: Social Network Measures using Matrices",
-  "codeRepository": "https://github.com/anespinosa/netmem",
-  "issueTracker": "https://github.com/anespinosa/netmem/issues",
-  "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.3",
-  "programmingLanguage": {
-    "@type": "ComputerLanguage",
-    "name": "R",
-    "url": "https://r-project.org"
-  },
-  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
-  "author": [
-    {
-      "@type": "Person",
-      "givenName": "Alejandro",
-      "familyName": "Espinosa-Rada",
-      "email": "alejandro.espinosa@gess.ethz.ch",
-      "@id": "https://orcid.org/0000-0003-4177-1912"
-    }
-  ],
-  "maintainer": [
-    {
-      "@type": "Person",
-      "givenName": "Alejandro",
-      "familyName": "Espinosa-Rada",
-      "email": "alejandro.espinosa@gess.ethz.ch",
-      "@id": "https://orcid.org/0000-0003-4177-1912"
-    }
-  ],
-  "softwareSuggestions": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "knitr",
-      "name": "knitr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=knitr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "rmarkdown",
-      "name": "rmarkdown",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "covr",
-      "name": "covr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=covr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "testthat",
-      "name": "testthat",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=testthat"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "usethis",
-      "name": "usethis",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=usethis"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "styler",
-      "name": "styler",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=styler"
-    }
-  ],
-  "softwareRequirements": {
-    "1": {
-      "@type": "SoftwareApplication",
-      "identifier": "R",
-      "name": "R",
-      "version": ">= 4.0.0"
-    },
-    "2": {
-      "@type": "SoftwareApplication",
-      "identifier": "igraph",
-      "name": "igraph",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=igraph"
-    },
-    "3": {
-      "@type": "SoftwareApplication",
-      "identifier": "Matrix",
-      "name": "Matrix",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=Matrix"
-    },
-    "4": {
-      "@type": "SoftwareApplication",
-      "identifier": "stats",
-      "name": "stats"
-    },
-    "SystemRequirements": null
-  },
-  "fileSize": "1720.523KB",
-  "readme": "https://github.com/anespinosa/netmem/blob/master/README.md",
-  "contIntegration": ["https://github.com/anespinosa/netmem/actions", "https://ci.appveyor.com/project/anespinosa/netmem", "https://codecov.io/gh/anespinosa/netmem?branch=master"],
-  "developmentStatus": "https://www.tidyverse.org/lifecycle/#experimental",
-  "keywords": ["social-network-analysis", "sociology", "matrices", "network-science", "multilevel-networks", "network-analysis", "r", "r-package", "rstats", "multilayer-networks"]
-}
-    </script>
