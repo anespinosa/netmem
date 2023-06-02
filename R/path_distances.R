@@ -1,3 +1,147 @@
+#' Relational Composition
+#'
+#' This function return the relational composition of the given matrices. The compound relations define the paths along with social processes flows of the given matrices (Pattison, 1993). However, those whom they link may or may not be aware of them. The compound relations allows to identify "the possibly very long and devious chains of effects propagating withing concrete social systems through links of various kinds" (Lorrain & White, 1971: 50).
+#'
+#' @param l   A list of matrices.
+#' @param comp  A number with the length of paths to form the compound relation.
+#' @param matrices   Whether to return the resulting matrices of the compound relations.
+#' @param equate   Whether to return the semigroup equations.
+#'
+#' @return This function provide the composition, or concatenation of compound relations and the primitives of the matrices.
+#'
+#' @references
+#'
+#' Boorman, Scott A. and White, Harrison C. (1976) Social Structure from Multiple Networks. II. Role Structures. American Journal of Sociology. 81(6): 1384-1446.
+#'
+#' Lorrain, Francois and White, Harrison C. (1971) Structural Equivalence of Individuals in Social Networks. Journal of Mathematical Sociology. 1: 49-80
+#'
+#' Pattison, Philippa (1993) Algebraic Models for Social Networks. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#'
+#' A <- matrix(c(
+#'   0, 1, 0, 0,
+#'   1, 0, 0, 0,
+#'   1, 1, 0, 1,
+#'   0, 0, 1, 0
+#' ), byrow = TRUE, ncol = 4)
+#' rownames(A) <- letters[1:NCOL(A)]
+#' colnames(A) <- rownames(A)
+#'
+#' B <- matrix(c(
+#'   0, 1, 0, 0,
+#'   1, 0, 0, 0,
+#'   0, 0, 0, 1,
+#'   0, 0, 1, 0
+#' ), byrow = TRUE, ncol = 4)
+#' rownames(B) <- letters[1:NCOL(B)]
+#' colnames(B) <- rownames(B)
+#'
+#' cmp <- compound_relation(list(A, B), comp = 2, matrices = TRUE, equate = TRUE)
+#' cmp$compound_relations
+#' cmp$compound_matrices
+#' cmp$equated
+#'
+#' @export
+
+compound_relation <- function(l = list(), comp = 3, matrices = FALSE, equate = FALSE) {
+  # Assign names to the matrices
+  names(l) <- letters[1:length(l)]
+  networks <- names(l)
+  elements <- rep(networks, comp)
+
+  # Create a new list with all the elements
+  new_l <- list()
+  for (i in 1:comp) {
+    new_l[[i]] <- unique(t(combn(elements, i)))
+  }
+
+  # Change format of the new list. Output: result
+  max_cols <- max(sapply(new_l, ncol))
+  result <- matrix(NA, nrow = sum(sapply(new_l, nrow)), ncol = max_cols)
+  row_index <- 1
+  for (i in seq_along(new_l)) {
+    num_rows <- nrow(new_l[[i]])
+    result[row_index:(row_index + num_rows - 1), 1:ncol(new_l[[i]])] <- new_l[[i]]
+    row_index <- row_index + num_rows
+  }
+
+  # Now we are extracting the matrices!
+  if (matrices) {
+    # Create a list of list
+    comp_relations2 <- list()
+    for (m in 1:comp) {
+      data <- as.data.frame(new_l[[m]])
+      comp_relations <- list()
+      for (j in 1:NROW(data)) {
+        comp_list <- list()
+        for (h in 1:NCOL(data)) {
+          comp_list[[h]] <- l[[c(data[j, ][h])[[1]]]]
+        }
+        comp_relations[[j]] <- Reduce("%*%", comp_list)
+
+        # Binarize! We are working with boolean...
+        comp_relations[[j]] <- ifelse(comp_relations[[j]] > 1, 1, comp_relations[[j]])
+      }
+      comp_relations2[[m]] <- comp_relations
+    }
+
+    # Change the format from list of list, to one list
+    comp_relations2 <- do.call(c, comp_relations2)
+
+    # Provide names to the matrices
+    temp <- apply(result, 1, function(x) paste(x, collapse = ""))
+    temp <- gsub("NA", "", temp)
+    names(comp_relations2) <- temp
+
+    if (equate) {
+      # Check if there are repeated equations
+      repeated <- names(comp_relations2[duplicated(comp_relations2)])
+      if (length(repeated) == 0) {
+        return(list(
+          compound_relations = names(comp_relations2),
+          compound_matrices = comp_relations2, equated = "No reduced equation"
+        ))
+      } else {
+        equated_repeated <- list()
+
+        # Reduce the number of equations
+        for (i in 1:length(repeated)) {
+          temp <- comp_relations2[names(comp_relations2) != repeated[i]]
+
+          for (j in 1:length(temp)) {
+            if (all(temp[j][[1]] == comp_relations2[repeated[i]][[1]])) {
+              temp2 <- c(names(temp[j]), names(comp_relations2[repeated[i]]))
+            }
+            equated_repeated[[i]] <- temp2
+          }
+        }
+        matrix <- do.call(rbind, equated_repeated)
+
+        # Transform equated equations into a two-mode representation:
+        edgelist <- cbind(names(comp_relations2), names(comp_relations2))
+        matrix <- netmem::edgelist_to_matrix(rbind(matrix, edgelist),
+          bipartite = TRUE
+        )
+
+        # Matrices
+        comp_relations2 <- comp_relations2[!duplicated(comp_relations2)]
+
+        return(list(
+          compound_relations = names(comp_relations2),
+          compound_matrices = comp_relations2, equated = matrix
+        ))
+      }
+    } else {
+      return(list(compound_relations = result, compound_matrices = comp_relations2))
+    }
+  } else {
+    return(result)
+  }
+}
+
 #' Path distances
 #'
 #' Distances between nodes using breadth-first search (BFS) or Dijkstra's algorithm to find shortest path distances.
