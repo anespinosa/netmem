@@ -3,5 +3,8 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   multilayer: multilayer.html
-last_built: 2023-06-04T16:42Z
+last_built: 2023-06-04T16:50Z
+urls:
+  reference: https://anespinosa.github.io/netmem/reference
+  article: https://anespinosa.github.io/netmem/articles
 
