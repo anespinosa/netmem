@@ -16,7 +16,8 @@ Maintainer: Alejandro Espinosa-Rada <alejandro.espinosa@gess.ethz.ch>
 Description: Measures to describe and manipulate networks using matrices.  
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
-URL: https://github.com/anespinosa/netmem
+URL: https://github.com/anespinosa/netmem,
+    https://anespinosa.github.io/netmem/
 BugReports: https://github.com/anespinosa/netmem/issues
 Suggests: 
     knitr,

@@ -4,3 +4,6 @@
 ^LICENSE\.md$
 ^\.github$
 ^codemeta\.json$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
