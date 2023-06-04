@@ -15,13 +15,15 @@ power_function(A, n)
 This function return the power of a matrix by repeating matrix multiplication.
 }
 \description{
-Power of a matrix computed by succesive matrix multiplication.
+Power of a matrix computed by successive matrix multiplication.
 }
 \examples{
-A <- matrix(c(1,0,0,0,
-              1,1,0,0,
-              1,0,1,0,
-              0,1,1,1), byrow = TRUE, ncol = 4, nrow = 4)
+A <- matrix(c(
+  1, 0, 0, 0,
+  1, 1, 0, 0,
+  1, 0, 1, 0,
+  0, 1, 1, 1
+), byrow = TRUE, ncol = 4, nrow = 4)
 power_function(A, 1000)
 
 }

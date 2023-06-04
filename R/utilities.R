@@ -1239,7 +1239,7 @@ extract_component <- function(A, maximum = TRUE, position = NULL) {
 
 #' Power matrix
 #'
-#' Power of a matrix computed by succesive matrix multiplication.
+#' Power of a matrix computed by successive matrix multiplication.
 #'
 #' @param A   A matrix
 #' @param n   Positive integer
@@ -1253,20 +1253,120 @@ extract_component <- function(A, maximum = TRUE, position = NULL) {
 #' @author Alejandro Espinosa-Rada
 #'
 #' @examples
-#' A <- matrix(c(1,0,0,0,
-#'               1,1,0,0,
-#'               1,0,1,0,
-#'               0,1,1,1), byrow = TRUE, ncol = 4, nrow = 4)
+#' A <- matrix(c(
+#'   1, 0, 0, 0,
+#'   1, 1, 0, 0,
+#'   1, 0, 1, 0,
+#'   0, 1, 1, 1
+#' ), byrow = TRUE, ncol = 4, nrow = 4)
 #' power_function(A, 1000)
-#' 
+#'
 #' @export
 
-power_function<- function(A, n){
+power_function <- function(A, n) {
   return(powA(n))
 }
 
-powA <- function(n){
-  if (n == 1) return(A)
-  if (n == 2) return(A %*% A)
-  if (n > 2) return(A %*% powA(n-1))
+powA <- function(n) {
+  if (n == 1) {
+    return(A)
+  }
+  if (n == 2) {
+    return(A %*% A)
+  }
+  if (n > 2) {
+    return(A %*% powA(n - 1))
+  }
+}
+
+#' Permutation matrix
+#'
+#' This function create permutation matrices.
+#'
+#' @param n   The size of the square matri
+#' @param m   Number of permutations
+#' @param unique   Whether to return unique cases
+#'
+#' @return This function returns a list of permutation matrices
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#'
+#' W <- matrix(c(
+#'   0, 1, 0, 0, 0,
+#'   0, 0, 1, 0, 0,
+#'   1, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1,
+#'   0, 0, 0, 1, 0
+#' ), byrow = TRUE, ncol = 5)
+#' rownames(W) <- c("P", "Q", "R", "S", "T")
+#' colnames(W) <- rownames(W)
+#' perm_matrix(5, m = 1000, unique = TRUE)
+#'
+#' @export
+
+perm_matrix <- function(n, m = 1, unique = FALSE) {
+  matrices <- list()
+  for (m in seq_len(m)) {
+    A <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
+    vector <- sample(NROW(A), NROW(A))
+    for (i in seq_len(length(vector))) {
+      A[vector[i], i] <- 1
+    }
+    matrices[[m]] <- A
+  }
+
+  if (unique) {
+    matrices <- unique(matrices)
+    # factorial(n) == length(matrices) # should reach this limit!
+  }
+
+  return(matrices)
+}
+
+#' Permute labels of a matrix
+#'
+#' This function permutes the labels of a matrix.
+#'
+#' @param A   A matrix
+#' @param m   Number of permutations
+#' @param unique   Whether to return unique cases
+#'
+#' @return This function returns the permutation of labels.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#'
+#' W <- matrix(c(
+#'   0, 1, 0, 0, 0,
+#'   0, 0, 1, 0, 0,
+#'   1, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1,
+#'   0, 0, 0, 1, 0
+#' ), byrow = TRUE, ncol = 5)
+#' rownames(W) <- c("P", "Q", "R", "S", "T")
+#' colnames(W) <- rownames(W)
+#' perm_label(W, m = 1000, unique = TRUE)
+#'
+#' @export
+
+perm_label <- function(A, m = 1, unique = FALSE) {
+  if (is.null(rownames(A))) {
+    rownames(A) <- 1:NROW(A)
+    colnames(A) <- rownames(A)
+  }
+  label <- rownames(A)
+
+  perm <- list()
+  for (i in seq_len(m)) {
+    perm[[i]] <- label[seq_len(NROW(A)) %*% perm_matrix(NCOL(A))[[1]]]
+  }
+
+  if (unique) {
+    perm <- unique(perm)
+  }
+
+  return(do.call(rbind, perm))
 }
