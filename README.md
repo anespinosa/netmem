@@ -17,6 +17,8 @@ coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![R-CMD-check](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml)
 [![CodeFactor](https://www.codefactor.io/repository/github/anespinosa/netmem/badge)](https://www.codefactor.io/repository/github/anespinosa/netmem)
+[![Github All
+Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total.svg)]()
 <!-- badges: end -->
 
 The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make
