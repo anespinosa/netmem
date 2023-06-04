@@ -73,21 +73,25 @@ Utilities:
 
 9. `hypergraph()`: Hypergraphs
 
-10. `power_function()`: Power of a matrix
+10. `perm_matrix()`: Permutation matrix
 
-11. `meta_matrix()`: Meta matrix for multilevel networks
+11. `perm_label()`: Permute labels of a matrix
 
-12. `minmax_overlap()`: Minimum/maximum overlap
+12. `power_function()`: Power of a matrix
 
-13. `mix_matrix()`: Mixing matrix
+13. `meta_matrix()`: Meta matrix for multilevel networks
 
-14. `simplicial_complexes()`: Simplicial Complexes
+14. `minmax_overlap()`: Minimum/maximum overlap
 
-15. `structural_na()`: Structural missing data
+15. `mix_matrix()`: Mixing matrix
 
-16. `ego_net()`: Ego network
+16. `simplicial_complexes()`: Simplicial Complexes
 
-17. `zone_sample()`: Zone-2 sampling from second-mode
+17. `structural_na()`: Structural missing data
+
+18. `ego_net()`: Ego network
+
+19. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 
@@ -423,6 +427,8 @@ participating in this project you agree to abide by its terms.
 - [`{migraph}`](https://github.com/snlab-ch/migraph)
 
 - [`{multinet}`](https://CRAN.R-project.org/package=multinet)
+
+- [`{muxViz}`](https://github.com/manlius/muxViz)
 
 - [`{tnet}`](https://toreopsahl.com/tnet/)
 

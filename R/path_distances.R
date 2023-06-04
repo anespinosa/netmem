@@ -1,13 +1,13 @@
 #' Relational Composition
 #'
-#' This function return the relational composition of the given matrices. The compound relations define the paths along with social processes flows of the given matrices (Pattison, 1993). However, those whom they link may or may not be aware of them. The compound relations allows to identify "the possibly very long and devious chains of effects propagating withing concrete social systems through links of various kinds" (Lorrain & White, 1971: 50).
+#' This function returns the relational composition of the given matrices. The compound relations define the paths and the social process flows of the given matrices (Pattison, 1993). However, those whom they link may or may not be aware of them. The compound relations allow us to identify "the possibly very long and devious chains of effects propagating withing concrete social systems through links of various kinds" (Lorrain & White, 1971: 50).
 #'
 #' @param l   A list of matrices.
 #' @param comp  A number with the length of paths to form the compound relation.
 #' @param matrices   Whether to return the resulting matrices of the compound relations.
 #' @param equate   Whether to return the semigroup equations.
 #'
-#' @return This function provide the composition, or concatenation of compound relations and the primitives of the matrices.
+#' @return This function provides the composition or concatenation of compound relations and the primitives of the matrices.
 #'
 #' @references
 #'
