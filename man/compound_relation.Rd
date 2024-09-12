@@ -2,7 +2,7 @@
 % Please edit documentation in R/path_distances.R
 \name{compound_relation}
 \alias{compound_relation}
-\title{Relational Composition}
+\title{Relational composition}
 \usage{
 compound_relation(l = list(), comp = 3, matrices = FALSE, equate = FALSE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/similarities.R
 \name{bonacich_norm}
 \alias{bonacich_norm}
-\title{Bonacich normalisation}
+\title{Bonacich normalization}
 \source{
 Adapted from Borgatti, S., Everett, M., Johnson, J. and Agneessens, P. (2022) Analyzing Social Networks Using R. Sage.
 }

@@ -254,7 +254,7 @@ clique_table <- function(A, list_cliques = FALSE, number = FALSE) {
   }
 }
 
-#' Shared partners.
+#' Shared partners
 #'
 #' @param A   A binary matrix
 #' @param loops   Whether to consider the loops
@@ -412,7 +412,7 @@ percolation_clique <- function(A) {
 #'
 #' @param A   An incidence matrix
 #' @param simplicial_complex   Whether the incidence matrix is a simplices or simplicial complexes representation
-#' @param dimensions  Return the successively chains from high to low dimensions ($q$) and the number of components ($Q_{p}$)
+#' @param dimensions  Return the successively chains from high to low dimensions ($q$) and the number of components ($Q_p$)
 #'
 #' @return This function return a q-analysis of a simplicial complex matrix
 #'

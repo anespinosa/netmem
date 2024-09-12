@@ -11,7 +11,7 @@ q_analysis(A, simplicial_complex = FALSE, dimensions = FALSE)
 
 \item{simplicial_complex}{Whether the incidence matrix is a simplices or simplicial complexes representation}
 
-\item{dimensions}{Return the successively chains from high to low dimensions ($q$) and the number of components ($Q_{p}$)}
+\item{dimensions}{Return the successively chains from high to low dimensions ($q$) and the number of components ($Q_p$)}
 }
 \value{
 This function return a q-analysis of a simplicial complex matrix

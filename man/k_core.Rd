@@ -2,7 +2,7 @@
 % Please edit documentation in R/degree.R
 \name{k_core}
 \alias{k_core}
-\title{Generalized K-core}
+\title{Generalized k-core}
 \usage{
 k_core(
   A,

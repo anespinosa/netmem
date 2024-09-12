@@ -526,7 +526,7 @@ sim_method <- function(arg, choices, several.ok = FALSE) {
 }
 
 
-#' Bonacich normalisation
+#' Bonacich normalization
 #'
 #' The function provide a normalisation provided by Bonacich (1972).
 #'

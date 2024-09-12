@@ -2,7 +2,7 @@
 % Please edit documentation in R/homophily.R
 \name{heterogeneity}
 \alias{heterogeneity}
-\title{Blau's and IQV Index}
+\title{Blau's and IQV index}
 \usage{
 heterogeneity(att, normalized = FALSE)
 }
