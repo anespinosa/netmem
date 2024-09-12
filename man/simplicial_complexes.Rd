@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities.R
 \name{simplicial_complexes}
 \alias{simplicial_complexes}
-\title{Simplicial Complexes}
+\title{Simplicial complexes}
 \usage{
 simplicial_complexes(A, zero_simplex = FALSE, projection = FALSE)
 }

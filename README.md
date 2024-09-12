@@ -7,16 +7,19 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
+[![r-universe status
+badge](https://anespinosa.r-universe.dev/badges/netmem)](https://anespinosa.r-universe.dev/netmem)
+[![](https://img.shields.io/badge/devel%20version-1.0--3-red.svg)](https://github.com/https://github.com/anespinosa/netmem)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?branch=master&svg=true)](https://ci.appveyor.com/project/anespinosa/netmem)
 [![Codecov test
 coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://codecov.io/gh/anespinosa/netmem?branch=master)
+[![CodeFactor](https://www.codefactor.io/repository/github/anespinosa/netmem/badge)](https://www.codefactor.io/repository/github/anespinosa/netmem)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?branch=master&svg=true)](https://ci.appveyor.com/project/anespinosa/netmem)
+[![R-CMD-check](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![R-CMD-check](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml)
-[![CodeFactor](https://www.codefactor.io/repository/github/anespinosa/netmem/badge)](https://www.codefactor.io/repository/github/anespinosa/netmem)
 [![Github All
 Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total.svg)]()
 <!-- badges: end -->
@@ -44,13 +47,15 @@ To cite package ‘netmem’ in publications use:
 
 Espinosa-Rada A (2023). *netmem: Social Network Measures using
 Matrices*. R package version 1.0-3,
+<https://anespinosa.github.io/netmem/>,
 <https://github.com/anespinosa/netmem>.
 
 A BibTeX entry for LaTeX users is
 
 @Manual{, title = {netmem: Social Network Measures using Matrices},
 author = {Alejandro Espinosa-Rada}, year = {2023}, note = {R package
-version 1.0-3}, url = {<https://github.com/anespinosa/netmem>}, }
+version 1.0-3, <https://anespinosa.github.io/netmem/>}, url =
+{<https://github.com/anespinosa/netmem>}, }
 
 ## Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
@@ -66,33 +71,35 @@ Utilities:
 
 5.  `adj_to_matrix()`: Transform an adjacency list into a matrix
 
-6.  `edgelist_to_matrix()`: Transform an edgelist into a matrix
+6.  `cumulativeSumMatrices()`: Cumulative sum of matrices
 
-7.  `expand_matrix()`: Expand matrix
+7.  `edgelist_to_matrix()`: Transform an edgelist into a matrix
 
-8.  `extract_component()`: Extract components
+8.  `expand_matrix()`: Expand matrix
 
-9.  `hypergraph()`: Hypergraphs
+9.  `extract_component()`: Extract components
 
-10. `perm_matrix()`: Permutation matrix
+10. `hypergraph()`: Hypergraphs
 
-11. `perm_label()`: Permute labels of a matrix
+11. `perm_matrix()`: Permutation matrix
 
-12. `power_function()`: Power of a matrix
+12. `perm_label()`: Permute labels of a matrix
 
-13. `meta_matrix()`: Meta matrix for multilevel networks
+13. `power_function()`: Power of a matrix
 
-14. `minmax_overlap()`: Minimum/maximum overlap
+14. `meta_matrix()`: Meta matrix for multilevel networks
 
-15. `mix_matrix()`: Mixing matrix
+15. `minmax_overlap()`: Minimum/maximum overlap
 
-16. `simplicial_complexes()`: Simplicial Complexes
+16. `mix_matrix()`: Mixing matrix
 
-17. `structural_na()`: Structural missing data
+17. `simplicial_complexes()`: Simplicial complexes
 
-18. `ego_net()`: Ego network
+18. `structural_na()`: Structural missing data
 
-19. `zone_sample()`: Zone-2 sampling from second-mode
+19. `ego_net()`: Ego network
+
+20. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 
@@ -100,7 +107,7 @@ Ego and personal networks:
 
 2.  `ei_index()`: Krackhardt and Stern’s E-I index
 
-3.  `heterogeneity()`: Blau’s and IQV Index
+3.  `heterogeneity()`: Blau’s and IQV index
 
 4.  `redundancy()`: Redundancy measures
 
@@ -140,7 +147,7 @@ Structural measures:
 
 7.  `components_id()`: Components
 
-8.  `k_core()`: Generalized K-core
+8.  `k_core()`: Generalized k-core
 
 9.  `dyadic_census()`: Dyad census
 
@@ -162,7 +169,7 @@ Cohesive subgroups:
 
 Similarity measures:
 
-1.  `bonacich_norm()`: Bonacich normalisation
+1.  `bonacich_norm()`: Bonacich normalization
 
 2.  `co_ocurrence()`: Co‐occurrence
 
@@ -215,8 +222,15 @@ You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
+### OPTION 1
 # install.packages("devtools")
 devtools::install_github("anespinosa/netmem")
+
+### OPTION 2
+options(repos = c(
+    netmem = 'https://anespinosa.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+install.packages('netmem')
 ```
 
 ``` r
@@ -317,6 +331,9 @@ matrix_report(A1)
 #> --> The matrix is square, 5 by 5
 #>      nodes edges
 #> [1,]     5     7
+```
+
+``` r
 matrix_report(B1)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -325,6 +342,9 @@ matrix_report(B1)
 #> --> The matrix is rectangular, 3 by 5
 #>      nodes_rows nodes_columns incidence_lines
 #> [1,]          3             5               7
+```
+
+``` r
 matrix_report(A2)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -334,6 +354,9 @@ matrix_report(A2)
 #> --> The matrix is square, 3 by 3
 #>      nodes edges
 #> [1,]     3     2
+```
+
+``` r
 matrix_report(B2)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -342,6 +365,9 @@ matrix_report(B2)
 #> --> The matrix is rectangular, 4 by 3
 #>      nodes_rows nodes_columns incidence_lines
 #> [1,]          4             3               5
+```
+
+``` r
 matrix_report(A3)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -447,6 +473,9 @@ eb_constraint(A1, ego = "e")
 #> $maximum
 #>     e 
 #> 0.766
+```
+
+``` r
 redundancy(A1, ego = "e")
 #> $redundancy
 #> [1] 1.5
@@ -504,10 +533,16 @@ This package also implements some analysis of dyads.
 dyadic_census(A1)
 #>      Mutual Asymmetrics       Nulls 
 #>           7           0           3
+```
+
+``` r
 
 # Katz and Powell reciprocity
 kp_reciprocity(A1)
 #> [1] 6.333333
+```
+
+``` r
 
 # Z test of the number of arcs
 z_arctest(A1)

@@ -38,50 +38,49 @@ matrix_report <- function(A) {
   if (length(A) == 1) {
     stop("A 1 x 1 matrix")
   }
-
+  
   nodes <- ncol(A)
-
-  message(paste("The matrix", as.character(bquote(A)), "might have the following characteristics:"))
-
-  # if(is.double(A))message('--> The vectors of the matrix are `double`')
-  if (is.numeric(A)) message("--> The vectors of the matrix are `numeric`")
-  if (is.integer(A)) message("--> The vectors of the matrix are `integer`")
-  if (is.character(A)) message("--> The vectors of the matrix are `character`")
-  if (is.logical(A)) message("--> The vectors of the matrix are `logical`")
-
-  if (is.null(rownames(A))) message("--> No names assigned to the rows of the matrix")
-  if (is.null(colnames(A))) message("--> No names assigned to the columns of the matrix")
-
-  if (any(abs(A) > 1, na.rm = TRUE)) message("--> Valued matrix")
-  if (any(A < 0, na.rm = TRUE)) message("--> The matrix has negative elements (network is signed)")
-  if (any(is.na(A))) message("--> The matrix has NA elements")
-
+  
+  cat(paste("The matrix", as.character(bquote(A)), "might have the following characteristics:\n"))
+  
+  if (is.numeric(A)) cat("--> The vectors of the matrix are `numeric`\n")
+  if (is.integer(A)) cat("--> The vectors of the matrix are `integer`\n")
+  if (is.character(A)) cat("--> The vectors of the matrix are `character`\n")
+  if (is.logical(A)) cat("--> The vectors of the matrix are `logical`\n")
+  
+  if (is.null(rownames(A))) cat("--> No names assigned to the rows of the matrix\n")
+  if (is.null(colnames(A))) cat("--> No names assigned to the columns of the matrix\n")
+  
+  if (any(abs(A) > 1, na.rm = TRUE)) cat("--> Valued matrix\n")
+  if (any(A < 0, na.rm = TRUE)) cat("--> The matrix has negative elements (network is signed)\n")
+  if (any(is.na(A))) cat("--> The matrix has NA elements\n")
+  
   if (ncol(A) == nrow(A)) {
     if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
-      message("--> Matrix is asymmetric (network is directed)")
-      if (any(diag(A) != 0)) message("--> The main diagonal is nonzero (the network has loops)")
+      cat("--> Matrix is asymmetric (network is directed)\n")
+      if (any(diag(A) != 0)) cat("--> The main diagonal is nonzero (the network has loops)\n")
       edges <- sum(A, na.rm = TRUE)
     } else {
-      message("--> Matrix is symmetric (network is undirected)")
+      cat("--> Matrix is symmetric (network is undirected)\n")
       if (any(diag(A) != 0)) {
-        message("--> The main diagonal is nonzero (the network has loops)")
+        cat("--> The main diagonal is nonzero (the network has loops)\n")
         I <- diag(1, ncol(A))
-        if (all(A == I)) message("--> An identity matrix")
+        if (all(A == I)) cat("--> An identity matrix\n")
       }
       edges <- sum(A, na.rm = TRUE) / 2
     }
   }
-
+  
   if (ncol(A) == nrow(A)) {
-    message(paste("--> The matrix is square,", ncol(A), "by", nrow(A)))
-
+    cat(paste("--> The matrix is square,", ncol(A), "by", nrow(A), "\n"))
+    
     if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
       return(cbind(nodes = nodes, arcs = edges))
     } else {
       return(cbind(nodes = nodes, edges = edges))
     }
   } else {
-    message(paste("--> The matrix is rectangular,", ncol(A), "by", nrow(A)))
+    cat(paste("--> The matrix is rectangular,", ncol(A), "by", nrow(A), "\n"))
     mode_level1 <- ncol(A)
     mode_level2 <- nrow(A)
     return(cbind(
@@ -955,7 +954,7 @@ structural_na <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
 #'
 #' @references
 #'
-#' Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD]. The University of Manchester.
+#' Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD](https://research.manchester.ac.uk/en/studentTheses/a-network-approach-for-the-sociological-study-of-science-and-know). The University of Manchester.
 #'
 #' @import igraph
 #'
@@ -1098,7 +1097,7 @@ hypergraph <- function(A, dual = TRUE, both = TRUE) {
   }
 }
 
-#' Simplicial Complexes
+#' Simplicial complexes
 #'
 #' incidence matrix of simplexes or cliques
 #'
@@ -1264,10 +1263,10 @@ extract_component <- function(A, maximum = TRUE, position = NULL) {
 #' @export
 
 power_function <- function(A, n) {
-  return(powA(n))
+  return(powA(A, n))
 }
 
-powA <- function(n) {
+powA <- function(A, n) {
   if (n == 1) {
     return(A)
   }
@@ -1275,7 +1274,7 @@ powA <- function(n) {
     return(A %*% A)
   }
   if (n > 2) {
-    return(A %*% powA(n - 1))
+    return(A %*% powA(A, n - 1))
   }
 }
 
@@ -1369,4 +1368,52 @@ perm_label <- function(A, m = 1, unique = FALSE) {
   }
 
   return(do.call(rbind, perm))
+}
+
+#' Cumulative sum of matrices
+#'
+#' @param matrixList   A list of matrices
+#'
+#' @return This function returns the cumulative sum of matrices
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#'
+#' A <- matrix(c(
+#'   0, 1, 1,
+#'   0, 0, 0,
+#'   0, 1, 0
+#' ), byrow = TRUE, ncol = 3)
+#' B <- matrix(c(
+#'   0, 0, 1,
+#'   0, 0, 0,
+#'   0, 0, 0
+#' ), byrow = TRUE, ncol = 3)
+#' C <- matrix(c(
+#'   0, 0, 0,
+#'   1, 0, 0,
+#'   0, 0, 0
+#' ), byrow = TRUE, ncol = 3)
+#' matrixList <- list(A, B, C)
+#' cumulativeSumMatrices(matrixList)
+#'
+#' @export
+
+cumulativeSumMatrices <- function(matrixList) {
+  cumulativeSumList <- list() # To store cumulative sum matrices
+
+  cumSumMatrix <- NULL # Initialize cumulative sum matrix
+
+  for (i in 1:length(matrixList)) {
+    if (is.null(cumSumMatrix)) {
+      cumSumMatrix <- matrixList[[i]]
+    } else {
+      cumSumMatrix <- cumSumMatrix + matrixList[[i]]
+    }
+
+    cumulativeSumList[[i]] <- cumSumMatrix
+  }
+
+  return(cumulativeSumList)
 }

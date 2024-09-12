@@ -2,7 +2,7 @@
 % Please edit documentation in R/cohesive_subgroups.R
 \name{shared_partners}
 \alias{shared_partners}
-\title{Shared partners.}
+\title{Shared partners}
 \usage{
 shared_partners(
   A,
@@ -24,7 +24,7 @@ shared_partners(
 This function return the distribution of shared partners.
 }
 \description{
-Shared partners.
+Shared partners
 }
 \examples{
 A <- matrix(c(

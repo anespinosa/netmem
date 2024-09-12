@@ -838,7 +838,7 @@ multilevel_degree <- function(A1, B1,
 
 
 
-#' Generalized K-core
+#' Generalized k-core
 #'
 #' Generalized k-core for undirected, directed, weighted and multilevel networks
 #'

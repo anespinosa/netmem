@@ -1,4 +1,4 @@
-#' Relational Composition
+#' Relational composition
 #'
 #' This function returns the relational composition of the given matrices. The compound relations define the paths and the social process flows of the given matrices (Pattison, 1993). However, those whom they link may or may not be aware of them. The compound relations allow us to identify "the possibly very long and devious chains of effects propagating withing concrete social systems through links of various kinds" (Lorrain & White, 1971: 50).
 #'
@@ -339,25 +339,29 @@ wlocal_distances <- function(A, select = c("all", "in", "out"),
   edgelist <- as.data.frame(matrix_to_edgelist(A, valued = TRUE, digraph = TRUE))
   edgelist$V3 <- as.numeric(edgelist$V3)
   test <- list()
-  test <- internal_distances(adjlist, init = from, fin = to, walk = path)
+  test <- internal_distances(adjlist, init = from, fin = to, walk = path, A_matrix = A)
   return(list(path = test))
 }
 
-internal_distances <- function(A, init, fin, walk = c()) {
-  if (is.null(A[[init]])) {
+internal_distances <- function(adjlist, init, fin, walk = c(), A_matrix) {
+  if (is.null(adjlist[[init]])) {
     return(NULL)
   }
+
+  # Add current node to the walk
   walk <- c(walk, init)
 
+  # If we reached the final node, return the walk
   if (init == fin) {
     return(walk)
   }
 
   short_path <- NULL
-  for (node in A[[init]]) {
+  for (node in adjlist[[init]]) {
     if (!(node %in% walk)) {
-      newwalk <- internal_distances(A, node, fin, walk)
-      if (walk_length(newwalk) < walk_length(short_path)) {
+      # Recursively explore other nodes
+      newwalk <- internal_distances(adjlist, node, fin, walk, A_matrix)
+      if (walk_length(newwalk, A_matrix) < walk_length(short_path, A_matrix)) {
         short_path <- newwalk
       }
     }
@@ -366,17 +370,24 @@ internal_distances <- function(A, init, fin, walk = c()) {
   short_path
 }
 
-# TODO: nest the function and check parameter A inside walk_length
-walk_length <- function(walk) {
-  edgelist <- as.data.frame(matrix_to_edgelist(A, valued = TRUE, digraph = TRUE))
-  edgelist$V3 <- as.numeric(edgelist$V3)
+walk_length <- function(walk, A_matrix) {
   if (is.null(walk)) {
     return(Inf)
   }
 
+  edgelist <- as.data.frame(matrix_to_edgelist(A_matrix, valued = TRUE, digraph = TRUE))
+  edgelist$V3 <- as.numeric(edgelist$V3)
+
+  # Create pairs of nodes in the path
   pairs <- cbind(V1 = walk[-length(walk)], V2 = walk[-1])
-  sum(merge(pairs, edgelist)[, "V3"])
+
+  # Merge with the edgelist to get the weights of the corresponding edges
+  merged_edges <- merge(as.data.frame(pairs), edgelist, by = c("V1", "V2"), all = FALSE)
+
+  # Sum up the weights of the edges in the path
+  sum(merged_edges$V3)
 }
+
 
 #' @rdname distances
 #' @examples
@@ -415,7 +426,7 @@ wall_distances <- function(A, select = c("all", "in", "out")) {
     temp4 <- list()
     for (i in 1:ncol(A)) {
       for (j in i:ncol(A)) {
-        temp4[[j]] <- internal_distances(adjlist, init = rownames(A)[j], fin = rownames(A)[i])
+        temp4[[j]] <- internal_distances(adjlist, init = rownames(A)[j], fin = rownames(A)[i], A_matrix = A)
       }
       temp3[[i]] <- temp4[[j]]
       names(temp3)[i] <- rownames(A)[i]
@@ -428,7 +439,7 @@ wall_distances <- function(A, select = c("all", "in", "out")) {
     temp2 <- list()
     for (i in 1:ncol(A)) {
       for (j in i:ncol(A)) {
-        temp2[[j]] <- internal_distances(adjlist, init = rownames(A)[i], fin = rownames(A)[j])
+        temp2[[j]] <- internal_distances(adjlist, init = rownames(A)[i], fin = rownames(A)[j], A_matrix = A)
       }
       temp1[[i]] <- temp2[[j]]
       names(temp1)[i] <- rownames(A)[i]
@@ -442,7 +453,7 @@ wall_distances <- function(A, select = c("all", "in", "out")) {
     temp2 <- list()
     for (i in 1:ncol(A)) {
       for (j in i:ncol(A)) {
-        temp2[[j]] <- internal_distances(adjlist, init = rownames(A)[i], fin = rownames(A)[j])
+        temp2[[j]] <- internal_distances(adjlist, init = rownames(A)[i], fin = rownames(A)[j], A_matrix = A)
       }
       temp1[[i]] <- temp2[[j]]
       names(temp1)[i] <- rownames(A)[i]
@@ -453,7 +464,7 @@ wall_distances <- function(A, select = c("all", "in", "out")) {
     temp4 <- list()
     for (i in 1:ncol(A)) {
       for (j in i:ncol(A)) {
-        temp4[[j]] <- internal_distances(adjlist, init = rownames(A)[j], fin = rownames(A)[i])
+        temp4[[j]] <- internal_distances(adjlist, init = rownames(A)[j], fin = rownames(A)[i], A_matrix = A)
       }
       temp3[[i]] <- temp4[[j]]
       names(temp3)[i] <- rownames(A)[i]
