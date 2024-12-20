@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="multilayer">
 </head>
 <body>
@@ -574,6 +574,8 @@ of the node of the same class. In which case, we can use the
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/" class="external-link">igraph</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/graph.adjacency.html" class="external-link">graph.adjacency</a></span><span class="op">(</span><span class="fu"><a href="../reference/meta_matrix.html">meta_matrix</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"directed"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">#&gt;   object 'type_sum.accel' not found</span></span>
 <span><span class="co">#&gt; Warning: `graph.adjacency()` was deprecated in igraph 2.0.0.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `graph_from_adjacency_matrix()` instead.</span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
@@ -655,8 +657,13 @@ level)</p>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/as.directed.html" class="external-link">as.undirected</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/as.undirected.html" class="external-link">as.undirected</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">color</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">two_mode_sam</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">#&gt; Warning: `as.undirected()` was deprecated in igraph 2.1.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `as_undirected()` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
 <p><img src="multilayer_files/figure-html/unnamed-chunk-7-2.png" width="700"><img src="multilayer_files/figure-html/unnamed-chunk-7-3.png" width="700"><img src="multilayer_files/figure-html/unnamed-chunk-7-4.png" width="700"></p>
 <p>Willing to create a multilevel network? We can simulate a multilevel
 network with 30 actors in the first level and 20 nodes in the second
@@ -960,6 +967,8 @@ assign a <code>NA</code> in their row and/or column:</p>
 <span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/structural_na.html">structural_na</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">label</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in structural_na(A, label): Provided labels do not match the dimensions</span></span>
+<span><span class="co">#&gt; of the matrix.</span></span>
 <span><span class="co">#&gt;    A  B  C  D  E</span></span>
 <span><span class="co">#&gt; A  0 NA  1  1 NA</span></span>
 <span><span class="co">#&gt; B NA NA NA NA NA</span></span>
@@ -978,7 +987,7 @@ assign a <code>NA</code> in their row and/or column:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
