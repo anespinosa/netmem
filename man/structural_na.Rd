@@ -2,27 +2,35 @@
 % Please edit documentation in R/utilities.R
 \name{structural_na}
 \alias{structural_na}
-\title{Structural missing data}
+\title{Structural Missing Data}
 \usage{
-structural_na(A, label = NULL, bipartite = FALSE, column = FALSE)
+structural_na(
+  A,
+  label = NULL,
+  row_labels = NULL,
+  col_labels = NULL,
+  two_mode = FALSE
+)
 }
 \arguments{
-\item{A}{A symmetric or incidence matrix object}
+\item{A}{An incident or symmetric matrix object.}
 
-\item{label}{String vector with the names of the theoretical complete matrix}
+\item{label}{A string vector with the names of the theoretical complete matrix (used for one-mode networks only).}
 
-\item{bipartite}{Whether the matrix is bipartite or not.}
+\item{row_labels}{A string vector with the names of the rows (used for two-mode networks).}
 
-\item{column}{Whether the assignation of NA is for columns in the biparite network, row by default.}
+\item{col_labels}{A string vector with the names of the columns (used for two-mode networks).}
+
+\item{two_mode}{Boolean indicating whether the matrix is two-mode. Default is FALSE.}
 }
 \value{
-This function returns NA to missing data.
+This function returns a matrix with NA assigned to missing data.
 }
 \description{
-Assign NA to missing data in the matrices
+Assign NA to missing data in matrices.
 }
 \examples{
-
+# Example for one-mode network
 A <- matrix(c(
   0, 1, 1,
   1, 0, 1,
@@ -31,8 +39,18 @@ A <- matrix(c(
 colnames(A) <- c("A", "C", "D")
 rownames(A) <- c("A", "C", "D")
 label <- c("A", "B", "C", "D", "E")
-structural_na(A, label)
-}
-\author{
-Alejandro Espinosa-Rada
+structural_na(A, label = label)
+
+# Example for two-mode network
+B <- matrix(c(
+  0, 1, 0,
+  1, 0, 1,
+  0, 1, 0,
+  1, 0, 1
+), byrow = TRUE, ncol = 3)
+rownames(B) <- c("X1", "X2", "X3", "X4")
+colnames(B) <- c("Y1", "Y2", "Y3")
+rlabels <- c("X1", "X2", "X3", "X4", "X5")
+clabels <- c("Y1", "Y2", "Y3", "Y4")
+structural_na(B, row_labels = rlabels, col_labels = clabels, two_mode = TRUE)
 }

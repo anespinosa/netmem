@@ -17,9 +17,9 @@ Title: Social Network Measures using Matrices
 Authors@R: 
   c(
     person(given = "Alejandro", family = "Espinosa-Rada", role = c("cre", "aut"),
-    email = "alejandro.espinosa@gess.ethz.ch", comment = c(ORCID = "0000-0003-4177-1912"))
+    email = "anespinosa@uc.cl", comment = c(ORCID = "0000-0003-4177-1912"))
   )
-Maintainer: Alejandro Espinosa-Rada <alejandro.espinosa@gess.ethz.ch>
+Maintainer: Alejandro Espinosa-Rada <anespinosa@uc.cl>
 Description: Measures to describe and manipulate networks using matrices.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8

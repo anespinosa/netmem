@@ -221,9 +221,10 @@ devtools::install_github("anespinosa/netmem")
 
 ### OPTION 2
 options(repos = c(
-    netmem = 'https://anespinosa.r-universe.dev',
-    CRAN = 'https://cloud.r-project.org'))
-install.packages('netmem')
+  netmem = "https://anespinosa.r-universe.dev",
+  CRAN = "https://cloud.r-project.org"
+))
+install.packages("netmem")
 ```
 
 ```{r inst2}

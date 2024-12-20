@@ -38,23 +38,23 @@ matrix_report <- function(A) {
   if (length(A) == 1) {
     stop("A 1 x 1 matrix")
   }
-  
+
   nodes <- ncol(A)
-  
+
   cat(paste("The matrix", as.character(bquote(A)), "might have the following characteristics:\n"))
-  
+
   if (is.numeric(A)) cat("--> The vectors of the matrix are `numeric`\n")
   if (is.integer(A)) cat("--> The vectors of the matrix are `integer`\n")
   if (is.character(A)) cat("--> The vectors of the matrix are `character`\n")
   if (is.logical(A)) cat("--> The vectors of the matrix are `logical`\n")
-  
+
   if (is.null(rownames(A))) cat("--> No names assigned to the rows of the matrix\n")
   if (is.null(colnames(A))) cat("--> No names assigned to the columns of the matrix\n")
-  
+
   if (any(abs(A) > 1, na.rm = TRUE)) cat("--> Valued matrix\n")
   if (any(A < 0, na.rm = TRUE)) cat("--> The matrix has negative elements (network is signed)\n")
   if (any(is.na(A))) cat("--> The matrix has NA elements\n")
-  
+
   if (ncol(A) == nrow(A)) {
     if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
       cat("--> Matrix is asymmetric (network is directed)\n")
@@ -70,10 +70,10 @@ matrix_report <- function(A) {
       edges <- sum(A, na.rm = TRUE) / 2
     }
   }
-  
+
   if (ncol(A) == nrow(A)) {
     cat(paste("--> The matrix is square,", ncol(A), "by", nrow(A), "\n"))
-    
+
     if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) {
       return(cbind(nodes = nodes, arcs = edges))
     } else {
@@ -879,21 +879,20 @@ meta_matrix <- function(A1, B1,
   return(meta_matrix)
 }
 
-#' Structural missing data
+#' Structural Missing Data
 #'
-#' Assign NA to missing data in the matrices
+#' Assign NA to missing data in matrices.
 #'
-#' @param A   A symmetric or incidence matrix object
-#' @param label   String vector with the names of the theoretical complete matrix
-#' @param bipartite   Whether the matrix is bipartite or not.
-#' @param column   Whether the assignation of NA is for columns in the biparite network, row by default.
+#' @param A An incident or symmetric matrix object.
+#' @param label A string vector with the names of the theoretical complete matrix (used for one-mode networks only).
+#' @param row_labels A string vector with the names of the rows (used for two-mode networks).
+#' @param col_labels A string vector with the names of the columns (used for two-mode networks).
+#' @param two_mode Boolean indicating whether the matrix is two-mode. Default is FALSE.
 #'
-#' @return This function returns NA to missing data.
+#' @return This function returns a matrix with NA assigned to missing data.
 #'
-#' @author Alejandro Espinosa-Rada
-
 #' @examples
-#'
+#' # Example for one-mode network
 #' A <- matrix(c(
 #'   0, 1, 1,
 #'   1, 0, 1,
@@ -902,43 +901,73 @@ meta_matrix <- function(A1, B1,
 #' colnames(A) <- c("A", "C", "D")
 #' rownames(A) <- c("A", "C", "D")
 #' label <- c("A", "B", "C", "D", "E")
-#' structural_na(A, label)
+#' structural_na(A, label = label)
+#'
+#' # Example for two-mode network
+#' B <- matrix(c(
+#'   0, 1, 0,
+#'   1, 0, 1,
+#'   0, 1, 0,
+#'   1, 0, 1
+#' ), byrow = TRUE, ncol = 3)
+#' rownames(B) <- c("X1", "X2", "X3", "X4")
+#' colnames(B) <- c("Y1", "Y2", "Y3")
+#' rlabels <- c("X1", "X2", "X3", "X4", "X5")
+#' clabels <- c("Y1", "Y2", "Y3", "Y4")
+#' structural_na(B, row_labels = rlabels, col_labels = clabels, two_mode = TRUE)
 #' @export
 
-# TODO: check label for bipartite
+structural_na <- function(A, label = NULL, row_labels = NULL, col_labels = NULL, two_mode = FALSE) {
+  if (two_mode) {
+    if (dim(A)[1] == dim(A)[2]) warning("Incident matrix should be rectangular")
 
-structural_na <- function(A, label = NULL, bipartite = FALSE, column = FALSE) {
-  if (bipartite) {
-    if (dim(A)[1] == dim(A)[2]) warning("incidence matrix should be rectangular")
-    if (column) {
-      for (i in 1:dim(A)[2]) {
-        A[, i] <- ifelse((A[, i] | sum(A[, i])) == 0,
-          NA, A[, i]
-        )
-      }
-      x <- A
-    } else {
-      for (i in 1:dim(A)[1]) {
-        A[i, ] <- ifelse((A[i, ] | sum(A[i, ])) == 0,
-          NA, A[i, ]
-        )
-      }
-      x <- A
-    }
+    # Create a new matrix with the desired dimensions and fill with NA
+    x <- matrix(NA, nrow = length(row_labels), ncol = length(col_labels))
+    rownames(x) <- row_labels
+    colnames(x) <- col_labels
+
+    # Find the matching rows and columns
+    rowmatch <- match(rownames(A), row_labels)
+    colmatch <- match(colnames(A), col_labels)
+
+    # Ensure no NAs in match results
+    valid_rows <- !is.na(rowmatch)
+    valid_cols <- !is.na(colmatch)
+
+    # Fill in the values from the original matrix
+    x[rowmatch[valid_rows], colmatch[valid_cols]] <- A[valid_rows, valid_cols]
+
     return(x)
   } else {
-    if (!dim(A)[1] == dim(A)[2]) stop("Matrix should be square")
+    if (dim(A)[1] != dim(A)[2]) stop("Matrix should be symmetric")
     if (is.null(colnames(A))) stop("Assign column names to the matrix.")
-    if (is.null(rownames(A))) stop("Assign rown names to the matrix.")
-    if (!is.character(label)) stop("Assign a string vector with the names of the complete matrix.")
-    x <- array(NA, dim = list(length(label), length(label)))
-    colnames(x) <- label
+    if (is.null(rownames(A))) stop("Assign row names to the matrix.")
+
+    if (is.null(label)) stop("Label must be provided for symmetric matrices.")
+
+    # Validate input dimensions
+    if (length(label) != dim(A)[1]) {
+      warning("Provided labels do not match the dimensions of the matrix.")
+    }
+
+    # Create a new matrix with the desired dimensions and fill with NA
+    x <- matrix(NA, nrow = length(label), ncol = length(label))
     rownames(x) <- label
-    rowmatch <- match(rownames(A), rownames(x))
-    colmatch <- match(colnames(A), colnames(x))
-    x[rowmatch, colmatch] <- A
+    colnames(x) <- label
+
+    # Find the matching rows and columns
+    rowmatch <- match(rownames(A), label)
+    colmatch <- match(colnames(A), label)
+
+    # Ensure no NAs in match results
+    valid_rows <- !is.na(rowmatch)
+    valid_cols <- !is.na(colmatch)
+
+    # Fill in the values from the original matrix
+    x[rowmatch[valid_rows], colmatch[valid_cols]] <- A[valid_rows, valid_cols]
+
+    return(x)
   }
-  return(x)
 }
 
 #' Zone-2 sampling from second-mode
