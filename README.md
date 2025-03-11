@@ -29,12 +29,15 @@ available different measures to analyse and manipulate complex networks
 using matrices.
 
 🖊 Author/mantainer: [Alejandro
-Espinosa-Rada](https://github.com/anespinosa)
+Espinosa-Rada](https://www.aespinosarada.com)
 
-🏫 [Social Networks Lab ETH Zürich](https://sn.ethz.ch)
+🏫 [Current: Institute of Sociology, Pontificia Universidad Católica de
+Chile](https://sociologia.uc.cl)
+
+🏫 [Before: Social Networks Lab, ETH Zürich](https://sn.ethz.ch)
 
 [![Follow me on
-Twitter](https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg)](https://twitter.com/aespinosarada)
+Twitter/X](https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg)](https://x.com/aespinosarada)
 
 The package implements different measures to analyse and manipulate
 complex multilayer networks, from an ego-centric perspective,
@@ -71,35 +74,38 @@ Utilities:
 
 5.  `adj_to_matrix()`: Transform an adjacency list into a matrix
 
-6.  `cumulativeSumMatrices()`: Cumulative sum of matrices
+6.  `adj_to_incidence()`: Transform an adjacency matrix into a incidence
+    matrix
 
-7.  `edgelist_to_matrix()`: Transform an edgelist into a matrix
+7.  `cumulativeSumMatrices()`: Cumulative sum of matrices
 
-8.  `expand_matrix()`: Expand matrix
+8.  `edgelist_to_matrix()`: Transform an edgelist into a matrix
 
-9.  `extract_component()`: Extract components
+9.  `expand_matrix()`: Expand matrix
 
-10. `hypergraph()`: Hypergraphs
+10. `extract_component()`: Extract components
 
-11. `perm_matrix()`: Permutation matrix
+11. `hypergraph()`: Hypergraphs
 
-12. `perm_label()`: Permute labels of a matrix
+12. `perm_matrix()`: Permutation matrix
 
-13. `power_function()`: Power of a matrix
+13. `perm_label()`: Permute labels of a matrix
 
-14. `meta_matrix()`: Meta matrix for multilevel networks
+14. `power_function()`: Power of a matrix
 
-15. `minmax_overlap()`: Minimum/maximum overlap
+15. `meta_matrix()`: Meta matrix for multilevel networks
 
-16. `mix_matrix()`: Mixing matrix
+16. `minmax_overlap()`: Minimum/maximum overlap
 
-17. `simplicial_complexes()`: Simplicial complexes
+17. `mix_matrix()`: Mixing matrix
 
-18. `structural_na()`: Structural missing data
+18. `simplicial_complexes()`: Simplicial complexes
 
-19. `ego_net()`: Ego network
+19. `structural_na()`: Structural missing data
 
-20. `zone_sample()`: Zone-2 sampling from second-mode
+20. `ego_net()`: Ego network
+
+21. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 
@@ -228,9 +234,10 @@ devtools::install_github("anespinosa/netmem")
 
 ### OPTION 2
 options(repos = c(
-    netmem = 'https://anespinosa.r-universe.dev',
-    CRAN = 'https://cloud.r-project.org'))
-install.packages('netmem')
+  netmem = "https://anespinosa.r-universe.dev",
+  CRAN = "https://cloud.r-project.org"
+))
+install.packages("netmem")
 ```
 
 ``` r
@@ -331,9 +338,6 @@ matrix_report(A1)
 #> --> The matrix is square, 5 by 5
 #>      nodes edges
 #> [1,]     5     7
-```
-
-``` r
 matrix_report(B1)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -342,9 +346,6 @@ matrix_report(B1)
 #> --> The matrix is rectangular, 3 by 5
 #>      nodes_rows nodes_columns incidence_lines
 #> [1,]          3             5               7
-```
-
-``` r
 matrix_report(A2)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -354,9 +355,6 @@ matrix_report(A2)
 #> --> The matrix is square, 3 by 3
 #>      nodes edges
 #> [1,]     3     2
-```
-
-``` r
 matrix_report(B2)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -365,9 +363,6 @@ matrix_report(B2)
 #> --> The matrix is rectangular, 4 by 3
 #>      nodes_rows nodes_columns incidence_lines
 #> [1,]          4             3               5
-```
-
-``` r
 matrix_report(A3)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -473,9 +468,6 @@ eb_constraint(A1, ego = "e")
 #> $maximum
 #>     e 
 #> 0.766
-```
-
-``` r
 redundancy(A1, ego = "e")
 #> $redundancy
 #> [1] 1.5
@@ -533,16 +525,10 @@ This package also implements some analysis of dyads.
 dyadic_census(A1)
 #>      Mutual Asymmetrics       Nulls 
 #>           7           0           3
-```
-
-``` r
 
 # Katz and Powell reciprocity
 kp_reciprocity(A1)
 #> [1] 6.333333
-```
-
-``` r
 
 # Z test of the number of arcs
 z_arctest(A1)
@@ -606,3 +592,5 @@ participating in this project you agree to abide by its terms.
 - [`{tnet}`](https://toreopsahl.com/tnet/)
 
 - [`{xUCINET}`](https://www.analyzingsocialnetworksusingr.com/xucinet)
+
+</div>

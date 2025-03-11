@@ -1446,3 +1446,94 @@ cumulativeSumMatrices <- function(matrixList) {
 
   return(cumulativeSumList)
 }
+
+#' Convert an Adjacency Matrix to an Incidence Matrix
+#'
+#' This function transforms an adjacency matrix into an incidence matrix.
+#'
+#' @param A A square numeric matrix representing the adjacency matrix 
+#'   of a graph. The matrix should have non-negative values, where `A[i, j]`
+#'   represents the weight of the edge from node `i` to node `j`.
+#' @param loops Logical. If `TRUE`, self-loops (edges from a node to itself) 
+#'   are included in the incidence matrix. If `FALSE`, they are removed. Default is `TRUE`.
+#' @param directed Logical. If `TRUE`, the graph is treated as directed, meaning 
+#'   each edge has a specific source and target. If `FALSE`, the graph is treated 
+#'   as undirected, and edges are symmetrically represented. Default is `TRUE`.
+#' @param weighted Logical. If `TRUE`, edge weights from `A` are included 
+#'   in the incidence matrix. If `FALSE`, all edges are treated as having weight `1`. 
+#'   Default is `TRUE`.
+#'
+#' @return A numeric matrix where rows represent nodes and columns represent edges.
+#'   - In a **directed** network, a source node has a negative value (-weight), 
+#'     and a target node has a positive value (+weight).
+#'   - In an **undirected** network, both nodes involved in an edge share the weight 
+#'     (positive values).
+#'   - If `weighted = FALSE`, all edges have a weight of `1`.
+#'
+#' @examples
+#' # Define an adjacency matrix (directed and weighted)
+#' A <- matrix(c(
+#'   0, 3, 0, 0, 2,
+#'   0, 0, 2, 0, 0,
+#'   5, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 1,
+#'   0, 4, 0, 0, 0
+#' ), byrow = TRUE, nrow = 5)
+#' 
+#' # Convert to an incidence matrix (directed, weighted)
+#' (inc_matrix <- adj_to_incidence(A))
+#'
+#' # Undirected, weighted graph
+#' (inc_matrix_undirected <- adj_to_incidence(A, directed = FALSE))
+#'
+#' # Directed, unweighted graph
+#' (inc_matrix_unweighted <- adj_to_incidence(A, weighted = FALSE))
+#'
+#' # Ignore loops
+#' (inc_matrix_no_loops <- adj_to_incidence(A, loops = FALSE))
+#'
+#' @export
+
+adj_to_incidence <- function(A, loops = TRUE, directed = TRUE, weighted = TRUE) {
+  # Get the number of nodes
+  n <- nrow(A)
+  
+  # Identify edges (i -> j) from adjacency matrix
+  edges <- which(A != 0, arr.ind = TRUE)
+  
+  # Remove self-loops if loops is FALSE
+  if (!loops) {
+    edges <- edges[edges[,1] != edges[,2], , drop = FALSE]
+  }
+  
+  # If undirected, only keep unique edges (i, j) where i < j
+  if (!directed) {
+    edges <- edges[edges[,1] <= edges[,2], , drop = FALSE]
+  }
+  
+  # Number of edges
+  num_edges <- nrow(edges)
+  
+  # Initialize incidence matrix (n x num_edges)
+  incidence_matrix <- matrix(0, n, num_edges)
+  
+  # Populate incidence matrix
+  for (e in 1:num_edges) {
+    i <- edges[e, 1]  # Source node
+    j <- edges[e, 2]  # Target node
+    weight <- ifelse(weighted, A[i, j], 1)  # Use weights or binary
+    
+    # Directed case: i -> j means row i gets -weight, row j gets +weight
+    if (directed) {
+      incidence_matrix[i, e] <- -weight
+      incidence_matrix[j, e] <- weight
+    } else {
+      # Undirected case: Symmetric treatment of edges
+      incidence_matrix[i, e] <- weight
+      incidence_matrix[j, e] <- weight
+    }
+  }
+  
+  # Return the incidence matrix
+  return(incidence_matrix)
+}

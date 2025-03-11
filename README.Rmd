@@ -32,13 +32,27 @@ The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make
 available different measures to analyse and manipulate complex networks using
 matrices.
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Check if the 'devtools' package is installed
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+
+# Check if the 'emo' package is installed via devtools
+if (!requireNamespace("emo", quietly = TRUE)) {
+  devtools::install_github("hadley/emo")
+}
+```
+
 `r emo::ji("pen")` Author/mantainer: [Alejandro
-Espinosa-Rada](https://github.com/anespinosa)
+Espinosa-Rada](https://www.aespinosarada.com)
 
-`r emo::ji("school")` [Social Networks Lab ETH Zürich](https://sn.ethz.ch)
+`r emo::ji("school")` [Current: Institute of Sociology, Pontificia Universidad Católica de Chile](https://sociologia.uc.cl)
 
-[![Follow me on Twitter](https://img.shields.io/badge/Follow me on
-Twitter-9cf.svg)](https://twitter.com/aespinosarada)
+`r emo::ji("school")` [Before: Social Networks Lab, ETH Zürich](https://sn.ethz.ch)
+
+[![Follow me on Twitter/X](https://img.shields.io/badge/Follow me on
+Twitter-9cf.svg)](https://x.com/aespinosarada)
 
 The package implements different measures to analyse and manipulate complex
 multilayer networks, from an ego-centric perspective, considering one-mode
@@ -64,35 +78,37 @@ Utilities:
 
 5. `adj_to_matrix()`: Transform an adjacency list into a matrix
 
-6. `cumulativeSumMatrices()`: Cumulative sum of matrices
+6. `adj_to_incidence()`: Transform an adjacency matrix into a incidence matrix
 
-7. `edgelist_to_matrix()`: Transform an edgelist into a matrix
+7. `cumulativeSumMatrices()`: Cumulative sum of matrices
 
-8. `expand_matrix()`: Expand matrix
+8. `edgelist_to_matrix()`: Transform an edgelist into a matrix
 
-9. `extract_component()`: Extract components
+9. `expand_matrix()`: Expand matrix
 
-10. `hypergraph()`: Hypergraphs
+10. `extract_component()`: Extract components
 
-11. `perm_matrix()`: Permutation matrix
+11. `hypergraph()`: Hypergraphs
 
-12. `perm_label()`: Permute labels of a matrix
+12. `perm_matrix()`: Permutation matrix
 
-13. `power_function()`: Power of a matrix
+13. `perm_label()`: Permute labels of a matrix
 
-14. `meta_matrix()`: Meta matrix for multilevel networks
+14. `power_function()`: Power of a matrix
 
-15. `minmax_overlap()`: Minimum/maximum overlap
+15. `meta_matrix()`: Meta matrix for multilevel networks
 
-16. `mix_matrix()`: Mixing matrix
+16. `minmax_overlap()`: Minimum/maximum overlap
 
-17. `simplicial_complexes()`: Simplicial complexes
+17. `mix_matrix()`: Mixing matrix
 
-18. `structural_na()`: Structural missing data
+18. `simplicial_complexes()`: Simplicial complexes
 
-19. `ego_net()`: Ego network
+19. `structural_na()`: Structural missing data
 
-20. `zone_sample()`: Zone-2 sampling from second-mode
+20. `ego_net()`: Ego network
+
+21. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 
