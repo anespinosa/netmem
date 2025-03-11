@@ -85,7 +85,7 @@ Default is `TRUE`.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Define an adjacency matrix (directed and weighted)</span></span></span>
 <span class="r-in"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span></span>
@@ -94,30 +94,30 @@ Default is `TRUE`.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Convert to an incidence matrix (directed, weighted)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">inc_matrix</span> <span class="op">&lt;-</span> <span class="fu">adj_to_incidence</span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    5   -3    0    0   -2    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    3    4   -2    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   -5    0    0    2    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    0    0   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    0    0   -4    0    2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    5   -3    0    0   -2    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    0    3    4   -2    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0   -5    0    0    2    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    0    0    0   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    0    0    0   -4    0    2    1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Undirected, weighted graph</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">inc_matrix_undirected</span> <span class="op">&lt;-</span> <span class="fu">adj_to_incidence</span><span class="op">(</span><span class="va">A</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    3    0    2    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    3    2    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    2    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    0    0    2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    3    0    2    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    3    2    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    2    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    0    0    0    2    1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Directed, unweighted graph</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">inc_matrix_unweighted</span> <span class="op">&lt;-</span> <span class="fu">adj_to_incidence</span><span class="op">(</span><span class="va">A</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1   -1    0    0   -1    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    1    1   -1    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   -1    0    0    1    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    0    0   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    0    0   -1    0    1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1   -1    0    0   -1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    0    1    1   -1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0   -1    0    0    1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    0    0    0   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    0    0    0   -1    0    1    1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Ignore loops</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">inc_matrix_no_loops</span> <span class="op">&lt;-</span> <span class="fu">adj_to_incidence</span><span class="op">(</span><span class="va">A</span>, loops <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
