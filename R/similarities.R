@@ -105,11 +105,11 @@ fractional_approach <- function(A1, A2, approach = c("citation", "cocitation", "
 #'   nrow = 5, byrow = TRUE
 #' )
 #'
-#' co_ocurrence(A)
+#' co_occurrence(A)
 #' @export
 
-co_ocurrence <- function(A, similarity = c("ochiai", "cosine"),
-                         occurrence = TRUE, projection = FALSE) {
+co_occurrence <- function(A, similarity = c("ochiai", "cosine"),
+                          occurrence = TRUE, projection = FALSE) {
   A <- as.matrix(A)
   similarity <- switch(similarity_option(similarity),
     "ochiai" = 1,
