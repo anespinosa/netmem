@@ -1,5 +1,6 @@
 ---
 title: "multilayer"
+author: "Alejandro Espinosa-Rada"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{multilayer}

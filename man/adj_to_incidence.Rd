@@ -7,26 +7,26 @@
 adj_to_incidence(A, loops = TRUE, directed = TRUE, weighted = TRUE)
 }
 \arguments{
-\item{A}{A square numeric matrix representing the adjacency matrix 
+\item{A}{A square numeric matrix representing the adjacency matrix
 of a graph. The matrix should have non-negative values, where `A[i, j]`
 represents the weight of the edge from node `i` to node `j`.}
 
-\item{loops}{Logical. If `TRUE`, self-loops (edges from a node to itself) 
+\item{loops}{Logical. If `TRUE`, self-loops (edges from a node to itself)
 are included in the incidence matrix. If `FALSE`, they are removed. Default is `TRUE`.}
 
-\item{directed}{Logical. If `TRUE`, the graph is treated as directed, meaning 
-each edge has a specific source and target. If `FALSE`, the graph is treated 
+\item{directed}{Logical. If `TRUE`, the graph is treated as directed, meaning
+each edge has a specific source and target. If `FALSE`, the graph is treated
 as undirected, and edges are symmetrically represented. Default is `TRUE`.}
 
-\item{weighted}{Logical. If `TRUE`, edge weights from `A` are included 
-in the incidence matrix. If `FALSE`, all edges are treated as having weight `1`. 
+\item{weighted}{Logical. If `TRUE`, edge weights from `A` are included
+in the incidence matrix. If `FALSE`, all edges are treated as having weight `1`.
 Default is `TRUE`.}
 }
 \value{
 A numeric matrix where rows represent nodes and columns represent edges.
-  - In a **directed** network, a source node has a negative value (-weight), 
+  - In a **directed** network, a source node has a negative value (-weight),
     and a target node has a positive value (+weight).
-  - In an **undirected** network, both nodes involved in an edge share the weight 
+  - In an **undirected** network, both nodes involved in an edge share the weight
     (positive values).
   - If `weighted = FALSE`, all edges have a weight of `1`.
 }
