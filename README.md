@@ -177,7 +177,7 @@ Similarity measures:
 
 1.  `bonacich_norm()`: Bonacich normalization
 
-2.  `co_ocurrence()`: Co‐occurrence
+2.  `co_occurrence()`: Co‐occurrence
 
 3.  `dist_sim_matrix()`: Structural similarities
 
@@ -592,5 +592,3 @@ participating in this project you agree to abide by its terms.
 - [`{tnet}`](https://toreopsahl.com/tnet/)
 
 - [`{xUCINET}`](https://www.analyzingsocialnetworksusingr.com/xucinet)
-
-</div>

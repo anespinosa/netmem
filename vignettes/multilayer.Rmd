@@ -131,7 +131,7 @@ of overlapping ties:
 minmax_overlap(A, row = TRUE, min = TRUE)
 minmax_overlap(A, row = FALSE, min = TRUE)
 
-co_ocurrence(A, similarity = c("ochiai"), occurrence = TRUE, projection = FALSE)
+co_occurrence(A, similarity = c("ochiai"), occurrence = TRUE, projection = FALSE)
 ```
 
 -----

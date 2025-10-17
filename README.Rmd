@@ -180,7 +180,7 @@ Similarity measures:
 
 1. `bonacich_norm()`: Bonacich normalization
 
-2. `co_ocurrence()`: Co‐occurrence
+2. `co_occurrence()`: Co‐occurrence
 
 3. `dist_sim_matrix()`: Structural similarities
 
