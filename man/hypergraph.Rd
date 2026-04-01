@@ -17,7 +17,7 @@ hypergraph(A, dual = TRUE, both = TRUE)
 This function returns an adjacent list of the subsets of entities in the hypergraph.
 }
 \description{
-Hypergraph consist of a set of objects and a collection of subsets of objects, in which each object belongs to at least one subset, and no subset is empy (Berge, 1989)
+Hypergraph consist of a set of objects and a collection of subsets of objects, in which each object belongs to at least one subset, and no subset is empty (Berge, 1989)
 }
 \examples{
 A <- matrix(c(

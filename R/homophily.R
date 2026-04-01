@@ -123,7 +123,7 @@ ei_index <- function(A, mixed = TRUE, att = NULL) {
 #'
 #' @references
 #'
-#' Agresti, A. and Agresti, B. (1978). Statistical Analysis of Qualitative Variation. Sociological Methodology, 9, 204-237. doi: \url{https://doi.org/10.2307/270810}
+#' Agresti, A. and Agresti, B. (1978). Statistical Analysis of Qualitative Variation. Sociological Methodology, 9, 204-237. \doi{10.2307/270810}
 #'
 #' Blau, P. M. (1977). Inequality and heterogeneity. New York: Free Press.
 #'

@@ -460,7 +460,7 @@ multilevel_degree <- function(A1, B1,
     M1b <- cbind(
       t(B1),
       matrix(0,
-        nrow = (dim(M1)[2] - dim(B1)[1]), byrow = T,
+        nrow = (dim(M1)[2] - dim(B1)[1]), byrow = TRUE,
         ncol = (dim(M1)[2] - dim(A1)[1])
       )
     )
@@ -491,7 +491,7 @@ multilevel_degree <- function(A1, B1,
     M2b <- cbind(
       B1,
       matrix(0,
-        nrow = (dim(M2)[2] - dim(B1)[2]), byrow = T,
+        nrow = (dim(M2)[2] - dim(B1)[2]), byrow = TRUE,
         ncol = (dim(A1)[1])
       )
     )
@@ -547,7 +547,7 @@ multilevel_degree <- function(A1, B1,
     M3b <- cbind(
       t(B2),
       matrix(0,
-        nrow = (dim(B2)[2]), byrow = T,
+        nrow = (dim(B2)[2]), byrow = TRUE,
         ncol = (dim(B2)[2])
       )
     )
@@ -560,21 +560,21 @@ multilevel_degree <- function(A1, B1,
     M2M3a <- cbind(A2, t(B1), B2)
     M2M3b <- cbind(
       B1, matrix(0,
-        nrow = (dim(B1)[1]), byrow = T,
+        nrow = (dim(B1)[1]), byrow = TRUE,
         ncol = (dim(B1)[1])
       ),
       matrix(0,
-        nrow = (dim(B1)[1]), byrow = T,
+        nrow = (dim(B1)[1]), byrow = TRUE,
         ncol = (dim(B2)[2])
       )
     )
     M2M3c <- cbind(
       t(B2), matrix(0,
-        nrow = (dim(B2)[2]), byrow = T,
+        nrow = (dim(B2)[2]), byrow = TRUE,
         ncol = (dim(B1)[1])
       ),
       matrix(0,
-        nrow = (dim(B2)[2]), byrow = T,
+        nrow = (dim(B2)[2]), byrow = TRUE,
         ncol = (dim(B2)[2])
       )
     )
@@ -630,7 +630,7 @@ multilevel_degree <- function(A1, B1,
       M4b <- cbind(
         B2,
         matrix(0,
-          nrow = (dim(B1)[2]), byrow = T,
+          nrow = (dim(B1)[2]), byrow = TRUE,
           ncol = (dim(B1)[2])
         )
       )
@@ -697,11 +697,11 @@ multilevel_degree <- function(A1, B1,
       deg6 <- diag(t(B3) %*% B3)
       CM1a <- cbind(A1, B1, t(B3))
       CM1b <- cbind(t(B1), A2, matrix(0,
-        nrow = (dim(B1)[2]), byrow = T,
+        nrow = (dim(B1)[2]), byrow = TRUE,
         ncol = (dim(B3)[1])
       ))
       CM1c <- cbind(B3, matrix(0,
-        nrow = (dim(B3)[1]), byrow = T,
+        nrow = (dim(B3)[1]), byrow = TRUE,
         ncol = (dim(B1)[2])
       ), A3)
       CM1 <- rbind(CM1a, CM1b, CM1c)
@@ -713,21 +713,21 @@ multilevel_degree <- function(A1, B1,
       CM3a <- cbind(A3, t(B2), B3)
       CM3b <- cbind(
         B2, matrix(0,
-          nrow = (dim(B1)[2]), byrow = T,
+          nrow = (dim(B1)[2]), byrow = TRUE,
           ncol = (dim(B1)[2])
         ),
         matrix(0,
-          nrow = (dim(B1)[2]), byrow = T,
+          nrow = (dim(B1)[2]), byrow = TRUE,
           ncol = (dim(B3)[2])
         )
       )
       CM3c <- cbind(
         t(B3), matrix(0,
-          nrow = (dim(B3)[2]), byrow = T,
+          nrow = (dim(B3)[2]), byrow = TRUE,
           ncol = (dim(B1)[2])
         ),
         matrix(0,
-          nrow = (dim(B3)[2]), byrow = T,
+          nrow = (dim(B3)[2]), byrow = TRUE,
           ncol = (dim(B3)[2])
         )
       )
@@ -855,9 +855,9 @@ multilevel_degree <- function(A1, B1,
 #'
 #' @references
 #'
-#' Batagelj, V., & Zaveršnik, M. (2011). Fast algorithms for determining (generalized) core groups in social networks. Advances in Data Analysis and Classification, 5(2), 129–145. \url{https://doi.org/10.1007/s11634-010-0079-y}
+#' Batagelj, V., & Zaveršnik, M. (2011). Fast algorithms for determining (generalized) core groups in social networks. Advances in Data Analysis and Classification, 5(2), 129–145. \doi{10.1007/s11634-010-0079-y}
 #'
-#' Eidsaa, M., & Almaas, E. (2013). s-core network decomposition: A generalization of $k$-core analysis to weighted networks. Physical Review E, 88(6), 062819. \url{https://doi.org/10.1103/PhysRevE.88.062819}
+#' Eidsaa, M., & Almaas, E. (2013). s-core network decomposition: A generalization of $k$-core analysis to weighted networks. Physical Review E, 88(6), 062819. \doi{10.1103/PhysRevE.88.062819}
 #'
 #' Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
 #'

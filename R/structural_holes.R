@@ -7,13 +7,13 @@
 #' @param digraph   Whether the  matrix is directed or undirected
 #' @param weighted  Whether the matrix is weighted or not
 #'
-#' @return This function returns redundancy, effective size and efficincy measures (Burt, 1992).
+#' @return This function returns redundancy, effective size and efficiency measures (Burt, 1992).
 #'
 #' @references
 #'
 #' Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.
 #'
-#' Borgatti, S., 1997. Unpacking Burt's redundancy measure. Connections, 20(1): 35-38. doi: \url{http://www.analytictech.com/connections/v20(1)/holes.htm}
+#' Borgatti, S., 1997. Unpacking Burt's redundancy measure. Connections, 20(1): 35-38.
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -76,7 +76,7 @@ redundancy <- function(A, ego = NULL, digraph = FALSE, weighted = FALSE) {
 #'
 #' Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.
 #'
-#' Everett, M.G. and Borgatti, S., 2020. Unpacking Burt's constraint measure. Social Networks 62, pp. 50-57. doi: \url{https://doi.org/10.1016/j.socnet.2020.02.001}
+#' Everett, M.G. and Borgatti, S., 2020. Unpacking Burt's constraint measure. Social Networks 62, pp. 50-57. \doi{10.1016/j.socnet.2020.02.001}
 #'
 #' @import igraph
 #'

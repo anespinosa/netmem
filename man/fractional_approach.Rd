@@ -43,9 +43,9 @@ A2 <- matrix(c(
 fractional_approach(A1, A2)
 }
 \references{
-Batagelj, V. (2020). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \url{https://doi.org/10.1016/j.socnet.2021.08.001}
+Batagelj, V. (2020). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \doi{10.1016/j.socnet.2021.08.001}
 
-Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864. \url{https://doi.org/10.1007/s11192-012-0940-1}
+Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864. \doi{10.1007/s11192-012-0940-1}
 }
 \author{
 Alejandro Espinosa-Rada

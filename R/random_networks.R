@@ -138,7 +138,6 @@ ind_rand_matrix <- function(n, m = NULL,
             while (l) {
               i <- sample(n, 1)
               B[upper.tri(B, diag = FALSE)][i] <- 1
-              print(sum(B))
               if (sum(B) == l) break
             }
             B[lower.tri(B)] <- t(B)[lower.tri(B)]
@@ -159,7 +158,6 @@ ind_rand_matrix <- function(n, m = NULL,
             while (l) {
               i <- sample(n, 1)
               B[upper.tri(B, diag = TRUE)][i] <- 1
-              print(sum(B))
               if (sum(B) == l) break
             }
             B[lower.tri(B)] <- t(B)[lower.tri(B)]
@@ -232,7 +230,6 @@ ind_rand_matrix <- function(n, m = NULL,
           while (l) {
             i <- sample(n, 1)
             A[upper.tri(A, diag = FALSE)][i] <- 1
-            print(sum(A))
             if (sum(A) == l) break
           }
           A[lower.tri(A)] <- t(A)[lower.tri(A)]
@@ -253,7 +250,6 @@ ind_rand_matrix <- function(n, m = NULL,
           while (l) {
             i <- sample(n, 1)
             A[upper.tri(A, diag = TRUE)][i] <- 1
-            print(sum(A))
             if (sum(A) == l) break
           }
           A[lower.tri(A)] <- t(A)[lower.tri(A)]

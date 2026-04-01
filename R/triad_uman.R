@@ -36,7 +36,7 @@
 #'
 #' @param A   A symmetric matrix object
 #' @param ztest   Return Z and p-value
-#' @param covar   Return the covarianc matrix for triadic analysis
+#' @param covar   Return the covariance matrix for triadic analysis
 #'
 #' @return This function gives the counts of the triad census, the expected counts,
 #' assuming that U|MAN distribution (Holland and Leinhardt, 1975, 1976) is operating,
@@ -48,7 +48,7 @@
 #'
 #' Holland, P. W. and Leinhardt, S. (1975). The statistical analysis of local structure in social networks. In D. R. Heise (Ed.), Sociological Methodology, 1976 (Jossey-Bass, pp. 1–45).
 #'
-#' Holland, P. W. and Leinhardt, S. (1976). Local Structure in Social Networks. Sociological Methodology, 7, 1–45.  doi: \url{https://doi.org/10.2307/270703}
+#' Holland, P. W. and Leinhardt, S. (1976). Local Structure in Social Networks. Sociological Methodology, 7, 1–45.  \doi{10.2307/270703}
 #'
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
@@ -948,7 +948,7 @@ triad_uman <- function(A, ztest = FALSE, covar = FALSE) {
   results$STD <- round(as.numeric(as.character(results$STD)), 3)
 
   mempty <- matrix(0, nrow = 16, ncol = 16)
-  mindex <- matrix(1:256, nrow = 16, ncol = 16, byrow = T)
+  mindex <- matrix(1:256, nrow = 16, ncol = 16, byrow = TRUE)
   mempty[mindex[upper.tri(mindex)]] <- COVAR
   diag(mempty) <- VAR # VARIANCE IN THE DIAGONAL
   rownames(mempty) <- label

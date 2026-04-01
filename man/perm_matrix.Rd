@@ -7,7 +7,7 @@
 perm_matrix(n, m = 1, unique = FALSE)
 }
 \arguments{
-\item{n}{The size of the square matri}
+\item{n}{The size of the square matrix}
 
 \item{m}{Number of permutations}
 

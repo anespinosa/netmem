@@ -51,7 +51,7 @@ matrix_projection(A, B, digraph = TRUE)
 \references{
 Davis, Allison; Gardner, Burleigh B. and Mary. R. Gardner (1941). Deep South: A Social Anthropological Study of Caste and Class. The University of Chicago Press, Chicago.
 
-Breiger, Ronald L. (1976). The Duality of Persons and Groups, 53(2), 181-190 doi: \url{https://doi.org/10.2307/2576011}
+Breiger, Ronald L. (1976). The Duality of Persons and Groups, 53(2), 181-190 \doi{10.2307/2576011}
 
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }

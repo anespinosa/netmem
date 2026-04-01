@@ -16,7 +16,7 @@ kp_reciprocity(G, fixed = FALSE, d = NULL, dichotomic = TRUE)
 \item{dichotomic}{Whether the matrix is weighted or binary}
 }
 \value{
-This function gives a measurment of the tendency toward
+This function gives a measurement of the tendency toward
 reciprocation of choices.
 }
 \description{

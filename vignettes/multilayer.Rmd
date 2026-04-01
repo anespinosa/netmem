@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 ## Installation
 
 You can install the development version from
-[github/anespinosa]((https://github.com/anespinosa/netmem)):
+[github/anespinosa](https://github.com/anespinosa/netmem):
 
 ```{r inst, eval=FALSE}
 # install.packages("devtools")
@@ -144,7 +144,7 @@ shape actors’ expectations, behaviours and outcomes over time. These structure
 can themselves be interdependent and exist at different levels. Multilevel
 networks are a means by which we can represent this complex system by using
 nodes and edges of different types ([Lazega and Snijders,
-2016](https://www.springer.com/gp/book/9783319245188), [Knoke et a.,
+2016](https://link.springer.com/book/10.1007/978-3-319-24520-1), [Knoke et a.,
 2021](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
 
 For multilevel structures, we tend to collect the data in different matrices
@@ -168,7 +168,9 @@ between them.
 
 - `B2`: incidence Matrix between level 2 and level 3
 
-- `A3`: Valued Matrix of the level 3 </div>
+- `A3`: Valued Matrix of the level 3
+
+</div>
 
 Create the data
 
@@ -224,7 +226,7 @@ We will start with a report of the matrices:
 
 ```{r}
 matrix_report(A1)
-matrix_report(B1) # correct this!
+matrix_report(B1)
 matrix_report(A2)
 matrix_report(B2)
 matrix_report(A3)
@@ -238,7 +240,7 @@ In some cases we have an incidence matrix and also the relationships of the node
 of the same class. In which case, we can use the *'meta-matrix'* ([Krackhardt &
 Carley,
 1998](https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf);
-[Carley, 2002](http://sds.hss.cmu.edu/faculty/carley/carley.htm)) to represent a
+Carley, 2002) to represent a
 multilevel network.
 
 ```{r meta_matrix, message=FALSE}
@@ -380,3 +382,32 @@ label <- c("A", "B", "C", "D", "E")
 structural_na(A, label)
 ```
 
+-----
+
+## References
+
+Bonacich, P. (1972). Factoring and weighting approaches to status scores and clique identification. *Journal of Mathematical Sociology*, 2(1), 113–120. <https://doi.org/10.1080/0022250X.1972.9989806>
+
+Borgatti, S. P., & Halgin, D. S. (2011). Analyzing affiliation networks. In J. Scott & P. J. Carrington (Eds.), *The Sage Handbook of Social Network Analysis* (pp. 417–433). Sage.
+
+Breiger, R. L. (1974). The duality of persons and groups. *Social Forces*, 53(2), 181–190. <https://doi.org/10.2307/2576011>
+
+Carley, K. M. (2002). Smart agents and organizations of the future. In L. Lievrouw & S. Livingstone (Eds.), *The Handbook of New Media* (pp. 206–220). Sage.
+
+Gluckman, M. (1955). *The Judicial Process Among the Barotse of Northern Rhodesia*. Manchester University Press.
+
+Kinsley, A. C., Munnich, L. M., VanderWaal, K. L., & Enns, E. A. (2020). Applications of network analysis in epidemiology: A guide for veterinary researchers. *Frontiers in Veterinary Science*, 7, 596. <https://doi.org/10.3389/fvets.2020.00596>
+
+Kivelä, M., Arenas, A., Barthelemy, M., Gleeson, J. P., Moreno, Y., & Porter, M. A. (2014). Multilayer networks. *Journal of Complex Networks*, 2(3), 203–271. <https://doi.org/10.1093/comnet/cnu016>
+
+Knoke, D., Diani, M., Hollway, J., & Christopoulos, D. (2021). *Multimodal Political Networks*. Cambridge University Press. <https://doi.org/10.1017/9781108985000>
+
+Krackhardt, D., & Carley, K. M. (1998). *A PCANS model of structure in organizations*. Carnegie Mellon University. <https://www.andrew.cmu.edu/user/krack/documents/pubs/1998/1998%20PCANS%20Model%20Structure%20in%20Organizations.pdf>
+
+Lazega, E. (2001). *The Collegial Phenomenon: The Social Mechanisms of Cooperation Among Peers in a Corporate Law Partnership*. Oxford University Press.
+
+Lazega, E., & Snijders, T. A. B. (Eds.). (2016). *Multilevel Network Analysis for the Social Sciences*. Springer. <https://doi.org/10.1007/978-3-319-24520-1>
+
+Leydesdorff, L. (2008). The communication of meaning in anticipatory systems: A simulation study of the dynamics of intentionality in social interactions. *Journal of the American Society for Information Science and Technology*, 59(11), 1724–1734. <https://doi.org/10.1002/asi.20732>
+
+Rivera, M. T., Soderstrom, S. B., & Uzzi, B. (2010). Dynamics of dyads in social networks: Assortative, relational, and proximity mechanisms. *Annual Review of Sociology*, 36, 91–115. <https://doi.org/10.1146/annurev.soc.34.040507.134743>

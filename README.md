@@ -9,26 +9,24 @@
 status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
 [![r-universe status
 badge](https://anespinosa.r-universe.dev/badges/netmem)](https://anespinosa.r-universe.dev/netmem)
-[![](https://img.shields.io/badge/devel%20version-1.0--3-red.svg)](https://github.com/https://github.com/anespinosa/netmem)
+[![](https://img.shields.io/badge/devel%20version-1.0--3-red.svg)](https://github.com/anespinosa/netmem)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Codecov test
-coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://codecov.io/gh/anespinosa/netmem?branch=master)
+coverage](https://app.codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://app.codecov.io/gh/anespinosa/netmem?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/anespinosa/netmem/badge)](https://www.codefactor.io/repository/github/anespinosa/netmem)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/anespinosa/netmem?branch=master&svg=true)](https://ci.appveyor.com/project/anespinosa/netmem)
 [![R-CMD-check](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml)
 [![License: GPL
-v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![Github All
-Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total.svg)]()
+Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total.svg)](https://github.com/anespinosa/netmem/releases)
 <!-- badges: end -->
 
 The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make
 available different measures to analyse and manipulate complex networks
 using matrices.
 
-🖊 Author/mantainer: [Alejandro
+🖊 Author/maintainer: [Alejandro
 Espinosa-Rada](https://www.aespinosarada.com)
 
 🏫 [Current: Institute of Sociology, Pontificia Universidad Católica de
@@ -46,19 +44,17 @@ considering one-mode networks, valued ties (i.e. *weighted* or
 
 ## Citation
 
-To cite package ‘netmem’ in publications use:
+Espinosa-Rada A (2026). *netmem: Social Network Measures using Matrices*. R package version 1.0-3, <https://github.com/anespinosa/netmem>.
 
-Espinosa-Rada A (2023). *netmem: Social Network Measures using
-Matrices*. R package version 1.0-3,
-<https://anespinosa.github.io/netmem/>,
-<https://github.com/anespinosa/netmem>.
-
-A BibTeX entry for LaTeX users is
-
-@Manual{, title = {netmem: Social Network Measures using Matrices},
-author = {Alejandro Espinosa-Rada}, year = {2023}, note = {R package
-version 1.0-3, <https://anespinosa.github.io/netmem/>}, url =
-{<https://github.com/anespinosa/netmem>}, }
+``` bibtex
+@Manual{,
+  title = {netmem: Social Network Measures using Matrices},
+  author = {Alejandro Espinosa-Rada},
+  year = {2026},
+  note = {R package version 1.0-3},
+  url = {https://github.com/anespinosa/netmem},
+}
+```
 
 ## Functions currently available in [`netmem`](https://anespinosa.github.io/netmem/reference/index.html):
 
@@ -127,9 +123,9 @@ Path distances:
 
 4.  `short_path()`: Shortest path
 
-5.  `wlocal_distances()`: Dijikstra’s algorithm (one actor)
+5.  `wlocal_distances()`: Dijkstra’s algorithm (one actor)
 
-6.  `wall_distances()`: Dijikstra’s algorithm (all actors)
+6.  `wall_distances()`: Dijkstra’s algorithm (all actors)
 
 Signed networks:
 
@@ -253,8 +249,9 @@ structures, which shape actors’ expectations, behaviours and outcomes
 over time. These structures can themselves be interdependent and exist
 at different levels. Multilevel networks are a means by which we can
 represent this complex system by using nodes and edges of different
-types. Check [this book](https://www.springer.com/gp/book/9783319245188)
-edited by Emmanuel Lazega and Tom A.B. Snijders or [this
+types. Check [this
+book](https://link.springer.com/book/10.1007/978-3-319-24520-1) edited
+by Emmanuel Lazega and Tom A.B. Snijders or [this
 book](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128)
 edited by David Knoke, Mario Diani, James Hollway and Dimitris
 Christopoulos.
@@ -583,7 +580,7 @@ participating in this project you agree to abide by its terms.
 
 - [`{bipartite}`](https://github.com/biometry/bipartite)
 
-- [`{migraph}`](https://github.com/snlab-ch/migraph)
+- [`{migraph}`](https://github.com/stocnet/migraph)
 
 - [`{multinet}`](https://CRAN.R-project.org/package=multinet)
 
@@ -592,3 +589,5 @@ participating in this project you agree to abide by its terms.
 - [`{tnet}`](https://toreopsahl.com/tnet/)
 
 - [`{xUCINET}`](https://www.analyzingsocialnetworksusingr.com/xucinet)
+
+</div>

@@ -11,7 +11,7 @@ triad_uman(A, ztest = FALSE, covar = FALSE)
 
 \item{ztest}{Return Z and p-value}
 
-\item{covar}{Return the covarianc matrix for triadic analysis}
+\item{covar}{Return the covariance matrix for triadic analysis}
 }
 \value{
 This function gives the counts of the triad census, the expected counts,
@@ -68,7 +68,7 @@ Davis, J.A. and Leinhardt, S. (1972). The Structure of Positive Interpersonal Re
 
 Holland, P. W. and Leinhardt, S. (1975). The statistical analysis of local structure in social networks. In D. R. Heise (Ed.), Sociological Methodology, 1976 (Jossey-Bass, pp. 1–45).
 
-Holland, P. W. and Leinhardt, S. (1976). Local Structure in Social Networks. Sociological Methodology, 7, 1–45.  doi: \url{https://doi.org/10.2307/270703}
+Holland, P. W. and Leinhardt, S. (1976). Local Structure in Social Networks. Sociological Methodology, 7, 1–45.  \doi{10.2307/270703}
 
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }

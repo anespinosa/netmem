@@ -52,5 +52,5 @@ colnames(A) <- rownames(A)
 posneg_index(A, select = c("all"))
 }
 \references{
-Everett, Martin and Borgatti, Stephen (2014). Networks containing negative ties. Social Networks, 38, 111-120. \url{http://dx.doi.org/10.1016/j.socnet.2014.03.005}
+Everett, Martin and Borgatti, Stephen (2014). Networks containing negative ties. Social Networks, 38, 111-120. \doi{10.1016/j.socnet.2014.03.005}
 }

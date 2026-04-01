@@ -1,6 +1,6 @@
 Package: netmem
 Version: 1.0-3
-Date: 2023-06-02
+Date: 2026-04-01
 Depends: R (>= 4.0.0)
 Imports: 
     igraph,
@@ -20,12 +20,18 @@ Authors@R:
     email = "anespinosa@uc.cl", comment = c(ORCID = "0000-0003-4177-1912"))
   )
 Maintainer: Alejandro Espinosa-Rada <anespinosa@uc.cl>
-Description: Measures to describe and manipulate networks using matrices.
-License: GPL-3 + file LICENSE
+Description: Provides measures to describe and manipulate one-mode, two-mode,
+    multiplex, and multilevel networks using matrix algebra. Implements
+    functions for network centrality, cohesive subgroups, structural holes,
+    similarity measures, path distances, signed networks, and random network
+    generation. Supports ego-centric and whole-network analyses, including
+    dyadic and triadic census, structural balance, and bipartite projections.
+License: GPL-3
 Encoding: UTF-8
+Language: en-US
 URL: https://github.com/anespinosa/netmem,
     https://anespinosa.github.io/netmem/
 BugReports: https://github.com/anespinosa/netmem/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 LazyData: true

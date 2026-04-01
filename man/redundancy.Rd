@@ -16,7 +16,7 @@ redundancy(A, ego = NULL, digraph = FALSE, weighted = FALSE)
 \item{weighted}{Whether the matrix is weighted or not}
 }
 \value{
-This function returns redundancy, effective size and efficincy measures (Burt, 1992).
+This function returns redundancy, effective size and efficiency measures (Burt, 1992).
 }
 \description{
 Redundancy measures of the structural holes theory for binary matrixes
@@ -39,7 +39,7 @@ redundancy(A, ego = "g")
 \references{
 Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.
 
-Borgatti, S., 1997. Unpacking Burt's redundancy measure. Connections, 20(1): 35-38. doi: \url{http://www.analytictech.com/connections/v20(1)/holes.htm}
+Borgatti, S., 1997. Unpacking Burt's redundancy measure. Connections, 20(1): 35-38.
 }
 \author{
 Alejandro Espinosa-Rada

@@ -13,10 +13,12 @@
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
 #' @author Alejandro Espinosa-Rada
-#' A <- matrix(c(0,1,1,0,
-#' 1,0,1,0,
-#' 0,0,0,0,
-#' 1,0,0,0), byrow = TRUE, ncol = 4)
+#'
+#' @examples
+#' A <- matrix(c(0, 1, 1, 0,
+#'               1, 0, 1, 0,
+#'               0, 0, 0, 0,
+#'               1, 0, 0, 0), byrow = TRUE, ncol = 4)
 #' recip_coef(A)
 #' @export
 
@@ -25,7 +27,7 @@ recip_coef <- function(A, diag = NULL, method = c("total_ratio", "ratio_nonnull"
     message("Matrix is symmetric (network is undirected)")
   }
 
-  if (is.null) {
+  if (is.null(diag)) {
     diag(A) <- 0
   }
 

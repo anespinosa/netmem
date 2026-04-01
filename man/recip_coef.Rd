@@ -23,14 +23,16 @@ Return a reciprocity coefficient
 \description{
 This measure calculated the reciprocity of an asymmetric matrix (directed graph).
 }
+\examples{
+A <- matrix(c(0, 1, 1, 0,
+              1, 0, 1, 0,
+              0, 0, 0, 0,
+              1, 0, 0, 0), byrow = TRUE, ncol = 4)
+recip_coef(A)
+}
 \references{
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }
 \author{
 Alejandro Espinosa-Rada
-A <- matrix(c(0,1,1,0,
-1,0,1,0,
-0,0,0,0,
-1,0,0,0), byrow = TRUE, ncol = 4)
-recip_coef(A)
 }

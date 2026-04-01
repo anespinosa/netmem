@@ -11,3 +11,14 @@
 ^netmem\.Rproj$
 ^\.github$
 ^\.Rproj\.user$
+^\.Rhistory$
+^\.RData$
+^\.Ruserdata$
+^netmem\.Rcheck$
+^netmem_.*\.tar\.gz$
+^\.DS_Store$
+^Thumbs\.db$
+^\.coverage$
+^coverage\.xml$
+^doc$
+^Meta$

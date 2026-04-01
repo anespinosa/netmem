@@ -409,7 +409,7 @@ type_matrix <- function(arg, choices, several.ok = FALSE) {
 #'
 #' Davis, Allison; Gardner, Burleigh B. and Mary. R. Gardner (1941). Deep South: A Social Anthropological Study of Caste and Class. The University of Chicago Press, Chicago.
 #'
-#' Breiger, Ronald L. (1976). The Duality of Persons and Groups, 53(2), 181-190 doi: \url{https://doi.org/10.2307/2576011}
+#' Breiger, Ronald L. (1976). The Duality of Persons and Groups, 53(2), 181-190 \doi{10.2307/2576011}
 #'
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
@@ -471,7 +471,7 @@ matrix_projection <- function(A, B = NULL, digraph = FALSE) {
 #'
 #' @references
 #'
-#' Morris, S.A. (2005). Unified Mathematical Treatment of Complex Cascaded Bipartite Networks: The Case of Collections of Journal Papers. Unpub- lished PhD Thesis, Oklahoma State University. Retrieved from \url{http://digital.library.okstate.edu/etd/umi-okstate-1334.pdf}
+#' Morris, S.A. (2005). Unified Mathematical Treatment of Complex Cascaded Bipartite Networks: The Case of Collections of Journal Papers. Unpublished PhD Thesis, Oklahoma State University.
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -519,13 +519,13 @@ minmax_overlap <- function(A, row = TRUE, min = TRUE) {
 #' @param addEgo  Whether to retain ego in the submatrix or not
 #' @param select   Whether to consider all sender and receiver ties of ego (\code{all}), only incoming ties (\code{in}), or outgoing ties (\code{out}). By default, \code{all}.
 #'
-#' @return This function returns redundancy, effective size and efficincy measures (Burt, 1992).
+#' @return This function returns redundancy, effective size and efficiency measures (Burt, 1992).
 #'
 #' @references
 #'
 #' Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.
 #'
-#' Borgatti, S., 1997. Unpacking Burt's redundancy measure. Connections, 20(1): 35-38. doi: \url{http://www.analytictech.com/connections/v20(1)/holes.htm}
+#' Borgatti, S., 1997. Unpacking Burt's redundancy measure. Connections, 20(1): 35-38.
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -792,7 +792,7 @@ meta_matrix <- function(A1, B1,
     M1b <- cbind(
       t(B1),
       matrix(0,
-        nrow = (ncol(M1) - nrow(B1)), byrow = T,
+        nrow = (ncol(M1) - nrow(B1)), byrow = TRUE,
         ncol = (ncol(M1) - nrow(A1))
       )
     )
@@ -828,12 +828,12 @@ meta_matrix <- function(A1, B1,
     M3 <- cbind(
       meta_matrix,
       rbind(matrix(0,
-        nrow = nrow(A1), byrow = T,
+        nrow = nrow(A1), byrow = TRUE,
         ncol = ncol(B2)
       ), B2)
     )
     M3b <- matrix(0,
-      nrow = ncol(B2), byrow = T,
+      nrow = ncol(B2), byrow = TRUE,
       ncol = ncol(M3)
     )
     rownames(M3b) <- colnames(B2)
@@ -847,7 +847,7 @@ meta_matrix <- function(A1, B1,
     meta_matrix <- rbind(
       M3,
       cbind(matrix(0,
-        nrow = ncol(A3), byrow = T,
+        nrow = ncol(A3), byrow = TRUE,
         ncol = ncol(M3) - ncol(A3)
       ), A3)
     )
@@ -869,7 +869,7 @@ meta_matrix <- function(A1, B1,
     )
 
     M4a <- cbind(matrix(0,
-      nrow = ncol(A3), byrow = T,
+      nrow = ncol(A3), byrow = TRUE,
       ncol = ncol(M3) - ncol(A3)
     ), A3)
 
@@ -1074,7 +1074,7 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
 
 #' Hypergraphs
 #'
-#' Hypergraph consist of a set of objects and a collection of subsets of objects, in which each object belongs to at least one subset, and no subset is empy (Berge, 1989)
+#' Hypergraph consist of a set of objects and a collection of subsets of objects, in which each object belongs to at least one subset, and no subset is empty (Berge, 1989)
 #'
 #' @param A   An incidence matrix.
 #' @param dual   Whether to return the dual hypergraph (which rever the role of the pointes and the edges)
@@ -1140,7 +1140,7 @@ hypergraph <- function(A, dual = TRUE, both = TRUE) {
 #'
 #' Atkin, R. H. (1974). Mathematical structure in human affairs. New York: Crane, Rusak.
 #'
-#' Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. https://doi.org/10.1016/S0020-7373(80)80021-6
+#' Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. \doi{10.1016/S0020-7373(80)80021-6}
 #'
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
@@ -1235,7 +1235,7 @@ extract_component <- function(A, maximum = TRUE, position = NULL) {
     if (!is.numeric(position)) stop("The position should be a number")
     if (max(as.numeric(names(temp$size))) < position) stop(paste("The maximum number of components is", max(as.numeric(names(temp$size)))))
     if (position < 0) stop("Please specify a number greater than 0")
-    id_comp <- sort(temp$size, decreasing = T)[position]
+    id_comp <- sort(temp$size, decreasing = TRUE)[position]
 
     same_size <- c(temp$size == as.numeric(id_comp))
     if (sum(same_size == TRUE) > 1) {
@@ -1311,7 +1311,7 @@ powA <- function(A, n) {
 #'
 #' This function create permutation matrices.
 #'
-#' @param n   The size of the square matri
+#' @param n   The size of the square matrix
 #' @param m   Number of permutations
 #' @param unique   Whether to return unique cases
 #'

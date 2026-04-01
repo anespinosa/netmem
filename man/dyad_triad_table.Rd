@@ -41,7 +41,7 @@ colnames(A) <- letters[1:ncol(A)]
 dyad_triad_table(A, adjacency_list = TRUE, min = 3)
 }
 \references{
-Granovetter, M.S. (1973). The Strength of Weak Ties. American Journal of Sociology. 78 (6): 1360–80. https://doi.org/10.1086/225469.
+Granovetter, M.S. (1973). The Strength of Weak Ties. American Journal of Sociology. 78 (6): 1360–80. \doi{10.1086/225469}.
 
 Simmel, G. (1950). Individual and Society. In K. H. Wolff (Ed.), The Sociology of George Simmel. New York: Free Press.
 

@@ -17,7 +17,7 @@
 #'
 #' @references
 #'
-#' Granovetter, M.S. (1973). The Strength of Weak Ties. American Journal of Sociology. 78 (6): 1360–80. https://doi.org/10.1086/225469.
+#' Granovetter, M.S. (1973). The Strength of Weak Ties. American Journal of Sociology. 78 (6): 1360–80. \doi{10.1086/225469}.
 #'
 #' Simmel, G. (1950). Individual and Society. In K. H. Wolff (Ed.), The Sociology of George Simmel. New York: Free Press.
 #'
@@ -420,7 +420,7 @@ percolation_clique <- function(A) {
 #'
 #' Atkin, R. H. (1974). Mathematical structure in human affairs. New York: Crane, Rusak.
 #'
-#' Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. https://doi.org/10.1016/S0020-7373(80)80021-6
+#' Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. \doi{10.1016/S0020-7373(80)80021-6}
 #'
 #' @author Alejandro Espinosa-Rada
 #'

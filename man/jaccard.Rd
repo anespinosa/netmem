@@ -18,7 +18,7 @@ jaccard(
 
 \item{B}{Binary matrix B}
 
-\item{directed}{Whether the matrix is symmetric}
+\item{directed}{Whether the matrix is directed (asymmetric)}
 
 \item{diag}{Whether the diagonal should be considered}
 
@@ -40,7 +40,7 @@ also: \code{match} = The number of nodes present in both matrices;
 \code{coparticipation2} = The percentage of nodes in the second matrix also present in the first matrix:
 \code{overlap_actors} = Overlap of nodes between two matrices
 
-#' If \code{coparticipation = TRUE} and \code{bipartite = TRUE}, then
+If \code{coparticipation = TRUE} and \code{bipartite = TRUE}, then
 also: \code{matchM1} = The number of nodes in the first 'mode' present in both matrices;
 \code{matchM2} = The number of nodes in the second 'mode' present in both matrices;
  \code{size_matrix1_M1} = The number of nodes in the first 'mode' of the first matrix;

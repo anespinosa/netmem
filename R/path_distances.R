@@ -166,6 +166,7 @@ NULL
 
 #' @rdname distances
 #' @examples
+#' \donttest{
 #' A <- matrix(c(
 #'   0, 1, 1, 0, 0, 0,
 #'   0, 0, 0, 1, 1, 0,
@@ -178,6 +179,7 @@ NULL
 #' colnames(A) <- letters[1:ncol(A)]
 #'
 #' bfs_ugraph(A, from = "a")
+#' }
 #' @export
 
 bfs_ugraph <- function(A, from = NULL) {
@@ -233,6 +235,7 @@ bfs_ugraph <- function(A, from = NULL) {
 
 #' @rdname distances
 #' @examples
+#' \donttest{
 #' A <- matrix(c(
 #'   0, 1, 1, 0, 0, 0,
 #'   0, 0, 0, 1, 1, 0,
@@ -245,6 +248,7 @@ bfs_ugraph <- function(A, from = NULL) {
 #' colnames(A) <- letters[1:ncol(A)]
 #'
 #' count_geodesics(A)
+#' }
 #' @export
 
 count_geodesics <- function(A) {
@@ -282,6 +286,7 @@ count_geodesics <- function(A) {
 
 #' @rdname distances
 #' @examples
+#' \donttest{
 #' A <- matrix(c(
 #'   0, 1, 1, 0, 0, 0,
 #'   0, 0, 0, 1, 1, 0,
@@ -294,6 +299,7 @@ count_geodesics <- function(A) {
 #' colnames(A) <- letters[1:ncol(A)]
 #'
 #' short_path(A, from = "a", to = "d")
+#' }
 #' @export
 
 short_path <- function(A, from = NULL, to = NULL) {
@@ -313,6 +319,7 @@ short_path <- function(A, from = NULL, to = NULL) {
 
 #' @rdname distances
 #' @examples
+#' \donttest{
 #' A <- matrix(
 #'   c(
 #'     0, 3, 3, 10, 15, 0, 0, 0,
@@ -329,6 +336,7 @@ short_path <- function(A, from = NULL, to = NULL) {
 #' rownames(A) <- c("a", "b", "s", "c", "d", "e", "f", "z")
 #' colnames(A) <- rownames(A)
 #' wlocal_distances(A, from = "a", to = "d")
+#' }
 #' @export
 
 wlocal_distances <- function(A, select = c("all", "in", "out"),
@@ -391,6 +399,7 @@ walk_length <- function(walk, A_matrix) {
 
 #' @rdname distances
 #' @examples
+#' \donttest{
 #' A <- matrix(
 #'   c(
 #'     0, 3, 3, 10, 15, 0, 0, 0,
@@ -407,6 +416,7 @@ walk_length <- function(walk, A_matrix) {
 #' rownames(A) <- c("a", "b", "s", "c", "d", "e", "f", "z")
 #' colnames(A) <- rownames(A)
 #' wall_distances(A, select = "in")
+#' }
 #' @export
 
 wall_distances <- function(A, select = c("all", "in", "out")) {

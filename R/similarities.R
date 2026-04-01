@@ -10,9 +10,9 @@
 #'
 #' @references
 #'
-#' Batagelj, V. (2020). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \url{https://doi.org/10.1016/j.socnet.2021.08.001}
+#' Batagelj, V. (2020). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \doi{10.1016/j.socnet.2021.08.001}
 #'
-#' Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864. \url{https://doi.org/10.1007/s11192-012-0940-1}
+#' Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864. \doi{10.1007/s11192-012-0940-1}
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -88,7 +88,7 @@ fractional_approach <- function(A1, A2, approach = c("citation", "cocitation", "
 #'
 #' Borgatti, S. P., Halgin, D. S., 2011. Analyzing affiliation networks. In: J. Scott and P. J. Carrington (Eds.) The Sage handbook of social network analysis (pp. 417-433), Sage.
 #'
-#' Zhou, Q., & Leydesdorff, L. (2016). The normalization of occurrence and Co-occurrence matrices in bibliometrics using Cosine similarities and Ochiai coefficients. Journal of the Association for Information Science and Technology, 67(11), 2805–2814. \url{https://doi.org/10.1002/asi.23603}
+#' Zhou, Q., & Leydesdorff, L. (2016). The normalization of occurrence and Co-occurrence matrices in bibliometrics using Cosine similarities and Ochiai coefficients. Journal of the Association for Information Science and Technology, 67(11), 2805–2814. \doi{10.1002/asi.23603}
 #'
 #' @author Alejandro Espinosa-Rada
 
@@ -194,7 +194,7 @@ similarity_option <- function(arg, choices, several.ok = FALSE) {
 #'
 #' @param A  Binary matrix A
 #' @param B  Binary matrix B
-#' @param directed  Whether the matrix is symmetric
+#' @param directed  Whether the matrix is directed (asymmetric)
 #' @param diag  Whether the diagonal should be considered
 #' @param coparticipation  Select nodes that co-participate in both matrices
 #' @param bipartite  Whether the matrix is incidence
@@ -212,7 +212,7 @@ similarity_option <- function(arg, choices, several.ok = FALSE) {
 #' \code{coparticipation2} = The percentage of nodes in the second matrix also present in the first matrix:
 #' \code{overlap_actors} = Overlap of nodes between two matrices
 #'
-#' #' If \code{coparticipation = TRUE} and \code{bipartite = TRUE}, then
+#' If \code{coparticipation = TRUE} and \code{bipartite = TRUE}, then
 #' also: \code{matchM1} = The number of nodes in the first 'mode' present in both matrices;
 #' \code{matchM2} = The number of nodes in the second 'mode' present in both matrices;
 #'  \code{size_matrix1_M1} = The number of nodes in the first 'mode' of the first matrix;
@@ -230,9 +230,8 @@ similarity_option <- function(arg, choices, several.ok = FALSE) {
 #'
 #' Batagelj, V., and Bren, M. (1995). Comparing resemblance measures. Journal of Classification 12, 73–90.
 #'
-#'
 #' @author Alejandro Espinosa-Rada
-
+#'
 #' @examples
 #'
 #' A <- matrix(c(

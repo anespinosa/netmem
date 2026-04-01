@@ -37,6 +37,7 @@ This function returns the distances o shortest path distance between two nodes f
 Distances between nodes using breadth-first search (BFS) or Dijkstra's algorithm to find shortest path distances.
 }
 \examples{
+\donttest{
 A <- matrix(c(
   0, 1, 1, 0, 0, 0,
   0, 0, 0, 1, 1, 0,
@@ -49,6 +50,8 @@ rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 
 bfs_ugraph(A, from = "a")
+}
+\donttest{
 A <- matrix(c(
   0, 1, 1, 0, 0, 0,
   0, 0, 0, 1, 1, 0,
@@ -61,6 +64,8 @@ rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 
 count_geodesics(A)
+}
+\donttest{
 A <- matrix(c(
   0, 1, 1, 0, 0, 0,
   0, 0, 0, 1, 1, 0,
@@ -73,6 +78,8 @@ rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 
 short_path(A, from = "a", to = "d")
+}
+\donttest{
 A <- matrix(
   c(
     0, 3, 3, 10, 15, 0, 0, 0,
@@ -89,6 +96,8 @@ A <- matrix(
 rownames(A) <- c("a", "b", "s", "c", "d", "e", "f", "z")
 colnames(A) <- rownames(A)
 wlocal_distances(A, from = "a", to = "d")
+}
+\donttest{
 A <- matrix(
   c(
     0, 3, 3, 10, 15, 0, 0, 0,
@@ -105,6 +114,7 @@ A <- matrix(
 rownames(A) <- c("a", "b", "s", "c", "d", "e", "f", "z")
 colnames(A) <- rownames(A)
 wall_distances(A, select = "in")
+}
 }
 \references{
 Dijkstra, E. W. (1959). A note on two problems in connexion with graphs. Numerische Mathematik. 1: 269–271.

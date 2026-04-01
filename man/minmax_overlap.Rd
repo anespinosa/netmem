@@ -31,7 +31,7 @@ A <- matrix(c(
 minmax_overlap(A)
 }
 \references{
-Morris, S.A. (2005). Unified Mathematical Treatment of Complex Cascaded Bipartite Networks: The Case of Collections of Journal Papers. Unpub- lished PhD Thesis, Oklahoma State University. Retrieved from \url{http://digital.library.okstate.edu/etd/umi-okstate-1334.pdf}
+Morris, S.A. (2005). Unified Mathematical Treatment of Complex Cascaded Bipartite Networks: The Case of Collections of Journal Papers. Unpublished PhD Thesis, Oklahoma State University.
 }
 \author{
 Alejandro Espinosa-Rada

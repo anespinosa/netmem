@@ -21,7 +21,7 @@ dist_geographic(
 
 \item{longitud}{A vector with longitud}
 
-\item{method}{Whether to use the Spherical Law of Cosines \code{spherical} (default), Haversine formula \code{harvesine}, Manhattan Distance \code{manhattan} or Minkoowski distance \code{minkowski}}
+\item{method}{Whether to use the Spherical Law of Cosines \code{spherical} (default), Haversine formula \code{harvesine}, Manhattan Distance \code{manhattan} or Minkowski distance \code{minkowski}}
 
 \item{places}{A vector with the names of the places}
 

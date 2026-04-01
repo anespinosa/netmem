@@ -4,7 +4,7 @@
 #'
 #' @param latitude   A vector with latitude
 #' @param longitud   A vector with longitud
-#' @param method   Whether to use the Spherical Law of Cosines \code{spherical} (default), Haversine formula \code{harvesine}, Manhattan Distance \code{manhattan} or Minkoowski distance \code{minkowski}
+#' @param method   Whether to use the Spherical Law of Cosines \code{spherical} (default), Haversine formula \code{harvesine}, Manhattan Distance \code{manhattan} or Minkowski distance \code{minkowski}
 #' @param places   A vector with the names of the places
 #' @param dd_to_radians  Whether to transform degree decimal format to radians
 #' @param p  Parameter p for the estimation of Minkowski distance (default = 2, which is equivalent to an Euclidian Distance)

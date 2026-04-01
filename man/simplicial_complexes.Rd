@@ -38,7 +38,7 @@ simplicial_complexes(A, zero_simplex = FALSE)
 \references{
 Atkin, R. H. (1974). Mathematical structure in human affairs. New York: Crane, Rusak.
 
-Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. https://doi.org/10.1016/S0020-7373(80)80021-6
+Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. \doi{10.1016/S0020-7373(80)80021-6}
 
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }
