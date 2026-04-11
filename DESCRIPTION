@@ -26,6 +26,10 @@ Description: Provides measures to describe and manipulate one-mode, two-mode,
     similarity measures, path distances, signed networks, and random network
     generation. Supports ego-centric and whole-network analyses, including
     dyadic and triadic census, structural balance, and bipartite projections.
+    Key references: Bonacich (1972) <doi:10.1080/0022250X.1972.9989806>,
+    Breiger (1974) <doi:10.2307/2576011>,
+    Kivelä et al. (2014) <doi:10.1093/comnet/cnu016>,
+    Espinosa-Rada et al. (2024) <doi:10.1016/j.socnet.2023.11.008>.
 License: GPL-3
 Encoding: UTF-8
 Language: en-US

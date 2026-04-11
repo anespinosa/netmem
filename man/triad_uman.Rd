@@ -58,7 +58,7 @@ Considering the triad census of Davis and Leinhardt (1972) for vector A, B, and 
 
 data(krackhardt_friends)
 triad_uman(krackhardt_friends)
-\dontrun{
+\donttest{
 triad_uman(krackhardt_friends, ztest = TRUE, covar = TRUE)
 }
 

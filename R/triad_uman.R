@@ -61,7 +61,7 @@
 #'
 #' data(krackhardt_friends)
 #' triad_uman(krackhardt_friends)
-#' \dontrun{
+#' \donttest{
 #' triad_uman(krackhardt_friends, ztest = TRUE, covar = TRUE)
 #' }
 #'

@@ -386,7 +386,7 @@ gen_degree <- function(A,
 #' ), byrow = TRUE, ncol = 5)
 #'
 #' multilevel_degree(A1, B1, A2, B2, A3, B3)
-#' \dontrun{
+#' \donttest{
 #' multilevel_degree(A1, B1, A2, B2, A3, B3, normalized = TRUE, complete = TRUE)
 #' }
 #'
