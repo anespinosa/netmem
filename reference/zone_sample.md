@@ -74,30 +74,30 @@ rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 set.seed(18051889)
 zone_sample(A, X, core = TRUE)
 #> $a
-#> IGRAPH 6c3b2ec DN-- 7 16 -- 
+#> IGRAPH 6f33901 DN-- 7 16 -- 
 #> + attr: name (v/c), core (v/n)
-#> + edges from 6c3b2ec (vertex names):
+#> + edges from 6f33901 (vertex names):
 #>  [1] 1->2 1->a 2->3 2->a 3->2 3->4 3->a 3->c 4->b 4->c a->1 a->2 a->3 b->4 c->3
 #> [16] c->4
 #> 
 #> $b
-#> IGRAPH 369559f DN-- 8 18 -- 
+#> IGRAPH 370d863 DN-- 8 18 -- 
 #> + attr: name (v/c), core (v/n)
-#> + edges from 369559f (vertex names):
+#> + edges from 370d863 (vertex names):
 #>  [1] 3->4 3->a 3->c 4->b 4->c 5->b 5->c 5->d 6->4 6->b a->3 b->4 b->5 b->6 c->3
 #> [16] c->4 c->5 d->5
 #> 
 #> $c
-#> IGRAPH a6ecad2 DN-- 9 22 -- 
+#> IGRAPH c240a5b DN-- 9 22 -- 
 #> + attr: name (v/c), core (v/n)
-#> + edges from a6ecad2 (vertex names):
+#> + edges from c240a5b (vertex names):
 #>  [1] 2->3 2->a 3->2 3->4 3->a 3->c 4->b 4->c 5->b 5->c 5->d 6->4 6->b a->2 a->3
 #> [16] b->4 b->5 b->6 c->3 c->4 c->5 d->5
 #> 
 #> $d
-#> IGRAPH a101c51 DN-- 5 8 -- 
+#> IGRAPH 3795571 DN-- 5 8 -- 
 #> + attr: name (v/c), core (v/n)
-#> + edges from a101c51 (vertex names):
+#> + edges from 3795571 (vertex names):
 #> [1] 5->b 5->c 5->d 8->d b->5 c->5 d->5 d->8
 #> 
 ```
