@@ -16,8 +16,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Social Network Measures using Matrices">
-<meta name="description" content="Provides measures to describe and manipulate one-mode, two-mode, multiplex, and multilevel networks using matrix algebra. Implements functions for network centrality, cohesive subgroups, structural holes, similarity measures, path distances, signed networks, and random network generation. Supports ego-centric and whole-network analyses, including dyadic and triadic census, structural balance, and bipartite projections.">
-<meta property="og:description" content="Provides measures to describe and manipulate one-mode, two-mode, multiplex, and multilevel networks using matrix algebra. Implements functions for network centrality, cohesive subgroups, structural holes, similarity measures, path distances, signed networks, and random network generation. Supports ego-centric and whole-network analyses, including dyadic and triadic census, structural balance, and bipartite projections.">
+<meta name="description" content="Provides measures to describe and manipulate one-mode, two-mode, multiplex, and multilevel networks using matrix algebra. Implements functions for network centrality, cohesive subgroups, structural holes, similarity measures, path distances, signed networks, and random network generation. Supports ego-centric and whole-network analyses, including dyadic and triadic census, structural balance, and bipartite projections. Key references: Bonacich (1972) &lt;doi:10.1080/0022250X.1972.9989806&gt;, Breiger (1974) &lt;doi:10.2307/2576011&gt;, Kivelä et al. (2014) &lt;doi:10.1093/comnet/cnu016&gt;, Espinosa-Rada et al. (2024) &lt;doi:10.1016/j.socnet.2023.11.008&gt;.">
+<meta property="og:description" content="Provides measures to describe and manipulate one-mode, two-mode, multiplex, and multilevel networks using matrix algebra. Implements functions for network centrality, cohesive subgroups, structural holes, similarity measures, path distances, signed networks, and random network generation. Supports ego-centric and whole-network analyses, including dyadic and triadic census, structural balance, and bipartite projections. Key references: Bonacich (1972) &lt;doi:10.1080/0022250X.1972.9989806&gt;, Breiger (1974) &lt;doi:10.2307/2576011&gt;, Kivelä et al. (2014) &lt;doi:10.1093/comnet/cnu016&gt;, Espinosa-Rada et al. (2024) &lt;doi:10.1016/j.socnet.2023.11.008&gt;.">
 <meta property="og:image" content="https://anespinosa.github.io/netmem/logo.png">
 </head>
 <body>
@@ -68,7 +68,7 @@
 <p>🖊 Author/maintainer: <a href="https://www.aespinosarada.com" class="external-link">Alejandro Espinosa-Rada</a></p>
 <p>🏫 <a href="https://sociologia.uc.cl" class="external-link">Current: Institute of Sociology, Pontificia Universidad Católica de Chile</a></p>
 <p>🏫 <a href="https://sn.ethz.ch" class="external-link">Before: Social Networks Lab, ETH Zürich</a></p>
-<p><a href="https://x.com/aespinosarada" class="external-link"><img src="https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg" alt="Follow me on Twitter/X"></a></p>
+<p><a href="https://bsky.app/profile/aespinosarada.bsky.social" class="external-link"><img src="https://img.shields.io/badge/Follow-on%20Bluesky-00A8E8?logo=bluesky&amp;logoColor=white" alt="Follow on Bluesky"></a> <a href="https://x.com/aespinosarada" class="external-link"><img src="https://img.shields.io/badge/Follow-on%20X-000000?logo=x&amp;logoColor=white" alt="Follow on X"></a></p>
 <p>The package implements different measures to analyse and manipulate complex multilayer networks, from an ego-centric perspective, considering one-mode networks, valued ties (i.e. <em>weighted</em> or <em>multiplex</em>) or with multiple levels.</p>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
@@ -192,8 +192,12 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>From <a href="https://CRAN.R-project.org/package=netmem" class="external-link">CRAN</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("netmem")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/anespinosa/netmem" class="external-link">netmem</a></span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### OPTION 1</span></span>
 <span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"anespinosa/netmem"</span><span class="op">)</span></span>
@@ -204,8 +208,6 @@
 <span>  CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"netmem"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/anespinosa/netmem" class="external-link">netmem</a></span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -531,12 +533,11 @@
 <li><a href="https://CRAN.R-project.org/package=netmem" class="external-link"><img src="https://www.r-pkg.org/badges/version/netmem" alt="CRAN status"></a></li>
 <li><a href="https://anespinosa.r-universe.dev/netmem" class="external-link"><img src="https://anespinosa.r-universe.dev/badges/netmem" alt="r-universe status badge"></a></li>
 <li><a href="https://github.com/anespinosa/netmem" class="external-link"><img src="https://img.shields.io/badge/devel%20version-1.0--3-red.svg"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://app.codecov.io/gh/anespinosa/netmem?branch=master" class="external-link"><img src="https://app.codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://app.codecov.io/gh/anespinosa/netmem?branch=master" class="external-link"><img src="https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://www.codefactor.io/repository/github/anespinosa/netmem" class="external-link"><img src="https://www.codefactor.io/repository/github/anespinosa/netmem/badge" alt="CodeFactor"></a></li>
 <li><a href="https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://www.gnu.org/licenses/gpl-3.0.html" class="external-link"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a></li>
-<li><a href="https://github.com/anespinosa/netmem/releases" class="external-link"><img src="https://img.shields.io/github/downloads/anespinosa/netmem/total.svg" alt="Github All Releases"></a></li>
 <li><a href="https://cran.r-project.org/package=netmem" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/netmem"></a></li>
 </ul>
 </div>

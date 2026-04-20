@@ -238,9 +238,48 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> k2          4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> k3          4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> k4          3</span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">multilevel_degree</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, <span class="va">A3</span>, <span class="va">B3</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    multilevel bipartiteB1 bipartiteB2 bipartiteB3 tripartiteB1B2 tripartiteB1B3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n1      0.273       0.333          NA        0.25          0.333          0.583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n2      0.455       0.667          NA        0.25          0.667          0.917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n3      0.182       0.333          NA        0.00          0.333          0.333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n4      0.455       0.333          NA        0.25          0.333          0.583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n5      0.273       0.667          NA        0.00          0.667          0.667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m1      0.545       0.400       0.500          NA          0.900          0.400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m2      0.545       0.800       0.250          NA          1.050          0.800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m3      0.364       0.200       0.500          NA          0.700          0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k1      0.455          NA       0.333        0.20          0.333          0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k2      0.364          NA       0.333        0.40          0.333          0.400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k3      0.364          NA       0.667        0.00          0.667          0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k4      0.273          NA       0.333        0.00          0.333          0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    tripartiteB2B3 tripartiteB1B2B3 low_multilevel meso_multilevel</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n1          0.250            0.583          0.273           0.583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n2          0.250            0.917          0.455           0.917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n3          0.000            0.333          0.182           0.333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n4          0.250            0.583          0.455           0.583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n5          0.000            0.667          0.273           0.667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m1          0.500            0.900          0.900           0.545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m2          0.250            1.050          1.050           0.545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m3          0.500            0.700          0.700           0.364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k1          0.533            0.533          0.533           0.533</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k2          0.733            0.733          0.733           0.733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k3          0.667            0.667          0.667           0.667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k4          0.333            0.333          0.333           0.333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    high_multilevel</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n1           0.583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n2           0.917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n3           0.333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n4           0.583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> n5           0.667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m1           0.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m2           1.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> m3           0.700</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k1           0.455</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k2           0.364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k3           0.364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k4           0.273</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

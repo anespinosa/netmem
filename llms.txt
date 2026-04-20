@@ -12,8 +12,10 @@ Chile](https://sociologia.uc.cl)
 
 🏫 [Before: Social Networks Lab, ETH Zürich](https://sn.ethz.ch)
 
-[![Follow me on
-Twitter/X](https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg)](https://x.com/aespinosarada)
+[![Follow on
+Bluesky](https://img.shields.io/badge/Follow-on%20Bluesky-00A8E8?logo=bluesky&logoColor=white)](https://bsky.app/profile/aespinosarada.bsky.social)
+[![Follow on
+X](https://img.shields.io/badge/Follow-on%20X-000000?logo=x&logoColor=white)](https://x.com/aespinosarada)
 
 The package implements different measures to analyse and manipulate
 complex multilayer networks, from an ego-centric perspective,
@@ -259,6 +261,13 @@ Additional data in
 
 ## Installation
 
+From [CRAN](https://CRAN.R-project.org/package=netmem):
+
+``` r
+# install.packages("netmem")
+library(netmem)
+```
+
 You can install the development version from
 [GitHub](https://github.com/) with:
 
@@ -273,10 +282,6 @@ options(repos = c(
   CRAN = "https://cloud.r-project.org"
 ))
 install.packages("netmem")
-```
-
-``` r
-library(netmem)
 ```
 
 ------------------------------------------------------------------------
