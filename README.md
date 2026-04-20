@@ -11,15 +11,13 @@ status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org
 badge](https://anespinosa.r-universe.dev/badges/netmem)](https://anespinosa.r-universe.dev/netmem)
 [![](https://img.shields.io/badge/devel%20version-1.0--3-red.svg)](https://github.com/anespinosa/netmem)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Codecov test
-coverage](https://app.codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://app.codecov.io/gh/anespinosa/netmem?branch=master)
+coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://app.codecov.io/gh/anespinosa/netmem?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/anespinosa/netmem/badge)](https://www.codefactor.io/repository/github/anespinosa/netmem)
 [![R-CMD-check](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
-[![Github All
-Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total.svg)](https://github.com/anespinosa/netmem/releases)
 [![](https://cranlogs.r-pkg.org/badges/netmem)](https://cran.r-project.org/package=netmem)
 <!-- badges: end -->
 
@@ -35,8 +33,10 @@ Chile](https://sociologia.uc.cl)
 
 🏫 [Before: Social Networks Lab, ETH Zürich](https://sn.ethz.ch)
 
-[![Follow me on
-Twitter/X](https://img.shields.io/badge/Follow%20me%20on%20Twitter-9cf.svg)](https://x.com/aespinosarada)
+[![Follow on
+Bluesky](https://img.shields.io/badge/Follow-on%20Bluesky-00A8E8?logo=bluesky&logoColor=white)](https://bsky.app/profile/aespinosarada.bsky.social)
+[![Follow on
+X](https://img.shields.io/badge/Follow-on%20X-000000?logo=x&logoColor=white)](https://x.com/aespinosarada)
 
 The package implements different measures to analyse and manipulate
 complex multilayer networks, from an ego-centric perspective,
@@ -45,7 +45,9 @@ considering one-mode networks, valued ties (i.e. *weighted* or
 
 ## Citation
 
-Espinosa-Rada A (2026). *netmem: Social Network Measures using Matrices*. R package version 1.0-3, <https://github.com/anespinosa/netmem>.
+Espinosa-Rada A (2026). *netmem: Social Network Measures using
+Matrices*. R package version 1.0-3,
+<https://github.com/anespinosa/netmem>.
 
 ``` bibtex
 @Manual{,
@@ -221,6 +223,13 @@ Additional data in
 
 ## Installation
 
+From [CRAN](https://CRAN.R-project.org/package=netmem):
+
+``` r
+# install.packages("netmem")
+library(netmem)
+```
+
 You can install the development version from
 [GitHub](https://github.com/) with:
 
@@ -235,10 +244,6 @@ options(repos = c(
   CRAN = "https://cloud.r-project.org"
 ))
 install.packages("netmem")
-```
-
-``` r
-library(netmem)
 ```
 
 ------------------------------------------------------------------------

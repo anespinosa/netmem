@@ -19,12 +19,12 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
 [![r-universe status badge](https://anespinosa.r-universe.dev/badges/netmem)](https://anespinosa.r-universe.dev/netmem)
 [![](https://img.shields.io/badge/devel%20version-1.0--3-red.svg)](https://github.com/anespinosa/netmem)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![Codecov test coverage](https://app.codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://app.codecov.io/gh/anespinosa/netmem?branch=master)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Codecov test coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://app.codecov.io/gh/anespinosa/netmem?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/anespinosa/netmem/badge)](https://www.codefactor.io/repository/github/anespinosa/netmem)
 [![R-CMD-check](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/anespinosa/netmem/actions/workflows/R-CMD-check.yaml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
-[![Github All Releases](https://img.shields.io/github/downloads/anespinosa/netmem/total.svg)](https://github.com/anespinosa/netmem/releases)
+[![](https://cranlogs.r-pkg.org/badges/netmem)](https://cran.r-project.org/package=netmem)
 <!-- badges: end -->
 
 The goal of [`netmem`](https://anespinosa.github.io/netmem/) is to make
@@ -50,8 +50,8 @@ Espinosa-Rada](https://www.aespinosarada.com)
 
 `r emo::ji("school")` [Before: Social Networks Lab, ETH Zürich](https://sn.ethz.ch)
 
-[![Follow me on Twitter/X](https://img.shields.io/badge/Follow me on
-Twitter-9cf.svg)](https://x.com/aespinosarada)
+[![Follow on Bluesky](https://img.shields.io/badge/Follow-on%20Bluesky-00A8E8?logo=bluesky&logoColor=white)](https://bsky.app/profile/aespinosarada.bsky.social)
+[![Follow on X](https://img.shields.io/badge/Follow-on%20X-000000?logo=x&logoColor=white)](https://x.com/aespinosarada)
 
 The package implements different measures to analyse and manipulate complex
 multilayer networks, from an ego-centric perspective, considering one-mode
@@ -234,10 +234,17 @@ Networks`](https://github.com/anespinosa/classicnets)
 
 ## Installation
 
+From [CRAN](https://CRAN.R-project.org/package=netmem):
+
+```{r inst}
+# install.packages("netmem")
+library(netmem)
+```
+
 You can install the development version from [GitHub](https://github.com/)
 with:
 
-```{r inst, eval=FALSE}
+```{r inst2, eval=FALSE}
 ### OPTION 1
 # install.packages("devtools")
 devtools::install_github("anespinosa/netmem")
@@ -250,9 +257,6 @@ options(repos = c(
 install.packages("netmem")
 ```
 
-```{r inst2}
-library(netmem)
-```
 
 -----
 
