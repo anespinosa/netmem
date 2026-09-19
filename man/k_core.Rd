@@ -38,6 +38,14 @@ This function return the k-core.
 \description{
 Generalized k-core for undirected, directed, weighted and multilevel networks
 }
+\details{
+For a binary network (\code{weighted = FALSE} and \code{multilevel = FALSE}), the coreness of a node is the
+largest k such that the node belongs to a subgraph in which every node has at least k ties
+(Seidman, 1983). It is obtained by removing, for k = 0, 1, 2, ..., the nodes with at most k ties
+among the remaining nodes (Batagelj and Zaversnik, 2011). A value larger than one counts as several ties,
+and an undirected network uses the tie in either direction. The loops are counted only when
+\code{loops = TRUE}, twice for an undirected network, as in \code{igraph::coreness}.
+}
 \examples{
 
 A1 <- matrix(c(

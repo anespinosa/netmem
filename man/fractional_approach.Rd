@@ -6,46 +6,90 @@
 \usage{
 fractional_approach(
   A1,
-  A2,
-  approach = c("citation", "cocitation", "bcoupling")
+  A2 = NULL,
+  approach = c("citation", "cocitation", "bcoupling"),
+  fractional = TRUE,
+  symmetric = c("none", "average", "minimum", "maximum", "geometric", "harmonic",
+    "jaccard")
 )
 }
 \arguments{
-\item{A1}{From incidence matrix (e.g. paper and authors)}
+\item{A1}{A citation network between works, where \code{A1[p, q] = 1} if the work p cites the work q}
 
-\item{A2}{To incidence matrix (e.g. author to paper)}
+\item{A2}{For \code{approach = "citation"}, the authorship matrix, with the works in rows and the authors in columns}
 
 \item{approach}{Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}}
+
+\item{fractional}{Whether to use fractional counting (default) or full counting}
+
+\item{symmetric}{For fractional bibliographic coupling, the symmetric similarity: \code{none} (default, the proportion of shared references), \code{average}, \code{minimum}, \code{maximum}, \code{geometric}, \code{harmonic} or \code{jaccard}}
 }
 \value{
-Return a type of "citation network"
+Return the citation network between authors, the co-citation network or the bibliographic coupling network.
 }
 \description{
-Matrix transformation from incidence matrices to citation networks, fractional counting for co-citation or fractional counting for bibliographic coupling
+Citation, co-citation and bibliographic coupling networks with full or fractional counting (Batagelj, 2020).
+}
+\details{
+\code{A1} is a citation network \eqn{Ci} between works, where \code{A1[p, q] = 1} when the work \eqn{p}
+cites the work \eqn{q}. With fractional counting each work has a total weight of one, which is divided
+equally among the works it cites: \eqn{Cin = D \cdot Ci}, where \eqn{D} is the diagonal matrix of one over
+the number of references of each work (one when it has none). Fractional counting prevents the works with
+many references, such as reviews, from dominating the result (Batagelj, 2020).
+
+\code{approach = "cocitation"}: \eqn{Ci^T Ci}, the number of works that cite both works, or with fractional
+counting \eqn{Cin^T Cin}, in which each citing work contributes a total of one.
+
+\code{approach = "bcoupling"}: \eqn{Ci \cdot Ci^T}, the number of works cited by both works. Fractional counting
+cannot be applied in the same way to bibliographic coupling (Batagelj, 2020: 631), so it gives
+\eqn{biC = Cin \cdot Ci^T}, the proportion of the references of \eqn{p} that it shares with \eqn{q}, which is
+not symmetric. \code{symmetric} turns it into a symmetric similarity: the \code{average}, the \code{minimum},
+the \code{maximum}, the \code{geometric} mean (the cosine of Salton), the \code{harmonic} mean, or the
+\code{jaccard} index, the shared references divided by the references of either work.
+
+\code{approach = "citation"}: the citations between the authors of the works, given the authorship matrix
+\eqn{WA} in \code{A2} (works in rows, authors in columns): \eqn{WA^T \cdot Ci \cdot WA}, the number of times the
+works of an author cite the works of another. With fractional counting each work is divided equally among its
+authors, \eqn{WAn^T \cdot Ci \cdot WAn}, so that the total of the network is the number of citations.
+
+Which count should be conserved guides the choice between the two protocols (Prathap and Mukherjee, 2020): full
+counting conserves the number of paths between the nodes, and fractional counting the number of nodes (works).
 }
 \examples{
 
-A1 <- matrix(c(
-  1, 0, 0, 0,
-  0, 1, 0, 0,
-  0, 1, 1, 1,
-  0, 0, 0, 0,
-  0, 0, 0, 1
-), byrow = TRUE, ncol = 4)
-
-A2 <- matrix(c(
-  1, 1, 1, 0, 0,
-  0, 0, 1, 0, 0,
-  0, 0, 1, 1, 0,
-  0, 0, 0, 1, 1
+# Five works: w1 cites w2 and w3, w4 cites w2, w3 and w5, w5 cites w3
+Ci <- matrix(c(
+  0, 1, 1, 0, 0,
+  0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0,
+  0, 1, 1, 0, 1,
+  0, 0, 1, 0, 0
 ), byrow = TRUE, ncol = 5)
+rownames(Ci) <- colnames(Ci) <- paste0("w", 1:5)
 
-fractional_approach(A1, A2)
+# Authors of the works
+WA <- matrix(c(
+  1, 1, 0,
+  0, 1, 0,
+  0, 0, 1,
+  1, 0, 0,
+  0, 0, 1
+), byrow = TRUE, ncol = 3)
+rownames(WA) <- rownames(Ci)
+colnames(WA) <- c("a1", "a2", "a3")
+
+fractional_approach(Ci, WA, approach = "citation")
+fractional_approach(Ci, approach = "cocitation")
+fractional_approach(Ci, approach = "bcoupling", symmetric = "geometric")
 }
 \references{
-Batagelj, V. (2020). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \doi{10.1016/j.socnet.2021.08.001}
+Batagelj, V. (2020). On fractional approach to analysis of linked networks. Scientometrics, 123(2), 621-633. \doi{10.1007/s11192-020-03383-y}
+
+Batagelj, V. (2022). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \doi{10.1016/j.socnet.2021.08.001}
 
 Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864. \doi{10.1007/s11192-012-0940-1}
+
+Prathap, G., & Mukherjee, S. (2020). Letter to the Editor: Comments on the paper of Batagelj—on fractional approach to analysis of linked networks. Scientometrics, 124(3), 2717–2722. \doi{10.1007/s11192-020-03541-2}
 }
 \author{
 Alejandro Espinosa-Rada

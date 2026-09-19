@@ -43,6 +43,17 @@ A <- matrix(c(
   0, 0, 0, 0, 2
 ), nrow = 5, ncol = 5, byrow = TRUE)
 dist_sim_matrix(A, method = "euclidean")
+
+# Several relations are compared at the same time, stacking the rows and the
+# columns of every matrix
+B <- matrix(c(
+  0, 1, 0, 0, 1,
+  1, 0, 0, 0, 1,
+  0, 0, 0, 1, 0,
+  0, 0, 1, 0, 0,
+  1, 1, 0, 0, 0
+), nrow = 5, ncol = 5, byrow = TRUE)
+dist_sim_matrix(list(A, B), method = "euclidean")
 }
 \references{
 Burt, Ronald S. (1976) Positions in networks. Social Forces, 55(1): 93-122.

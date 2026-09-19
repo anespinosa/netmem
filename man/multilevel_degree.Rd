@@ -43,7 +43,7 @@ multilevel_degree(
 
 \item{B3}{The incidence matrix of the ties between the nodes of the third level and the nodes of the first level}
 
-\item{complete}{Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree}
+\item{complete}{Whether to return every column described in the details, instead of only the \code{multilevel} degree}
 
 \item{digraphA1}{Whether A1 is a directed network}
 
@@ -63,7 +63,7 @@ multilevel_degree(
 
 \item{loopsA3}{Whether the loops of the edges are considered in matrix A3}
 
-\item{normalized}{If TRUE then the result is divided by (n-1)+k+m for the first level, (m-1)+n+k for the second level, and (k-1)+m+n according to Espinosa-Rada et al. (2021)}
+\item{normalized}{Whether to divide each degree by the largest value it could take, as described in the details (Espinosa-Rada et al., 2021)}
 
 \item{weightedA1}{Whether A1 is weighted}
 
@@ -78,10 +78,57 @@ multilevel_degree(
 \item{alphaA3}{The alpha parameter of A3 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.}
 }
 \value{
-Return a data.frame of multilevel degree
+A data frame with one row for each node of every level, and the \code{multilevel} degree, or every column described in the details when \code{complete = TRUE}
 }
 \description{
-Degree centrality for multilevel networks
+Degree of the nodes of a network of two or three levels, counting the ties within
+each level and the ties between the levels in different combinations.
+}
+\details{
+The levels are placed in a single meta-matrix. Level one has \code{n} nodes and the
+ties \code{A1}, level two has \code{m} nodes and the ties \code{A2}, and level three
+has \code{k} nodes and the ties \code{A3}. The incidence matrices join the levels:
+\code{B1} the first with the second (\code{n} by \code{m}), \code{B2} the second with
+the third (\code{m} by \code{k}), and \code{B3} the third with the first (\code{k} by
+\code{n}). A level that is not given has no ties within it.
+
+Each column of the result emphasises a different section of the meta-matrix:
+
+\code{multilevel}: every node counts the ties within its own level and its ties with
+the other levels, i.e. \code{A1 + B1 + B3} for the first level,
+\code{B1 + A2 + B2} for the second, and \code{B2 + A3 + B3} for the third.
+
+\code{bipartiteB1}, \code{bipartiteB2} and \code{bipartiteB3}: the degree in each
+incidence matrix, i.e. only the ties between two levels.
+
+\code{tripartiteB1B2}, \code{tripartiteB1B3}, \code{tripartiteB2B3} and
+\code{tripartiteB1B2B3}: the degree in the union of incidence matrices, i.e. only the
+ties between levels.
+
+\code{low_multilevel} (\code{A1 + B1 + B2 + B3}), \code{meso_multilevel}
+(\code{B1 + A2 + B2 + B3}) and \code{high_multilevel} (\code{B1 + B2 + A3 + B3}):
+the ties within a single level, together with all the ties between levels. For the
+nodes of the emphasised level they are the same as \code{multilevel}: the first level
+in \code{low_multilevel}, the second in \code{meso_multilevel} and the third in
+\code{high_multilevel}.
+
+The rows are named \code{n1, n2, ...} for the first level, \code{m1, m2, ...} for the
+second and \code{k1, k2, ...} for the third. Without \code{complete = TRUE}, only the
+\code{multilevel} column is returned.
+
+With \code{normalized = TRUE}, each degree is divided by the largest value it could
+take: the other nodes of the same level plus the nodes of the levels it is tied to. For
+the \code{multilevel} column this is \code{(n - 1) + m} for the first level
+(\code{(n - 1) + m + k} when \code{B3} is given), \code{(m - 1) + n + k} for the
+second level (\code{(m - 1) + n} with two levels), and \code{(k - 1) + m} for the
+third level (\code{(k - 1) + m + n} when \code{B3} is given). The bipartite degrees are
+divided by the number of nodes of the other level (Borgatti and Everett, 1997). The
+normalized values are only defined for binary matrices. All the values are rounded to
+three decimals.
+
+The ties within each level can be directed (\code{digraphA1}, \code{typeA1}, ...) and
+weighted (\code{weightedA1}, \code{alphaA1}, ...), in which case the degree of Opsahl et
+al. (2010) is used. The ties between levels are undirected.
 }
 \examples{
 

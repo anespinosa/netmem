@@ -25,9 +25,13 @@
 
 kp_reciprocity <- function(G, fixed = FALSE, d = NULL, dichotomic = TRUE) {
   G <- as.matrix(G)
+  if (any(is.na(G) == TRUE)) {
+    G <- ifelse(is.na(G), 0, G)
+  }
+  diag(G) <- 0
   g <- dim(G)[1]
   if (dichotomic) {
-    G <- ifelse(G >= 1, 1, 0)
+    G <- ifelse(G > 0, 1, 0)
   } else {
     warning("This measure is not well specified for weighted network")
   }
@@ -36,7 +40,9 @@ kp_reciprocity <- function(G, fixed = FALSE, d = NULL, dichotomic = TRUE) {
     if (is.null(d)) stop("For fixed design `d` should be specified")
     (((2 * (g - 1)) * M) - (g * (d^2))) / ((g * d) * (g - 1 - d))
   } else {
-    L <- sum(diag(G %*% t(G))) - sum(diag(G %*% G))
+    # L is the number of arcs and L2 the sum of the squared out-degrees
+    # (Wasserman and Faust, 1994: 516)
+    L <- sum(G)
     L2 <- sum(rowSums(G)^2)
     ((2 * ((g - 1)^2) * M) - (L^2) + L2) / ((L * (g - 1)^2) - (L^2) + L2)
   }
@@ -67,7 +73,11 @@ kp_reciprocity <- function(G, fixed = FALSE, d = NULL, dichotomic = TRUE) {
 
 z_arctest <- function(G, p = 0.5, interval = FALSE) {
   G <- as.matrix(G)
+  if (any(is.na(G) == TRUE)) {
+    G <- ifelse(is.na(G), 0, G)
+  }
   G <- ifelse(G > 0, 1, 0)
+  diag(G) <- 0
   l <- sum(G)
   g <- dim(G)[1]
   q <- 1 - p

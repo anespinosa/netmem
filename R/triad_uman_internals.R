@@ -546,7 +546,7 @@ d3 <- function(g2, n, m, a) {
   man201_man003b <- n1t201b / d3p2
   n2t201b <- 2 * m * (m - 1) * a * n * (n - 1)
   man201_man012b <- n2t201b / d3p2
-  n3t201b <- 2 * m * (m - 1) * n * (n - 1) * (m + n + 4)
+  n3t201b <- 2 * m * (m - 1) * n * (n - 1) * (m + n - 4)
   man201_man102b <- n3t201b / d3p2
   n4t201b <- m * (m - 1) * a * (a - 1) * n
   man201_man021Db <- (1 / 4) * (n4t201b / d3p2)

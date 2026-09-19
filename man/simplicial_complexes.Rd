@@ -4,20 +4,57 @@
 \alias{simplicial_complexes}
 \title{Simplicial complexes}
 \usage{
-simplicial_complexes(A, zero_simplex = FALSE, projection = FALSE)
+simplicial_complexes(
+  A,
+  zero_simplex = TRUE,
+  projection = FALSE,
+  complex = c("clique", "neighbourhood"),
+  closed = FALSE,
+  valued = FALSE
+)
 }
 \arguments{
-\item{A}{A symmetric matrix object.}
+\item{A}{A square matrix of a network, with names.}
 
-\item{zero_simplex}{Whether to include the zero simple.}
+\item{zero_simplex}{Whether to include the isolated nodes as simplices of dimension 0, for \code{complex = "clique"}.}
 
-\item{projection}{Whether to return the links between actors (i.e., rows) through their shared linking events (i.e., columns).}
+\item{projection}{Whether to return the links between the simplices through their shared nodes, and between the nodes through their shared simplices.}
+
+\item{complex}{The complex: the maximal cliques (\code{clique}, default) or the neighbourhoods (\code{neighbourhood}).}
+
+\item{closed}{Whether the neighbourhoods include the node itself, for \code{complex = "neighbourhood"}.}
+
+\item{valued}{Whether the projections count the shared nodes or simplices instead of indicating whether there are any.}
 }
 \value{
-This function return an incidence matrix of actors participating in simplices or simplicial complexes
+This function returns the incidence matrix of the nodes (rows) and the simplices (columns). With
+\code{projection = TRUE}, a list with the incidence matrix (\code{simplex}), the projection of the simplices
+(\code{projection1}) and the projection of the nodes (\code{projection2}).
 }
 \description{
-incidence matrix of simplexes or cliques
+Incidence matrix of the nodes of a network and the simplices of its clique complex or of its
+neighbourhood complex.
+}
+\details{
+A simplex is a set of nodes, and a simplicial complex a collection of simplices that contains every
+face of its simplices (Atkin, 1974). The complex is represented by its maximal simplices, as the faces
+are implied by the simplices that contain them.
+
+With \code{complex = "clique"} (default), the simplices are the maximal cliques of the underlying
+undirected network, so that a clique of four nodes is a single simplex of dimension 3. The isolated
+nodes are cliques of a single node, and they are included as simplices of dimension 0 when
+\code{zero_simplex = TRUE}.
+
+With \code{complex = "neighbourhood"}, each node is the simplex of its neighbours, the rows of
+\code{A} (the out-neighbours of a directed network), and with \code{closed = TRUE} the node is also a
+vertex of its own simplex (Raj et al., 2024). The nodes without neighbours do not form a simplex
+unless the neighbourhoods are closed.
+
+The rows of the result are the nodes and the columns the simplices, named after their nodes
+(\code{a-b-c}) for the clique complex, and after the node whose neighbourhood they are (\code{N(a)}
+or \code{N[a]}) for the neighbourhood complex. \code{q_analysis(t(S), simplicial_complex = TRUE)} is
+the Q-analysis of the simplices, and \code{q_analysis(S, simplicial_complex = TRUE)} that of the
+conjugate complex, in which the nodes are connected through the simplices they share.
 }
 \examples{
 A <- matrix(c(
@@ -33,12 +70,18 @@ A <- matrix(c(
 ), byrow = TRUE, ncol = 9)
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- rownames(A)
+
+simplicial_complexes(A)
 simplicial_complexes(A, zero_simplex = FALSE)
+simplicial_complexes(A, complex = "neighbourhood", closed = TRUE)
+simplicial_complexes(A, projection = TRUE, valued = TRUE)$projection2
 }
 \references{
 Atkin, R. H. (1974). Mathematical structure in human affairs. New York: Crane, Rusak.
 
 Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. \doi{10.1016/S0020-7373(80)80021-6}
+
+Raj, U., Banerjee, A., Ray, S. and Bhattacharya, S. (2024). Structure of higher-order interactions in social-ecological networks through Q-analysis of their neighbourhood and clique complex. PLOS ONE, 19(8), e0306409. \doi{10.1371/journal.pone.0306409}
 
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }

@@ -22,3 +22,5 @@
 ^coverage\.xml$
 ^doc$
 ^Meta$
+^dev$
+^cran-comments\.md$

@@ -17,6 +17,9 @@ zone_sample(A, X, ego = TRUE, core = FALSE)
 }
 \value{
 This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.
+Each subgraph is the binary adjacency matrix of the meta-matrix of \code{A} and \code{X} restricted to the
+nodes of the zone, without loops. When \code{core = TRUE}, each matrix has an attribute \code{core}, a named
+vector that is one for the actors at distance one from the focal node and zero otherwise.
 }
 \description{
 Second-zone multilevel sampling considering a second-mode focal actor

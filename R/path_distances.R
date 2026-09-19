@@ -183,6 +183,10 @@ NULL
 #' @export
 
 bfs_ugraph <- function(A, from = NULL) {
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
   if (any(abs(A > 1))) stop("Not an unweighted matrix")
   if (is.null(from)) {
     m <- list()
@@ -207,6 +211,7 @@ bfs_ugraph <- function(A, from = NULL) {
       m[[j]] <- distances
     }
     m <- as.matrix(do.call(rbind, m))
+    dimnames(m) <- list(rownames(A), rownames(A))
     return(distances = m)
   } else {
     from <- which(rownames(A) %in% from)
@@ -252,6 +257,10 @@ bfs_ugraph <- function(A, from = NULL) {
 #' @export
 
 count_geodesics <- function(A) {
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
   if (any(abs(A > 1))) stop("Not an unweighted matrix")
   n <- nrow(A)
   distances <- matrix(Inf, n, n)
@@ -270,14 +279,13 @@ count_geodesics <- function(A) {
 
       neighbors <- which(A[node, ] != 0 & !visited)
       visited[neighbors] <- TRUE
-
       distances[j, neighbors] <- distances[j, node] + 1
-
-      # TODO Check the following line of code: It seems that the values are not
-      # adding, and maybe the code is overwriting the previous values.
-      counts[j, neighbors] <- counts[j, neighbors] + counts[j, node]
-
       first_buffer <- c(first_buffer, neighbors)
+
+      # Every neighbour at the next distance receives the geodesics of node,
+      # including the neighbours that were already discovered by another node
+      next_level <- which(A[node, ] != 0 & distances[j, ] == distances[j, node] + 1)
+      counts[j, next_level] <- counts[j, next_level] + counts[j, node]
     }
   }
 
@@ -303,10 +311,21 @@ count_geodesics <- function(A) {
 #' @export
 
 short_path <- function(A, from = NULL, to = NULL) {
-  pointers <- bfs_ugraph(A, from = from)$pointers
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
+  if (!all(c(from, to) %in% rownames(A))) stop("`from` and `to` should be names of the nodes")
+  search <- bfs_ugraph(A, from = from)
+  pointers <- search$pointers
 
   from <- which(rownames(A) %in% from)
   to <- which(rownames(A) %in% to)
+  if (is.infinite(search$distances[to])) {
+    warning("There is no path between the nodes")
+    return(NULL)
+  }
 
   path <- c()
   while (to != from) {
@@ -341,59 +360,54 @@ short_path <- function(A, from = NULL, to = NULL) {
 
 wlocal_distances <- function(A, select = c("all", "in", "out"),
                              from, to, path = c()) {
-  if (!any(abs(A > 1))) stop("Not a valued matrix")
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  # A binary matrix is a valued matrix in which every tie has length one
+  if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
+  if (!all(c(from, to) %in% rownames(A))) stop("`from` and `to` should be names of the nodes")
 
-  adjlist <- matrix_adjlist(A)
-  edgelist <- as.data.frame(matrix_to_edgelist(A, valued = TRUE, digraph = TRUE))
-  edgelist$V3 <- as.numeric(edgelist$V3)
-  test <- list()
-  test <- internal_distances(adjlist, init = from, fin = to, walk = path, A_matrix = A)
+  test <- dijkstra_path(A, from = from, to = to)
   return(list(path = test))
 }
 
-internal_distances <- function(adjlist, init, fin, walk = c(), A_matrix) {
-  if (is.null(adjlist[[init]])) {
-    return(NULL)
-  }
+# Dijkstra (1959): the unvisited node with the shortest distance is fixed at
+# each step, and its ties update the distances of its neighbours. The weights
+# are the lengths of the ties. Returns the names of the nodes in the path, or
+# NULL if there is no path.
+dijkstra_path <- function(A, from, to) {
+  n <- nrow(A)
+  from <- which(rownames(A) == from)
+  to <- which(rownames(A) == to)
 
-  # Add current node to the walk
-  walk <- c(walk, init)
+  dist <- rep(Inf, n)
+  dist[from] <- 0
+  previous <- rep(NA, n)
+  visited <- rep(FALSE, n)
 
-  # If we reached the final node, return the walk
-  if (init == fin) {
-    return(walk)
-  }
-
-  short_path <- NULL
-  for (node in adjlist[[init]]) {
-    if (!(node %in% walk)) {
-      # Recursively explore other nodes
-      newwalk <- internal_distances(adjlist, node, fin, walk, A_matrix)
-      if (walk_length(newwalk, A_matrix) < walk_length(short_path, A_matrix)) {
-        short_path <- newwalk
+  repeat {
+    candidates <- which(!visited & is.finite(dist))
+    if (length(candidates) == 0) break
+    v <- candidates[which.min(dist[candidates])]
+    if (v == to) break
+    visited[v] <- TRUE
+    for (w in which(A[v, ] > 0 & !visited)) {
+      if (dist[v] + A[v, w] < dist[w]) {
+        dist[w] <- dist[v] + A[v, w]
+        previous[w] <- v
       }
     }
   }
 
-  short_path
-}
-
-walk_length <- function(walk, A_matrix) {
-  if (is.null(walk)) {
-    return(Inf)
+  if (is.infinite(dist[to])) {
+    return(NULL)
   }
-
-  edgelist <- as.data.frame(matrix_to_edgelist(A_matrix, valued = TRUE, digraph = TRUE))
-  edgelist$V3 <- as.numeric(edgelist$V3)
-
-  # Create pairs of nodes in the path
-  pairs <- cbind(V1 = walk[-length(walk)], V2 = walk[-1])
-
-  # Merge with the edgelist to get the weights of the corresponding edges
-  merged_edges <- merge(as.data.frame(pairs), edgelist, by = c("V1", "V2"), all = FALSE)
-
-  # Sum up the weights of the edges in the path
-  sum(merged_edges$V3)
+  path <- to
+  while (path[1] != from) {
+    path <- c(previous[path[1]], path)
+  }
+  return(rownames(A)[path])
 }
 
 
@@ -420,10 +434,15 @@ walk_length <- function(walk, A_matrix) {
 #' @export
 
 wall_distances <- function(A, select = c("all", "in", "out")) {
-  if (!any(abs(A > 1))) stop("Not a valued matrix")
-  adjlist <- matrix_adjlist(A)
-  edgelist <- as.data.frame(matrix_to_edgelist(A, valued = TRUE, digraph = TRUE))
-  edgelist$V3 <- as.numeric(edgelist$V3)
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  # A binary matrix is a valued matrix in which every tie has length one
+  if (is.null(rownames(A))) {
+    rownames(A) <- as.character(1:nrow(A))
+    colnames(A) <- rownames(A)
+  }
 
   select <- switch(node_direction(select),
     "out" = 1,
@@ -431,57 +450,127 @@ wall_distances <- function(A, select = c("all", "in", "out")) {
     "all" = 3
   )
 
+  # init -> fin, for every pair of nodes
+  fromTo <- list()
+  toFrom <- list()
+  for (i in 1:ncol(A)) {
+    paths_from <- list()
+    paths_to <- list()
+    for (j in 1:ncol(A)) {
+      if (select != 1) {
+        paths_from[j] <- list(dijkstra_path(A, from = rownames(A)[i], to = rownames(A)[j]))
+      }
+      if (select != 2) {
+        paths_to[j] <- list(dijkstra_path(A, from = rownames(A)[j], to = rownames(A)[i]))
+      }
+    }
+    if (select != 1) {
+      names(paths_from) <- rownames(A)
+      fromTo[[i]] <- paths_from
+    }
+    if (select != 2) {
+      names(paths_to) <- rownames(A)
+      toFrom[[i]] <- paths_to
+    }
+  }
+  names(fromTo) <- rownames(A)[seq_along(fromTo)]
+  names(toFrom) <- rownames(A)[seq_along(toFrom)]
+
   if (select == 1) {
-    temp3 <- list()
-    temp4 <- list()
-    for (i in 1:ncol(A)) {
-      for (j in i:ncol(A)) {
-        temp4[[j]] <- internal_distances(adjlist, init = rownames(A)[j], fin = rownames(A)[i], A_matrix = A)
-      }
-      temp3[[i]] <- temp4[[j]]
-      names(temp3)[i] <- rownames(A)[i]
-    }
-    return(list(toFrom = temp3))
+    return(list(toFrom = toFrom))
   }
-
   if (select == 2) {
-    temp1 <- list()
-    temp2 <- list()
-    for (i in 1:ncol(A)) {
-      for (j in i:ncol(A)) {
-        temp2[[j]] <- internal_distances(adjlist, init = rownames(A)[i], fin = rownames(A)[j], A_matrix = A)
-      }
-      temp1[[i]] <- temp2[[j]]
-      names(temp1)[i] <- rownames(A)[i]
-    }
-    return(list(fromTo = temp1))
+    return(list(fromTo = fromTo))
   }
-
   if (select == 3) {
-    # init -> fin
-    temp1 <- list()
-    temp2 <- list()
-    for (i in 1:ncol(A)) {
-      for (j in i:ncol(A)) {
-        temp2[[j]] <- internal_distances(adjlist, init = rownames(A)[i], fin = rownames(A)[j], A_matrix = A)
-      }
-      temp1[[i]] <- temp2[[j]]
-      names(temp1)[i] <- rownames(A)[i]
-    }
-
-    # fin -> init
-    temp3 <- list()
-    temp4 <- list()
-    for (i in 1:ncol(A)) {
-      for (j in i:ncol(A)) {
-        temp4[[j]] <- internal_distances(adjlist, init = rownames(A)[j], fin = rownames(A)[i], A_matrix = A)
-      }
-      temp3[[i]] <- temp4[[j]]
-      names(temp3)[i] <- rownames(A)[i]
-    }
-    return(list(fromTo = temp1, toFrom = temp3))
+    return(list(fromTo = fromTo, toFrom = toFrom))
   }
 }
+
+#' Geodesic distances
+#'
+#' Matrix of geodesic distances and a summary of the distances of the network.
+#'
+#' \code{geo_distances} returns the length of the shortest path between every pair of nodes,
+#' computed with the Floyd-Warshall algorithm in matrix form. The distance is infinite when
+#' there is no path. For valued matrices, the weights are treated as strengths and transformed
+#' into lengths as \eqn{1 / w^{\alpha}} (Opsahl et al., 2010).
+#'
+#' \code{geo_summary} returns the diameter (the longest geodesic distance), the average distance
+#' and the proportion of ordered pairs that can reach each other. When the network is
+#' disconnected, both the diameter and the average distance only consider the pairs that are
+#' connected by a path.
+#'
+#' @name geodesics
+#'
+#' @param A   A square matrix
+#' @param digraph   Whether the matrix is directed or undirected
+#' @param type   Whether to use the \code{out} (default), \code{in} or \code{all} distances
+#' @param weighted   Whether the matrix is weighted
+#' @param alpha   The tuning parameter of Opsahl et al. (2010) to transform weights into lengths
+#'
+#' @return \code{geo_distances} returns a matrix of distances, and \code{geo_summary} the diameter, the average distance and the proportion of reachable pairs.
+#'
+#' @references
+#'
+#' Opsahl, T., Agneessens, F., and Skvoretz, J. (2010). Node centrality in weighted networks: Generalizing degree and shortest paths. Social Networks, 32(3), 245–251. \doi{10.1016/j.socnet.2010.03.006}
+#'
+#' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' A <- matrix(c(
+#'   0, 1, 1, 0, 0, 0,
+#'   0, 0, 0, 1, 1, 0,
+#'   0, 0, 0, 0, 1, 0,
+#'   0, 0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0, 1,
+#'   0, 0, 0, 0, 0, 0
+#' ), byrow = TRUE, nrow = 6)
+#' rownames(A) <- letters[1:nrow(A)]
+#' colnames(A) <- letters[1:ncol(A)]
+#'
+#' geo_distances(A)
+#' geo_summary(A)
+#' @export
+
+geo_distances <- function(A, digraph = TRUE, type = c("out", "in", "all"),
+                          weighted = FALSE, alpha = 1) {
+  A <- as.matrix(A)
+  if (nrow(A) != ncol(A)) stop("Matrix should be square")
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  type <- match.arg(type)
+
+  if (!digraph | type == "all") {
+    A <- pmax(A, t(A)) # Underlying graph
+  }
+  D <- geodesic_distances(A, weighted = weighted, alpha = alpha)
+  if (type == "in") {
+    D <- t(D)
+  }
+  return(D)
+}
+
+#' @rdname geodesics
+#' @export
+
+geo_summary <- function(A, digraph = TRUE, weighted = FALSE, alpha = 1) {
+  D <- geo_distances(A, digraph = digraph, weighted = weighted, alpha = alpha)
+  diag(D) <- NA
+
+  reachable <- is.finite(D) & !is.na(D)
+  if (!any(reachable)) stop("No node can reach another node")
+
+  return(list(
+    diameter = max(D[reachable]),
+    average_distance = mean(D[reachable]),
+    prop_reachable = sum(reachable) / (nrow(D) * (nrow(D) - 1))
+  ))
+}
+
 
 node_direction <- function(arg, choices, several.ok = FALSE) {
   if (missing(choices)) {

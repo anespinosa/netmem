@@ -25,6 +25,12 @@ Return a meta matrix for multilevel networks
 \description{
 Meta matrix for multilevel networks
 }
+\details{
+The meta matrix places the network of each level on the diagonal and the ties between two levels in both
+triangles, as an incidence matrix and its transpose:
+\deqn{\begin{pmatrix} A_1 & B_1 & B_3^T \\ B_1^T & A_2 & B_2 \\ B_3 & B_2^T & A_3 \end{pmatrix}}
+The matrices that are not given are zero. The names of the nodes are kept when every level has them.
+}
 \examples{
 
 A1 <- matrix(c(

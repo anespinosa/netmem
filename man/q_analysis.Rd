@@ -4,22 +4,78 @@
 \alias{q_analysis}
 \title{Q-analysis}
 \usage{
-q_analysis(A, simplicial_complex = FALSE, dimensions = FALSE)
+q_analysis(
+  A,
+  simplicial_complex = FALSE,
+  complex = c("clique", "neighbourhood"),
+  closed = FALSE,
+  eccentricity = c("atkin", "johnson"),
+  dimensions = FALSE
+)
 }
 \arguments{
-\item{A}{An incidence matrix}
+\item{A}{An incidence matrix of simplices (rows) and vertices (columns), or a square matrix of a network}
 
-\item{simplicial_complex}{Whether the incidence matrix is a simplices or simplicial complexes representation}
+\item{simplicial_complex}{Whether \code{A} is an incidence matrix of simplices (TRUE) or a network (FALSE)}
 
-\item{dimensions}{Return the successively chains from high to low dimensions ($q$) and the number of components ($Q_p$)}
+\item{complex}{The complex built from a network: the maximal cliques (\code{clique}, default) or the neighbourhoods (\code{neighbourhood})}
+
+\item{closed}{Whether the neighbourhoods include the node itself, for \code{complex = "neighbourhood"}}
+
+\item{eccentricity}{The definition of the eccentricity: \code{atkin} (default) or \code{johnson}}
+
+\item{dimensions}{Kept for compatibility with version 1.0-3. The table of the dimensions is always returned}
 }
 \value{
-This function return a q-analysis of a simplicial complex matrix
+This function returns a list with the incidence matrix of the \code{simplices} analysed, the
+\code{q_table} with the structure and obstruction vectors, the \code{components} at each \eqn{q} (named
+\code{q3}, \code{q2}, ...), and the \code{eccentricity} of each simplex.
 }
 \description{
-Q-structure of a simplicial complex.
+Q-analysis of a simplicial complex (Atkin, 1974): the q-connected components at every dimension,
+the structure vectors, the obstruction vector and the eccentricity of each simplex.
+}
+\details{
+A simplex is a set of vertices, and its dimension \eqn{q} is the number of its vertices minus one.
+Two simplices are q-near when they share at least \eqn{q + 1} vertices, that is, a face of dimension
+\eqn{q}, and q-connected when a chain of q-near simplices joins them. For every \eqn{q} from the largest
+dimension down to 0, the simplices of dimension \eqn{q} or more are grouped in q-connected components
+(Atkin, 1974; Freeman, 1980). The table of the results has, for each \eqn{q}:
+
+\code{Q}, the first structure vector: the number of q-connected components.
+
+\code{n}, the second structure vector: the number of simplices of dimension \eqn{q} or more.
+
+\code{Qbar}, the third structure vector: \eqn{1 - Q/n}, which is zero when no simplex is q-connected to
+another and approaches one when they all form a single component (Raj et al., 2024).
+
+\code{obstruction}, the obstruction vector: \eqn{Q - 1}, the number of gaps that separate the components
+(Atkin, 1974).
+
+The eccentricity measures how much a simplex stands apart from the others, and there are two definitions.
+With \code{eccentricity = "atkin"} (default) it is \eqn{(\hat{q} - \check{q}) / (\check{q} + 1)}, where
+\eqn{\hat{q}} is the dimension of the simplex and \eqn{\check{q}} the dimension of the largest face it shares
+with another simplex (Atkin, 1974). It is zero for a simplex that is a face of another, and infinite for a
+simplex that shares no vertex with the others. With \code{eccentricity = "johnson"} it is the family
+eccentricity of Johnson, the smallest proportion of the vertices of the simplex that are not in another
+simplex, \eqn{\min_{\sigma'} |\sigma \setminus \sigma'| / |\sigma|}, as implemented by Smirnov et al. (2025).
+It runs from zero to one, which makes simplices of different dimension comparable, and it is \code{NA}
+when the complex has a single simplex.
+
+With \code{simplicial_complex = TRUE}, the rows of \code{A} are the simplices and the columns their
+vertices, as in the example of Freeman (1980), where the researchers are simplices of the events that
+linked them. The conjugate complex, in which the columns are the simplices, is the analysis of \code{t(A)}.
+
+With \code{simplicial_complex = FALSE}, \code{A} is a network and the complex is built from it (Raj et al., 2024):
+with \code{complex = "clique"}, the simplices are the maximal cliques of the underlying undirected
+network, including the isolated nodes as simplices of dimension 0; with \code{complex = "neighbourhood"},
+each node is the simplex of its neighbours, the rows of \code{A} (the out-neighbours of a directed
+network). With \code{closed = TRUE} the node is also a vertex of its own simplex (closed neighbourhood),
+so that two adjacent nodes share at least the two of them. The rows without vertices are not simplices.
+The complex is the one returned by \code{simplicial_complexes()}.
 }
 \examples{
+# Freeman (1980): 29 researchers (simplices) and the 19 events that linked them (vertices)
 A <- matrix(c(
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0,
@@ -54,12 +110,32 @@ A <- matrix(c(
 colnames(A) <- letters[1:ncol(A)]
 rownames(A) <- 1:nrow(A)
 
-q_analysis(A, simplicial_complex = TRUE)
+Q <- q_analysis(A, simplicial_complex = TRUE)
+Q$q_table
+Q$components$q3
+
+# A network: a clique of four nodes and a pendant node
+B <- matrix(c(
+  0, 1, 1, 1, 0,
+  1, 0, 1, 1, 0,
+  1, 1, 0, 1, 0,
+  1, 1, 1, 0, 1,
+  0, 0, 0, 1, 0
+), byrow = TRUE, ncol = 5)
+rownames(B) <- letters[1:nrow(B)]
+colnames(B) <- rownames(B)
+
+q_analysis(B, complex = "clique")$q_table
+q_analysis(B, complex = "neighbourhood")$q_table
 }
 \references{
 Atkin, R. H. (1974). Mathematical structure in human affairs. New York: Crane, Rusak.
 
 Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. \doi{10.1016/S0020-7373(80)80021-6}
+
+Raj, U., Banerjee, A., Ray, S. and Bhattacharya, S. (2024). Structure of higher-order interactions in social-ecological networks through Q-analysis of their neighbourhood and clique complex. PLOS ONE, 19(8), e0306409. \doi{10.1371/journal.pone.0306409}
+
+Smirnov, N., Kurkin, S. and Hramov, A. E. (2025). A Q-analysis package for higher-order interactions analysis in Python and its application in network physiology. Frontiers in Network Physiology, 5. \doi{10.3389/fnetp.2025.1691159}
 }
 \author{
 Alejandro Espinosa-Rada

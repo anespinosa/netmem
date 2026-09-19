@@ -4,18 +4,39 @@
 \alias{multiplex_census}
 \title{Multiplex triad census}
 \usage{
-multiplex_census(A, B)
+multiplex_census(A, B, merge = c("none", "overlap"))
 }
 \arguments{
 \item{A}{A directed matrix object.}
 
-\item{B}{An undirected matrix object.}
+\item{B}{An undirected matrix object. A directed matrix is replaced by its underlying graph.}
+
+\item{merge}{Whether to merge the classes that give the same overlapped triad (\code{overlap}) or not (\code{none}, default).}
 }
 \value{
-This function gives the counts of the mixed multiplex triad census for a directed and an undirected network.
+This function gives the number of triples in each class, named by the type of the first network and the position of the edges of the second.
 }
 \description{
 This function counts the different subgraphs of three nodes in a multiplex directed and undirected network.
+}
+\details{
+Each triple of nodes is classified by its type in the first (directed) network, one of the 16 types of the
+triad census (Holland and Leinhardt, 1976), and by the position of the edges of the second (undirected) network
+in that triad (Espinosa-Rada, 2021: Figure 12). Each type of the first network is drawn in fixed positions,
+bottom left, top and bottom right, and the edges of the second network are named by where they fall: 102a
+(bottom left to top), 102b (bottom left to bottom right) and 102c (top to bottom right); the two-paths by their
+centre, 201a (bottom left), 201b (bottom right) and 201c (top). Positions that are equivalent by the symmetry
+of the triad of the first network form a single class, such as \code{021U_102ac}, as the two edges between the
+top and the bottom nodes are equivalent when both bottom nodes send a tie to the top one.
+
+With \code{merge = "overlap"}, the classes of the same type of the first network that give the same triad when
+both networks are overlapped are also merged, as most groups of Figure 12 do (for instance, \code{102_003-102a}:
+an edge of the second network on a mutual tie of the first adds nothing to the overlapped triad).
+
+The counts of each type of the first network add up to its triad census.
+
+Up to version 1.0-3 the function added counts of the two networks instead of counting the triples of each
+class, so its results were wrong.
 }
 \examples{
 
@@ -59,9 +80,13 @@ B <- matrix(
 multiplex_census(A, B)
 }
 \references{
+Batagelj, V. and Mrvar, A. (2001). A subquadratic triad census algorithm for large sparse networks with small maximum degree. Social Networks, 23(3), 237–243. \doi{10.1016/S0378-8733(01)00035-1}
+
 Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD](https://research.manchester.ac.uk/en/studentTheses/a-network-approach-for-the-sociological-study-of-science-and-know). The University of Manchester.
 
 Espinosa-Rada, A., Bellotti, E., Everett, M., & Stadtfeld, C. (2024). Co-evolution of a socio-cognitive scientific network: A case study of citation dynamics among astronomers. Social Networks, 78, 92–108. \doi{10.1016/j.socnet.2023.11.008}
+
+Holland, P. W. and Leinhardt, S. (1976). Local structure in social networks. Sociological Methodology, 7, 1–45. \doi{10.2307/270703}
 }
 \author{
 Alejandro Espinosa-Rada

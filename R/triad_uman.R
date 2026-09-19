@@ -37,10 +37,12 @@
 #' @param A   A symmetric matrix object
 #' @param ztest   Return Z and p-value
 #' @param covar   Return the covariance matrix for triadic analysis
+#' @param l   Optional vector with the sixteen coefficients of a linear combination of the triad census (e.g. a transitivity weighting vector). The observed value, its expectation, standard deviation and a z-test are returned
 #'
 #' @return This function gives the counts of the triad census, the expected counts,
 #' assuming that U|MAN distribution (Holland and Leinhardt, 1975, 1976) is operating,
-#' and the standard deviations of these counts.
+#' and the standard deviations of these counts. The covariance matrix and the test of a
+#' linear combination of the census are returned when requested.
 #'
 #' @references
 #'
@@ -63,11 +65,15 @@
 #' triad_uman(krackhardt_friends)
 #' \donttest{
 #' triad_uman(krackhardt_friends, ztest = TRUE, covar = TRUE)
+#'
+#' # Transitivity: 030T, 120D, 120U and 300 are transitive triads
+#' l <- c(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1)
+#' triad_uman(krackhardt_friends, l = l)$z_test
 #' }
 #'
 #' @export
 
-triad_uman <- function(A, ztest = FALSE, covar = FALSE) {
+triad_uman <- function(A, ztest = FALSE, covar = FALSE, l = NULL) {
   # elements ----
   A <- as.matrix(A)
 
@@ -76,7 +82,7 @@ triad_uman <- function(A, ztest = FALSE, covar = FALSE) {
     A <- ifelse(is.na(A), 0, A)
   }
 
-  A <- Matrix::Matrix(A)
+  A <- Matrix::Matrix(A, sparse = FALSE, doDiag = FALSE)
   g <- dim(A)[1]
   m <- (1 / 2) * sum(Matrix::diag(A %*% A)) # mutual
   a <- sum(Matrix::diag(A %*% Matrix::t(A))) - sum(Matrix::diag(A %*% A)) # asymmetric
@@ -955,38 +961,41 @@ triad_uman <- function(A, ztest = FALSE, covar = FALSE) {
   colnames(mempty) <- label
   mempty <- round(mempty, 3)
 
-  z <- (sum(results$OBS) - sum(results$EXP)) / (sqrt(sum(results$VAR) + (2 * (sum(COVAR)))))
-  p <- 2 * pnorm(-abs(z))
-  res <- c(z = z, p = p)
-  res <- round(res, 3)
+  # The covariance matrix is symmetric, and the sum of all its entries is zero,
+  # as the total number of triads is fixed
+  mempty <- mempty + t(mempty) - diag(diag(mempty))
 
-  if (ztest & covar) {
-    results$Z <- (results$OBS - results$EXP) / results$STD
-    results$Z <- as.numeric(as.character(results$Z))
-    results$Z <- round(results$Z, 3)
-    results$P <- 2 * pnorm(-abs(results$Z))
-    results$P <- as.numeric(as.character(results$P))
-    results$P <- round(results$P, 3)
-    newlist <- list(results = results, z_test = res, covariance = mempty)
-    return(newlist)
-  }
-
-  if (covar) {
-    # FIXME: EXPERIMENTAL version. Use with caution... the covar 201-102 and 300-030T are under review
-    newlist <- list(results = results, covariance = mempty)
-    return(newlist)
+  # Mean and variance of a linear combination of the census (Wasserman and Faust, 1994: 583)
+  if (!is.null(l)) {
+    if (length(l) != 16) stop("l should have one coefficient for each of the sixteen triad types")
+    obs_l <- sum(l * results$OBS)
+    exp_l <- sum(l * results$EXP)
+    var_l <- drop(t(l) %*% mempty %*% l)
+    z <- (obs_l - exp_l) / sqrt(var_l)
+    res <- c(
+      observed = obs_l, expected = exp_l, sd = sqrt(var_l),
+      z = z, p = 2 * pnorm(-abs(z))
+    )
+    res <- round(res, 3)
   }
 
   if (ztest) {
     results$Z <- (results$OBS - results$EXP) / results$STD
-    results$Z <- as.numeric(as.character(results$Z))
-    results$Z <- round(results$Z, 3)
+    results$Z <- round(as.numeric(as.character(results$Z)), 3)
     results$P <- 2 * pnorm(-abs(results$Z))
-    results$P <- as.numeric(as.character(results$P))
-    results$P <- round(results$P, 3)
-    newlist <- list(results = results, z_test = res)
-    return(newlist)
-  } else {
+    results$P <- round(as.numeric(as.character(results$P)), 3)
+  }
+
+  if (!covar & is.null(l)) {
     return(results)
   }
+
+  newlist <- list(results = results)
+  if (covar) {
+    newlist$covariance <- mempty
+  }
+  if (!is.null(l)) {
+    newlist$z_test <- res
+  }
+  return(newlist)
 }

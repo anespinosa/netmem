@@ -72,13 +72,7 @@ ind_rand_matrix <- function(n, m = NULL,
   if (!is.null(m)) {
     # TWO-MODE
     if (type == 1) {
-      A <- matrix(0, ncol = n, nrow = m, byrow = TRUE)
-      while (l) {
-        i <- sample(m, 1)
-        j <- sample(n, 1)
-        A[i, j] <- 1
-        if (sum(A) == l) break
-      }
+      A <- fixed_ties(matrix(TRUE, nrow = m, ncol = n), l)
     }
 
     if (type == 2) {
@@ -94,14 +88,7 @@ ind_rand_matrix <- function(n, m = NULL,
         if (!loops) {
           # DIRECTED AND NO LOOPS
           if (type == 1) {
-            B <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
-            while (l) {
-              i <- sample(n, 1)
-              j <- sample(n, 1)
-              if (i == j) next
-              B[i, j] <- 1
-              if (sum(B) == l) break
-            }
+            B <- fixed_ties(row(diag(n)) != col(diag(n)), l)
           }
 
           if (type == 2) {
@@ -114,13 +101,7 @@ ind_rand_matrix <- function(n, m = NULL,
         } else {
           # DIRECTED AND LOOPS
           if (type == 1) {
-            B <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
-            while (l) {
-              i <- sample(n, 1)
-              j <- sample(n, 1)
-              B[i, j] <- 1
-              if (sum(B) == l) break
-            }
+            B <- fixed_ties(matrix(TRUE, n, n), l)
           }
 
           if (type == 2) {
@@ -134,12 +115,7 @@ ind_rand_matrix <- function(n, m = NULL,
         if (!loops) {
           # UNDIRECTED AND NO LOOPS
           if (type == 1) {
-            B <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
-            while (l) {
-              i <- sample(n, 1)
-              B[upper.tri(B, diag = FALSE)][i] <- 1
-              if (sum(B) == l) break
-            }
+            B <- fixed_ties(upper.tri(diag(n)), l)
             B[lower.tri(B)] <- t(B)[lower.tri(B)]
           }
 
@@ -154,12 +130,7 @@ ind_rand_matrix <- function(n, m = NULL,
           # UNDIRECTED AND LOOPS
 
           if (type == 1) {
-            B <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
-            while (l) {
-              i <- sample(n, 1)
-              B[upper.tri(B, diag = TRUE)][i] <- 1
-              if (sum(B) == l) break
-            }
+            B <- fixed_ties(upper.tri(diag(n), diag = TRUE), l)
             B[lower.tri(B)] <- t(B)[lower.tri(B)]
           }
 
@@ -186,14 +157,7 @@ ind_rand_matrix <- function(n, m = NULL,
       if (!loops) {
         # DIRECTED AND NO LOOPS
         if (type == 1) {
-          A <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
-          while (l) {
-            i <- sample(n, 1)
-            j <- sample(n, 1)
-            if (i == j) next
-            A[i, j] <- 1
-            if (sum(A) == l) break
-          }
+          A <- fixed_ties(row(diag(n)) != col(diag(n)), l)
         }
 
         if (type == 2) {
@@ -206,13 +170,7 @@ ind_rand_matrix <- function(n, m = NULL,
       } else {
         # DIRECTED AND LOOPS
         if (type == 1) {
-          A <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
-          while (l) {
-            i <- sample(n, 1)
-            j <- sample(n, 1)
-            A[i, j] <- 1
-            if (sum(A) == l) break
-          }
+          A <- fixed_ties(matrix(TRUE, n, n), l)
         }
 
         if (type == 2) {
@@ -226,12 +184,7 @@ ind_rand_matrix <- function(n, m = NULL,
       if (!loops) {
         # UNDIRECTED AND NO LOOPS
         if (type == 1) {
-          A <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
-          while (l) {
-            i <- sample(n, 1)
-            A[upper.tri(A, diag = FALSE)][i] <- 1
-            if (sum(A) == l) break
-          }
+          A <- fixed_ties(upper.tri(diag(n)), l)
           A[lower.tri(A)] <- t(A)[lower.tri(A)]
         }
 
@@ -246,12 +199,7 @@ ind_rand_matrix <- function(n, m = NULL,
         # UNDIRECTED AND LOOPS
 
         if (type == 1) {
-          A <- matrix(0, ncol = n, nrow = n, byrow = TRUE)
-          while (l) {
-            i <- sample(n, 1)
-            A[upper.tri(A, diag = TRUE)][i] <- 1
-            if (sum(A) == l) break
-          }
+          A <- fixed_ties(upper.tri(diag(n), diag = TRUE), l)
           A[lower.tri(A)] <- t(A)[lower.tri(A)]
         }
 
@@ -278,4 +226,126 @@ graph_type <- function(arg, choices, several.ok = FALSE) {
   choices <- tolower(choices)
 
   match.arg(arg = arg, choices = choices, several.ok = several.ok)
+}
+
+
+#' Small world network
+#'
+#' Random network of Watts and Strogatz (1998), which has the short distances of a random
+#' network and the high transitivity of a regular one.
+#'
+#' The network starts as a ring in which every node is tied to its \code{neighbours} closest
+#' nodes on each side. Then each tie is rewired with probability \code{p}: one of its ends is
+#' replaced by a node chosen at random, avoiding loops and repeated ties. With \code{p = 0} the
+#' ring is left as it is, and with \code{p = 1} every tie is rewired.
+#'
+#' @param n   The number of nodes
+#' @param neighbours   The number of closest nodes on each side that every node is tied to in the ring
+#' @param p   Probability of rewiring each tie
+#'
+#' @return This function returns a symmetric matrix.
+#'
+#' @references
+#'
+#' Watts, D. J. and Strogatz, S. H. (1998). Collective dynamics of 'small-world' networks. Nature, 393(6684), 440–442. \doi{10.1038/30918}
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' set.seed(18051889)
+#' A <- small_world(20, neighbours = 2, p = 0.05)
+#' gen_degree(A, digraph = FALSE)
+#' @export
+
+small_world <- function(n, neighbours = 2, p = 0.05) {
+  if (n < 2 * neighbours + 1) stop("The number of nodes should be larger than twice the neighbours")
+  if (p < 0 | p > 1) stop("p should be a probability")
+
+  A <- matrix(0, n, n, dimnames = list(as.character(1:n), as.character(1:n)))
+  for (i in 1:n) {
+    for (k in 1:neighbours) {
+      j <- ((i + k - 1) %% n) + 1 # the ring closes on itself
+      A[i, j] <- 1
+      A[j, i] <- 1
+    }
+  }
+
+  ties <- which(upper.tri(A) & A > 0, arr.ind = TRUE)
+  for (e in seq_len(nrow(ties))) {
+    if (stats::runif(1) >= p) next
+    i <- ties[e, 1]
+    # The new partner is any node that is not already tied to i
+    candidates <- setdiff(which(A[i, ] == 0), i)
+    if (length(candidates) == 0) next
+    new <- candidates[sample.int(length(candidates), 1)]
+    A[ties[e, 1], ties[e, 2]] <- 0
+    A[ties[e, 2], ties[e, 1]] <- 0
+    A[i, new] <- 1
+    A[new, i] <- 1
+  }
+
+  return(A)
+}
+
+
+#' Preferential attachment network
+#'
+#' Random network of Barabasi and Albert (1999), in which the nodes that already have more ties
+#' are more likely to receive the ties of the nodes that arrive.
+#'
+#' The network starts with \code{m} nodes without ties. Every new node creates \code{m} ties
+#' with the nodes that are already there, choosing each of them with a probability proportional
+#' to their degree raised to \code{power}. With \code{power = 0} the nodes are chosen at random,
+#' and the higher the power, the more the ties concentrate in a few nodes.
+#'
+#' @param n   The number of nodes
+#' @param m   The number of ties that every new node creates
+#' @param power   The power of the degree in the probability of being chosen
+#' @param digraph   Whether the ties of the new nodes are directed towards the nodes that are already there
+#'
+#' @return This function returns a matrix.
+#'
+#' @references
+#'
+#' Barabasi, A. L. and Albert, R. (1999). Emergence of scaling in random networks. Science, 286(5439), 509–512. \doi{10.1126/science.286.5439.509}
+#'
+#' @author Alejandro Espinosa-Rada
+#'
+#' @examples
+#' set.seed(18051889)
+#' A <- pref_attachment(20, m = 2)
+#' gen_degree(A, digraph = FALSE)
+#' @export
+
+pref_attachment <- function(n, m = 1, power = 1, digraph = FALSE) {
+  if (n <= m) stop("The number of nodes should be larger than the ties of each new node")
+  if (m < 1) stop("Every new node should create at least one tie")
+
+  A <- matrix(0, n, n, dimnames = list(as.character(1:n), as.character(1:n)))
+  for (new in (m + 1):n) {
+    present <- 1:(new - 1)
+    degree <- rowSums(A[present, , drop = FALSE]) + colSums(A[, present, drop = FALSE])
+    # The first node arrives when nobody has ties, so the choice is at random
+    weight <- degree^power
+    if (all(weight == 0)) {
+      weight <- rep(1, length(present))
+    }
+    chosen <- sample(present, min(m, length(present)), replace = FALSE, prob = weight)
+    A[new, chosen] <- 1
+    if (!digraph) {
+      A[chosen, new] <- 1
+    }
+  }
+
+  return(A)
+}
+
+# A matrix with exactly l ties, placed at random among the eligible cells (a
+# logical matrix): the cells of the upper triangle for an undirected network,
+# every cell but the diagonal for a directed network without loops
+fixed_ties <- function(eligible, l) {
+  if (l > sum(eligible)) stop(paste("There are only", sum(eligible), "possible ties, fewer than l =", l))
+  M <- matrix(0, nrow(eligible), ncol(eligible))
+  M[sample(which(eligible), l)] <- 1
+  return(M)
 }

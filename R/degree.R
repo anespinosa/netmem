@@ -9,6 +9,16 @@
 #'
 #' @return This function returns the density of the matrix(es)
 #'
+#' @details
+#' The density is the number of ties divided by the number of possible ties: \eqn{n(n - 1)} for a directed
+#' network, \eqn{n(n - 1)/2} for an undirected one, and \eqn{nm} for a two-mode network of \eqn{n} and \eqn{m}
+#' nodes. With \code{loops = TRUE} the diagonal is counted among the possible ties of a one-mode network. With
+#' \code{directed = FALSE}, a tie in either direction is an edge of the underlying graph.
+#'
+#' In a list of matrices (\code{multilayer = TRUE}), the rectangular matrices are taken as two-mode networks and
+#' the square ones as one-mode networks, so a square incidence matrix should be given on its own with
+#' \code{bipartite = TRUE}.
+#'
 #' @author Alejandro Espinosa-Rada
 #'
 #' @references
@@ -82,7 +92,28 @@
 gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
                         weighted = FALSE, multilayer = FALSE) {
   if (weighted) {
-    stop("Density is not yet implemented for weighted networks")
+    # The average strength of the possible ties
+    if (is.list(A)) stop("The object should be a matrix")
+    A <- as.matrix(A)
+    if (any(is.na(A) == TRUE)) {
+      A <- ifelse(is.na(A), 0, A)
+    }
+    if (bipartite) {
+      return(sum(A) / (nrow(A) * ncol(A)))
+    }
+    if (nrow(A) != ncol(A)) stop("Adjacency matrix should be square")
+    if (!loops) {
+      diag(A) <- 0
+      possible <- nrow(A) * (nrow(A) - 1)
+    } else {
+      possible <- nrow(A) * nrow(A)
+    }
+    if (!directed) {
+      A <- pmax(A, t(A))
+      possible <- possible / 2
+      return(sum(A[upper.tri(A, diag = loops)]) / possible)
+    }
+    return(sum(A) / possible)
   } else {
     if (!multilayer) {
       if (is.list(A)) {
@@ -115,6 +146,8 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
     if (any(abs(A) > 1, na.rm = TRUE)) stop("The matrix is valued")
   }
 
+  # The loops are removed only from square matrices of a one-mode network: the
+  # diagonal of an incidence matrix holds real ties
   if (!loops) {
     if (is.list(matrices)) {
       for (j in 1:length(matrices)) {
@@ -123,7 +156,9 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
         }
       }
     } else {
-      diag(A) <- 0
+      if (!bipartite) {
+        diag(A) <- 0
+      }
     }
   }
 
@@ -141,12 +176,16 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
           L <- sum(matrices[[j]], na.rm = TRUE)
           dens[[j]] <- L / (high * low)
         } else {
-          # directed or undirected
-          if (all(matrices[[j]][lower.tri(matrices[[j]])] == t(matrices[[j]])[lower.tri(matrices[[j]])], na.rm = TRUE)) {
-            dens[[j]] <- sum(matrices[[j]], na.rm = TRUE) / (ncol(matrices[[j]]) * (ncol(matrices[[j]]) - 1))
+          # A directed matrix has n(n - 1) possible arcs, and a symmetric one
+          # counts each of its n(n - 1) / 2 possible edges twice, so both are
+          # the sum divided by n(n - 1)
+          n <- ncol(matrices[[j]])
+          if (loops) {
+            possible <- n * n
           } else {
-            dens[[j]] <- (sum(matrices[[j]][lower.tri(matrices[[j]])], na.rm = TRUE) * 2) / (ncol(matrices[[j]]) * (ncol(matrices[[j]]) - 1))
+            possible <- n * (n - 1)
           }
+          dens[[j]] <- sum(matrices[[j]], na.rm = TRUE) / possible
         }
       }
       if (is.null(names(matrices)[j]) || is.na(names(matrices)[j])) {
@@ -165,15 +204,27 @@ gen_density <- function(A, directed = TRUE, bipartite = FALSE, loops = FALSE,
       dens <- L / (high * low)
     } else {
       if (!dim(A)[1] == dim(A)[2]) stop("Matrix should be square")
+      n <- ncol(A)
 
+      # A symmetric matrix gives the same density as a directed or undirected network
       if (directed) {
-        if (all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) warning("The network is undirected")
-        dens <- sum(A, na.rm = TRUE) / (ncol(A) * (ncol(A) - 1))
+        if (loops) {
+          possible <- n * n
+        } else {
+          possible <- n * (n - 1)
+        }
+        dens <- sum(A, na.rm = TRUE) / possible
       }
       if (!directed) {
         if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) warning("The network is directed. The underlying graph is used")
-        A[lower.tri(A)] <- t(A)[lower.tri(A)] # Symmetrize
-        dens <- (sum(A[lower.tri(A)], na.rm = TRUE) * 2) / (ncol(A) * (ncol(A) - 1))
+        # A tie in either direction is an edge of the underlying graph
+        A <- pmax(A, t(A))
+        if (loops) {
+          possible <- n * (n + 1) / 2
+        } else {
+          possible <- n * (n - 1) / 2
+        }
+        dens <- sum(A[upper.tri(A, diag = loops)], na.rm = TRUE) / possible
       }
     }
     return(dens)
@@ -227,6 +278,9 @@ gen_degree <- function(A,
                        digraph = TRUE,
                        alpha = 0.5, bipartite = FALSE) {
   A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
   W <- A
   A[A > 0] <- 1
   n <- nrow(A)
@@ -234,16 +288,16 @@ gen_degree <- function(A,
   if (!bipartite) {
     if (dim(A)[1] != dim(A)[2]) stop("Adjacency matrix should be square")
 
-    if (digraph) {
-      if (all(A[lower.tri(A)] == t(A)[lower.tri(A)])) warning("The network is undirected")
-    }
     if (!digraph) {
       if (type == "all") warning("For undirected networks it should be prefered type `out` that is equal to `in`")
-      A[lower.tri(A)] <- t(A)[lower.tri(A)]
+      # Underlying graph: a tie in either direction, with the largest weight
+      A <- pmax(A, t(A))
+      W <- pmax(W, t(W))
     }
 
     if (!loops) {
       diag(A) <- 0
+      diag(W) <- 0
     }
 
     if (type == "in") {
@@ -303,13 +357,61 @@ gen_degree <- function(A,
 
 #' Degree centrality for multilevel networks
 #'
+#' Degree of the nodes of a network of two or three levels, counting the ties within
+#' each level and the ties between the levels in different combinations.
+#'
+#' The levels are placed in a single meta-matrix. Level one has \code{n} nodes and the
+#' ties \code{A1}, level two has \code{m} nodes and the ties \code{A2}, and level three
+#' has \code{k} nodes and the ties \code{A3}. The incidence matrices join the levels:
+#' \code{B1} the first with the second (\code{n} by \code{m}), \code{B2} the second with
+#' the third (\code{m} by \code{k}), and \code{B3} the third with the first (\code{k} by
+#' \code{n}). A level that is not given has no ties within it.
+#'
+#' Each column of the result emphasises a different section of the meta-matrix:
+#'
+#' \code{multilevel}: every node counts the ties within its own level and its ties with
+#' the other levels, i.e. \code{A1 + B1 + B3} for the first level,
+#' \code{B1 + A2 + B2} for the second, and \code{B2 + A3 + B3} for the third.
+#'
+#' \code{bipartiteB1}, \code{bipartiteB2} and \code{bipartiteB3}: the degree in each
+#' incidence matrix, i.e. only the ties between two levels.
+#'
+#' \code{tripartiteB1B2}, \code{tripartiteB1B3}, \code{tripartiteB2B3} and
+#' \code{tripartiteB1B2B3}: the degree in the union of incidence matrices, i.e. only the
+#' ties between levels.
+#'
+#' \code{low_multilevel} (\code{A1 + B1 + B2 + B3}), \code{meso_multilevel}
+#' (\code{B1 + A2 + B2 + B3}) and \code{high_multilevel} (\code{B1 + B2 + A3 + B3}):
+#' the ties within a single level, together with all the ties between levels. For the
+#' nodes of the emphasised level they are the same as \code{multilevel}: the first level
+#' in \code{low_multilevel}, the second in \code{meso_multilevel} and the third in
+#' \code{high_multilevel}.
+#'
+#' The rows are named \code{n1, n2, ...} for the first level, \code{m1, m2, ...} for the
+#' second and \code{k1, k2, ...} for the third. Without \code{complete = TRUE}, only the
+#' \code{multilevel} column is returned.
+#'
+#' With \code{normalized = TRUE}, each degree is divided by the largest value it could
+#' take: the other nodes of the same level plus the nodes of the levels it is tied to. For
+#' the \code{multilevel} column this is \code{(n - 1) + m} for the first level
+#' (\code{(n - 1) + m + k} when \code{B3} is given), \code{(m - 1) + n + k} for the
+#' second level (\code{(m - 1) + n} with two levels), and \code{(k - 1) + m} for the
+#' third level (\code{(k - 1) + m + n} when \code{B3} is given). The bipartite degrees are
+#' divided by the number of nodes of the other level (Borgatti and Everett, 1997). The
+#' normalized values are only defined for binary matrices. All the values are rounded to
+#' three decimals.
+#'
+#' The ties within each level can be directed (\code{digraphA1}, \code{typeA1}, ...) and
+#' weighted (\code{weightedA1}, \code{alphaA1}, ...), in which case the degree of Opsahl et
+#' al. (2010) is used. The ties between levels are undirected.
+#'
 #' @param A1  The square matrix of the lowest level
 #' @param B1  The incidence matrix of the ties between the nodes of first level and the nodes of the second level
 #' @param A2  The square matrix of the second level
 #' @param B2  The incidence matrix of the ties between the nodes of the second level and the nodes of the third level
 #' @param A3  The square matrix of the third level
 #' @param B3  The incidence matrix of the ties between the nodes of the third level and the nodes of the first level
-#' @param complete  Add the degree of bipartite and tripartite networks for B1, B2 and/or B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e. B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree
+#' @param complete  Whether to return every column described in the details, instead of only the \code{multilevel} degree
 #' @param digraphA1  Whether A1 is a directed network
 #' @param digraphA2  Whether A2 is a directed network
 #' @param digraphA3  Whether A3 is a directed network
@@ -319,7 +421,7 @@ gen_degree <- function(A,
 #' @param loopsA1  Whether the loops of the edges are considered in matrix A1
 #' @param loopsA2  Whether the loops of the edges are considered in matrix A2
 #' @param loopsA3  Whether the loops of the edges are considered in matrix A3
-#' @param normalized If TRUE then the result is divided by (n-1)+k+m for the first level, (m-1)+n+k for the second level, and (k-1)+m+n according to Espinosa-Rada et al. (2021)
+#' @param normalized  Whether to divide each degree by the largest value it could take, as described in the details (Espinosa-Rada et al., 2021)
 #' @param weightedA1  Whether A1 is weighted
 #' @param weightedA2  Whether A2 is weighted
 #' @param weightedA3  Whether A3 is weighted
@@ -327,7 +429,7 @@ gen_degree <- function(A,
 #' @param alphaA2  The alpha parameter of A2 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.
 #' @param alphaA3  The alpha parameter of A3 according to Opsahl et al (2010) for weighted networks. The value 0.5 is given by default.
 #'
-#' @return Return a data.frame of multilevel degree
+#' @return A data frame with one row for each node of every level, and the \code{multilevel} degree, or every column described in the details when \code{complete = TRUE}
 #'
 #' @references
 #'
@@ -543,20 +645,29 @@ multilevel_degree <- function(A1, B1,
     k <- ncol(B2)
     deg3 <- diag(B2 %*% t(B2))
     deg4 <- diag(t(B2) %*% B2)
-    M3 <- cbind(A2, B2)
-    M3b <- cbind(
-      t(B2),
+
+    # Third level: the ties within the level and with the second level. When
+    # A3 is not given it is an empty matrix
+    if (!dim(A3)[1] == dim(A3)[2]) stop("Matrix should be square")
+    if (!weightedA3) {
+      if (!all(A3 %in% 0:1)) warning("Matrix `A3` is weighted and would be treated as binary")
+      A3[A3 > 0] <- 1
+    }
+    if (!dim(B2)[2] == dim(A3)[1]) stop("Non-conformable arrays")
+    M4 <- cbind(A3, t(B2))
+    M4b <- cbind(
+      B2,
       matrix(0,
-        nrow = (dim(B2)[2]), byrow = TRUE,
-        ncol = (dim(B2)[2])
+        nrow = (dim(B1)[2]), byrow = TRUE,
+        ncol = (dim(B1)[2])
       )
     )
-    M3 <- rbind(M3, M3b)
-    degL3 <- gen_degree(M3,
-      type = typeA2, loops = loopsA2, digraph = digraphA2,
-      weighted = weightedA2, alpha = alphaA2
+    M4 <- rbind(M4, M4b)
+    degL4 <- gen_degree(M4,
+      type = typeA3, loops = loopsA3, digraph = digraphA3,
+      weighted = weightedA3, alpha = alphaA3
     )
-    degL3 <- head(degL3, n = k)
+    degL4 <- head(degL4, n = k) # the first rows are the nodes of the third level
     M2M3a <- cbind(A2, t(B1), B2)
     M2M3b <- cbind(
       B1, matrix(0,
@@ -588,7 +699,7 @@ multilevel_degree <- function(A1, B1,
     if (normalized) {
       deg3 <- deg3 / k
       deg4 <- deg4 / m
-      degL3 <- degL3 / ((m - 1) + k)
+      degL4 <- degL4 / ((k - 1) + m)
       L1B1L2B2 <- L1B1L2B2 / (n + (m - 1) + k)
     }
     names <- c(
@@ -596,7 +707,7 @@ multilevel_degree <- function(A1, B1,
       paste(rep("m", dim(B1)[2]), 1:dim(B1)[2], sep = ""),
       paste(rep("k", dim(B2)[2]), 1:dim(B2)[2], sep = "")
     )
-    multilevel <- c(degL1, L1B1L2B2, degL3)
+    multilevel <- c(degL1, L1B1L2B2, degL4)
     bipartiteB1 <- c(deg1, deg2, rep(NA, dim(B2)[2]))
     bipartiteB2 <- c(rep(NA, dim(A1)[1]), deg3, deg4)
     tripartiteB1B2 <- c(deg1, (deg2 + deg3), deg4)
@@ -613,45 +724,20 @@ multilevel_degree <- function(A1, B1,
         paste(rep("m", dim(B1)[2]), 1:dim(B1)[2], sep = ""),
         paste(rep("k", dim(B2)[2]), 1:dim(B2)[2], sep = "")
       )
-      multilevel <- c(degL1, L1B1L2B2, degL3)
+      multilevel <- c(degL1, L1B1L2B2, degL4)
       deg <- as.data.frame(multilevel)
       rownames(deg) <- names
     }
 
 
     if (!is.null(A3)) {
-      if (!dim(A3)[1] == dim(A3)[2]) stop("Matrix should be square")
-      if (!weightedA3) {
-        if (!all(A3 %in% 0:1)) warning("Matrix `A3` is weighted and would be treated as binary")
-        A3[A3 > 0] <- 1
-      }
-      if (!dim(B2)[2] == dim(A3)[1]) stop("Non-conformable arrays")
-      M4 <- cbind(A3, t(B2))
-      M4b <- cbind(
-        B2,
-        matrix(0,
-          nrow = (dim(B1)[2]), byrow = TRUE,
-          ncol = (dim(B1)[2])
-        )
-      )
-      M4 <- rbind(M4, M4b)
-      degL4 <- gen_degree(M4,
-        type = typeA3, loops = loopsA3, digraph = digraphA3,
-        weighted = weightedA3, alpha = alphaA3
-      )
-      degL4 <- head(degL4, n = k)
-
-      if (normalized) {
-        degL4 <- degL4 / ((k - 1) + m)
-      }
-
       if (!is.null(A2)) {
         names <- c(
           paste(rep("n", dim(A1)[1]), 1:dim(A1)[1], sep = ""),
           paste(rep("m", dim(B1)[2]), 1:dim(B1)[2], sep = ""),
           paste(rep("k", dim(B2)[2]), 1:dim(B2)[2], sep = "")
         )
-        multilevel <- c(degL1, L1B1L2B2, degL3)
+        multilevel <- c(degL1, L1B1L2B2, degL4)
         bipartiteB1 <- c(deg1, deg2, rep(NA, dim(B2)[2]))
         bipartiteB2 <- c(rep(NA, dim(A1)[1]), deg3, deg4)
         tripartiteB1B2 <- c(deg1, (deg2 + deg3), deg4)
@@ -676,7 +762,7 @@ multilevel_degree <- function(A1, B1,
           paste(rep("m", dim(B1)[2]), 1:dim(B1)[2], sep = ""),
           paste(rep("k", dim(B2)[2]), 1:dim(B2)[2], sep = "")
         )
-        multilevel <- c(degL1, L1B1L2B2, degL3)
+        multilevel <- c(degL1, L1B1L2B2, degL4)
         deg <- as.data.frame(multilevel)
         rownames(deg) <- names
       }
@@ -853,6 +939,14 @@ multilevel_degree <- function(A1, B1,
 #'
 #' @return This function return the k-core.
 #'
+#' @details
+#' For a binary network (\code{weighted = FALSE} and \code{multilevel = FALSE}), the coreness of a node is the
+#' largest k such that the node belongs to a subgraph in which every node has at least k ties
+#' (Seidman, 1983). It is obtained by removing, for k = 0, 1, 2, ..., the nodes with at most k ties
+#' among the remaining nodes (Batagelj and Zaversnik, 2011). A value larger than one counts as several ties,
+#' and an undirected network uses the tie in either direction. The loops are counted only when
+#' \code{loops = TRUE}, twice for an undirected network, as in \code{igraph::coreness}.
+#'
 #' @references
 #'
 #' Batagelj, V., & Zaveršnik, M. (2011). Fast algorithms for determining (generalized) core groups in social networks. Advances in Data Analysis and Classification, 5(2), 129–145. \doi{10.1007/s11634-010-0079-y}
@@ -860,8 +954,6 @@ multilevel_degree <- function(A1, B1,
 #' Eidsaa, M., & Almaas, E. (2013). s-core network decomposition: A generalization of $k$-core analysis to weighted networks. Physical Review E, 88(6), 062819. \doi{10.1103/PhysRevE.88.062819}
 #'
 #' Seidman S (1983).  'Network structure and minimum degree'.  Social Networks, 5, 269-287.
-#'
-#' @import igraph
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -891,63 +983,87 @@ k_core <- function(A, B1 = NULL,
                    digraph = FALSE, loops = FALSE,
                    weighted = FALSE, alpha = 1) {
   if (!weighted & !multilevel) {
-    if (digraph) {
-      g <- igraph::graph.adjacency(A, mode = c("directed"))
+    A <- as.matrix(A)
+    if (any(is.na(A) == TRUE)) {
+      A <- ifelse(is.na(A), 0, A)
     }
+    if (dim(A)[1] != dim(A)[2]) stop("Matrix should be square")
+    # A value larger than one counts as several ties, and an undirected tie is
+    # present when either of the two cells is
     if (!digraph) {
-      g <- igraph::graph.adjacency(A, mode = c("undirected"))
+      A <- pmax(A, t(A))
     }
-    return(igraph::coreness(g, mode = c(type)))
+    if (!loops) {
+      diag(A) <- 0
+    }
+    # Batagelj and Zaversnik (2011): the nodes with at most k ties among the
+    # remaining nodes are removed until none is left, and they have coreness k
+    n <- nrow(A)
+    k.core <- vector("integer", length = n)
+    remaining <- rep(TRUE, n)
+    k <- 0
+    while (any(remaining)) {
+      repeat {
+        ids <- which(remaining)
+        R <- A[ids, ids, drop = FALSE]
+        if (digraph) {
+          if (type == "in") deg <- colSums(R)
+          if (type == "out") deg <- rowSums(R)
+          if (type == "all") deg <- colSums(R) + rowSums(R)
+        }
+        # In an undirected network a loop touches the node twice
+        if (!digraph) deg <- rowSums(R) + diag(R)
+        low <- ids[deg <= k]
+        if (length(low) == 0) break
+        k.core[low] <- k
+        remaining[low] <- FALSE
+      }
+      k <- k + 1
+    }
+    names(k.core) <- rownames(A)
+    return(k.core)
   }
-  if (!multilevel & weighted) {
-    if (!is.null(B1)) stop("Matrix `B1` for multilevel networks")
-    W <- A
-    ct <- 1
-    k.core <- vector("integer", length = nrow(W))
-    repeat {
-      temp <- gen_degree(W,
-        digraph = digraph, type = type,
-        alpha = alpha,
-        loops = loops, weighted = weighted
-      )
-      threshold <- min(temp[which(temp > 0)])
-      v_remove <- which(temp <= threshold & temp > 0)
-      if (length(v_remove) > 0) {
-        k.core[v_remove] <- ct
-        W[v_remove, ] <- W[, v_remove] <- 0
-        ct <- ct + 1
-      }
-      if (sum(colSums(W) > 0) == 0) {
-        break
-      }
-    }
+  # Generalized cores (Batagelj and Zaversnik, 2011): the nodes whose degree
+  # (a generalized degree, or a multilevel degree) among the remaining nodes is
+  # at most the current threshold are removed, and their core value is that
+  # threshold; the threshold only increases, to the smallest degree left
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
   }
   if (multilevel) {
     if (is.null(B1)) stop("A bipartite network should be added for multilevel networks")
-    W <- A
-    ct <- 1
-    k.core <- vector("integer", length = nrow(W))
-    repeat {
-      temp <- multilevel_degree(W, B1,
-        weightedA1 = weighted,
-        typeA1 = type, alphaA1 = alpha,
-        loopsA1 = loops
-      )
-      temp <- temp$multilevel
-      temp <- head(temp, n = dim(W)[1])
-      threshold <- min(temp[which(temp > 0)])
-      v_remove <- which(temp <= threshold & temp > 0)
-      if (length(v_remove) > 0) {
-        k.core[v_remove] <- ct
-        W[v_remove, ] <- W[, v_remove] <- 0
-        B1[v_remove, ] <- 0 # CHECK
-
-        ct <- ct + 1
-      }
-      if (sum(colSums(W) > 0) == 0) {
-        break
-      }
-    }
+    B1 <- as.matrix(B1)
+  } else {
+    if (!is.null(B1)) stop("Matrix `B1` for multilevel networks")
   }
+  n <- nrow(A)
+  k.core <- rep(0, n)
+  remaining <- rep(TRUE, n)
+  threshold <- 0
+  while (any(remaining)) {
+    ids <- which(remaining)
+    W <- A[ids, ids, drop = FALSE]
+    if (multilevel) {
+      deg <- suppressWarnings(multilevel_degree(W, B1[ids, , drop = FALSE],
+        weightedA1 = weighted, typeA1 = type, alphaA1 = alpha,
+        loopsA1 = loops, digraphA1 = digraph
+      ))$multilevel
+      deg <- head(deg, n = length(ids))
+    } else {
+      deg <- suppressWarnings(gen_degree(W,
+        digraph = digraph, type = type, alpha = alpha,
+        loops = loops, weighted = weighted
+      ))
+    }
+    deg <- as.numeric(deg)
+    if (all(deg > threshold)) {
+      threshold <- min(deg)
+    }
+    low <- ids[deg <= threshold]
+    k.core[low] <- threshold
+    remaining[low] <- FALSE
+  }
+  names(k.core) <- rownames(A)
   return(k.core)
 }

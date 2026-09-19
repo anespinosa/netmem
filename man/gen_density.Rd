@@ -32,6 +32,16 @@ This function returns the density of the matrix(es)
 \description{
 Generalized density
 }
+\details{
+The density is the number of ties divided by the number of possible ties: \eqn{n(n - 1)} for a directed
+network, \eqn{n(n - 1)/2} for an undirected one, and \eqn{nm} for a two-mode network of \eqn{n} and \eqn{m}
+nodes. With \code{loops = TRUE} the diagonal is counted among the possible ties of a one-mode network. With
+\code{directed = FALSE}, a tie in either direction is an edge of the underlying graph.
+
+In a list of matrices (\code{multilayer = TRUE}), the rectangular matrices are taken as two-mode networks and
+the square ones as one-mode networks, so a square incidence matrix should be given on its own with
+\code{bipartite = TRUE}.
+}
 \examples{
 
 # A bipartite matrix
