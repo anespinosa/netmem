@@ -1,9 +1,9 @@
 ---
-title: "multilayer"
+title: "Multilayer networks"
 author: "Alejandro Espinosa-Rada"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{multilayer}
+  %\VignetteIndexEntry{Multilayer networks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,10 +19,11 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the development version from
+You can install the released version from CRAN, or the development version from
 [github/anespinosa](https://github.com/anespinosa/netmem):
 
 ```{r inst, eval=FALSE}
+install.packages("netmem")
 # install.packages("devtools")
 devtools::install_github("anespinosa/netmem")
 ```
@@ -144,8 +145,8 @@ shape actors’ expectations, behaviours and outcomes over time. These structure
 can themselves be interdependent and exist at different levels. Multilevel
 networks are a means by which we can represent this complex system by using
 nodes and edges of different types ([Lazega and Snijders,
-2016](https://link.springer.com/book/10.1007/978-3-319-24520-1), [Knoke et a.,
-2021](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
+2016](https://link.springer.com/book/10.1007/978-3-319-24520-1), [Knoke et al.,
+2021](https://doi.org/10.1017/9781108985000)).
 
 For multilevel structures, we tend to collect the data in different matrices
 representing the variation of ties within and between levels. Often, we describe
@@ -246,9 +247,13 @@ multilevel network.
 ```{r meta_matrix, message=FALSE}
 meta_matrix(A1, B1, A2, B2, A3)
 meta_matrix(A1, B1, A2, B2)
+```
 
-library(igraph)
-plot(graph.adjacency(meta_matrix(A1, B1, A2, B2, A3), mode = c("directed")))
+`netmem` works with matrices and does not depend on other packages to draw
+them. When `igraph` is installed, it can be used to plot the meta-matrix:
+
+```{r meta_matrix_plot, message=FALSE, eval=requireNamespace("igraph", quietly = TRUE)}
+plot(igraph::graph_from_adjacency_matrix(meta_matrix(A1, B1, A2, B2, A3), mode = "directed"))
 ```
 
 What is the density of some of the matrices?
@@ -260,14 +265,14 @@ gen_density(matrices, multilayer = TRUE)
 
 How about the degree centrality of the entire structure?
 
-```{r multil, warning=FALSE}
+```{r multil}
 multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 ```
 
 Besides, we can perform a *k*-core analysis of one of the levels using the
 information of an incidence matrix
 
-```{r multil2, warning=FALSE}
+```{r multil2}
 k_core(A1, B1, multilevel = TRUE)
 ```
 
@@ -280,18 +285,25 @@ mixed_census(A2, t(B1), B2, quad = TRUE)
 Also, there are some functions that allowed performing the zone-2 sampling from
 second-mode (2-path distance from an ego in the second level)
 
-```{r, message=FALSE}
-library(igraph)
-m <- meta_matrix(A1, B1)
-g <- graph.adjacency(m, mode = c("undirected"))
-V(g)$type <- ifelse(V(g)$name %in% colnames(B1), TRUE, FALSE)
-plot(g, vertex.color = ifelse(V(g)$type == TRUE, "blue", "red"))
-
+```{r zone_sample}
 two_mode_sam <- zone_sample(A1, B1, ego = TRUE)
-for (i in 1:ncol(B1)) {
-  V(two_mode_sam[[i]])$color <- ifelse(V(two_mode_sam[[i]])$name %in% colnames(B1), "blue", "red")
+two_mode_sam
+```
 
-  plot(as.undirected(two_mode_sam[[i]]), vertex.color = V(two_mode_sam[[i]])$color, main = names(two_mode_sam)[i])
+Each subgraph is an adjacency matrix, which can be plotted with `igraph`, with
+the nodes of the second level in blue:
+
+```{r zone_sample_plot, message=FALSE, eval=requireNamespace("igraph", quietly = TRUE)}
+m <- meta_matrix(A1, B1)
+g <- igraph::graph_from_adjacency_matrix(m, mode = "max")
+plot(g, vertex.color = ifelse(igraph::V(g)$name %in% colnames(B1), "blue", "red"))
+
+for (i in 1:ncol(B1)) {
+  g <- igraph::graph_from_adjacency_matrix(two_mode_sam[[i]], mode = "max")
+  plot(g,
+    vertex.color = ifelse(igraph::V(g)$name %in% colnames(B1), "blue", "red"),
+    main = names(two_mode_sam)[i]
+  )
 }
 ```
 
@@ -353,12 +365,34 @@ jaccard(lazega_lawfirm$cowork, lazega_lawfirm$friends)
 jaccard(lazega_lawfirm$advice, lazega_lawfirm$friends)
 ```
 
-Finally, we can conduct a multiplex census between two matrices. For the moment,
-one matrix has to be asymmetric (directed) and the other symmetric
-(undirected).
+Finally, we can conduct a multiplex triad census between a directed and an
+undirected relation among the same people (Espinosa-Rada, 2021; Espinosa-Rada
+et al., 2024). Each triple of people is classified by its triad of the directed
+relation (Holland and Leinhardt, 1976) and its triad of the undirected
+relation, together with how the two overlap, which gives 104 types of triads.
+Here the advice is directed, and the friendship is treated as undirected:
 
-```{r, warning=FALSE}
-multiplex_census(lazega_lawfirm$advice, lazega_lawfirm$friends)
+```{r}
+advice <- lazega_lawfirm$advice
+friends <- pmax(lazega_lawfirm$friends, t(lazega_lawfirm$friends))
+census <- multiplex_census(advice, friends)
+length(census)
+head(sort(census, decreasing = TRUE), 10)
+```
+
+The name of each type joins the triad of advice and the triad of friendship,
+and the letters locate the friendship ties on the advice triad. Every triple is
+counted once:
+
+```{r}
+sum(census) == choose(nrow(advice), 3)
+```
+
+With `merge = "overlap"`, the types that give the same combined triad are
+merged:
+
+```{r}
+length(multiplex_census(advice, friends, merge = "overlap"))
 ```
 
 Note: the temporal networks are a special case of a multiplex network. Links are
@@ -394,9 +428,15 @@ Breiger, R. L. (1974). The duality of persons and groups. *Social Forces*, 53(2)
 
 Carley, K. M. (2002). Smart agents and organizations of the future. In L. Lievrouw & S. Livingstone (Eds.), *The Handbook of New Media* (pp. 206–220). Sage.
 
+Espinosa-Rada, A. (2021). *A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks*. PhD thesis, The University of Manchester.
+
+Espinosa-Rada, A., Bellotti, E., Everett, M. and Stadtfeld, C. (2024). Co-evolution of a socio-cognitive scientific network: A case study of citation dynamics among astronomers. *Social Networks*, 78, 92–108. <https://doi.org/10.1016/j.socnet.2023.11.008>
+
 Gluckman, M. (1955). *The Judicial Process Among the Barotse of Northern Rhodesia*. Manchester University Press.
 
-Kinsley, A. C., Munnich, L. M., VanderWaal, K. L., & Enns, E. A. (2020). Applications of network analysis in epidemiology: A guide for veterinary researchers. *Frontiers in Veterinary Science*, 7, 596. <https://doi.org/10.3389/fvets.2020.00596>
+Holland, P. W. and Leinhardt, S. (1976). Local structure in social networks. *Sociological Methodology*, 7, 1–45. <https://doi.org/10.2307/270703>
+
+Kinsley, A. C., Rossi, G., Silk, M. J. and VanderWaal, K. (2020). Multilayer and multiplex networks: An introduction to their use in veterinary epidemiology. *Frontiers in Veterinary Science*, 7, 596. <https://doi.org/10.3389/fvets.2020.00596>
 
 Kivelä, M., Arenas, A., Barthelemy, M., Gleeson, J. P., Moreno, Y., & Porter, M. A. (2014). Multilayer networks. *Journal of Complex Networks*, 2(3), 203–271. <https://doi.org/10.1093/comnet/cnu016>
 
@@ -408,6 +448,6 @@ Lazega, E. (2001). *The Collegial Phenomenon: The Social Mechanisms of Cooperati
 
 Lazega, E., & Snijders, T. A. B. (Eds.). (2016). *Multilevel Network Analysis for the Social Sciences*. Springer. <https://doi.org/10.1007/978-3-319-24520-1>
 
-Leydesdorff, L. (2008). The communication of meaning in anticipatory systems: A simulation study of the dynamics of intentionality in social interactions. *Journal of the American Society for Information Science and Technology*, 59(11), 1724–1734. <https://doi.org/10.1002/asi.20732>
+Leydesdorff, L. (2008). On the normalization and visualization of author co-citation data: Salton's Cosine versus the Jaccard index. *Journal of the American Society for Information Science and Technology*, 59(1), 77–85. <https://doi.org/10.1002/asi.20732>
 
 Rivera, M. T., Soderstrom, S. B., & Uzzi, B. (2010). Dynamics of dyads in social networks: Assortative, relational, and proximity mechanisms. *Annual Review of Sociology*, 36, 91–115. <https://doi.org/10.1146/annurev.soc.34.040507.134743>

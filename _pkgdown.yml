@@ -2,3 +2,175 @@ url: https://anespinosa.github.io/netmem/
 template:
   bootstrap: 5
 
+reference:
+- title: Utilities
+  desc: Read, transform and describe the matrices
+  contents:
+  - matrix_report
+  - matrix_adjlist
+  - matrix_projection
+  - matrix_to_edgelist
+  - edgelist_to_matrix
+  - adj_to_matrix
+  - adj_to_incidence
+  - expand_matrix
+  - extract_component
+  - cumulativeSumMatrices
+  - power_function
+  - perm_matrix
+  - perm_label
+  - minmax_overlap
+  - hypergraph
+  - simplicial_complexes
+  - structural_na
+  - ego_net
+  - zone_sample
+
+- title: Multilevel networks
+  desc: Matrices of several levels analysed together
+  contents:
+  - meta_matrix
+  - mixed_census
+  - multiplex_census
+  - k_core
+
+- title: Centrality
+  desc: How central every node is, and how centralized the network is
+  contents:
+  - gen_degree
+  - multilevel_degree
+  - closeness_centrality
+  - betweenness_centrality
+  - eigenvector_centrality
+  - katz_centrality
+  - bonacich_power
+  - page_rank_centrality
+  - centrality_centralization
+  - partition_centrality
+
+- title: Distances and paths
+  contents:
+  - geodesics
+  - distances
+  - compound_relation
+
+- title: Positions and dominance
+  desc: Neighbourhood inclusion and the partial rankings it induces
+  contents:
+  - neigh_inclusion
+  - dir_inclusion
+  - pos_dominance
+  - indirect_rel
+  - set_inclusion
+  - pareto_dominance
+  - hyperevent_dominance
+  - dominance_pairs
+  - dominance_layers
+  - dominance_ranks
+  - preserved_order
+
+- title: Roles and positions
+  contents:
+  - block_density
+  - concor
+  - rege
+  - dist_sim_matrix
+  - core_periphery
+
+- title: Cohesive subgroups and communities
+  contents:
+  - clique_max
+  - clique_table
+  - percolation_clique
+  - dyad_triad_table
+  - shared_partners
+  - q_analysis
+  - leiden
+  - leading_eigen
+  - communities
+  - modularity_score
+
+- title: Structure of the network
+  contents:
+  - gen_density
+  - recip_coef
+  - trans_coef
+  - trans_matrix
+  - components_id
+  - krackhardt_index
+  - dyadic_census
+
+- title: Ego networks and structural holes
+  desc: Composition of the alters and brokerage, also with overlapping categories
+  contents:
+  - eb_constraint
+  - redundancy
+  - structural_holes
+  - alter_composition
+  - alter_heterogeneity
+  - brokerage_roles
+
+- title: Homophily and segregation
+  contents:
+  - segregation
+  - ei_index
+  - alter_homophily
+  - mix_matrix
+  - heterogeneity
+
+- title: Signed networks
+  contents:
+  - struc_balance
+  - posneg_index
+
+- title: Citation networks
+  desc: Main path analysis and the weights of the search paths
+  contents:
+  - main_path
+  - main_path_diag
+  - traversal_weights
+  - citation_decay
+  - dag
+  - fractional_approach
+  - co_occurrence
+  - bonacich_norm
+  - jaccard
+
+- title: Social influence and diffusion
+  contents:
+  - social_influence
+  - threshold_diffusion
+
+- title: Inference and random networks
+  contents:
+  - cug_test
+  - qap_cor
+  - qap_lm
+  - triad_uman
+  - kp_reciprocity
+  - z_arctest
+  - ind_rand_matrix
+  - small_world
+  - pref_attachment
+
+- title: Geographic information
+  contents:
+  - dist_geographic
+  - spatial_cor
+
+- title: Data
+  contents:
+  - FIFAego
+  - FIFAex
+  - FIFAin
+  - krackhardt_friends
+  - lazega_lawfirm
+  - campnet
+
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - netmem
+  - distinctive
+  - multilayer

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start --> 
 [![CRAN status](https://www.r-pkg.org/badges/version/netmem)](https://CRAN.R-project.org/package=netmem)
 [![r-universe status badge](https://anespinosa.r-universe.dev/badges/netmem)](https://anespinosa.r-universe.dev/netmem)
-[![](https://img.shields.io/badge/devel%20version-1.0--3-red.svg)](https://github.com/anespinosa/netmem)
+[![](https://img.shields.io/badge/devel%20version-1.1--0-red.svg)](https://github.com/anespinosa/netmem)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Codecov test coverage](https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg)](https://app.codecov.io/gh/anespinosa/netmem?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/anespinosa/netmem/badge)](https://www.codefactor.io/repository/github/anespinosa/netmem)
@@ -57,16 +57,21 @@ The package implements different measures to analyse and manipulate complex
 multilayer networks, from an ego-centric perspective, considering one-mode
 networks, valued ties (i.e. *weighted* or *multiplex*) or with multiple levels.
 
+To learn more, see the vignettes [Getting started with
+netmem](https://anespinosa.github.io/netmem/articles/netmem.html), [What netmem
+adds](https://anespinosa.github.io/netmem/articles/distinctive.html) and
+[Multilayer networks](https://anespinosa.github.io/netmem/articles/multilayer.html).
+
 ## Citation
 
-Espinosa-Rada A (2026). *netmem: Social Network Measures using Matrices*. R package version 1.0-3, <https://github.com/anespinosa/netmem>.
+Espinosa-Rada A (2026). *netmem: Social Network Measures using Matrices*. R package version 1.1-0, <https://github.com/anespinosa/netmem>.
 
 ```bibtex
 @Manual{,
   title = {netmem: Social Network Measures using Matrices},
   author = {Alejandro Espinosa-Rada},
   year = {2026},
-  note = {R package version 1.0-3},
+  note = {R package version 1.1-0},
   url = {https://github.com/anespinosa/netmem},
 }
 ```
@@ -127,6 +132,16 @@ Ego and personal networks:
 
 4. `redundancy()`: Redundancy measures
 
+5. `structural_holes()`: Effective size, efficiency and constraint of every node, with overlapping categories
+
+6. `alter_composition()`: Categories of the alters, which can overlap
+
+7. `alter_heterogeneity()`: Heterogeneity of the alters, with overlapping categories
+
+8. `alter_homophily()`: E-I index and Yule's Q of every node, with overlapping categories
+
+9. `brokerage_roles()`: Gould and Fernandez brokerage roles, with overlapping categories
+
 Path distances:
 
 1. `bfs_ugraph()`: Breath-first algorithm
@@ -141,35 +156,41 @@ Path distances:
 
 6. `wall_distances()`: Dijkstra's algorithm (all actors)
 
+7. `geo_distances()`: Matrix of geodesic distances
+
+8. `geo_summary()`: Diameter, average distance and reachability
+
 Signed networks:
 
 1. `posneg_index()`: Positive-negative centrality
 
 2. `struc_balance()`: Structural balance
 
+3. `eigenvector_centrality(signed = TRUE)`: Status with negative relations
+
 Structural measures:
 
 1. `gen_density()`: Generalized density
 
-2. `gen_degree()`: Generalized degree
+2. `recip_coef()`: Reciprocity
 
-3. `multilevel_degree()`: Degree centrality for multilevel networks
+3. `trans_coef()`: Transitivity
 
-4. `recip_coef()`: Reciprocity
+4. `trans_matrix()`: Transitivity matrix
 
-5. `trans_coef()`: Transitivity
+5. `components_id()`: Components
 
-6. `trans_matrix()`: Transitivity matrix
+6. `k_core()`: Generalized k-core
 
-7. `components_id()`: Components
+7. `dyadic_census()`: Dyad census
 
-8. `k_core()`: Generalized k-core
+8. `multiplex_census()`: Multiplex triad census
 
-9. `dyadic_census()`: Dyad census
+9. `mixed_census()`: Multilevel triad and quadrilateral census
 
-10. `multiplex_census()`: Multiplex triad census
+10. `krackhardt_index()`: Connectedness, hierarchy, efficiency and upper boundedness
 
-11. `mixed_census()`: Multilevel triad and quadrilateral census
+11. `core_periphery()`: Core-periphery structures
 
 Cohesive subgroups:
 
@@ -182,6 +203,8 @@ Cohesive subgroups:
 4. `q_analysis()`: Q-analysis
 
 5. `shared_partners()`: Shared partners
+
+6. `clique_max()`: Maximal cliques
 
 Similarity measures:
 
@@ -205,6 +228,106 @@ Network inference:
 
 4. `ind_rand_matrix()`: Independent random matrix
 
+5. `cug_test()`: Conditional uniform graph test
+
+6. `qap_cor()`: QAP correlation
+
+7. `qap_lm()`: MRQAP regression, linear and logistic
+
+8. `small_world()`: Watts-Strogatz networks
+
+9. `pref_attachment()`: Barabasi-Albert networks
+
+Centrality:
+
+1. `gen_degree()`: Generalized degree
+
+2. `multilevel_degree()`: Degree centrality for multilevel networks
+
+3. `closeness_centrality()`: Closeness and harmonic closeness
+
+4. `betweenness_centrality()`: Betweenness
+
+5. `eigenvector_centrality()`: Eigenvector centrality
+
+6. `katz_centrality()`: Katz centrality
+
+7. `bonacich_power()`: Bonacich power centrality
+
+8. `page_rank_centrality()`: PageRank
+
+9. `centrality_centralization()`: Centralization of the network
+
+10. `partition_centrality()`: Contribution of each category to the centrality of every node
+
+Positions and dominance:
+
+1. `neigh_inclusion()`: Neighbourhood-inclusion preorder
+
+2. `dir_inclusion()`: Directed neighbourhood-inclusion criteria
+
+3. `pos_dominance()`: Positional dominance on indirect relations
+
+4. `indirect_rel()`: Indirect relations between the nodes
+
+5. `set_inclusion()`: Inclusion of neighbourhoods
+
+6. `pareto_dominance()`: Dominance across several relations
+
+7. `hyperevent_dominance()`: Dominance through citation chains
+
+8. `dominance_pairs()`: Comparable and incomparable pairs
+
+9. `dominance_layers()`: Layers and status of a dominance relation
+
+10. `dominance_ranks()`: Rank intervals
+
+11. `preserved_order()`: Whether a centrality preserves a dominance relation
+
+Roles and positions:
+
+1. `block_density()`: Block densities and image matrix
+
+2. `concor()`: CONCOR
+
+3. `rege()`: Regular equivalence
+
+Communities:
+
+1. `leiden()`: Leiden and Louvain communities
+
+2. `leading_eigen()`: Leading eigenvector communities
+
+3. `community_greedy()`: Agglomerative modularity
+
+4. `community_label()`: Label propagation
+
+5. `community_betweenness()`: Girvan-Newman edge betweenness
+
+6. `modularity_score()`: Modularity, including LinkRank
+
+Segregation and homophily:
+
+1. `segregation()`: Assortativity, Gupta-Anderson-May, odds ratio, Coleman and Freeman
+
+Social influence and diffusion:
+
+1. `social_influence()`: Assimilation, bounded confidence, repulsion and Friedkin-Johnsen
+
+2. `threshold_diffusion()`: Threshold models of diffusion
+
+Citation networks:
+
+1. `main_path()`: Main path analysis
+
+2. `traversal_weights()`: Search path counts
+
+3. `citation_decay()`: Temporal decay of citations
+
+4. `dag_check()`: Directed acyclic graphs
+
+5. `main_path_diag()`: Diagnostics of the main path
+
 Geographic information:
 
 1. `dist_geographic()`: Geographical distances
@@ -223,8 +346,21 @@ Data currently available:
 
 5. `lazega_lawfirm`: Lazega Law Firm
 
+6. `campnet`: Camp 92 network
+
 Additional data in [`classicnets: Classic Data of Social
 Networks`](https://github.com/anespinosa/classicnets)
+
+-----
+
+## Scope
+
+The functions work on matrices, which keeps the code close to the algebra of the
+measures and makes them easy to read and to check. The results are compared with
+`igraph`, `sna`, `netrankr` and `netseg` in the validation scripts of the
+repository. The package is meant for the networks that are usually collected by
+hand, up to a few hundred nodes; for larger networks the compiled routines of
+`igraph` are orders of magnitude faster.
 
 -----
 

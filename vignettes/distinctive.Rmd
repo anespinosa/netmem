@@ -1,0 +1,324 @@
+---
+title: "What netmem adds"
+author: "Alejandro Espinosa-Rada"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{What netmem adds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Besides the standard measures (see *Getting started with netmem*), `netmem`
+implements measures that are hard to find in other packages, several of them
+proposed in the last few years. Each one is compared with the tables of the
+publication that defines it, and the comparisons are kept in the folder
+`dev/validation` of the [GitHub repository](https://github.com/anespinosa/netmem).
+
+This vignette uses the Campnet network: the three people with whom each of the
+18 people of a course interacted most (Borgatti et al., 2018).
+
+```{r setup}
+library(netmem)
+
+data(campnet)
+A <- campnet$network
+U <- pmax(A, t(A)) # Underlying graph
+gender <- campnet$attributes$gender # 1 = woman, 2 = man
+```
+
+-----
+
+## Ranking without choosing a centrality index
+
+Every centrality index gives a ranking, and the rankings of different indices
+often disagree. Schoch and Brandes (2016) show what they all share: when the
+neighbours of `u` are also neighbours of `v`, every standard index ranks `v` at
+least as high as `u`. This *neighbourhood inclusion* is a partial ranking,
+implied by the structure of the network before choosing any index.
+
+```{r inclusion}
+P <- neigh_inclusion(U) # P[u, v] = 1 when u is dominated by v
+dominance_pairs(P)[c("comparable", "incomparable", "prop_comparable")]
+```
+
+Only 11% of the pairs of people are ranked by the structure itself. For the
+other 89%, the order depends on the index chosen. The rank of each person is an
+interval, from the lowest (one) to the highest rank that the person can take in
+a ranking consistent with the partial ranking. A wide interval means that the
+position of the person depends on the index:
+
+```{r ranks}
+dominance_ranks(P)
+```
+
+Two people with the same neighbours dominate each other. Removing these ties
+gives the strict dominance, whose layers go from the people who are not
+dominated by anyone to the most dominated:
+
+```{r layers}
+strict <- P * (1 - t(P))
+dominance_layers(strict)$layers
+```
+
+`preserved_order()` checks whether an index respects the partial ranking:
+
+```{r preserved}
+preserved_order(P, betweenness_centrality(U, digraph = FALSE))$preserved
+```
+
+In directed networks, Marmulla and Brandes (2026) show that each family of
+indices preserves a different criterion. The indices of status, such as
+in-degree and PageRank, preserve the inclusion of the choices received
+(`radial_in`), whereas betweenness does not:
+
+```{r directed}
+D <- dir_inclusion(A, type = "radial_in")
+preserved_order(D, colSums(A))$preserved
+preserved_order(D, page_rank_centrality(A))$preserved
+preserved_order(D, betweenness_centrality(A))
+```
+
+Pam receives the choices of everyone who chooses Pat, and more, yet Pat is
+more central than Pam by betweenness.
+
+-----
+
+## Overlapping categories
+
+The measures of homophily, brokerage and structural holes assume that each
+person belongs to one category. Everett and Borgatti (2026) generalise them to
+memberships that overlap, such as groups, cliques or the time spent in
+several activities. Here the categories are the ten maximal cliques of the
+underlying graph, and several people belong to more than one:
+
+```{r cliques}
+cliques <- clique_max(U, min = 3)
+K <- matrix(0, nrow(U), length(cliques),
+  dimnames = list(rownames(U), paste0("C", seq_along(cliques)))
+)
+for (k in seq_along(cliques)) {
+  K[cliques[[k]], k] <- 1
+}
+K
+```
+
+Each membership is divided by the number of categories of the person, so that
+every person counts once. The composition of the alters of each person gives
+how many of them, fractionally, belong to each clique, and the heterogeneity
+summarises it:
+
+```{r composition}
+round(alter_composition(A, K), 2)
+round(alter_heterogeneity(A, K), 2)
+```
+
+The E-I index and Yule's Q with overlapping categories:
+
+```{r homophily}
+round(cbind(
+  ei = alter_homophily(A, K),
+  yule = alter_homophily(A, K, method = "yule")
+), 2)
+```
+
+The brokerage roles of Gould and Fernandez (1989) become fractional, as each
+broker, sender and receiver might share several categories:
+
+```{r brokerage}
+round(brokerage_roles(A, K), 2)
+```
+
+Betweenness can be split by the category of the people who need the brokers
+to reach the others. The column sums give how much the members of each clique
+depend on people in between (Everett and Borgatti, 2026: Table 6). The clique
+of Brazey, Lee, Steve and Bert (`C2`) depends on them the most:
+
+```{r partition}
+round(colSums(partition_centrality(A, K)), 1)
+```
+
+Finally, two alters of the same category might give access to the same
+information even when they are not tied. `structural_holes()` adds a tie of
+strength `beta` between them. With gender as the category, the effective size
+falls most for Pam, Gery and Pat, whose alters are of the same gender but not
+tied to each other:
+
+```{r holes}
+holes <- data.frame(
+  gender = gender,
+  original = structural_holes(A)$effective_size,
+  same_gender = structural_holes(A, gender, beta = 0.5)$effective_size,
+  row.names = rownames(A)
+)
+round(holes, 2)
+```
+
+-----
+
+## Q-analysis
+
+The Q-analysis of Atkin (1974) describes a network through its maximal cliques
+(simplices) and how they share nodes. Two cliques are *q*-connected when a
+chain of cliques joins them, each sharing at least *q* + 1 nodes with the next.
+Freeman (1980) used it to study the structure of friendship networks.
+
+```{r q_analysis}
+q <- q_analysis(U)
+q$q_table
+q$components$q1
+```
+
+At *q* = 0 the whole network is connected, at *q* = 1 the cliques of the
+instructors join those of Brazey and Lee, and at *q* = 3 only the three cliques
+of four people remain. The eccentricity measures how much a clique stands apart
+from the rest:
+
+```{r eccentricity}
+q$eccentricity
+```
+
+-----
+
+## Citation networks
+
+A small corpus of 13 papers written by six authors, where `cites[p, q] = 1`
+when paper `p` cites paper `q` (the network of Kuan, 2020: Fig. 2):
+
+```{r corpus}
+papers <- paste0("p", 1:13)
+references <- list(
+  p4 = c("p1", "p2", "p3"), p5 = "p4", p6 = "p4", p7 = "p5",
+  p8 = c("p6", "p7"), p9 = "p7", p10 = "p7", p11 = "p7", p12 = "p8", p13 = "p8"
+)
+cites <- matrix(0, 13, 13, dimnames = list(papers, papers))
+for (p in names(references)) {
+  cites[p, references[[p]]] <- 1
+}
+
+authors <- list(
+  p1 = "Ada", p2 = "Bo", p3 = c("Ada", "Cy"), p4 = c("Ada", "Bo"), p5 = "Cy",
+  p6 = c("Bo", "Di"), p7 = c("Cy", "Ed"), p8 = "Di", p9 = "Ed", p10 = c("Ed", "Flo"),
+  p11 = "Flo", p12 = c("Di", "Flo"), p13 = c("Ada", "Di")
+)
+X <- matrix(0, 6, 13, dimnames = list(c("Ada", "Bo", "Cy", "Di", "Ed", "Flo"), papers))
+for (p in names(authors)) {
+  X[authors[[p]], p] <- 1
+}
+```
+
+### Main path analysis
+
+Main path analysis follows the flow of knowledge, from the cited paper to the
+citing one (Hummon and Doreian, 1989), so it uses the transpose of `cites`.
+The traversal weights count how many paths between the first and the last
+papers go through each citation:
+
+```{r spc}
+flow <- t(cites)
+dag_check(flow)$is_dag
+
+spc <- traversal_weights(flow, method = "spc")
+matrix_to_edgelist(spc$edge_weights, digraph = TRUE, valued = TRUE)
+```
+
+The global main path is the route with the largest total weight, and the
+key-route search starts from the arcs with the largest weights (Liu and Lu,
+2012):
+
+```{r main_path}
+main_path(flow, method = "global")$routes
+main_path(flow, method = "key_route", k = 2)$routes
+```
+
+The weights SPLC and SPNP (`method = "splc"`, `"spnp"`) and the diagnostics of
+`main_path_diag()` follow Liu et al. (2019) and Kuan (2020).
+
+### Fractional counting
+
+When the citations between papers are aggregated to citations between
+authors, full counting gives each coauthor of a paper the whole citation, so
+the total grows with the size of the teams. Fractional counting divides each
+citation among the authors, and the total remains the number of citations
+(Batagelj, 2020):
+
+```{r fractional}
+fractional_approach(cites, t(X), fractional = FALSE)
+round(fractional_approach(cites, t(X)), 2)
+sum(fractional_approach(cites, t(X)))
+sum(cites)
+```
+
+The fractional bibliographic coupling of two papers is not symmetric, and it can
+be made symmetric with one of six measures (here the geometric mean, that is,
+Salton's cosine):
+
+```{r coupling}
+coupling <- fractional_approach(cites, approach = "bcoupling", symmetric = "geometric")
+round(coupling[c("p8", "p9", "p10"), c("p8", "p9", "p10")], 2)
+```
+
+### Dominance among authors
+
+The hyper-event dominance (Espinosa-Rada, 2026) compares authors through the
+chain author, citing paper, cited paper, cited author, in three dimensions:
+the papers written, the papers cited and the authors cited. An author
+dominates another when the neighbourhood of the second is included in that of
+the first in at least `tau` dimensions:
+
+```{r hyperevent}
+H <- hyperevent_dominance(X, cites, tau = 2) # H[u, v] = 1 when u is dominated by v
+H
+dominance_layers(H)$status
+```
+
+Ada dominates Bo and Di dominates Flo, while Cy and Ed are not comparable with
+anyone.
+
+-----
+
+## Multilevel and multiplex networks
+
+The vignette *Multilayer networks* shows the functions for networks with
+several levels or several relations: the meta-matrix, the degree and *k*-core
+of multilevel networks, the mixed triad census of a network and a two-mode
+network, and the triad census of a directed and an undirected relation among
+the same people (Espinosa-Rada et al., 2024).
+
+-----
+
+## References
+
+Atkin, R. H. (1974). *Mathematical Structure in Human Affairs*. Crane, Russak.
+
+Batagelj, V. (2020). On fractional approach to analysis of linked networks. *Scientometrics*, 123(2), 621–633. <https://doi.org/10.1007/s11192-020-03383-y>
+
+Borgatti, S. P., Everett, M. G. and Johnson, J. C. (2018). *Analyzing Social Networks*. Second edition. SAGE.
+
+Espinosa-Rada, A. (2026). Network positions within scholars and intellectual networks. *Journal of Informetrics*, 20(3), 101854. <https://doi.org/10.1016/j.joi.2026.101854>
+
+Espinosa-Rada, A., Bellotti, E., Everett, M. and Stadtfeld, C. (2024). Co-evolution of a socio-cognitive scientific network: A case study of citation dynamics among astronomers. *Social Networks*, 78, 92–108. <https://doi.org/10.1016/j.socnet.2023.11.008>
+
+Everett, M. G. and Borgatti, S. P. (2026). Alter composition with overlapping group memberships. *Social Networks*, 85, 80–88. <https://doi.org/10.1016/j.socnet.2025.12.001>
+
+Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. *International Journal of Man-Machine Studies*, 12(4), 367–378. <https://doi.org/10.1016/S0020-7373(80)80021-6>
+
+Gould, R. V. and Fernandez, R. M. (1989). Structures of mediation: A formal approach to brokerage in transaction networks. *Sociological Methodology*, 19, 89–126. <https://doi.org/10.2307/270949>
+
+Hummon, N. P. and Doreian, P. (1989). Connectivity in a citation network: The development of DNA theory. *Social Networks*, 11(1), 39–63. <https://doi.org/10.1016/0378-8733(89)90017-8>
+
+Kuan, C. H. (2020). Regarding weight assignment algorithms of main path analysis and the conversion of arc weights to node weights. *Scientometrics*, 124(1), 775–782. <https://doi.org/10.1007/s11192-020-03468-8>
+
+Liu, J. S. and Lu, L. Y. Y. (2012). An integrated approach for main path analysis: Development of the Hirsch index as an example. *Journal of the American Society for Information Science and Technology*, 63(3), 528–542. <https://doi.org/10.1002/asi.21692>
+
+Liu, J. S., Lu, L. Y. Y. and Ho, M. H. C. (2019). A few notes on main path analysis. *Scientometrics*, 119(1), 379–391. <https://doi.org/10.1007/s11192-019-03034-x>
+
+Marmulla, G. and Brandes, U. (2026). Centrality in directed networks. *Social Networks*, 86, 23–34. <https://doi.org/10.1016/j.socnet.2026.01.001>
+
+Schoch, D. and Brandes, U. (2016). Re-conceptualizing centrality in social networks. *European Journal of Applied Mathematics*, 27(6), 971–985. <https://doi.org/10.1017/S0956792516000401>

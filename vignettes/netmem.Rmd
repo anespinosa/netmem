@@ -1,0 +1,253 @@
+---
+title: "Getting started with netmem"
+author: "Alejandro Espinosa-Rada"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with netmem}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`netmem` (*Network Measures using Matrices*) computes social network measures
+with matrix algebra. A network is a matrix, and every function takes and returns
+matrices, vectors or data frames, so the results can be combined with the rest
+of `R` without converting between classes of objects. The package imports only
+`Matrix` and `stats`.
+
+This vignette shows the standard tools of social network analysis with a single
+network. The vignette *What netmem adds* covers the measures that are not
+available elsewhere, and the vignette *Multilayer networks* covers two-mode,
+multilevel and multiplex networks.
+
+```{r inst, eval = FALSE}
+install.packages("netmem")
+```
+
+```{r setup}
+library(netmem)
+```
+
+-----
+
+## The data
+
+The Campnet data were collected among the 18 people of a three-week course, 14
+participants and 4 instructors (Borgatti et al., 2018). At the end of the second
+week, each person ranked the others by how much they had interacted with them.
+`campnet$network[i, j]` is one when `j` is among the three people with whom `i`
+interacted most.
+
+```{r data}
+data(campnet)
+A <- campnet$network
+gender <- campnet$attributes$gender # 1 = woman, 2 = man
+role <- campnet$attributes$role # 1 = participant, 2 = instructor
+
+matrix_report(A)
+```
+
+Some measures are defined for undirected networks. The underlying graph keeps a
+tie between two people when either of them chose the other:
+
+```{r underlying}
+U <- pmax(A, t(A))
+```
+
+-----
+
+## Describing the network
+
+Density, reciprocity and transitivity:
+
+```{r describe}
+gen_density(A)
+recip_coef(A)
+trans_coef(A)
+geo_summary(A)
+```
+
+Each person chose three others, so the density is fixed by the design. What
+the choices reveal is their arrangement: most of them are reciprocated. The
+dyad and triad censuses show this arrangement in detail. `triad_uman()` compares
+each type of triad with its expectation given the number of mutual, asymmetric
+and null dyads (Holland and Leinhardt, 1976):
+
+```{r census}
+dyadic_census(A)
+triad_uman(A)
+```
+
+The complete triads (`300`) and the triads with two mutual ties (`210`) are
+more frequent than expected, and the open triads with two mutual ties (`201`)
+less frequent: reciprocated ties tend to close.
+
+A network can be moved between a matrix and an edge list:
+
+```{r edgelist}
+E <- matrix_to_edgelist(A, digraph = TRUE)
+head(E)
+identical(edgelist_to_matrix(E, label = rownames(A)), A)
+```
+
+-----
+
+## Centrality
+
+The functions for centrality return a named vector, so several indices can be
+gathered in a data frame. The closeness is harmonic because not every person
+can be reached from every other:
+
+```{r centrality}
+centrality <- data.frame(
+  indegree = gen_degree(A, type = "in"),
+  closeness = closeness_centrality(A, type = "in", harmonic = TRUE),
+  betweenness = betweenness_centrality(A),
+  eigenvector = eigenvector_centrality(A)$vector,
+  pagerank = page_rank_centrality(A)
+)
+round(centrality, 2)
+```
+
+In a directed network, the eigenvector centrality is zero for the people who
+are not reached by the chains of choices that start in the group with the
+largest eigenvalue (Bonacich and Lloyd, 2001), here eight people, among them
+the four instructors. PageRank
+avoids this with its damping factor, which lets every person receive a small
+share of the status.
+
+The centralization of Freeman (1978) compares the network with a star of the
+same size:
+
+```{r centralization}
+centrality_centralization(A, measure = "degree", digraph = TRUE, type = "in")$centralization
+centrality_centralization(A, measure = "betweenness", digraph = TRUE)$centralization
+```
+
+-----
+
+## Cohesive subgroups and communities
+
+```{r cohesion}
+components_id(A, mode = "weak")$size
+k_core(U)
+clique_max(U, min = 3)
+```
+
+The Leiden algorithm (Traag et al., 2019) finds three communities. One has six
+of the eight women, another has Holly with four men who were participants, and
+the third gathers the four instructors with three participants:
+
+```{r communities}
+set.seed(18)
+communities <- leiden(U)
+communities$modularity
+table(community = communities$partition, gender = gender)
+table(community = communities$partition, role = role)
+```
+
+-----
+
+## Homophily and positions
+
+The mixing matrix counts the choices between the categories, and the E-I index
+of Krackhardt and Stern (1988) summarises them, from -1 (every tie within the
+categories) to 1 (every tie between them):
+
+```{r homophily}
+mix_matrix(A, gender)
+ei_index(A, att = gender)
+block_density(A, gender)
+```
+
+The core-periphery model of Borgatti and Everett (2000):
+
+```{r core}
+set.seed(18)
+core_periphery(U)[c("core", "periphery")]
+```
+
+-----
+
+## Structural holes
+
+Effective size, efficiency and constraint of Burt (1992) for every person. The
+ties are used in both directions, as in Burt (1992):
+
+```{r holes}
+round(structural_holes(A), 2)
+```
+
+The constraint of an ego can be split into its three terms and normalized
+between the minimum and the maximum that an ego with the same number of alters
+can have (Everett and Borgatti, 2020):
+
+```{r constraint}
+eb_constraint(A, ego = "HOLLY", digraph = TRUE)
+```
+
+-----
+
+## Statistical tests
+
+Is the network more transitive than a random network with the same number of
+ties? The conditional uniform graph test compares the observed value with the
+values of random networks:
+
+```{r cug}
+set.seed(18)
+transitivity <- cug_test(A, trans_coef, cmode = "edges", reps = 500)
+transitivity[c("observed", "mean", "p_greater")]
+```
+
+The quadratic assignment procedure (Krackhardt, 1988) keeps the structure of
+the networks and permutes the labels of the nodes. Do people who share a
+gender choose each other?
+
+```{r qap}
+same_gender <- outer(gender, gender, "==") * 1
+dimnames(same_gender) <- dimnames(A)
+
+set.seed(18)
+homophily <- qap_cor(A, same_gender, reps = 500)
+homophily[c("correlation", "p_greater")]
+```
+
+-----
+
+## How the results are checked
+
+Each function is compared with another implementation (`igraph`, `sna`,
+`netseg`, `netrankr`, `signnet`) or with the tables of the publication that
+defines it. The comparisons are kept in the folder `dev/validation` of the
+[GitHub repository](https://github.com/anespinosa/netmem).
+
+-----
+
+## References
+
+Bonacich, P. and Lloyd, P. (2001). Eigenvector-like measures of centrality for asymmetric relations. *Social Networks*, 23(3), 191–201. <https://doi.org/10.1016/S0378-8733(01)00038-7>
+
+Borgatti, S. P. and Everett, M. G. (2000). Models of core/periphery structures. *Social Networks*, 21(4), 375–395. <https://doi.org/10.1016/S0378-8733(99)00019-2>
+
+Borgatti, S. P., Everett, M. G. and Johnson, J. C. (2018). *Analyzing Social Networks*. Second edition. SAGE.
+
+Burt, R. S. (1992). *Structural Holes: The Social Structure of Competition*. Harvard University Press.
+
+Everett, M. G. and Borgatti, S. P. (2020). Unpacking Burt's constraint measure. *Social Networks*, 62, 50–57. <https://doi.org/10.1016/j.socnet.2020.02.001>
+
+Freeman, L. C. (1978). Centrality in social networks conceptual clarification. *Social Networks*, 1(3), 215–239. <https://doi.org/10.1016/0378-8733(78)90021-7>
+
+Holland, P. W. and Leinhardt, S. (1976). Local structure in social networks. *Sociological Methodology*, 7, 1–45. <https://doi.org/10.2307/270703>
+
+Krackhardt, D. (1988). Predicting with networks: Nonparametric multiple regression analysis of dyadic data. *Social Networks*, 10(4), 359–381. <https://doi.org/10.1016/0378-8733(88)90004-4>
+
+Krackhardt, D. and Stern, R. N. (1988). Informal networks and organizational crises: An experimental simulation. *Social Psychology Quarterly*, 51(2), 123–140. <https://doi.org/10.2307/2786835>
+
+Traag, V. A., Waltman, L. and van Eck, N. J. (2019). From Louvain to Leiden: guaranteeing well-connected communities. *Scientific Reports*, 9, 5233. <https://doi.org/10.1038/s41598-019-41695-z>
