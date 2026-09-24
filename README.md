@@ -43,12 +43,15 @@ complex multilayer networks, from an ego-centric perspective,
 considering one-mode networks, valued ties (i.e. *weighted* or
 *multiplex*) or with multiple levels.
 
-To learn more, see the vignettes [Getting started with
-netmem](https://anespinosa.github.io/netmem/articles/netmem.html), [What
-netmem
-adds](https://anespinosa.github.io/netmem/articles/distinctive.html) and
-[Multilayer
-networks](https://anespinosa.github.io/netmem/articles/multilayer.html).
+The package comes with three vignettes, listed in the
+[articles](https://anespinosa.github.io/netmem/articles/) of the website
+and available from `R` once netmem is installed:
+
+``` r
+vignette("netmem") # Getting started with netmem
+vignette("distinctive") # What netmem adds
+vignette("multilayer") # Multilayer networks
+```
 
 ## Citation
 
