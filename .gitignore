@@ -13,8 +13,6 @@ dev/audit/*_results.csv
 # Private working notes
 dev/issue_comments.md
 dev/netmem_diagnostic.md
-# Notes for the CRAN submission
-cran-comments.md
 # Files created when checking and submitting to CRAN
 *.Rcheck/
 netmem_*.tar.gz

@@ -11,6 +11,7 @@ functions were checked.
 | `audit/` | The three scripts of the audit (stress, inventory, documentation) and `audit.md`, which records the bugs found, the decisions taken and the comparison with the multilayer benchmark |
 | `submission/` | The tarball built for CRAN. It is ignored by git, and rebuilt for each submission |
 | `algorithms.R` | The insertion sort of the teaching material, moved out of the package because nothing used it |
+| `cran-comments.md` | What is sent to CRAN with each submission: the environments where the package was checked and why each note is not a problem |
 
 `issue_comments.md` (drafts of the answers to the GitHub issues) and
 `netmem_diagnostic.md` (the comparison with sna and igraph) are ignored by git
@@ -77,8 +78,10 @@ Rscript dev/audit/03_documentation.R  # the documentation and the DOIs
    email, and the macOS builder needs the address given explicitly on this
    network (see the note in `dev/submission`, or use
    `curl --resolve mac.r-project.org:443:169.60.149.197 -F "pkgfile=@netmem_1.1-0.tar.gz" https://mac.r-project.org/macbuilder/v1/submit`).
-5. Write `cran-comments.md` (ignored by git) with the environments, the notes
-   and why each one is not a problem.
+5. Update `dev/cran-comments.md` with the environments, the notes and why each
+   one is not a problem. It lives here and not in the root of the package, so
+   `devtools::submit_cran()` does not find it; the submission is done through
+   the form.
 6. Submit the tarball at <https://cran.r-project.org/submit.html>, with your
    name and the maintainer address. CRAN sends a confirmation email that has to
    be answered.
