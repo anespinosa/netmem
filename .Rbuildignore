@@ -29,3 +29,4 @@
 ^README\.html$
 ^netmem_.*\.pdf$
 ^figure$
+^\.lintr$
