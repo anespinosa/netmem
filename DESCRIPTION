@@ -26,15 +26,17 @@ Description: Provides measures to describe and manipulate one-mode, two-mode,
     structural holes, roles and positions, similarity measures, path distances,
     signed networks, segregation, social influence, and random network
     generation. Supports ego-centric and whole-network analyses, including
-    dyadic and triadic census, structural balance, bipartite projections,
+    dyadic and triadic censuses, structural balance, bipartite projections,
+    measures with overlapping group memberships, Q-analysis,
     neighbourhood-inclusion dominance, main path analysis of citation networks,
     and permutation tests for networks.
     Key references: Bonacich (1972) <doi:10.1080/0022250X.1972.9989806>,
     Breiger (1974) <doi:10.2307/2576011>,
-    Kivelä et al. (2014) <doi:10.1093/comnet/cnu016>,
+    Kivela et al. (2014) <doi:10.1093/comnet/cnu016>,
     Espinosa-Rada et al. (2024) <doi:10.1016/j.socnet.2023.11.008>,
     Schoch and Brandes (2016) <doi:10.1017/S0956792516000401>,
-    Traag et al. (2019) <doi:10.1038/s41598-019-41695-z>.
+    Traag et al. (2019) <doi:10.1038/s41598-019-41695-z>,
+    Everett and Borgatti (2026) <doi:10.1016/j.socnet.2025.12.001>.
 License: GPL-3
 Encoding: UTF-8
 Language: en-US
