@@ -11,8 +11,6 @@
 #' @examples
 #' A <- c(5, 2, 4, 6, 1, 3)
 #' insertion_sort(A, length(A))
-#' @export
-
 insertion_sort <- function(A, n){
   for (i in 2:n){
     key = A[i] # next position of the for loop
