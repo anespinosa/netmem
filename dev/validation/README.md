@@ -2,8 +2,9 @@
 
 Every function added to netmem is compared here with an implementation that
 already existed, or with a result that can be derived by hand. The scripts are
-not part of the package: they are run by hand, and `dev/` is in `.Rbuildignore`
-and in `.git/info/exclude`.
+not part of the package: they are run by hand, and `dev/` is in
+`.Rbuildignore`, so it is in the repository but never in the tarball. See
+`dev/README.md` for the map of the folder.
 
 Run them all with:
 
