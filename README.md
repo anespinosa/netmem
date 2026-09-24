@@ -101,17 +101,22 @@ Utilities:
 
 15. `meta_matrix()`: Meta matrix for multilevel networks
 
-16. `minmax_overlap()`: Minimum/maximum overlap
+16. `supra_adjacency()`: Supra-adjacency matrix of the layers of a
+    multiplex network
 
-17. `mix_matrix()`: Mixing matrix
+17. `aggregate_layers()`: Aggregation of the layers into a single matrix
 
-18. `simplicial_complexes()`: Simplicial complexes
+18. `minmax_overlap()`: Minimum/maximum overlap
 
-19. `structural_na()`: Structural missing data
+19. `mix_matrix()`: Mixing matrix
 
-20. `ego_net()`: Ego network
+20. `simplicial_complexes()`: Simplicial complexes
 
-21. `zone_sample()`: Zone-2 sampling from second-mode
+21. `structural_na()`: Structural missing data
+
+22. `ego_net()`: Ego network
+
+23. `zone_sample()`: Zone-2 sampling from second-mode
 
 Ego and personal networks:
 

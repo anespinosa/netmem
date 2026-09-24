@@ -110,6 +110,10 @@ Utilities:
 
 15. `meta_matrix()`: Meta matrix for multilevel networks
 
+16. `supra_adjacency()`: Supra-adjacency matrix of the layers of a multiplex network
+
+17. `aggregate_layers()`: Aggregation of the layers into a single matrix
+
 16. `minmax_overlap()`: Minimum/maximum overlap
 
 17. `mix_matrix()`: Mixing matrix

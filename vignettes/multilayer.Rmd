@@ -395,6 +395,45 @@ merged:
 length(multiplex_census(advice, friends, merge = "overlap"))
 ```
 
+### The layers in a single matrix
+
+The layers of a multiplex network can be arranged in a supra-adjacency matrix,
+with one row and one column for each actor in each layer ([De Domenico et al.,
+2013](https://doi.org/10.1103/PhysRevX.3.041022); [Kivelä et al.,
+2014](https://doi.org/10.1093/comnet/cnu016)). The blocks of the diagonal are
+the layers, and the blocks outside it join the copies of the same actor:
+
+```{r supra}
+layers <- list(
+  cowork = lazega_lawfirm$cowork,
+  advice = lazega_lawfirm$advice,
+  friends = lazega_lawfirm$friends
+)
+S <- supra_adjacency(layers)
+dim(S)
+S[1:4, c(1:2, 72:73, 143:144)]
+```
+
+The coupling can join every pair of layers (`categorical`, the default), only
+the layers that follow each other (`ordinal`, for layers ordered in time), or
+nothing (`none`).
+
+The other way of putting the layers together is to aggregate them, so a tie
+counts the layers in which two people are connected ([Battiston et al.,
+2014](https://doi.org/10.1103/PhysRevE.89.032804)):
+
+```{r aggregate}
+A <- aggregate_layers(layers)
+table(layers_with_a_tie = A[upper.tri(A)])
+gen_density(aggregate_layers(layers, method = "binary"), directed = TRUE)
+```
+
+Aggregating is convenient, but it loses which layer each tie belongs to, and
+the measures of the aggregated network can differ from those of the layers
+([De Domenico et al., 2015](https://doi.org/10.1038/ncomms7864)).
+
+-----
+
 Note: the temporal networks are a special case of a multiplex network. Links are
 dynamic, and nodes can join or leave at different stages of the network
 evolution. For example, in this `toy example`, maybe two authors are no longer
@@ -420,6 +459,8 @@ structural_na(A, label)
 
 ## References
 
+Battiston, F., Nicosia, V. and Latora, V. (2014). Structural measures for multiplex networks. *Physical Review E*, 89(3), 032804. <https://doi.org/10.1103/PhysRevE.89.032804>
+
 Bonacich, P. (1972). Factoring and weighting approaches to status scores and clique identification. *Journal of Mathematical Sociology*, 2(1), 113–120. <https://doi.org/10.1080/0022250X.1972.9989806>
 
 Borgatti, S. P., & Halgin, D. S. (2011). Analyzing affiliation networks. In J. Scott & P. J. Carrington (Eds.), *The Sage Handbook of Social Network Analysis* (pp. 417–433). Sage.
@@ -427,6 +468,10 @@ Borgatti, S. P., & Halgin, D. S. (2011). Analyzing affiliation networks. In J. S
 Breiger, R. L. (1974). The duality of persons and groups. *Social Forces*, 53(2), 181–190. <https://doi.org/10.2307/2576011>
 
 Carley, K. M. (2002). Smart agents and organizations of the future. In L. Lievrouw & S. Livingstone (Eds.), *The Handbook of New Media* (pp. 206–220). Sage.
+
+De Domenico, M., Solé-Ribalta, A., Cozzo, E., Kivelä, M., Moreno, Y., Porter, M. A., Gómez, S. and Arenas, A. (2013). Mathematical formulation of multilayer networks. *Physical Review X*, 3(4), 041022. <https://doi.org/10.1103/PhysRevX.3.041022>
+
+De Domenico, M., Nicosia, V., Arenas, A. and Latora, V. (2015). Structural reducibility of multilayer networks. *Nature Communications*, 6, 6864. <https://doi.org/10.1038/ncomms7864>
 
 Espinosa-Rada, A. (2021). *A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks*. PhD thesis, The University of Manchester.
 

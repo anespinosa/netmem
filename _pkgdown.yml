@@ -26,10 +26,12 @@ reference:
   - ego_net
   - zone_sample
 
-- title: Multilevel networks
-  desc: Matrices of several levels analysed together
+- title: Multilevel and multiplex networks
+  desc: Matrices of several levels or several relations analysed together
   contents:
   - meta_matrix
+  - supra_adjacency
+  - aggregate_layers
   - mixed_census
   - multiplex_census
   - k_core
