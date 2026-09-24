@@ -13,7 +13,8 @@ ind_rand_matrix(
   l = NULL,
   p = NULL,
   trials = 1,
-  multilevel = FALSE
+  multilevel = FALSE,
+  sparse = FALSE
 )
 }
 \arguments{
@@ -34,9 +35,11 @@ ind_rand_matrix(
 \item{trials}{Whether to add counting numbers to the \code{probability} (a.k.a. G(n,p)) model}
 
 \item{multilevel}{Whether to return a meta-matrix to represent a multilevel network}
+
+\item{sparse}{Whether to return a sparse matrix of the \code{Matrix} package, which is built without the dense matrix}
 }
 \value{
-This function return the counts of the dyad census.
+This function returns a random matrix, or a list of matrices for a multilevel network.
 }
 \description{
 The function creates random matrices following a uniform probability over the space of networks having exactly m fixed number of edges (Moreno and Jennings, 1938; Rapoport, 1948; Solomonoff and Rapoport, 1951; Erdos and Renyi, 1959) or following a probability of the formation of the ties (Gilbert, 1959) assuming ties independency.
@@ -47,6 +50,12 @@ The fixed model is often called the G(n,m) graph with 'n' nodes and 'm' edges, a
 The probability model is known as the G(n,p) graph, in which the matrix has 'n' nodes, and for each tie, the probability that it is present in the matrix is 'p'.
 
 These are the simplest models that follow a conditional uniform distribution that place nonnull probability on a subset of networks with distinctive characteristics corresponding to the observed networks - for example, simulating a matrix based on the number of ties observed in the network.
+
+
+With \code{sparse = TRUE} the ties are drawn among the cells that the model allows, and only they are stored, so the
+memory grows with the number of ties and not with the square of the number of nodes. The two models are the same
+as with a dense matrix: the number of ties of \code{G(n,p)} is binomial, which is what drawing every tie
+independently gives. It is available for one-mode and two-mode networks with \code{trials = 1}.
 }
 \examples{
 
@@ -54,6 +63,9 @@ set.seed(18051889)
 ind_rand_matrix(5, type = "edges", l = 3, digraph = TRUE, loops = TRUE)
 ind_rand_matrix(5, type = "probability")
 ind_rand_matrix(n = 5, m = 2, p = 0.20, type = "probability", multilevel = TRUE)
+
+# Large networks are cheaper as sparse matrices
+dim(ind_rand_matrix(10000, type = "edges", l = 5000, digraph = FALSE, sparse = TRUE))
 }
 \references{
 Erdos, P. and Renyi, A. (1959). On random graphs. Publicationes Mathematicae 6, 290–297.

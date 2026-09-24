@@ -17,8 +17,15 @@
 #' @param p  The probability of the ties expected for the \code{probability} (a.k.a. G(n,p)) model. If no parameter `p` is specified, a uniform distribution is considered (p=0.5).
 #' @param trials  Whether to add counting numbers to the \code{probability} (a.k.a. G(n,p)) model
 #' @param multilevel Whether to return a meta-matrix to represent a multilevel network
+#' @param sparse Whether to return a sparse matrix of the \code{Matrix} package, which is built without the dense matrix
 #'
-#' @return This function return the counts of the dyad census.
+#' @details
+#' With \code{sparse = TRUE} the ties are drawn among the cells that the model allows, and only they are stored, so the
+#' memory grows with the number of ties and not with the square of the number of nodes. The two models are the same
+#' as with a dense matrix: the number of ties of \code{G(n,p)} is binomial, which is what drawing every tie
+#' independently gives. It is available for one-mode and two-mode networks with \code{trials = 1}.
+#'
+#' @return This function returns a random matrix, or a list of matrices for a multilevel network.
 #'
 #' @references
 #'
@@ -40,14 +47,19 @@
 #' ind_rand_matrix(5, type = "edges", l = 3, digraph = TRUE, loops = TRUE)
 #' ind_rand_matrix(5, type = "probability")
 #' ind_rand_matrix(n = 5, m = 2, p = 0.20, type = "probability", multilevel = TRUE)
+#'
+#' # Large networks are cheaper as sparse matrices
+#' dim(ind_rand_matrix(10000, type = "edges", l = 5000, digraph = FALSE, sparse = TRUE))
 #' @importFrom stats rbinom
+#' @importFrom Matrix sparseMatrix
 #'
 #' @export
 
 ind_rand_matrix <- function(n, m = NULL,
                             type = c("edges", "probability"),
                             digraph = TRUE, loops = FALSE,
-                            l = NULL, p = NULL, trials = 1, multilevel = FALSE) {
+                            l = NULL, p = NULL, trials = 1, multilevel = FALSE,
+                            sparse = FALSE) {
   type <- switch(graph_type(type),
     "edges" = 1,
     "probability" = 2
@@ -67,6 +79,16 @@ ind_rand_matrix <- function(n, m = NULL,
     if (is.null(p)) {
       p <- 0.5
     }
+  }
+
+  if (sparse) {
+    if (multilevel) stop("The sparse matrix is not available for multilevel networks")
+    if (trials > 1) stop("The sparse matrix is available for binary ties, with trials = 1")
+    if (type == 1 && is.null(l)) stop("The number of fixed ties is not specified")
+    return(sparse_rand_matrix(
+      n = n, m = m, type = type, digraph = digraph,
+      loops = loops, l = l, p = p
+    ))
   }
 
   if (!is.null(m)) {
@@ -348,4 +370,78 @@ fixed_ties <- function(eligible, l) {
   M <- matrix(0, nrow(eligible), ncol(eligible))
   M[sample(which(eligible), l)] <- 1
   return(M)
+}
+
+# Cells drawn uniformly among the ones that the model allows, without building
+# the matrix. With a fixed number of ties they are a sample of that size, and
+# with a probability the number of ties is binomial, which is the same as
+# drawing every cell independently
+sampled_cells <- function(total, type, l, p) {
+  if (type == 1) {
+    if (l > total) {
+      stop("The number of ties is larger than the number of cells of the matrix")
+    }
+    k <- l
+  } else {
+    k <- stats::rbinom(1, total, p)
+  }
+  sample.int(total, k)
+}
+
+# Row and column of the k-th cell of a matrix, counting the cells by columns,
+# as `which()` does. Every family of cells has its own arithmetic, so that the
+# logical matrix of the dense version is never created
+cells_full <- function(k, nrow) {
+  list(i = ((k - 1) %% nrow) + 1, j = ((k - 1) %/% nrow) + 1)
+}
+
+cells_nodiag <- function(k, n) {
+  j <- ceiling(k / (n - 1))
+  r <- k - (j - 1) * (n - 1)
+  list(i = r + (r >= j), j = j)
+}
+
+cells_upper <- function(k, loops) {
+  if (loops) {
+    # Column j holds the j cells with i <= j
+    j <- ceiling((sqrt(8 * k + 1) - 1) / 2)
+    j <- j + (k > j * (j + 1) / 2) - (k <= j * (j - 1) / 2) # The square root rounds
+    i <- k - j * (j - 1) / 2
+  } else {
+    # Column j holds the j - 1 cells with i < j
+    j <- ceiling((sqrt(8 * k + 1) + 1) / 2)
+    j <- j + (k > j * (j - 1) / 2) - (k <= (j - 1) * (j - 2) / 2)
+    i <- k - (j - 1) * (j - 2) / 2
+  }
+  list(i = i, j = j)
+}
+
+sparse_rand_matrix <- function(n, m, type, digraph, loops, l, p) {
+  if (!is.null(m)) {
+    # TWO-MODE: every cell can hold a tie
+    cells <- sampled_cells(n * m, type, l, p)
+    ij <- cells_full(cells, m)
+    return(Matrix::sparseMatrix(i = ij$i, j = ij$j, x = 1, dims = c(m, n)))
+  }
+
+  if (digraph) {
+    if (loops) {
+      ij <- cells_full(sampled_cells(n * n, type, l, p), n)
+    } else {
+      ij <- cells_nodiag(sampled_cells(n * (n - 1), type, l, p), n)
+    }
+    return(Matrix::sparseMatrix(i = ij$i, j = ij$j, x = 1, dims = c(n, n)))
+  }
+
+  # UNDIRECTED: the ties are drawn in one triangle and placed in both
+  if (loops) {
+    ij <- cells_upper(sampled_cells(n * (n + 1) / 2, type, l, p), loops = TRUE)
+  } else {
+    ij <- cells_upper(sampled_cells(n * (n - 1) / 2, type, l, p), loops = FALSE)
+  }
+  mirror <- ij$i != ij$j # A loop is a single cell
+  Matrix::sparseMatrix(
+    i = c(ij$i, ij$j[mirror]), j = c(ij$j, ij$i[mirror]), x = 1,
+    dims = c(n, n)
+  )
 }
