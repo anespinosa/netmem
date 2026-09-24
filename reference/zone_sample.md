@@ -29,7 +29,11 @@ zone_sample(A, X, ego = TRUE, core = FALSE)
 ## Value
 
 This function return a list of second-zone subgraphs using as a focal
-actor the second-mode of the multilevel network.
+actor the second-mode of the multilevel network. Each subgraph is the
+binary adjacency matrix of the meta-matrix of `A` and `X` restricted to
+the nodes of the zone, without loops. When `core = TRUE`, each matrix
+has an attribute `core`, a named vector that is one for the actors at
+distance one from the focal node and zero otherwise.
 
 ## References
 
@@ -45,6 +49,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A <- matrix(c(
   0, 1, 0, 0, 0, 0, 0, 0,
   0, 0, 1, 0, 0, 0, 0, 0,
@@ -74,30 +79,56 @@ rownames(X) <- c("1", "2", "3", "4", "5", "6", "7", "8")
 set.seed(18051889)
 zone_sample(A, X, core = TRUE)
 #> $a
-#> IGRAPH 57b283f DN-- 7 16 -- 
-#> + attr: name (v/c), core (v/n)
-#> + edges from 57b283f (vertex names):
-#>  [1] 1->2 1->a 2->3 2->a 3->2 3->4 3->a 3->c 4->b 4->c a->1 a->2 a->3 b->4 c->3
-#> [16] c->4
+#>   1 2 3 4 a b c
+#> 1 0 1 0 0 1 0 0
+#> 2 0 0 1 0 1 0 0
+#> 3 0 1 0 1 1 0 1
+#> 4 0 0 0 0 0 1 1
+#> a 1 1 1 0 0 0 0
+#> b 0 0 0 1 0 0 0
+#> c 0 0 1 1 0 0 0
+#> attr(,"core")
+#> 1 2 3 4 a b c 
+#> 1 1 1 0 0 0 0 
 #> 
 #> $b
-#> IGRAPH 5885878 DN-- 8 18 -- 
-#> + attr: name (v/c), core (v/n)
-#> + edges from 5885878 (vertex names):
-#>  [1] 3->4 3->a 3->c 4->b 4->c 5->b 5->c 5->d 6->4 6->b a->3 b->4 b->5 b->6 c->3
-#> [16] c->4 c->5 d->5
+#>   3 4 5 6 a b c d
+#> 3 0 1 0 0 1 0 1 0
+#> 4 0 0 0 0 0 1 1 0
+#> 5 0 0 0 0 0 1 1 1
+#> 6 0 1 0 0 0 1 0 0
+#> a 1 0 0 0 0 0 0 0
+#> b 0 1 1 1 0 0 0 0
+#> c 1 1 1 0 0 0 0 0
+#> d 0 0 1 0 0 0 0 0
+#> attr(,"core")
+#> 3 4 5 6 a b c d 
+#> 0 1 1 1 0 0 0 0 
 #> 
 #> $c
-#> IGRAPH c259829 DN-- 9 22 -- 
-#> + attr: name (v/c), core (v/n)
-#> + edges from c259829 (vertex names):
-#>  [1] 2->3 2->a 3->2 3->4 3->a 3->c 4->b 4->c 5->b 5->c 5->d 6->4 6->b a->2 a->3
-#> [16] b->4 b->5 b->6 c->3 c->4 c->5 d->5
+#>   2 3 4 5 6 a b c d
+#> 2 0 1 0 0 0 1 0 0 0
+#> 3 1 0 1 0 0 1 0 1 0
+#> 4 0 0 0 0 0 0 1 1 0
+#> 5 0 0 0 0 0 0 1 1 1
+#> 6 0 0 1 0 0 0 1 0 0
+#> a 1 1 0 0 0 0 0 0 0
+#> b 0 0 1 1 1 0 0 0 0
+#> c 0 1 1 1 0 0 0 0 0
+#> d 0 0 0 1 0 0 0 0 0
+#> attr(,"core")
+#> 2 3 4 5 6 a b c d 
+#> 0 1 1 1 0 0 0 0 0 
 #> 
 #> $d
-#> IGRAPH b0db5ad DN-- 5 8 -- 
-#> + attr: name (v/c), core (v/n)
-#> + edges from b0db5ad (vertex names):
-#> [1] 5->b 5->c 5->d 8->d b->5 c->5 d->5 d->8
+#>   5 8 b c d
+#> 5 0 0 1 1 1
+#> 8 0 0 0 0 1
+#> b 1 0 0 0 0
+#> c 1 0 0 0 0
+#> d 1 1 0 0 0
+#> attr(,"core")
+#> 5 8 b c d 
+#> 1 1 0 0 0 
 #> 
 ```

@@ -79,6 +79,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A3 <- matrix(c(
   0, 4, 4, 0, 0, 0,
   4, 0, 2, 1, 1, 0,

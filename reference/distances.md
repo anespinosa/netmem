@@ -94,7 +94,7 @@ colnames(A) <- letters[1:ncol(A)]
 count_geodesics(A)
 #> $counts
 #>      [,1] [,2] [,3] [,4] [,5] [,6]
-#> [1,]    1    1    1    1    1    1
+#> [1,]    1    1    1    1    2    2
 #> [2,]    0    1    0    1    1    1
 #> [3,]    0    0    1    0    1    1
 #> [4,]    0    0    0    1    0    0
@@ -166,28 +166,212 @@ colnames(A) <- rownames(A)
 wall_distances(A, select = "in")
 #> $fromTo
 #> $fromTo$a
+#> $fromTo$a$a
+#> [1] "a"
+#> 
+#> $fromTo$a$b
+#> [1] "a" "b"
+#> 
+#> $fromTo$a$s
+#> [1] "a" "s"
+#> 
+#> $fromTo$a$c
+#> [1] "a" "b" "c"
+#> 
+#> $fromTo$a$d
+#> [1] "a" "b" "c" "d"
+#> 
+#> $fromTo$a$e
+#> [1] "a" "b" "c" "e"
+#> 
+#> $fromTo$a$f
+#> [1] "a" "b" "c" "d" "f"
+#> 
+#> $fromTo$a$z
 #> [1] "a" "b" "c" "d" "f" "z"
 #> 
+#> 
 #> $fromTo$b
+#> $fromTo$b$a
+#> [1] "b" "a"
+#> 
+#> $fromTo$b$b
+#> [1] "b"
+#> 
+#> $fromTo$b$s
+#> [1] "b" "a" "s"
+#> 
+#> $fromTo$b$c
+#> [1] "b" "c"
+#> 
+#> $fromTo$b$d
+#> [1] "b" "c" "d"
+#> 
+#> $fromTo$b$e
+#> [1] "b" "c" "e"
+#> 
+#> $fromTo$b$f
+#> [1] "b" "c" "d" "f"
+#> 
+#> $fromTo$b$z
 #> [1] "b" "c" "d" "f" "z"
 #> 
+#> 
 #> $fromTo$s
+#> $fromTo$s$a
+#> [1] "s" "a"
+#> 
+#> $fromTo$s$b
+#> [1] "s" "b"
+#> 
+#> $fromTo$s$s
+#> [1] "s"
+#> 
+#> $fromTo$s$c
+#> [1] "s" "b" "c"
+#> 
+#> $fromTo$s$d
+#> [1] "s" "b" "c" "d"
+#> 
+#> $fromTo$s$e
+#> [1] "s" "b" "c" "e"
+#> 
+#> $fromTo$s$f
+#> [1] "s" "b" "c" "d" "f"
+#> 
+#> $fromTo$s$z
 #> [1] "s" "b" "c" "d" "f" "z"
 #> 
+#> 
 #> $fromTo$c
+#> $fromTo$c$a
+#> [1] "c" "b" "a"
+#> 
+#> $fromTo$c$b
+#> [1] "c" "b"
+#> 
+#> $fromTo$c$s
+#> [1] "c" "b" "a" "s"
+#> 
+#> $fromTo$c$c
+#> [1] "c"
+#> 
+#> $fromTo$c$d
+#> [1] "c" "d"
+#> 
+#> $fromTo$c$e
+#> [1] "c" "e"
+#> 
+#> $fromTo$c$f
+#> [1] "c" "d" "f"
+#> 
+#> $fromTo$c$z
 #> [1] "c" "d" "f" "z"
 #> 
+#> 
 #> $fromTo$d
+#> $fromTo$d$a
+#> [1] "d" "b" "a"
+#> 
+#> $fromTo$d$b
+#> [1] "d" "b"
+#> 
+#> $fromTo$d$s
+#> [1] "d" "b" "a" "s"
+#> 
+#> $fromTo$d$c
+#> [1] "d" "c"
+#> 
+#> $fromTo$d$d
+#> [1] "d"
+#> 
+#> $fromTo$d$e
+#> [1] "d" "f" "e"
+#> 
+#> $fromTo$d$f
+#> [1] "d" "f"
+#> 
+#> $fromTo$d$z
 #> [1] "d" "f" "z"
 #> 
+#> 
 #> $fromTo$e
+#> $fromTo$e$a
+#> [1] "e" "f" "d" "b" "a"
+#> 
+#> $fromTo$e$b
+#> [1] "e" "f" "d" "b"
+#> 
+#> $fromTo$e$s
+#> [1] "e" "f" "d" "b" "a" "s"
+#> 
+#> $fromTo$e$c
+#> [1] "e" "c"
+#> 
+#> $fromTo$e$d
+#> [1] "e" "f" "d"
+#> 
+#> $fromTo$e$e
+#> [1] "e"
+#> 
+#> $fromTo$e$f
+#> [1] "e" "f"
+#> 
+#> $fromTo$e$z
 #> [1] "e" "z"
 #> 
+#> 
 #> $fromTo$f
+#> $fromTo$f$a
+#> [1] "f" "d" "b" "a"
+#> 
+#> $fromTo$f$b
+#> [1] "f" "d" "b"
+#> 
+#> $fromTo$f$s
+#> [1] "f" "d" "b" "a" "s"
+#> 
+#> $fromTo$f$c
+#> [1] "f" "d" "c"
+#> 
+#> $fromTo$f$d
+#> [1] "f" "d"
+#> 
+#> $fromTo$f$e
+#> [1] "f" "e"
+#> 
+#> $fromTo$f$f
+#> [1] "f"
+#> 
+#> $fromTo$f$z
 #> [1] "f" "z"
 #> 
+#> 
 #> $fromTo$z
+#> $fromTo$z$a
+#> [1] "z" "f" "d" "b" "a"
+#> 
+#> $fromTo$z$b
+#> [1] "z" "f" "d" "b"
+#> 
+#> $fromTo$z$s
+#> [1] "z" "f" "d" "b" "a" "s"
+#> 
+#> $fromTo$z$c
+#> [1] "z" "f" "d" "c"
+#> 
+#> $fromTo$z$d
+#> [1] "z" "f" "d"
+#> 
+#> $fromTo$z$e
+#> [1] "z" "e"
+#> 
+#> $fromTo$z$f
+#> [1] "z" "f"
+#> 
+#> $fromTo$z$z
 #> [1] "z"
+#> 
 #> 
 #> 
 # }

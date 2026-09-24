@@ -57,6 +57,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 B1 <- matrix(c(
   1, 1, 0,
   0, 0, 1,

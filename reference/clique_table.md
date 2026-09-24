@@ -77,22 +77,28 @@ clique_table(A, list_cliques = TRUE, number = TRUE)
 #> 
 #> $neighbours
 #> $neighbours$a
-#> [1] "a" "b" "c"
+#>      [,1] [,2] [,3]
+#> [1,] "a"  "b"  "c" 
 #> 
 #> $neighbours$b
-#> [1] "a" "b" "c"
+#>      [,1] [,2] [,3]
+#> [1,] "a"  "b"  "c" 
 #> 
 #> $neighbours$c
-#> [1] "a" "b" "c"
+#>      [,1] [,2] [,3]
+#> [1,] "a"  "b"  "c" 
 #> 
 #> $neighbours$f
-#> [1] "f" "g" "h"
+#>      [,1] [,2] [,3]
+#> [1,] "f"  "g"  "h" 
 #> 
 #> $neighbours$g
-#> [1] "f" "g" "h"
+#>      [,1] [,2] [,3]
+#> [1,] "f"  "g"  "h" 
 #> 
 #> $neighbours$h
-#> [1] "f" "g" "h"
+#>      [,1] [,2] [,3]
+#> [1,] "f"  "g"  "h" 
 #> 
 #> 
 ```

@@ -12,12 +12,12 @@
 <link rel="icon" sizes="any" href="favicon.ico">
 <link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Social Network Measures using Matrices">
-<meta name="description" content="Provides measures to describe and manipulate one-mode, two-mode, multiplex, and multilevel networks using matrix algebra. Implements functions for network centrality, cohesive subgroups, structural holes, similarity measures, path distances, signed networks, and random network generation. Supports ego-centric and whole-network analyses, including dyadic and triadic census, structural balance, and bipartite projections. Key references: Bonacich (1972) &lt;doi:10.1080/0022250X.1972.9989806&gt;, Breiger (1974) &lt;doi:10.2307/2576011&gt;, Kivelä et al. (2014) &lt;doi:10.1093/comnet/cnu016&gt;, Espinosa-Rada et al. (2024) &lt;doi:10.1016/j.socnet.2023.11.008&gt;.">
-<meta property="og:description" content="Provides measures to describe and manipulate one-mode, two-mode, multiplex, and multilevel networks using matrix algebra. Implements functions for network centrality, cohesive subgroups, structural holes, similarity measures, path distances, signed networks, and random network generation. Supports ego-centric and whole-network analyses, including dyadic and triadic census, structural balance, and bipartite projections. Key references: Bonacich (1972) &lt;doi:10.1080/0022250X.1972.9989806&gt;, Breiger (1974) &lt;doi:10.2307/2576011&gt;, Kivelä et al. (2014) &lt;doi:10.1093/comnet/cnu016&gt;, Espinosa-Rada et al. (2024) &lt;doi:10.1016/j.socnet.2023.11.008&gt;.">
+<meta name="description" content="Provides measures to describe and manipulate one-mode, two-mode, multiplex, and multilevel networks using matrix algebra. Implements functions for network centrality, cohesive subgroups, communities, structural holes, roles and positions, similarity measures, path distances, signed networks, segregation, social influence, and random network generation. Supports ego-centric and whole-network analyses, including dyadic and triadic census, structural balance, bipartite projections, neighbourhood-inclusion dominance, main path analysis of citation networks, and permutation tests for networks. Key references: Bonacich (1972) &lt;doi:10.1080/0022250X.1972.9989806&gt;, Breiger (1974) &lt;doi:10.2307/2576011&gt;, Kivelä et al. (2014) &lt;doi:10.1093/comnet/cnu016&gt;, Espinosa-Rada et al. (2024) &lt;doi:10.1016/j.socnet.2023.11.008&gt;, Schoch and Brandes (2016) &lt;doi:10.1017/S0956792516000401&gt;, Traag et al. (2019) &lt;doi:10.1038/s41598-019-41695-z&gt;.">
+<meta property="og:description" content="Provides measures to describe and manipulate one-mode, two-mode, multiplex, and multilevel networks using matrix algebra. Implements functions for network centrality, cohesive subgroups, communities, structural holes, roles and positions, similarity measures, path distances, signed networks, segregation, social influence, and random network generation. Supports ego-centric and whole-network analyses, including dyadic and triadic census, structural balance, bipartite projections, neighbourhood-inclusion dominance, main path analysis of citation networks, and permutation tests for networks. Key references: Bonacich (1972) &lt;doi:10.1080/0022250X.1972.9989806&gt;, Breiger (1974) &lt;doi:10.2307/2576011&gt;, Kivelä et al. (2014) &lt;doi:10.1093/comnet/cnu016&gt;, Espinosa-Rada et al. (2024) &lt;doi:10.1016/j.socnet.2023.11.008&gt;, Schoch and Brandes (2016) &lt;doi:10.1017/S0956792516000401&gt;, Traag et al. (2019) &lt;doi:10.1038/s41598-019-41695-z&gt;.">
 <meta property="og:image" content="https://anespinosa.github.io/netmem/logo.png">
 </head>
 <body>
@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">netmem</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0-3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,13 +37,16 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/netmem.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/multilayer.html">multilayer</a></li>
+<li><a class="dropdown-item" href="articles/distinctive.html">What netmem adds</a></li>
+    <li><a class="dropdown-item" href="articles/multilayer.html">Multilayer networks</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -70,17 +73,22 @@
 <p>🏫 <a href="https://sn.ethz.ch" class="external-link">Before: Social Networks Lab, ETH Zürich</a></p>
 <p><a href="https://bsky.app/profile/aespinosarada.bsky.social" class="external-link"><img src="https://img.shields.io/badge/Follow-on%20Bluesky-00A8E8?logo=bluesky&amp;logoColor=white" alt="Follow on Bluesky"></a> <a href="https://x.com/aespinosarada" class="external-link"><img src="https://img.shields.io/badge/Follow-on%20X-000000?logo=x&amp;logoColor=white" alt="Follow on X"></a></p>
 <p>The package implements different measures to analyse and manipulate complex multilayer networks, from an ego-centric perspective, considering one-mode networks, valued ties (i.e. <em>weighted</em> or <em>multiplex</em>) or with multiple levels.</p>
+<p>The package comes with three vignettes, listed in the <a href="https://anespinosa.github.io/netmem/articles/">articles</a> of the website and available from <code>R</code> once netmem is installed:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"netmem"</span><span class="op">)</span> <span class="co"># Getting started with netmem</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"distinctive"</span><span class="op">)</span> <span class="co"># What netmem adds</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"multilayer"</span><span class="op">)</span> <span class="co"># Multilayer networks</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Espinosa-Rada A (2026). <em>netmem: Social Network Measures using Matrices</em>. R package version 1.0-3, <a href="https://github.com/anespinosa/netmem" class="external-link uri">https://github.com/anespinosa/netmem</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="va">@Manual</span>{,</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="dt">title</span> = {netmem: Social Network Measures using Matrices},</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="dt">author</span> = {Alejandro Espinosa-Rada},</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="dt">year</span> = {2026},</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="dt">note</span> = {R package version 1.0-3},</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="dt">url</span> = {https://github.com/anespinosa/netmem},</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>}</span></code></pre></div>
+<p>Espinosa-Rada A (2026). <em>netmem: Social Network Measures using Matrices</em>. R package version 1.1-0, <a href="https://github.com/anespinosa/netmem" class="external-link uri">https://github.com/anespinosa/netmem</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="va">@Manual</span>{,</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="dt">title</span> = {netmem: Social Network Measures using Matrices},</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="dt">author</span> = {Alejandro Espinosa-Rada},</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="dt">year</span> = {2026},</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="dt">note</span> = {R package version 1.1-0},</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="dt">url</span> = {https://github.com/anespinosa/netmem},</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="functions-currently-available-in-netmem">Functions currently available in <a href="https://anespinosa.github.io/netmem/reference/index.html"><code>netmem</code></a>:<a class="anchor" aria-label="anchor" href="#functions-currently-available-in-netmem"></a>
@@ -102,6 +110,8 @@
 <li><p><code><a href="reference/perm_label.html">perm_label()</a></code>: Permute labels of a matrix</p></li>
 <li><p><code><a href="reference/power_function.html">power_function()</a></code>: Power of a matrix</p></li>
 <li><p><code><a href="reference/meta_matrix.html">meta_matrix()</a></code>: Meta matrix for multilevel networks</p></li>
+<li><p><code><a href="reference/supra_adjacency.html">supra_adjacency()</a></code>: Supra-adjacency matrix of the layers of a multiplex network</p></li>
+<li><p><code><a href="reference/aggregate_layers.html">aggregate_layers()</a></code>: Aggregation of the layers into a single matrix</p></li>
 <li><p><code><a href="reference/minmax_overlap.html">minmax_overlap()</a></code>: Minimum/maximum overlap</p></li>
 <li><p><code><a href="reference/mix_matrix.html">mix_matrix()</a></code>: Mixing matrix</p></li>
 <li><p><code><a href="reference/simplicial_complexes.html">simplicial_complexes()</a></code>: Simplicial complexes</p></li>
@@ -115,6 +125,11 @@
 <li><p><code><a href="reference/ei_index.html">ei_index()</a></code>: Krackhardt and Stern’s E-I index</p></li>
 <li><p><code><a href="reference/heterogeneity.html">heterogeneity()</a></code>: Blau’s and IQV index</p></li>
 <li><p><code><a href="reference/redundancy.html">redundancy()</a></code>: Redundancy measures</p></li>
+<li><p><code><a href="reference/structural_holes.html">structural_holes()</a></code>: Effective size, efficiency and constraint of every node, with overlapping categories</p></li>
+<li><p><code><a href="reference/alter_composition.html">alter_composition()</a></code>: Categories of the alters, which can overlap</p></li>
+<li><p><code><a href="reference/alter_heterogeneity.html">alter_heterogeneity()</a></code>: Heterogeneity of the alters, with overlapping categories</p></li>
+<li><p><code><a href="reference/alter_homophily.html">alter_homophily()</a></code>: E-I index and Yule’s Q of every node, with overlapping categories</p></li>
+<li><p><code><a href="reference/brokerage_roles.html">brokerage_roles()</a></code>: Gould and Fernandez brokerage roles, with overlapping categories</p></li>
 </ol>
 <p>Path distances:</p>
 <ol style="list-style-type: decimal">
@@ -124,17 +139,18 @@
 <li><p><code><a href="reference/distances.html">short_path()</a></code>: Shortest path</p></li>
 <li><p><code><a href="reference/distances.html">wlocal_distances()</a></code>: Dijkstra’s algorithm (one actor)</p></li>
 <li><p><code><a href="reference/distances.html">wall_distances()</a></code>: Dijkstra’s algorithm (all actors)</p></li>
+<li><p><code><a href="reference/geodesics.html">geo_distances()</a></code>: Matrix of geodesic distances</p></li>
+<li><p><code><a href="reference/geodesics.html">geo_summary()</a></code>: Diameter, average distance and reachability</p></li>
 </ol>
 <p>Signed networks:</p>
 <ol style="list-style-type: decimal">
 <li><p><code><a href="reference/posneg_index.html">posneg_index()</a></code>: Positive-negative centrality</p></li>
 <li><p><code><a href="reference/struc_balance.html">struc_balance()</a></code>: Structural balance</p></li>
+<li><p><code>eigenvector_centrality(signed = TRUE)</code>: Status with negative relations</p></li>
 </ol>
 <p>Structural measures:</p>
 <ol style="list-style-type: decimal">
 <li><p><code><a href="reference/gen_density.html">gen_density()</a></code>: Generalized density</p></li>
-<li><p><code><a href="reference/gen_degree.html">gen_degree()</a></code>: Generalized degree</p></li>
-<li><p><code><a href="reference/multilevel_degree.html">multilevel_degree()</a></code>: Degree centrality for multilevel networks</p></li>
 <li><p><code><a href="reference/recip_coef.html">recip_coef()</a></code>: Reciprocity</p></li>
 <li><p><code><a href="reference/trans_coef.html">trans_coef()</a></code>: Transitivity</p></li>
 <li><p><code><a href="reference/trans_matrix.html">trans_matrix()</a></code>: Transitivity matrix</p></li>
@@ -143,6 +159,8 @@
 <li><p><code><a href="reference/dyadic_census.html">dyadic_census()</a></code>: Dyad census</p></li>
 <li><p><code><a href="reference/multiplex_census.html">multiplex_census()</a></code>: Multiplex triad census</p></li>
 <li><p><code><a href="reference/mixed_census.html">mixed_census()</a></code>: Multilevel triad and quadrilateral census</p></li>
+<li><p><code><a href="reference/krackhardt_index.html">krackhardt_index()</a></code>: Connectedness, hierarchy, efficiency and upper boundedness</p></li>
+<li><p><code><a href="reference/core_periphery.html">core_periphery()</a></code>: Core-periphery structures</p></li>
 </ol>
 <p>Cohesive subgroups:</p>
 <ol style="list-style-type: decimal">
@@ -151,6 +169,7 @@
 <li><p><code><a href="reference/percolation_clique.html">percolation_clique()</a></code>: Clique percolation</p></li>
 <li><p><code><a href="reference/q_analysis.html">q_analysis()</a></code>: Q-analysis</p></li>
 <li><p><code><a href="reference/shared_partners.html">shared_partners()</a></code>: Shared partners</p></li>
+<li><p><code><a href="reference/clique_max.html">clique_max()</a></code>: Maximal cliques</p></li>
 </ol>
 <p>Similarity measures:</p>
 <ol style="list-style-type: decimal">
@@ -166,6 +185,71 @@
 <li><p><code><a href="reference/z_arctest.html">z_arctest()</a></code>: Z test of the number of arcs</p></li>
 <li><p><code><a href="reference/triad_uman.html">triad_uman()</a></code>: Triad census analysis assuming U|MAN</p></li>
 <li><p><code><a href="reference/ind_rand_matrix.html">ind_rand_matrix()</a></code>: Independent random matrix</p></li>
+<li><p><code><a href="reference/cug_test.html">cug_test()</a></code>: Conditional uniform graph test</p></li>
+<li><p><code><a href="reference/qap_cor.html">qap_cor()</a></code>: QAP correlation</p></li>
+<li><p><code><a href="reference/qap_lm.html">qap_lm()</a></code>: MRQAP regression, linear and logistic</p></li>
+<li><p><code><a href="reference/small_world.html">small_world()</a></code>: Watts-Strogatz networks</p></li>
+<li><p><code><a href="reference/pref_attachment.html">pref_attachment()</a></code>: Barabasi-Albert networks</p></li>
+</ol>
+<p>Centrality:</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="reference/gen_degree.html">gen_degree()</a></code>: Generalized degree</p></li>
+<li><p><code><a href="reference/multilevel_degree.html">multilevel_degree()</a></code>: Degree centrality for multilevel networks</p></li>
+<li><p><code><a href="reference/closeness_centrality.html">closeness_centrality()</a></code>: Closeness and harmonic closeness</p></li>
+<li><p><code><a href="reference/betweenness_centrality.html">betweenness_centrality()</a></code>: Betweenness</p></li>
+<li><p><code><a href="reference/eigenvector_centrality.html">eigenvector_centrality()</a></code>: Eigenvector centrality</p></li>
+<li><p><code><a href="reference/katz_centrality.html">katz_centrality()</a></code>: Katz centrality</p></li>
+<li><p><code><a href="reference/bonacich_power.html">bonacich_power()</a></code>: Bonacich power centrality</p></li>
+<li><p><code><a href="reference/page_rank_centrality.html">page_rank_centrality()</a></code>: PageRank</p></li>
+<li><p><code><a href="reference/centrality_centralization.html">centrality_centralization()</a></code>: Centralization of the network</p></li>
+<li><p><code><a href="reference/partition_centrality.html">partition_centrality()</a></code>: Contribution of each category to the centrality of every node</p></li>
+</ol>
+<p>Positions and dominance:</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="reference/neigh_inclusion.html">neigh_inclusion()</a></code>: Neighbourhood-inclusion preorder</p></li>
+<li><p><code><a href="reference/dir_inclusion.html">dir_inclusion()</a></code>: Directed neighbourhood-inclusion criteria</p></li>
+<li><p><code><a href="reference/pos_dominance.html">pos_dominance()</a></code>: Positional dominance on indirect relations</p></li>
+<li><p><code><a href="reference/indirect_rel.html">indirect_rel()</a></code>: Indirect relations between the nodes</p></li>
+<li><p><code><a href="reference/set_inclusion.html">set_inclusion()</a></code>: Inclusion of neighbourhoods</p></li>
+<li><p><code><a href="reference/pareto_dominance.html">pareto_dominance()</a></code>: Dominance across several relations</p></li>
+<li><p><code><a href="reference/hyperevent_dominance.html">hyperevent_dominance()</a></code>: Dominance through citation chains</p></li>
+<li><p><code><a href="reference/dominance_pairs.html">dominance_pairs()</a></code>: Comparable and incomparable pairs</p></li>
+<li><p><code><a href="reference/dominance_layers.html">dominance_layers()</a></code>: Layers and status of a dominance relation</p></li>
+<li><p><code><a href="reference/dominance_ranks.html">dominance_ranks()</a></code>: Rank intervals</p></li>
+<li><p><code><a href="reference/preserved_order.html">preserved_order()</a></code>: Whether a centrality preserves a dominance relation</p></li>
+</ol>
+<p>Roles and positions:</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="reference/block_density.html">block_density()</a></code>: Block densities and image matrix</p></li>
+<li><p><code><a href="reference/concor.html">concor()</a></code>: CONCOR</p></li>
+<li><p><code><a href="reference/rege.html">rege()</a></code>: Regular equivalence</p></li>
+</ol>
+<p>Communities:</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="reference/leiden.html">leiden()</a></code>: Leiden and Louvain communities</p></li>
+<li><p><code><a href="reference/leading_eigen.html">leading_eigen()</a></code>: Leading eigenvector communities</p></li>
+<li><p><code><a href="reference/communities.html">community_greedy()</a></code>: Agglomerative modularity</p></li>
+<li><p><code><a href="reference/communities.html">community_label()</a></code>: Label propagation</p></li>
+<li><p><code><a href="reference/communities.html">community_betweenness()</a></code>: Girvan-Newman edge betweenness</p></li>
+<li><p><code><a href="reference/modularity_score.html">modularity_score()</a></code>: Modularity, including LinkRank</p></li>
+</ol>
+<p>Segregation and homophily:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code><a href="reference/segregation.html">segregation()</a></code>: Assortativity, Gupta-Anderson-May, odds ratio, Coleman and Freeman</li>
+</ol>
+<p>Social influence and diffusion:</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="reference/social_influence.html">social_influence()</a></code>: Assimilation, bounded confidence, repulsion and Friedkin-Johnsen</p></li>
+<li><p><code><a href="reference/threshold_diffusion.html">threshold_diffusion()</a></code>: Threshold models of diffusion</p></li>
+</ol>
+<p>Citation networks:</p>
+<ol style="list-style-type: decimal">
+<li><p><code><a href="reference/main_path.html">main_path()</a></code>: Main path analysis</p></li>
+<li><p><code><a href="reference/traversal_weights.html">traversal_weights()</a></code>: Search path counts</p></li>
+<li><p><code><a href="reference/citation_decay.html">citation_decay()</a></code>: Temporal decay of citations</p></li>
+<li><p><code><a href="reference/dag.html">dag_check()</a></code>: Directed acyclic graphs</p></li>
+<li><p><code><a href="reference/main_path_diag.html">main_path_diag()</a></code>: Diagnostics of the main path</p></li>
 </ol>
 <p>Geographic information:</p>
 <ol style="list-style-type: decimal">
@@ -179,8 +263,15 @@
 <li><p><code>FIFAin</code>: Inside FIFA</p></li>
 <li><p><code>krackhardt_friends</code>: Krackhardt friends</p></li>
 <li><p><code>lazega_lawfirm</code>: Lazega Law Firm</p></li>
+<li><p><code>campnet</code>: Camp 92 network</p></li>
 </ol>
 <p>Additional data in <a href="https://github.com/anespinosa/classicnets" class="external-link"><code>classicnets: Classic Data of Social Networks</code></a></p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="scope">Scope<a class="anchor" aria-label="anchor" href="#scope"></a>
+</h2>
+<p>The functions work on matrices, which keeps the code close to the algebra of the measures and makes them easy to read and to check. The results are compared with <code>igraph</code>, <code>sna</code>, <code>netrankr</code> and <code>netseg</code> in the validation scripts of the repository. The package is meant for the networks that are usually collected by hand, up to a few hundred nodes; for larger networks the compiled routines of <code>igraph</code> are orders of magnitude faster.</p>
 <hr>
 </div>
 </div>
@@ -193,11 +284,11 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>From <a href="https://CRAN.R-project.org/package=netmem" class="external-link">CRAN</a>:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("netmem")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/anespinosa/netmem" class="external-link">netmem</a></span><span class="op">)</span></span></code></pre></div>
 <p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### OPTION 1</span></span>
 <span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"anespinosa/netmem"</span><span class="op">)</span></span>
@@ -233,7 +324,7 @@
 </div>
 
 <p>Create the data</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
 <span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
@@ -269,7 +360,7 @@
 <span>  <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">0</span></span>
 <span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <p>We will start with a report of the matrices:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/matrix_report.html">matrix_report</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The matrix A might have the following characteristics:</span></span>
 <span><span class="co">#&gt; --&gt; The vectors of the matrix are `numeric`</span></span>
@@ -315,7 +406,7 @@
 <span><span class="co">#&gt;      nodes edges</span></span>
 <span><span class="co">#&gt; [1,]     4    10</span></span></code></pre></div>
 <p>What is the density of some of the matrices?</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/gen_density.html">gen_density</a></span><span class="op">(</span><span class="va">matrices</span>, multilayer <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $`Density of matrix [[1]]`</span></span>
@@ -330,7 +421,7 @@
 <span><span class="co">#&gt; $`Density of matrix [[4]]`</span></span>
 <span><span class="co">#&gt; [1] 0.4166667</span></span></code></pre></div>
 <p>How about the degree centrality of the entire structure?</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/multilevel_degree.html">multilevel_degree</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, <span class="va">A2</span>, <span class="va">B2</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel</span></span>
 <span><span class="co">#&gt; n1          3           1          NA              1              3</span></span>
@@ -341,9 +432,9 @@
 <span><span class="co">#&gt; m1          6           2           2              4              4</span></span>
 <span><span class="co">#&gt; m2          6           4           1              5              5</span></span>
 <span><span class="co">#&gt; m3          4           1           2              3              3</span></span>
-<span><span class="co">#&gt; k1          4          NA           1              1              1</span></span>
-<span><span class="co">#&gt; k2          2          NA           1              1              1</span></span>
-<span><span class="co">#&gt; k3          3          NA           2              2              2</span></span>
+<span><span class="co">#&gt; k1          1          NA           1              1              1</span></span>
+<span><span class="co">#&gt; k2          1          NA           1              1              1</span></span>
+<span><span class="co">#&gt; k3          2          NA           2              2              2</span></span>
 <span><span class="co">#&gt; k4          1          NA           1              1              1</span></span>
 <span><span class="co">#&gt;    meso_multilevel high_multilevel</span></span>
 <span><span class="co">#&gt; n1               1               1</span></span>
@@ -359,11 +450,11 @@
 <span><span class="co">#&gt; k3               2               2</span></span>
 <span><span class="co">#&gt; k4               1               1</span></span></code></pre></div>
 <p>Besides, we can perform a <em>k</em>-core analysis of one of the levels using the information of an incidence matrix</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1 3 1 2 3</span></span></code></pre></div>
-<p>This package also allows performing complex census for multilevel networks.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/k_core.html">k_core</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B1</span>, multilevel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3 3 3 3 3</span></span></code></pre></div>
+<p>This package also allows performing complex census for multilevel networks.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/mixed_census.html">mixed_census</a></span><span class="op">(</span><span class="va">A2</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">B1</span><span class="op">)</span>, <span class="va">B2</span>, quad <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 </span></span>
 <span><span class="co">#&gt;     2     6     1     0     0     2     0     0     4     0     1     1     0 </span></span>
@@ -376,7 +467,7 @@
 <h3 id="ego-measures">Ego measures<a class="anchor" aria-label="anchor" href="#ego-measures"></a>
 </h3>
 <p>When we are interested in one particular actor, we could perform different network measures. For example, actor <code>e</code> has connections with all the other actors in the network. Therefore, we could estimate some of Ronald Burt’s measures.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First we will assign names to the matrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span><span class="op">]</span></span>
@@ -399,7 +490,7 @@
 <span><span class="co">#&gt; $efficiency</span></span>
 <span><span class="co">#&gt; [1] 0.625</span></span></code></pre></div>
 <p>Also, sometimes we might want to subset a group of actors surrounding an ego.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ego_net.html">ego_net</a></span><span class="op">(</span><span class="va">A1</span>, ego <span class="op">=</span> <span class="st">"e"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   a b c d</span></span>
 <span><span class="co">#&gt; a 0 1 0 0</span></span>
@@ -412,11 +503,11 @@
 <h3 id="one-mode-network">One-mode network<a class="anchor" aria-label="anchor" href="#one-mode-network"></a>
 </h3>
 <p>This package expand some measures for one-mode networks, such as the generalized degree centrality. Suppose we consider a valued matrix <code>A3</code>. If <code>alpha=0</code> then it would only count the direct connections. But, adding the tuning parameter <code>alpha=0.5</code> would determine the relative importance of the number of ties compared to tie weights.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">A3</span>, digraph <span class="op">=</span> <span class="cn">FALSE</span>, weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 3.872983 1.000000 4.000000 3.464102</span></span></code></pre></div>
 <p>Also, we could conduct some exploratory analysis using the normalized degree of an incidence matrix.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/gen_degree.html">gen_degree</a></span><span class="op">(</span><span class="va">B1</span>, bipartite <span class="op">=</span> <span class="cn">TRUE</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $bipartiteL1</span></span>
 <span><span class="co">#&gt; [1] 0.3333333 0.6666667 0.3333333 0.3333333 0.6666667</span></span>
@@ -424,7 +515,7 @@
 <span><span class="co">#&gt; $bipartiteL2</span></span>
 <span><span class="co">#&gt; [1] 0.4 0.8 0.2</span></span></code></pre></div>
 <p>This package also implements some analysis of dyads.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># dyad census</span></span>
 <span><span class="fu"><a href="reference/dyadic_census.html">dyadic_census</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      Mutual Asymmetrics       Nulls </span></span>
@@ -432,14 +523,14 @@
 <span></span>
 <span><span class="co"># Katz and Powell reciprocity</span></span>
 <span><span class="fu"><a href="reference/kp_reciprocity.html">kp_reciprocity</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 6.333333</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
 <span></span>
 <span><span class="co"># Z test of the number of arcs</span></span>
 <span><span class="fu"><a href="reference/z_arctest.html">z_arctest</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     z     p </span></span>
 <span><span class="co">#&gt; 1.789 0.074</span></span></code></pre></div>
 <p>We can also check the triad census assuming conditional uniform distribution considering different types of dyads <strong>(U|MAN)</strong></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/triad_uman.html">triad_uman</a></span><span class="op">(</span><span class="va">A1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    label OBS   EXP   VAR   STD</span></span>
 <span><span class="co">#&gt; 1    003   0 0.083 0.076 0.276</span></span>
@@ -469,7 +560,7 @@
 <div class="section level3">
 <h3 id="to-do-list">To-do list<a class="anchor" aria-label="anchor" href="#to-do-list"></a>
 </h3>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># library(todor)</span></span>
 <span><span class="co"># todor::todor_package(c("TODO", "FIXME"))</span></span></code></pre></div>
 <hr>
@@ -532,7 +623,7 @@
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=netmem" class="external-link"><img src="https://www.r-pkg.org/badges/version/netmem" alt="CRAN status"></a></li>
 <li><a href="https://anespinosa.r-universe.dev/netmem" class="external-link"><img src="https://anespinosa.r-universe.dev/badges/netmem" alt="r-universe status badge"></a></li>
-<li><a href="https://github.com/anespinosa/netmem" class="external-link"><img src="https://img.shields.io/badge/devel%20version-1.0--3-red.svg"></a></li>
+<li><a href="https://github.com/anespinosa/netmem" class="external-link"><img src="https://img.shields.io/badge/devel%20version-1.1--0-red.svg"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://app.codecov.io/gh/anespinosa/netmem?branch=master" class="external-link"><img src="https://codecov.io/gh/anespinosa/netmem/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://www.codefactor.io/repository/github/anespinosa/netmem" class="external-link"><img src="https://www.codefactor.io/repository/github/anespinosa/netmem/badge" alt="CodeFactor"></a></li>
@@ -551,7 +642,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

@@ -37,25 +37,22 @@ Blau, P. M. (1977). Inequality and heterogeneity. New York: Free Press.
 ## Examples
 
 ``` r
+
 a <- rep(1:10, 10)
 heterogeneity(a, normalized = TRUE)
 #> $blau
-#>   1 
-#> 0.9 
+#> [1] 0.9
 #> 
 #> $iqv
-#> 1 
-#> 1 
+#> [1] 1
 #> 
 
 a <- rep(1:2, 10)
 heterogeneity(a, normalized = TRUE)
 #> $blau
-#>   1 
-#> 0.5 
+#> [1] 0.5
 #> 
 #> $iqv
-#> 1 
-#> 1 
+#> [1] 1
 #> 
 ```

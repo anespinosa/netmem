@@ -1,6 +1,8 @@
 # Degree centrality for multilevel networks
 
-Degree centrality for multilevel networks
+Degree of the nodes of a network of two or three levels, counting the
+ties within each level and the ties between the levels in different
+combinations.
 
 ## Usage
 
@@ -63,9 +65,8 @@ multilevel_degree(
 
 - complete:
 
-  Add the degree of bipartite and tripartite networks for B1, B2 and/or
-  B3, and the low_multilevel (i.e. A1+B1+B2+B3), meso_multilevel (i.e.
-  B1+A2+B2+B3) and high_multilevel (i.e. B1+B2+A3+B3) degree
+  Whether to return every column described in the details, instead of
+  only the `multilevel` degree
 
 - digraphA1:
 
@@ -108,9 +109,8 @@ multilevel_degree(
 
 - normalized:
 
-  If TRUE then the result is divided by (n-1)+k+m for the first level,
-  (m-1)+n+k for the second level, and (k-1)+m+n according to
-  Espinosa-Rada et al. (2021)
+  Whether to divide each degree by the largest value it could take, as
+  described in the details (Espinosa-Rada et al., 2021)
 
 - weightedA1:
 
@@ -141,7 +141,58 @@ multilevel_degree(
 
 ## Value
 
-Return a data.frame of multilevel degree
+A data frame with one row for each node of every level, and the
+`multilevel` degree, or every column described in the details when
+`complete = TRUE`
+
+## Details
+
+The levels are placed in a single meta-matrix. Level one has `n` nodes
+and the ties `A1`, level two has `m` nodes and the ties `A2`, and level
+three has `k` nodes and the ties `A3`. The incidence matrices join the
+levels: `B1` the first with the second (`n` by `m`), `B2` the second
+with the third (`m` by `k`), and `B3` the third with the first (`k` by
+`n`). A level that is not given has no ties within it.
+
+Each column of the result emphasises a different section of the
+meta-matrix:
+
+`multilevel`: every node counts the ties within its own level and its
+ties with the other levels, i.e. `A1 + B1 + B3` for the first level,
+`B1 + A2 + B2` for the second, and `B2 + A3 + B3` for the third.
+
+`bipartiteB1`, `bipartiteB2` and `bipartiteB3`: the degree in each
+incidence matrix, i.e. only the ties between two levels.
+
+`tripartiteB1B2`, `tripartiteB1B3`, `tripartiteB2B3` and
+`tripartiteB1B2B3`: the degree in the union of incidence matrices, i.e.
+only the ties between levels.
+
+`low_multilevel` (`A1 + B1 + B2 + B3`), `meso_multilevel`
+(`B1 + A2 + B2 + B3`) and `high_multilevel` (`B1 + B2 + A3 + B3`): the
+ties within a single level, together with all the ties between levels.
+For the nodes of the emphasised level they are the same as `multilevel`:
+the first level in `low_multilevel`, the second in `meso_multilevel` and
+the third in `high_multilevel`.
+
+The rows are named `n1, n2, ...` for the first level, `m1, m2, ...` for
+the second and `k1, k2, ...` for the third. Without `complete = TRUE`,
+only the `multilevel` column is returned.
+
+With `normalized = TRUE`, each degree is divided by the largest value it
+could take: the other nodes of the same level plus the nodes of the
+levels it is tied to. For the `multilevel` column this is `(n - 1) + m`
+for the first level (`(n - 1) + m + k` when `B3` is given),
+`(m - 1) + n + k` for the second level (`(m - 1) + n` with two levels),
+and `(k - 1) + m` for the third level (`(k - 1) + m + n` when `B3` is
+given). The bipartite degrees are divided by the number of nodes of the
+other level (Borgatti and Everett, 1997). The normalized values are only
+defined for binary matrices. All the values are rounded to three
+decimals.
+
+The ties within each level can be directed (`digraphA1`, `typeA1`, ...)
+and weighted (`weightedA1`, `alphaA1`, ...), in which case the degree of
+Opsahl et al. (2010) is used. The ties between levels are undirected.
 
 ## References
 
@@ -162,6 +213,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A1 <- matrix(c(
   0, 1, 0, 0, 0,
   1, 0, 0, 1, 0,

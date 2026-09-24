@@ -11,13 +11,13 @@ Source:
 [`DESCRIPTION`](https://github.com/anespinosa/netmem/blob/main/DESCRIPTION)
 
 Espinosa-Rada A (2026). *netmem: Social Network Measures using
-Matrices*. R package version 1.0-3,
+Matrices*. R package version 1.1-0,
 <https://github.com/anespinosa/netmem>.
 
     @Manual{,
       title = {netmem: Social Network Measures using Matrices},
       author = {Alejandro Espinosa-Rada},
       year = {2026},
-      note = {R package version 1.0-3},
+      note = {R package version 1.1-0},
       url = {https://github.com/anespinosa/netmem},
     }

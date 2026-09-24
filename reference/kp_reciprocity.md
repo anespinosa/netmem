@@ -43,6 +43,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 data(krackhardt_friends)
 kp_reciprocity(krackhardt_friends, fixed = TRUE, d = 5)
 #> [1] 0.2507937

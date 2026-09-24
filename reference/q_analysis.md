@@ -1,32 +1,113 @@
 # Q-analysis
 
-Q-structure of a simplicial complex.
+Q-analysis of a simplicial complex (Atkin, 1974): the q-connected
+components at every dimension, the structure vectors, the obstruction
+vector and the eccentricity of each simplex.
 
 ## Usage
 
 ``` r
-q_analysis(A, simplicial_complex = FALSE, dimensions = FALSE)
+q_analysis(
+  A,
+  simplicial_complex = FALSE,
+  complex = c("clique", "neighbourhood"),
+  closed = FALSE,
+  eccentricity = c("atkin", "johnson"),
+  dimensions = FALSE
+)
 ```
 
 ## Arguments
 
 - A:
 
-  An incidence matrix
+  An incidence matrix of simplices (rows) and vertices (columns), or a
+  square matrix of a network
 
 - simplicial_complex:
 
-  Whether the incidence matrix is a simplices or simplicial complexes
-  representation
+  Whether `A` is an incidence matrix of simplices (TRUE) or a network
+  (FALSE)
+
+- complex:
+
+  The complex built from a network: the maximal cliques (`clique`,
+  default) or the neighbourhoods (`neighbourhood`)
+
+- closed:
+
+  Whether the neighbourhoods include the node itself, for
+  `complex = "neighbourhood"`
+
+- eccentricity:
+
+  The definition of the eccentricity: `atkin` (default) or `johnson`
 
 - dimensions:
 
-  Return the successively chains from high to low dimensions (\$q\$) and
-  the number of components (\$Q_p\$)
+  Kept for compatibility with version 1.0-3. The table of the dimensions
+  is always returned
 
 ## Value
 
-This function return a q-analysis of a simplicial complex matrix
+This function returns a list with the incidence matrix of the
+`simplices` analysed, the `q_table` with the structure and obstruction
+vectors, the `components` at each \\q\\ (named `q3`, `q2`, ...), and the
+`eccentricity` of each simplex.
+
+## Details
+
+A simplex is a set of vertices, and its dimension \\q\\ is the number of
+its vertices minus one. Two simplices are q-near when they share at
+least \\q + 1\\ vertices, that is, a face of dimension \\q\\, and
+q-connected when a chain of q-near simplices joins them. For every \\q\\
+from the largest dimension down to 0, the simplices of dimension \\q\\
+or more are grouped in q-connected components (Atkin, 1974; Freeman,
+1980). The table of the results has, for each \\q\\:
+
+`Q`, the first structure vector: the number of q-connected components.
+
+`n`, the second structure vector: the number of simplices of dimension
+\\q\\ or more.
+
+`Qbar`, the third structure vector: \\1 - Q/n\\, which is zero when no
+simplex is q-connected to another and approaches one when they all form
+a single component (Raj et al., 2024).
+
+`obstruction`, the obstruction vector: \\Q - 1\\, the number of gaps
+that separate the components (Atkin, 1974).
+
+The eccentricity measures how much a simplex stands apart from the
+others, and there are two definitions. With `eccentricity = "atkin"`
+(default) it is \\(\hat{q} - \check{q}) / (\check{q} + 1)\\, where
+\\\hat{q}\\ is the dimension of the simplex and \\\check{q}\\ the
+dimension of the largest face it shares with another simplex (Atkin,
+1974). It is zero for a simplex that is a face of another, and infinite
+for a simplex that shares no vertex with the others. With
+`eccentricity = "johnson"` it is the family eccentricity of Johnson, the
+smallest proportion of the vertices of the simplex that are not in
+another simplex, \\\min\_{\sigma'} \|\sigma \setminus \sigma'\| /
+\|\sigma\|\\, as implemented by Smirnov et al. (2025). It runs from zero
+to one, which makes simplices of different dimension comparable, and it
+is `NA` when the complex has a single simplex.
+
+With `simplicial_complex = TRUE`, the rows of `A` are the simplices and
+the columns their vertices, as in the example of Freeman (1980), where
+the researchers are simplices of the events that linked them. The
+conjugate complex, in which the columns are the simplices, is the
+analysis of `t(A)`.
+
+With `simplicial_complex = FALSE`, `A` is a network and the complex is
+built from it (Raj et al., 2024): with `complex = "clique"`, the
+simplices are the maximal cliques of the underlying undirected network,
+including the isolated nodes as simplices of dimension 0; with
+`complex = "neighbourhood"`, each node is the simplex of its neighbours,
+the rows of `A` (the out-neighbours of a directed network). With
+`closed = TRUE` the node is also a vertex of its own simplex (closed
+neighbourhood), so that two adjacent nodes share at least the two of
+them. The rows without vertices are not simplices. The complex is the
+one returned by
+[`simplicial_complexes()`](https://anespinosa.github.io/netmem/reference/simplicial_complexes.md).
 
 ## References
 
@@ -37,6 +118,17 @@ Freeman, L. C. (1980). Q-analysis and the structure of friendship
 networks. International Journal of Man-Machine Studies, 12(4), 367–378.
 [doi:10.1016/S0020-7373(80)80021-6](https://doi.org/10.1016/S0020-7373%2880%2980021-6)
 
+Raj, U., Banerjee, A., Ray, S. and Bhattacharya, S. (2024). Structure of
+higher-order interactions in social-ecological networks through
+Q-analysis of their neighbourhood and clique complex. PLOS ONE, 19(8),
+e0306409.
+[doi:10.1371/journal.pone.0306409](https://doi.org/10.1371/journal.pone.0306409)
+
+Smirnov, N., Kurkin, S. and Hramov, A. E. (2025). A Q-analysis package
+for higher-order interactions analysis in Python and its application in
+network physiology. Frontiers in Network Physiology, 5.
+[doi:10.3389/fnetp.2025.1691159](https://doi.org/10.3389/fnetp.2025.1691159)
+
 ## Author
 
 Alejandro Espinosa-Rada
@@ -44,6 +136,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+# Freeman (1980): 29 researchers (simplices) and the 19 events that linked them (vertices)
 A <- matrix(c(
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0,
@@ -78,62 +171,39 @@ A <- matrix(c(
 colnames(A) <- letters[1:ncol(A)]
 rownames(A) <- 1:nrow(A)
 
-q_analysis(A, simplicial_complex = TRUE)
-#> $`2`
-#>   component node
-#> 1         1    3
-#> 2         2   13
-#> 
-#> $`6`
-#>   component node
-#> 1         1    3
-#> 2         2   13
-#> 3         3    2
-#> 4         4   19
-#> 5         5   20
-#> 6         6   21
-#> 
-#> $`9`
-#>    component node
-#> 1          1    3
-#> 10         2   15
-#> 11         3   25
-#> 5          4   20
-#> 7          5    4
-#> 8          6    9
-#> 9          7   11
-#> 2          8   13
-#> 4          8   19
-#> 6          8   21
-#> 3          9    2
-#> 12         9   28
-#> 
-#> $`3`
-#>    component node
-#> 1          1    3
-#> 2          1   13
-#> 3          1    2
-#> 4          1   19
-#> 5          1   20
-#> 6          1   21
-#> 7          1    4
-#> 8          1    9
-#> 9          1   11
-#> 10         1   15
-#> 11         1   25
-#> 12         1   28
-#> 14         1    6
-#> 15         1    8
-#> 16         1   10
-#> 18         1   14
-#> 19         1   16
-#> 20         1   17
-#> 23         1   24
-#> 24         1   26
-#> 25         1   29
-#> 13         2    5
-#> 21         2   18
-#> 17         3   12
-#> 22         3   23
-#> 
+Q <- q_analysis(A, simplicial_complex = TRUE)
+Q$q_table
+#>   q Q  n Qbar obstruction
+#> 1 3 2  2 0.00           1
+#> 2 2 6  6 0.00           5
+#> 3 1 9 12 0.25           8
+#> 4 0 3 25 0.88           2
+Q$components$q3
+#>   component simplex
+#> 1         1       3
+#> 2         2      13
+
+# A network: a clique of four nodes and a pendant node
+B <- matrix(c(
+  0, 1, 1, 1, 0,
+  1, 0, 1, 1, 0,
+  1, 1, 0, 1, 0,
+  1, 1, 1, 0, 1,
+  0, 0, 0, 1, 0
+), byrow = TRUE, ncol = 5)
+rownames(B) <- letters[1:nrow(B)]
+colnames(B) <- rownames(B)
+
+q_analysis(B, complex = "clique")$q_table
+#>   q Q n Qbar obstruction
+#> 1 3 1 1  0.0           0
+#> 2 2 1 1  0.0           0
+#> 3 1 2 2  0.0           1
+#> 4 0 1 2  0.5           0
+q_analysis(B, complex = "neighbourhood")$q_table
+#>   q Q n Qbar obstruction
+#> 1 3 1 1 0.00           0
+#> 2 2 4 4 0.00           3
+#> 3 1 1 4 0.75           0
+#> 4 0 1 5 0.80           0
 ```

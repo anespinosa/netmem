@@ -1,18 +1,21 @@
-# multilayer
+# Multilayer networks
 
 ------------------------------------------------------------------------
 
 ## Installation
 
-You can install the development version from
-[github/anespinosa](https://github.com/anespinosa/netmem):
+You can install the released version from CRAN, or the development
+version from [github/anespinosa](https://github.com/anespinosa/netmem):
 
 ``` r
+
+install.packages("netmem")
 # install.packages("devtools")
 devtools::install_github("anespinosa/netmem")
 ```
 
 ``` r
+
 library(netmem)
 ```
 
@@ -51,6 +54,7 @@ Southern Woman extracted from the `R` package
 [classicnets](https://github.com/anespinosa/classicnets):
 
 ``` r
+
 A <- matrix(
   c(
     1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0,
@@ -77,13 +81,14 @@ A <- matrix(
 ```
 
 As a common practice, an incidence matrix is often converted to adjacent
-matrices. These are given by the matrix product $AA^{T}$ and $A^{T}A$,
-where $A$ is the incidence matrix and matrix $A^{T}$ is the transpose of
-$A$. The relationship between these matrices in the context of social
-networks was explored by [Breiger
+matrices. These are given by the matrix product $`AA^T`$ and $`A^TA`$,
+where $`A`$ is the incidence matrix and matrix $`A^T`$ is the transpose
+of $`A`$. The relationship between these matrices in the context of
+social networks was explored by [Breiger
 (1974)](https://doi.org/10.2307/2576011).
 
 ``` r
+
 matrix_projection(A)
 #> $matrix1
 #>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
@@ -170,6 +175,7 @@ provided by [Bonacich
 (1972)](https://doi.org/10.1080/0022250X.1972.9989806):
 
 ``` r
+
 bonacich_norm(A)
 #>            [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
 #>  [1,] 1.0000000 0.7947869 0.8554094 0.7947869 0.6339746 1.0000000 0.6339746
@@ -256,6 +262,7 @@ For example, in scientometric, information is often explored using
 co-occurrence of overlapping ties:
 
 ``` r
+
 minmax_overlap(A, row = TRUE, min = TRUE)
 #>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
 #>  [1,]    8    6    7    6    3    4    3    3    3     2     2     2     2
@@ -371,8 +378,7 @@ at different levels. Multilevel networks are a means by which we can
 represent this complex system by using nodes and edges of different
 types ([Lazega and Snijders,
 2016](https://link.springer.com/book/10.1007/978-3-319-24520-1), [Knoke
-et a.,
-2021](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
+et al., 2021](https://doi.org/10.1017/9781108985000)).
 
 For multilevel structures, we tend to collect the data in different
 matrices representing the variation of ties within and between levels.
@@ -399,6 +405,7 @@ matrices, one valued matrix and two incidence matrices between them.
 Create the data
 
 ``` r
+
 A1 <- matrix(c(
   0, 1, 0, 0, 1,
   1, 0, 0, 1, 1,
@@ -449,6 +456,7 @@ colnames(B2) <- colnames(A3)
 We will start with a report of the matrices:
 
 ``` r
+
 matrix_report(A1)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -496,6 +504,7 @@ the node of the same class. In which case, we can use the
 Carley, 2002) to represent a multilevel network.
 
 ``` r
+
 meta_matrix(A1, B1, A2, B2, A3)
 #>   a b c d e f g h i j k l
 #> a 0 1 0 0 1 1 0 0 0 0 0 0
@@ -506,10 +515,10 @@ meta_matrix(A1, B1, A2, B2, A3)
 #> f 1 1 0 0 0 0 1 1 1 1 0 0
 #> g 0 1 1 1 1 1 0 0 0 0 1 0
 #> h 0 0 0 0 1 1 0 0 0 0 1 1
-#> i 0 0 0 0 0 0 0 0 0 1 3 1
-#> j 0 0 0 0 0 0 0 0 1 0 0 0
-#> k 0 0 0 0 0 0 0 0 3 0 0 5
-#> l 0 0 0 0 0 0 0 0 1 0 5 0
+#> i 0 0 0 0 0 1 0 0 0 1 3 1
+#> j 0 0 0 0 0 1 0 0 1 0 0 0
+#> k 0 0 0 0 0 0 1 1 3 0 0 5
+#> l 0 0 0 0 0 0 0 1 1 0 5 0
 meta_matrix(A1, B1, A2, B2)
 #>   a b c d e f g h i j k l
 #> a 0 1 0 0 1 1 0 0 0 0 0 0
@@ -520,25 +529,27 @@ meta_matrix(A1, B1, A2, B2)
 #> f 1 1 0 0 0 0 1 1 1 1 0 0
 #> g 0 1 1 1 1 1 0 0 0 0 1 0
 #> h 0 0 0 0 1 1 0 0 0 0 1 1
-#> i 0 0 0 0 0 0 0 0 0 0 0 0
-#> j 0 0 0 0 0 0 0 0 0 0 0 0
-#> k 0 0 0 0 0 0 0 0 0 0 0 0
-#> l 0 0 0 0 0 0 0 0 0 0 0 0
-
-library(igraph)
-plot(graph.adjacency(meta_matrix(A1, B1, A2, B2, A3), mode = c("directed")))
-#> Warning: `graph.adjacency()` was deprecated in igraph 2.0.0.
-#> ℹ Please use `graph_from_adjacency_matrix()` instead.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
+#> i 0 0 0 0 0 1 0 0 0 0 0 0
+#> j 0 0 0 0 0 1 0 0 0 0 0 0
+#> k 0 0 0 0 0 0 1 1 0 0 0 0
+#> l 0 0 0 0 0 0 0 1 0 0 0 0
 ```
 
-![](multilayer_files/figure-html/meta_matrix-1.png)
+`netmem` works with matrices and does not depend on other packages to
+draw them. When `igraph` is installed, it can be used to plot the
+meta-matrix:
+
+``` r
+
+plot(igraph::graph_from_adjacency_matrix(meta_matrix(A1, B1, A2, B2, A3), mode = "directed"))
+```
+
+![](multilayer_files/figure-html/meta_matrix_plot-1.png)
 
 What is the density of some of the matrices?
 
 ``` r
+
 matrices <- list(A1, B1, A2, B2)
 gen_density(matrices, multilayer = TRUE)
 #> $`Density of matrix [[1]]`
@@ -557,6 +568,7 @@ gen_density(matrices, multilayer = TRUE)
 How about the degree centrality of the entire structure?
 
 ``` r
+
 multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 #>    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel
 #> n1          3           1          NA              1              3
@@ -567,9 +579,9 @@ multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 #> m1          6           2           2              4              4
 #> m2          6           4           1              5              5
 #> m3          4           1           2              3              3
-#> k1          4          NA           1              1              1
-#> k2          2          NA           1              1              1
-#> k3          3          NA           2              2              2
+#> k1          1          NA           1              1              1
+#> k2          1          NA           1              1              1
+#> k3          2          NA           2              2              2
 #> k4          1          NA           1              1              1
 #>    meso_multilevel high_multilevel
 #> n1               1               1
@@ -590,14 +602,17 @@ Besides, we can perform a *k*-core analysis of one of the levels using
 the information of an incidence matrix
 
 ``` r
+
 k_core(A1, B1, multilevel = TRUE)
-#> [1] 1 3 1 2 3
+#> a b c d e 
+#> 3 3 3 3 3
 ```
 
 This package also allows performing complex census for multilevel
 networks
 
 ``` r
+
 mixed_census(A2, t(B1), B2, quad = TRUE)
 #>   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 
 #>     2     6     1     0     0     2     0     0     4     0     1     1     0 
@@ -612,37 +627,72 @@ sampling from second-mode (2-path distance from an ego in the second
 level)
 
 ``` r
-library(igraph)
-m <- meta_matrix(A1, B1)
-g <- graph.adjacency(m, mode = c("undirected"))
-V(g)$type <- ifelse(V(g)$name %in% colnames(B1), TRUE, FALSE)
-plot(g, vertex.color = ifelse(V(g)$type == TRUE, "blue", "red"))
+
+two_mode_sam <- zone_sample(A1, B1, ego = TRUE)
+two_mode_sam
+#> $f
+#>   a b d e f g
+#> a 0 1 0 1 1 0
+#> b 1 0 1 1 1 1
+#> d 0 1 0 1 0 1
+#> e 1 1 1 0 0 1
+#> f 1 1 0 0 0 0
+#> g 0 1 1 1 0 0
+#> 
+#> $g
+#>   a b c d e f g h
+#> a 0 1 0 0 1 1 0 0
+#> b 1 0 0 1 1 1 1 0
+#> c 0 0 0 1 1 0 1 0
+#> d 0 1 1 0 1 0 1 0
+#> e 1 1 1 1 0 0 1 1
+#> f 1 1 0 0 0 0 0 0
+#> g 0 1 1 1 1 0 0 0
+#> h 0 0 0 0 1 0 0 0
+#> 
+#> $h
+#>   a b c d e g h
+#> a 0 1 0 0 1 0 0
+#> b 1 0 0 1 1 1 0
+#> c 0 0 0 1 1 1 0
+#> d 0 1 1 0 1 1 0
+#> e 1 1 1 1 0 1 1
+#> g 0 1 1 1 1 0 0
+#> h 0 0 0 0 1 0 0
 ```
 
-![](multilayer_files/figure-html/unnamed-chunk-7-1.png)
+Each subgraph is an adjacency matrix, which can be plotted with
+`igraph`, with the nodes of the second level in blue:
 
 ``` r
 
-two_mode_sam <- zone_sample(A1, B1, ego = TRUE)
-for (i in 1:ncol(B1)) {
-  V(two_mode_sam[[i]])$color <- ifelse(V(two_mode_sam[[i]])$name %in% colnames(B1), "blue", "red")
-
-  plot(as.undirected(two_mode_sam[[i]]), vertex.color = V(two_mode_sam[[i]])$color, main = names(two_mode_sam)[i])
-}
-#> Warning: `as.undirected()` was deprecated in igraph 2.1.0.
-#> ℹ Please use `as_undirected()` instead.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
+m <- meta_matrix(A1, B1)
+g <- igraph::graph_from_adjacency_matrix(m, mode = "max")
+plot(g, vertex.color = ifelse(igraph::V(g)$name %in% colnames(B1), "blue", "red"))
 ```
 
-![](multilayer_files/figure-html/unnamed-chunk-7-2.png)![](multilayer_files/figure-html/unnamed-chunk-7-3.png)![](multilayer_files/figure-html/unnamed-chunk-7-4.png)
+![](multilayer_files/figure-html/zone_sample_plot-1.png)
+
+``` r
+
+
+for (i in 1:ncol(B1)) {
+  g <- igraph::graph_from_adjacency_matrix(two_mode_sam[[i]], mode = "max")
+  plot(g,
+    vertex.color = ifelse(igraph::V(g)$name %in% colnames(B1), "blue", "red"),
+    main = names(two_mode_sam)[i]
+  )
+}
+```
+
+![](multilayer_files/figure-html/zone_sample_plot-2.png)![](multilayer_files/figure-html/zone_sample_plot-3.png)![](multilayer_files/figure-html/zone_sample_plot-4.png)
 
 Willing to create a multilevel network? We can simulate a multilevel
 network with 30 actors in the first level and 20 nodes in the second
 level.
 
 ``` r
+
 set.seed(26091949)
 ind_rand_matrix(n = 30, m = 20, type = "probability", p = 0.2, multilevel = TRUE)
 #>     n1 n2 n3 n4 n5 n6 n7 n8 n9 n10 n11 n12 n13 n14 n15 n16 n17 n18 n19 n20 n21
@@ -824,6 +874,7 @@ from [Lazega
 (2001)](https://books.google.ch/books/about/The_Collegial_Phenomenon.html?id=zRNaURgLOhYC&redir_esc=y)
 
 ``` r
+
 data("lazega_lawfirm")
 rownames(lazega_lawfirm$advice) <- as.character(1:ncol(lazega_lawfirm$advice))
 colnames(lazega_lawfirm$advice) <- rownames(lazega_lawfirm$advice)
@@ -835,23 +886,25 @@ rownames(lazega_lawfirm$friends) <- colnames(lazega_lawfirm$friends)
 Which are the densities of the networks?
 
 ``` r
+
 gen_density(list(
   lazega_lawfirm$cowork, lazega_lawfirm$advice,
   lazega_lawfirm$friends
 ), multilayer = TRUE)
 #> $`Density of matrix [[1]]`
-#> [1] 0.2317907
+#> [1] 0.2221328
 #> 
 #> $`Density of matrix [[2]]`
-#> [1] 0.2486922
+#> [1] 0.1794769
 #> 
 #> $`Density of matrix [[3]]`
-#> [1] 0.1251509
+#> [1] 0.1156942
 ```
 
 How about computing the Jaccard index between matrices?
 
 ``` r
+
 jaccard(lazega_lawfirm$cowork, lazega_lawfirm$advice)
 #> $jaccard
 #> [1] 0.4115983
@@ -860,11 +913,10 @@ jaccard(lazega_lawfirm$cowork, lazega_lawfirm$advice)
 #> [1] 0.5271739
 #> 
 #> $table
-#>       B
-#> A         0    1 <NA>
-#>   0    3556  310    0
-#>   1     522  582    0
-#>   <NA>    0    0    0
+#>    
+#>        0    1
+#>   0 3556  310
+#>   1  522  582
 
 jaccard(lazega_lawfirm$cowork, lazega_lawfirm$friends)
 #> $jaccard
@@ -874,11 +926,10 @@ jaccard(lazega_lawfirm$cowork, lazega_lawfirm$friends)
 #> [1] 0.2753623
 #> 
 #> $table
-#>       B
-#> A         0    1 <NA>
-#>   0    3595  271    0
-#>   1     800  304    0
-#>   <NA>    0    0    0
+#>    
+#>        0    1
+#>   0 3595  271
+#>   1  800  304
 
 jaccard(lazega_lawfirm$advice, lazega_lawfirm$friends)
 #> $jaccard
@@ -888,54 +939,104 @@ jaccard(lazega_lawfirm$advice, lazega_lawfirm$friends)
 #> [1] 0.4013453
 #> 
 #> $table
-#>       B
-#> A         0    1 <NA>
-#>   0    3861  217    0
-#>   1     534  358    0
-#>   <NA>    0    0    0
+#>    
+#>        0    1
+#>   0 3861  217
+#>   1  534  358
 ```
 
-Finally, we can conduct a multiplex census between two matrices. For the
-moment, one matrix has to be asymmetric (directed) and the other
-symmetric (undirected).
+Finally, we can conduct a multiplex triad census between a directed and
+an undirected relation among the same people (Espinosa-Rada, 2021;
+Espinosa-Rada et al., 2024). Each triple of people is classified by its
+triad of the directed relation (Holland and Leinhardt, 1976) and its
+triad of the undirected relation, together with how the two overlap,
+which gives 104 types of triads. Here the advice is directed, and the
+friendship is treated as undirected:
 
 ``` r
-multiplex_census(lazega_lawfirm$advice, lazega_lawfirm$friends)
-#>            003_003            003_102            003_201            003_300 
-#>               9541              17745              11384              10799 
-#>            012_003           012_102a           012_102b           012_102c 
-#>              30047              14872              10660              10711 
-#>           012_201b          012_201ac            012_300           021u_003 
-#>               9891              10263               9760              21434 
-#>         021u_102ac          021u_102b         021u_201ab          021u_201c 
-#>               2099               1157               1279               1650 
-#>           021u_300           021d_003         021d_102ac          021d_120b 
-#>               1148              21295               1908               1058 
-#>         021d_201ab          021d_201c           021d_300       102_003_102a 
-#>               1139               1511                910               8319 
-#>    102_102bc_201ac            102_300           021c_003          021c_102a 
-#>               3710               3109              21445               2059 
-#>          021c_103b          021c_102c         021c_210ab          021c_201c 
-#>                961               2110               1290               1661 
-#>           021c_300           030t_003         030t_102ab          030t_102b 
-#>               1159              21022                538                745 
-#>          030t_102c         030t_210ab      030t_201c_300           030c_003 
-#>                785                866                735              20555 
-#>        030c_102abc        030c_201abc           030c_300           111d_003 
-#>                 71                400                269              21338 
-#>     111d_102a_201a          111d_102b     111d_102c_201b      111d_201c_300 
-#>               1182               1215               1554               1051 
-#>           111u_003     111u_102a_201a    111u_102bc_201b      111u_201c_300 
-#>              21227               1071               1443                940 
-#>      120u_003_102b   120u_102ab_201ab      120u_201c_300      120d_003_120b 
-#>                457                579                448                580 
-#>   120d_102ab_201ab      120d_201c_300            201_003    201_102ac_201ab 
-#>                661                530              20776                992 
-#> 201_102c_201bc_300           120c_003          120c_120c           120c_210 
-#>                489              20620                136                465 
-#>           120c_300        210_003_210            210_300        300_003_300 
-#>                334                616                485                336
+
+advice <- lazega_lawfirm$advice
+friends <- pmax(lazega_lawfirm$friends, t(lazega_lawfirm$friends))
+census <- multiplex_census(advice, friends)
+length(census)
+#> [1] 104
+head(sort(census, decreasing = TRUE), 10)
+#>   003_003   012_003  012_102a  102_102a   003_102   102_003  021U_003 111D_102b 
+#>     18080     11489      5540      3735      2954      1604       824       788 
+#>  021C_003  012_102b 
+#>       728       675
 ```
+
+The name of each type joins the triad of advice and the triad of
+friendship, and the letters locate the friendship ties on the advice
+triad. Every triple is counted once:
+
+``` r
+
+sum(census) == choose(nrow(advice), 3)
+#> [1] TRUE
+```
+
+With `merge = "overlap"`, the types that give the same combined triad
+are merged:
+
+``` r
+
+length(multiplex_census(advice, friends, merge = "overlap"))
+#> [1] 65
+```
+
+### The layers in a single matrix
+
+The layers of a multiplex network can be arranged in a supra-adjacency
+matrix, with one row and one column for each actor in each layer ([De
+Domenico et al., 2013](https://doi.org/10.1103/PhysRevX.3.041022);
+[Kivelä et al., 2014](https://doi.org/10.1093/comnet/cnu016)). The
+blocks of the diagonal are the layers, and the blocks outside it join
+the copies of the same actor:
+
+``` r
+
+layers <- list(
+  cowork = lazega_lawfirm$cowork,
+  advice = lazega_lawfirm$advice,
+  friends = lazega_lawfirm$friends
+)
+S <- supra_adjacency(layers)
+dim(S)
+#> [1] 213 213
+S[1:4, c(1:2, 72:73, 143:144)]
+#>           n1_cowork n2_cowork n1_advice n2_advice n1_friends n2_friends
+#> n1_cowork         0         0         1         0          1          0
+#> n2_cowork         0         0         0         1          0          1
+#> n3_cowork         0         0         0         0          0          0
+#> n4_cowork         0         0         0         0          0          0
+```
+
+The coupling can join every pair of layers (`categorical`, the default),
+only the layers that follow each other (`ordinal`, for layers ordered in
+time), or nothing (`none`).
+
+The other way of putting the layers together is to aggregate them, so a
+tie counts the layers in which two people are connected ([Battiston et
+al., 2014](https://doi.org/10.1103/PhysRevE.89.032804)):
+
+``` r
+
+A <- aggregate_layers(layers)
+table(layers_with_a_tie = A[upper.tri(A)])
+#> layers_with_a_tie
+#>    0    1    2    3 
+#> 1770  460  159   96
+gen_density(aggregate_layers(layers, method = "binary"), directed = TRUE)
+#> [1] 0.3167002
+```
+
+Aggregating is convenient, but it loses which layer each tie belongs to,
+and the measures of the aggregated network can differ from those of the
+layers ([De Domenico et al., 2015](https://doi.org/10.1038/ncomms7864)).
+
+------------------------------------------------------------------------
 
 Note: the temporal networks are a special case of a multiplex network.
 Links are dynamic, and nodes can join or leave at different stages of
@@ -945,6 +1046,7 @@ maintaining their name in the matrix and assign a `NA` in their row
 and/or column:
 
 ``` r
+
 A <- matrix(c(
   0, 1, 1,
   1, 0, 1,
@@ -957,8 +1059,6 @@ rownames(A) <- c("A", "C", "D")
 label <- c("A", "B", "C", "D", "E")
 
 structural_na(A, label)
-#> Warning in structural_na(A, label): Provided labels do not match the dimensions
-#> of the matrix.
 #>    A  B  C  D  E
 #> A  0 NA  1  1 NA
 #> B NA NA NA NA NA
@@ -970,6 +1070,10 @@ structural_na(A, label)
 ------------------------------------------------------------------------
 
 ## References
+
+Battiston, F., Nicosia, V. and Latora, V. (2014). Structural measures
+for multiplex networks. *Physical Review E*, 89(3), 032804.
+<https://doi.org/10.1103/PhysRevE.89.032804>
 
 Bonacich, P. (1972). Factoring and weighting approaches to status scores
 and clique identification. *Journal of Mathematical Sociology*, 2(1),
@@ -986,12 +1090,34 @@ Carley, K. M. (2002). Smart agents and organizations of the future. In
 L. Lievrouw & S. Livingstone (Eds.), *The Handbook of New Media*
 (pp. 206–220). Sage.
 
+De Domenico, M., Solé-Ribalta, A., Cozzo, E., Kivelä, M., Moreno, Y.,
+Porter, M. A., Gómez, S. and Arenas, A. (2013). Mathematical formulation
+of multilayer networks. *Physical Review X*, 3(4), 041022.
+<https://doi.org/10.1103/PhysRevX.3.041022>
+
+De Domenico, M., Nicosia, V., Arenas, A. and Latora, V. (2015).
+Structural reducibility of multilayer networks. *Nature Communications*,
+6, 6864. <https://doi.org/10.1038/ncomms7864>
+
+Espinosa-Rada, A. (2021). *A Network Approach for the Sociological Study
+of Science: Modelling Dynamic Multilevel Networks*. PhD thesis, The
+University of Manchester.
+
+Espinosa-Rada, A., Bellotti, E., Everett, M. and Stadtfeld, C. (2024).
+Co-evolution of a socio-cognitive scientific network: A case study of
+citation dynamics among astronomers. *Social Networks*, 78, 92–108.
+<https://doi.org/10.1016/j.socnet.2023.11.008>
+
 Gluckman, M. (1955). *The Judicial Process Among the Barotse of Northern
 Rhodesia*. Manchester University Press.
 
-Kinsley, A. C., Munnich, L. M., VanderWaal, K. L., & Enns, E. A. (2020).
-Applications of network analysis in epidemiology: A guide for veterinary
-researchers. *Frontiers in Veterinary Science*, 7, 596.
+Holland, P. W. and Leinhardt, S. (1976). Local structure in social
+networks. *Sociological Methodology*, 7, 1–45.
+<https://doi.org/10.2307/270703>
+
+Kinsley, A. C., Rossi, G., Silk, M. J. and VanderWaal, K. (2020).
+Multilayer and multiplex networks: An introduction to their use in
+veterinary epidemiology. *Frontiers in Veterinary Science*, 7, 596.
 <https://doi.org/10.3389/fvets.2020.00596>
 
 Kivelä, M., Arenas, A., Barthelemy, M., Gleeson, J. P., Moreno, Y., &
@@ -1014,10 +1140,10 @@ Lazega, E., & Snijders, T. A. B. (Eds.). (2016). *Multilevel Network
 Analysis for the Social Sciences*. Springer.
 <https://doi.org/10.1007/978-3-319-24520-1>
 
-Leydesdorff, L. (2008). The communication of meaning in anticipatory
-systems: A simulation study of the dynamics of intentionality in social
-interactions. *Journal of the American Society for Information Science
-and Technology*, 59(11), 1724–1734. <https://doi.org/10.1002/asi.20732>
+Leydesdorff, L. (2008). On the normalization and visualization of author
+co-citation data: Salton’s Cosine versus the Jaccard index. *Journal of
+the American Society for Information Science and Technology*, 59(1),
+77–85. <https://doi.org/10.1002/asi.20732>
 
 Rivera, M. T., Soderstrom, S. B., & Uzzi, B. (2010). Dynamics of dyads
 in social networks: Assortative, relational, and proximity mechanisms.

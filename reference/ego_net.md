@@ -39,8 +39,9 @@ ego_net(
 
 ## Value
 
-This function returns redundancy, effective size and efficiency measures
-(Burt, 1992).
+This function returns the submatrix of the alters of ego, with ego in
+the last row and column when `addEgo = TRUE`. An isolate gives an empty
+matrix (or a 1 x 1 matrix with ego).
 
 ## References
 
@@ -57,6 +58,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A <- matrix(c(
   0, 1, 0, 0, 1, 1, 1,
   1, 0, 0, 1, 0, 0, 1,

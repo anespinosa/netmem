@@ -41,10 +41,8 @@ adj_groups <- rbind(
 )
 M <- adj_to_matrix(adj_groups, type = "adjacency", loops = TRUE)
 M
-#>   a a b c c
-#> a 1 1 1 1 1
-#> a 1 1 0 1 1
-#> b 0 0 1 1 1
-#> c 0 0 0 1 1
-#> c 1 1 0 1 1
+#>   a b c
+#> a 1 1 1
+#> b 0 1 1
+#> c 1 0 1
 ```

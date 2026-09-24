@@ -18,7 +18,8 @@ ind_rand_matrix(
   l = NULL,
   p = NULL,
   trials = 1,
-  multilevel = FALSE
+  multilevel = FALSE,
+  sparse = FALSE
 )
 ```
 
@@ -64,9 +65,15 @@ ind_rand_matrix(
 
   Whether to return a meta-matrix to represent a multilevel network
 
+- sparse:
+
+  Whether to return a sparse matrix of the `Matrix` package, which is
+  built without the dense matrix
+
 ## Value
 
-This function return the counts of the dyad census.
+This function returns a random matrix, or a list of matrices for a
+multilevel network.
 
 ## Details
 
@@ -83,6 +90,13 @@ distribution that place nonnull probability on a subset of networks with
 distinctive characteristics corresponding to the observed networks - for
 example, simulating a matrix based on the number of ties observed in the
 network.
+
+With `sparse = TRUE` the ties are drawn among the cells that the model
+allows, and only they are stored, so the memory grows with the number of
+ties and not with the square of the number of nodes. The two models are
+the same as with a dense matrix: the number of ties of `G(n,p)` is
+binomial, which is what drawing every tie independently gives. It is
+available for one-mode and two-mode networks with `trials = 1`.
 
 ## References
 
@@ -108,28 +122,33 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 set.seed(18051889)
 ind_rand_matrix(5, type = "edges", l = 3, digraph = TRUE, loops = TRUE)
 #>      [,1] [,2] [,3] [,4] [,5]
 #> [1,]    0    0    0    0    0
-#> [2,]    0    1    0    0    0
-#> [3,]    0    1    0    0    0
-#> [4,]    0    0    0    0    1
-#> [5,]    0    0    0    0    0
+#> [2,]    0    0    1    0    0
+#> [3,]    0    0    0    0    0
+#> [4,]    0    0    0    0    0
+#> [5,]    0    1    0    0    1
 ind_rand_matrix(5, type = "probability")
 #>      [,1] [,2] [,3] [,4] [,5]
-#> [1,]    0    1    0    1    0
-#> [2,]    1    0    1    0    1
-#> [3,]    0    1    0    1    1
-#> [4,]    0    0    0    0    0
-#> [5,]    0    1    1    1    0
+#> [1,]    0    0    1    0    1
+#> [2,]    0    0    1    1    1
+#> [3,]    0    0    0    0    0
+#> [4,]    0    1    1    0    1
+#> [5,]    1    0    1    1    0
 ind_rand_matrix(n = 5, m = 2, p = 0.20, type = "probability", multilevel = TRUE)
 #>    n1 n2 n3 n4 n5 m1 m2
-#> n1  0  1  0  0  0  0  1
-#> n2  0  0  1  1  0  0  0
+#> n1  0  0  1  1  0  0  0
+#> n2  0  0  0  0  0  0  0
 #> n3  0  0  0  0  0  0  0
-#> n4  0  0  0  0  0  0  0
-#> n5  0  1  1  0  0  0  0
-#> m1  0  0  0  0  0  0  0
-#> m2  1  0  0  0  0  0  0
+#> n4  0  1  1  0  0  0  0
+#> n5  0  0  0  0  0  1  1
+#> m1  0  0  0  0  1  0  0
+#> m2  0  0  0  0  1  0  0
+
+# Large networks are cheaper as sparse matrices
+dim(ind_rand_matrix(10000, type = "edges", l = 5000, digraph = FALSE, sparse = TRUE))
+#> [1] 10000 10000
 ```

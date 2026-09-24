@@ -42,6 +42,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A <- matrix(
   c(
     0, 1, 1, 0, 0, 0,

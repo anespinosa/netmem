@@ -37,6 +37,7 @@ negative ties. Social Networks, 38, 111-120.
 ## Examples
 
 ``` r
+
 A <- matrix(
   c(
     0, 1, -1, -1, -1, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 1,

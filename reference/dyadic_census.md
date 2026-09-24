@@ -38,6 +38,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 data(krackhardt_friends)
 dyadic_census(krackhardt_friends)
 #>      Mutual Asymmetrics       Nulls 

@@ -19,24 +19,39 @@ dyad_triad_table(A, adjacency_list = FALSE, min = NULL, max = NULL)
 
 - adjacency_list:
 
-  Whether to return the adjacency list of triads 201 per node.
+  Whether to return the adjacency list of the triads per node.
 
 - min:
 
-  Numeric constant, lower limit on the size of the triads 201 to find.
-  NULL means no limit, ie. it is the same as 0.
+  Numeric constant, lower limit on the number of forbidden triads (201)
+  of which a node is the centre. NULL means no limit.
 
 - max:
 
-  Numeric constant, upper limit on the size of the triads 201 to find.
-  NULL means no limit.
+  Numeric constant, upper limit on the number of forbidden triads (201)
+  of which a node is the centre. NULL means no limit.
 
 ## Value
 
-This function return the list of triads that each node belong.
+This function returns a data frame with the triads of each node: the
+`node`, the number of the `triad`, its `members` and its `type`.
 
 If `adjacency_list = TRUE` it also return the adjacency list of the
-'forbidden triads' per node.
+triads per node.
+
+## Details
+
+For each node, every pair of its neighbours forms a triad with the node
+at its centre. The triad is a forbidden triad (type `201`) when the two
+neighbours are not tied, which Granovetter (1973) argued is unlikely
+when both ties are strong, and it is closed (type `300`) when they are.
+A node with a single neighbour is listed with its dyad (type `102`) and
+an isolated node alone (type `003`). The underlying graph of the network
+is used.
+
+The same triad receives the same number in `triad` for every node that
+lists it: a closed triad is listed by its three nodes, and a forbidden
+triad only by its centre.
 
 ## References
 
@@ -67,22 +82,27 @@ A <- matrix(c(
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 
-dyad_triad_table(A, adjacency_list = TRUE, min = 3)
+dyad_triad_table(A)
+#>   node triad members type
+#> 1    a     1   a|b|c  300
+#> 2    a     2   a|b|d  201
+#> 3    a     3   a|c|d  201
+#> 4    b     1   a|b|c  300
+#> 5    c     1   a|b|c  300
+#> 6    d     4   a|d|e  201
+#> 7    e     5     d|e  102
+
+# Nodes at the centre of at least two forbidden triads
+dyad_triad_table(A, adjacency_list = TRUE, min = 2)
 #> $nodes
-#>   node Triad201
-#> 1    a        1
-#> 2    b        1
-#> 3    c        1
+#>   node triad members type
+#> 1    a     1   a|b|c  300
+#> 2    a     2   a|b|d  201
+#> 3    a     3   a|c|d  201
 #> 
 #> $adjacency_list
 #> $adjacency_list$a
-#> [1] "abc" "abd" "acd"
-#> 
-#> $adjacency_list$b
-#> [1] "abc"
-#> 
-#> $adjacency_list$c
-#> [1] "abc"
+#> [1] "a|b|c" "a|b|d" "a|c|d"
 #> 
 #> 
 ```

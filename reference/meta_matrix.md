@@ -41,6 +41,15 @@ meta_matrix(A1, B1, A2 = NULL, B2 = NULL, A3 = NULL, B3 = NULL)
 
 Return a meta matrix for multilevel networks
 
+## Details
+
+The meta matrix places the network of each level on the diagonal and the
+ties between two levels in both triangles, as an incidence matrix and
+its transpose: \$\$\begin{pmatrix} A_1 & B_1 & B_3^T \\ B_1^T & A_2 &
+B_2 \\ B_3 & B_2^T & A_3 \end{pmatrix}\$\$ The matrices that are not
+given are zero. The names of the nodes are kept when every level has
+them.
+
 ## References
 
 Carley, K. M. (2002). Smart agents and organizations of the future. In:
@@ -58,6 +67,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A1 <- matrix(c(
   0, 1, 0, 0, 0,
   1, 0, 0, 1, 0,
@@ -119,11 +129,11 @@ meta_matrix(A1, B1, A2, B2, A3, B3)
 #> c 0 0 0 1 0 0 1 0 0 0 0 0
 #> d 0 1 1 0 1 0 1 0 0 1 0 0
 #> e 0 0 0 1 0 0 1 1 0 0 0 0
-#> f 1 1 0 0 0 0 1 1 0 0 0 0
-#> g 0 1 1 1 1 1 0 0 0 0 0 0
-#> h 0 0 0 0 1 1 0 0 0 0 0 0
-#> i 0 0 0 0 0 0 0 0 0 1 1 1
-#> j 0 0 0 0 0 0 0 0 1 0 0 0
-#> k 0 0 0 0 0 0 0 0 1 0 0 1
-#> l 0 0 0 0 0 0 0 0 1 0 1 0
+#> f 1 1 0 0 0 0 1 1 1 1 0 0
+#> g 0 1 1 1 1 1 0 0 0 0 1 0
+#> h 0 0 0 0 1 1 0 0 0 0 1 1
+#> i 1 0 0 0 0 1 0 0 0 1 1 1
+#> j 0 1 0 1 0 1 0 0 1 0 0 0
+#> k 0 0 0 0 0 0 1 1 1 0 0 1
+#> l 0 0 0 0 0 0 0 1 1 0 1 0
 ```

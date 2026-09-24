@@ -39,6 +39,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 data(krackhardt_friends)
 z_arctest(krackhardt_friends)
 #>      z      p 

@@ -1,9 +1,11 @@
-pandoc: 3.1.11
-pkgdown: 2.2.0
+pandoc: 3.8.3
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
+  distinctive: distinctive.html
   multilayer: multilayer.html
-last_built: 2026-04-20T02:45Z
+  netmem: netmem.html
+last_built: 2026-09-24T11:51Z
 urls:
   reference: https://anespinosa.github.io/netmem/reference
   article: https://anespinosa.github.io/netmem/articles

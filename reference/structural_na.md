@@ -56,7 +56,6 @@ colnames(A) <- c("A", "C", "D")
 rownames(A) <- c("A", "C", "D")
 label <- c("A", "B", "C", "D", "E")
 structural_na(A, label = label)
-#> Warning: Provided labels do not match the dimensions of the matrix.
 #>    A  B  C  D  E
 #> A  0 NA  1  1 NA
 #> B NA NA NA NA NA

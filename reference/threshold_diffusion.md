@@ -1,0 +1,96 @@
+# Threshold diffusion
+
+Simulates the diffusion of a behaviour through the network, where an
+actor adopts it when enough of its neighbours have already adopted it
+(Granovetter, 1978; Valente, 1996).
+
+## Usage
+
+``` r
+threshold_diffusion(
+  A,
+  seeds,
+  threshold = 0.5,
+  mode = c("proportion", "count"),
+  steps = NULL
+)
+```
+
+## Arguments
+
+- A:
+
+  A square matrix
+
+- seeds:
+
+  The actors that have adopted at the beginning, by name or by position
+
+- threshold:
+
+  The threshold of every actor, as a single value or a vector
+
+- mode:
+
+  Whether the threshold is a `proportion` of the neighbours (default) or
+  a `count` of them
+
+- steps:
+
+  Maximum number of steps. If NULL, the process runs until nobody else
+  adopts
+
+## Value
+
+This function returns who has adopted at every step, the step in which
+every actor adopted, and the proportion of actors that adopted.
+
+## Details
+
+At each step, the actors that have not adopted count how many of their
+neighbours did. They adopt when that number, or that proportion of their
+neighbours, reaches their threshold. The actors that adopt never go
+back, so the process stops when nobody else adopts.
+
+## References
+
+Granovetter, M. (1978). Threshold models of collective behavior.
+American Journal of Sociology, 83(6), 1420–1443.
+[doi:10.1086/226707](https://doi.org/10.1086/226707)
+
+Valente, T. W. (1996). Social network thresholds in the diffusion of
+innovations. Social Networks, 18(1), 69–89.
+[doi:10.1016/0378-8733(95)00256-1](https://doi.org/10.1016/0378-8733%2895%2900256-1)
+
+## Author
+
+Alejandro Espinosa-Rada
+
+## Examples
+
+``` r
+A <- matrix(c(
+  0, 1, 1, 0, 0, 0,
+  1, 0, 1, 0, 0, 0,
+  1, 1, 0, 1, 0, 0,
+  0, 0, 1, 0, 1, 1,
+  0, 0, 0, 1, 0, 1,
+  0, 0, 0, 1, 1, 0
+), byrow = TRUE, ncol = 6)
+rownames(A) <- letters[1:nrow(A)]
+colnames(A) <- rownames(A)
+
+threshold_diffusion(A, seeds = c("a", "b"), threshold = 0.5)
+#> $history
+#>       a    b     c     d     e     f
+#> t0 TRUE TRUE FALSE FALSE FALSE FALSE
+#> t1 TRUE TRUE  TRUE FALSE FALSE FALSE
+#> 
+#> $time
+#>  a  b  c  d  e  f 
+#>  0  0  1 NA NA NA 
+#> 
+#> $adopters
+#> [1] 0.5
+#> 
+```

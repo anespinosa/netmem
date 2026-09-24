@@ -20,11 +20,13 @@ extract_component(A, maximum = TRUE, position = NULL)
 
 - position:
 
-  Whether to extract the component in the ith size position
+  The position of the size of the component, from the largest (1). Used
+  when `maximum = FALSE`
 
 ## Value
 
-A matrix or a list of matrices with the required components
+The matrix of the component, or a list with the matrices of the
+components when several have the same size
 
 ## References
 
@@ -38,6 +40,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A <- FIFAex$Matrix
 rownames(A) <- FIFAex$label
 colnames(A) <- rownames(A)

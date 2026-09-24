@@ -58,6 +58,18 @@ k_core(
 
 This function return the k-core.
 
+## Details
+
+For a binary network (`weighted = FALSE` and `multilevel = FALSE`), the
+coreness of a node is the largest k such that the node belongs to a
+subgraph in which every node has at least k ties (Seidman, 1983). It is
+obtained by removing, for k = 0, 1, 2, ..., the nodes with at most k
+ties among the remaining nodes (Batagelj and Zaversnik, 2011). A value
+larger than one counts as several ties, and an undirected network uses
+the tie in either direction. The loops are counted only when
+`loops = TRUE`, twice for an undirected network, as in
+[`igraph::coreness`](https://r.igraph.org/reference/coreness.html).
+
 ## References
 
 Batagelj, V., & Zaveršnik, M. (2011). Fast algorithms for determining
@@ -80,6 +92,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A1 <- matrix(c(
   0, 1, 0, 0, 0,
   1, 0, 0, 1, 0,
@@ -96,5 +109,5 @@ B1 <- matrix(c(
 ), byrow = TRUE, ncol = 3)
 
 k_core(A1, B1, multilevel = TRUE)
-#> [1] 1 2 1 2 2
+#> [1] 2 3 2 3 3
 ```

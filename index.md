@@ -22,10 +22,21 @@ complex multilayer networks, from an ego-centric perspective,
 considering one-mode networks, valued ties (i.e. *weighted* or
 *multiplex*) or with multiple levels.
 
+The package comes with three vignettes, listed in the
+[articles](https://anespinosa.github.io/netmem/articles/) of the website
+and available from `R` once netmem is installed:
+
+``` r
+
+vignette("netmem") # Getting started with netmem
+vignette("distinctive") # What netmem adds
+vignette("multilayer") # Multilayer networks
+```
+
 ## Citation
 
 Espinosa-Rada A (2026). *netmem: Social Network Measures using
-Matrices*. R package version 1.0-3,
+Matrices*. R package version 1.1-0,
 <https://github.com/anespinosa/netmem>.
 
 ``` bibtex
@@ -33,7 +44,7 @@ Matrices*. R package version 1.0-3,
   title = {netmem: Social Network Measures using Matrices},
   author = {Alejandro Espinosa-Rada},
   year = {2026},
-  note = {R package version 1.0-3},
+  note = {R package version 1.1-0},
   url = {https://github.com/anespinosa/netmem},
 }
 ```
@@ -87,22 +98,28 @@ Utilities:
 15. [`meta_matrix()`](https://anespinosa.github.io/netmem/reference/meta_matrix.md):
     Meta matrix for multilevel networks
 
-16. [`minmax_overlap()`](https://anespinosa.github.io/netmem/reference/minmax_overlap.md):
+16. [`supra_adjacency()`](https://anespinosa.github.io/netmem/reference/supra_adjacency.md):
+    Supra-adjacency matrix of the layers of a multiplex network
+
+17. [`aggregate_layers()`](https://anespinosa.github.io/netmem/reference/aggregate_layers.md):
+    Aggregation of the layers into a single matrix
+
+18. [`minmax_overlap()`](https://anespinosa.github.io/netmem/reference/minmax_overlap.md):
     Minimum/maximum overlap
 
-17. [`mix_matrix()`](https://anespinosa.github.io/netmem/reference/mix_matrix.md):
+19. [`mix_matrix()`](https://anespinosa.github.io/netmem/reference/mix_matrix.md):
     Mixing matrix
 
-18. [`simplicial_complexes()`](https://anespinosa.github.io/netmem/reference/simplicial_complexes.md):
+20. [`simplicial_complexes()`](https://anespinosa.github.io/netmem/reference/simplicial_complexes.md):
     Simplicial complexes
 
-19. [`structural_na()`](https://anespinosa.github.io/netmem/reference/structural_na.md):
+21. [`structural_na()`](https://anespinosa.github.io/netmem/reference/structural_na.md):
     Structural missing data
 
-20. [`ego_net()`](https://anespinosa.github.io/netmem/reference/ego_net.md):
+22. [`ego_net()`](https://anespinosa.github.io/netmem/reference/ego_net.md):
     Ego network
 
-21. [`zone_sample()`](https://anespinosa.github.io/netmem/reference/zone_sample.md):
+23. [`zone_sample()`](https://anespinosa.github.io/netmem/reference/zone_sample.md):
     Zone-2 sampling from second-mode
 
 Ego and personal networks:
@@ -118,6 +135,22 @@ Ego and personal networks:
 
 4.  [`redundancy()`](https://anespinosa.github.io/netmem/reference/redundancy.md):
     Redundancy measures
+
+5.  [`structural_holes()`](https://anespinosa.github.io/netmem/reference/structural_holes.md):
+    Effective size, efficiency and constraint of every node, with
+    overlapping categories
+
+6.  [`alter_composition()`](https://anespinosa.github.io/netmem/reference/alter_composition.md):
+    Categories of the alters, which can overlap
+
+7.  [`alter_heterogeneity()`](https://anespinosa.github.io/netmem/reference/alter_heterogeneity.md):
+    Heterogeneity of the alters, with overlapping categories
+
+8.  [`alter_homophily()`](https://anespinosa.github.io/netmem/reference/alter_homophily.md):
+    E-I index and Yule’s Q of every node, with overlapping categories
+
+9.  [`brokerage_roles()`](https://anespinosa.github.io/netmem/reference/brokerage_roles.md):
+    Gould and Fernandez brokerage roles, with overlapping categories
 
 Path distances:
 
@@ -139,6 +172,12 @@ Path distances:
 6.  [`wall_distances()`](https://anespinosa.github.io/netmem/reference/distances.md):
     Dijkstra’s algorithm (all actors)
 
+7.  [`geo_distances()`](https://anespinosa.github.io/netmem/reference/geodesics.md):
+    Matrix of geodesic distances
+
+8.  [`geo_summary()`](https://anespinosa.github.io/netmem/reference/geodesics.md):
+    Diameter, average distance and reachability
+
 Signed networks:
 
 1.  [`posneg_index()`](https://anespinosa.github.io/netmem/reference/posneg_index.md):
@@ -147,40 +186,43 @@ Signed networks:
 2.  [`struc_balance()`](https://anespinosa.github.io/netmem/reference/struc_balance.md):
     Structural balance
 
+3.  `eigenvector_centrality(signed = TRUE)`: Status with negative
+    relations
+
 Structural measures:
 
 1.  [`gen_density()`](https://anespinosa.github.io/netmem/reference/gen_density.md):
     Generalized density
 
-2.  [`gen_degree()`](https://anespinosa.github.io/netmem/reference/gen_degree.md):
-    Generalized degree
-
-3.  [`multilevel_degree()`](https://anespinosa.github.io/netmem/reference/multilevel_degree.md):
-    Degree centrality for multilevel networks
-
-4.  [`recip_coef()`](https://anespinosa.github.io/netmem/reference/recip_coef.md):
+2.  [`recip_coef()`](https://anespinosa.github.io/netmem/reference/recip_coef.md):
     Reciprocity
 
-5.  [`trans_coef()`](https://anespinosa.github.io/netmem/reference/trans_coef.md):
+3.  [`trans_coef()`](https://anespinosa.github.io/netmem/reference/trans_coef.md):
     Transitivity
 
-6.  [`trans_matrix()`](https://anespinosa.github.io/netmem/reference/trans_matrix.md):
+4.  [`trans_matrix()`](https://anespinosa.github.io/netmem/reference/trans_matrix.md):
     Transitivity matrix
 
-7.  [`components_id()`](https://anespinosa.github.io/netmem/reference/components_id.md):
+5.  [`components_id()`](https://anespinosa.github.io/netmem/reference/components_id.md):
     Components
 
-8.  [`k_core()`](https://anespinosa.github.io/netmem/reference/k_core.md):
+6.  [`k_core()`](https://anespinosa.github.io/netmem/reference/k_core.md):
     Generalized k-core
 
-9.  [`dyadic_census()`](https://anespinosa.github.io/netmem/reference/dyadic_census.md):
+7.  [`dyadic_census()`](https://anespinosa.github.io/netmem/reference/dyadic_census.md):
     Dyad census
 
-10. [`multiplex_census()`](https://anespinosa.github.io/netmem/reference/multiplex_census.md):
+8.  [`multiplex_census()`](https://anespinosa.github.io/netmem/reference/multiplex_census.md):
     Multiplex triad census
 
-11. [`mixed_census()`](https://anespinosa.github.io/netmem/reference/mixed_census.md):
+9.  [`mixed_census()`](https://anespinosa.github.io/netmem/reference/mixed_census.md):
     Multilevel triad and quadrilateral census
+
+10. [`krackhardt_index()`](https://anespinosa.github.io/netmem/reference/krackhardt_index.md):
+    Connectedness, hierarchy, efficiency and upper boundedness
+
+11. [`core_periphery()`](https://anespinosa.github.io/netmem/reference/core_periphery.md):
+    Core-periphery structures
 
 Cohesive subgroups:
 
@@ -198,6 +240,9 @@ Cohesive subgroups:
 
 5.  [`shared_partners()`](https://anespinosa.github.io/netmem/reference/shared_partners.md):
     Shared partners
+
+6.  [`clique_max()`](https://anespinosa.github.io/netmem/reference/clique_max.md):
+    Maximal cliques
 
 Similarity measures:
 
@@ -230,6 +275,149 @@ Network inference:
 4.  [`ind_rand_matrix()`](https://anespinosa.github.io/netmem/reference/ind_rand_matrix.md):
     Independent random matrix
 
+5.  [`cug_test()`](https://anespinosa.github.io/netmem/reference/cug_test.md):
+    Conditional uniform graph test
+
+6.  [`qap_cor()`](https://anespinosa.github.io/netmem/reference/qap_cor.md):
+    QAP correlation
+
+7.  [`qap_lm()`](https://anespinosa.github.io/netmem/reference/qap_lm.md):
+    MRQAP regression, linear and logistic
+
+8.  [`small_world()`](https://anespinosa.github.io/netmem/reference/small_world.md):
+    Watts-Strogatz networks
+
+9.  [`pref_attachment()`](https://anespinosa.github.io/netmem/reference/pref_attachment.md):
+    Barabasi-Albert networks
+
+Centrality:
+
+1.  [`gen_degree()`](https://anespinosa.github.io/netmem/reference/gen_degree.md):
+    Generalized degree
+
+2.  [`multilevel_degree()`](https://anespinosa.github.io/netmem/reference/multilevel_degree.md):
+    Degree centrality for multilevel networks
+
+3.  [`closeness_centrality()`](https://anespinosa.github.io/netmem/reference/closeness_centrality.md):
+    Closeness and harmonic closeness
+
+4.  [`betweenness_centrality()`](https://anespinosa.github.io/netmem/reference/betweenness_centrality.md):
+    Betweenness
+
+5.  [`eigenvector_centrality()`](https://anespinosa.github.io/netmem/reference/eigenvector_centrality.md):
+    Eigenvector centrality
+
+6.  [`katz_centrality()`](https://anespinosa.github.io/netmem/reference/katz_centrality.md):
+    Katz centrality
+
+7.  [`bonacich_power()`](https://anespinosa.github.io/netmem/reference/bonacich_power.md):
+    Bonacich power centrality
+
+8.  [`page_rank_centrality()`](https://anespinosa.github.io/netmem/reference/page_rank_centrality.md):
+    PageRank
+
+9.  [`centrality_centralization()`](https://anespinosa.github.io/netmem/reference/centrality_centralization.md):
+    Centralization of the network
+
+10. [`partition_centrality()`](https://anespinosa.github.io/netmem/reference/partition_centrality.md):
+    Contribution of each category to the centrality of every node
+
+Positions and dominance:
+
+1.  [`neigh_inclusion()`](https://anespinosa.github.io/netmem/reference/neigh_inclusion.md):
+    Neighbourhood-inclusion preorder
+
+2.  [`dir_inclusion()`](https://anespinosa.github.io/netmem/reference/dir_inclusion.md):
+    Directed neighbourhood-inclusion criteria
+
+3.  [`pos_dominance()`](https://anespinosa.github.io/netmem/reference/pos_dominance.md):
+    Positional dominance on indirect relations
+
+4.  [`indirect_rel()`](https://anespinosa.github.io/netmem/reference/indirect_rel.md):
+    Indirect relations between the nodes
+
+5.  [`set_inclusion()`](https://anespinosa.github.io/netmem/reference/set_inclusion.md):
+    Inclusion of neighbourhoods
+
+6.  [`pareto_dominance()`](https://anespinosa.github.io/netmem/reference/pareto_dominance.md):
+    Dominance across several relations
+
+7.  [`hyperevent_dominance()`](https://anespinosa.github.io/netmem/reference/hyperevent_dominance.md):
+    Dominance through citation chains
+
+8.  [`dominance_pairs()`](https://anespinosa.github.io/netmem/reference/dominance_pairs.md):
+    Comparable and incomparable pairs
+
+9.  [`dominance_layers()`](https://anespinosa.github.io/netmem/reference/dominance_layers.md):
+    Layers and status of a dominance relation
+
+10. [`dominance_ranks()`](https://anespinosa.github.io/netmem/reference/dominance_ranks.md):
+    Rank intervals
+
+11. [`preserved_order()`](https://anespinosa.github.io/netmem/reference/preserved_order.md):
+    Whether a centrality preserves a dominance relation
+
+Roles and positions:
+
+1.  [`block_density()`](https://anespinosa.github.io/netmem/reference/block_density.md):
+    Block densities and image matrix
+
+2.  [`concor()`](https://anespinosa.github.io/netmem/reference/concor.md):
+    CONCOR
+
+3.  [`rege()`](https://anespinosa.github.io/netmem/reference/rege.md):
+    Regular equivalence
+
+Communities:
+
+1.  [`leiden()`](https://anespinosa.github.io/netmem/reference/leiden.md):
+    Leiden and Louvain communities
+
+2.  [`leading_eigen()`](https://anespinosa.github.io/netmem/reference/leading_eigen.md):
+    Leading eigenvector communities
+
+3.  [`community_greedy()`](https://anespinosa.github.io/netmem/reference/communities.md):
+    Agglomerative modularity
+
+4.  [`community_label()`](https://anespinosa.github.io/netmem/reference/communities.md):
+    Label propagation
+
+5.  [`community_betweenness()`](https://anespinosa.github.io/netmem/reference/communities.md):
+    Girvan-Newman edge betweenness
+
+6.  [`modularity_score()`](https://anespinosa.github.io/netmem/reference/modularity_score.md):
+    Modularity, including LinkRank
+
+Segregation and homophily:
+
+1.  [`segregation()`](https://anespinosa.github.io/netmem/reference/segregation.md):
+    Assortativity, Gupta-Anderson-May, odds ratio, Coleman and Freeman
+
+Social influence and diffusion:
+
+1.  [`social_influence()`](https://anespinosa.github.io/netmem/reference/social_influence.md):
+    Assimilation, bounded confidence, repulsion and Friedkin-Johnsen
+
+2.  [`threshold_diffusion()`](https://anespinosa.github.io/netmem/reference/threshold_diffusion.md):
+    Threshold models of diffusion
+
+Citation networks:
+
+1.  [`main_path()`](https://anespinosa.github.io/netmem/reference/main_path.md):
+    Main path analysis
+
+2.  [`traversal_weights()`](https://anespinosa.github.io/netmem/reference/traversal_weights.md):
+    Search path counts
+
+3.  [`citation_decay()`](https://anespinosa.github.io/netmem/reference/citation_decay.md):
+    Temporal decay of citations
+
+4.  [`dag_check()`](https://anespinosa.github.io/netmem/reference/dag.md):
+    Directed acyclic graphs
+
+5.  [`main_path_diag()`](https://anespinosa.github.io/netmem/reference/main_path_diag.md):
+    Diagnostics of the main path
+
 Geographic information:
 
 1.  [`dist_geographic()`](https://anespinosa.github.io/netmem/reference/dist_geographic.md):
@@ -250,8 +438,22 @@ Data currently available:
 
 5.  `lazega_lawfirm`: Lazega Law Firm
 
+6.  `campnet`: Camp 92 network
+
 Additional data in
 [`classicnets: Classic Data of Social Networks`](https://github.com/anespinosa/classicnets)
+
+------------------------------------------------------------------------
+
+## Scope
+
+The functions work on matrices, which keeps the code close to the
+algebra of the measures and makes them easy to read and to check. The
+results are compared with `igraph`, `sna`, `netrankr` and `netseg` in
+the validation scripts of the repository. The package is meant for the
+networks that are usually collected by hand, up to a few hundred nodes;
+for larger networks the compiled routines of `igraph` are orders of
+magnitude faster.
 
 ------------------------------------------------------------------------
 
@@ -264,6 +466,7 @@ Additional data in
 From [CRAN](https://CRAN.R-project.org/package=netmem):
 
 ``` r
+
 # install.packages("netmem")
 library(netmem)
 ```
@@ -272,6 +475,7 @@ You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 ### OPTION 1
 # install.packages("devtools")
 devtools::install_github("anespinosa/netmem")
@@ -327,6 +531,7 @@ matrices, one valued matrix and two incidence matrices between them.
 Create the data
 
 ``` r
+
 A1 <- matrix(c(
   0, 1, 0, 0, 1,
   1, 0, 0, 1, 1,
@@ -366,6 +571,7 @@ A3 <- matrix(c(
 We will start with a report of the matrices:
 
 ``` r
+
 matrix_report(A1)
 #> The matrix A might have the following characteristics:
 #> --> The vectors of the matrix are `numeric`
@@ -415,6 +621,7 @@ matrix_report(A3)
 What is the density of some of the matrices?
 
 ``` r
+
 matrices <- list(A1, B1, A2, B2)
 gen_density(matrices, multilayer = TRUE)
 #> $`Density of matrix [[1]]`
@@ -433,6 +640,7 @@ gen_density(matrices, multilayer = TRUE)
 How about the degree centrality of the entire structure?
 
 ``` r
+
 multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 #>    multilevel bipartiteB1 bipartiteB2 tripartiteB1B2 low_multilevel
 #> n1          3           1          NA              1              3
@@ -443,9 +651,9 @@ multilevel_degree(A1, B1, A2, B2, complete = TRUE)
 #> m1          6           2           2              4              4
 #> m2          6           4           1              5              5
 #> m3          4           1           2              3              3
-#> k1          4          NA           1              1              1
-#> k2          2          NA           1              1              1
-#> k3          3          NA           2              2              2
+#> k1          1          NA           1              1              1
+#> k2          1          NA           1              1              1
+#> k3          2          NA           2              2              2
 #> k4          1          NA           1              1              1
 #>    meso_multilevel high_multilevel
 #> n1               1               1
@@ -466,14 +674,16 @@ Besides, we can perform a *k*-core analysis of one of the levels using
 the information of an incidence matrix
 
 ``` r
+
 k_core(A1, B1, multilevel = TRUE)
-#> [1] 1 3 1 2 3
+#> [1] 3 3 3 3 3
 ```
 
 This package also allows performing complex census for multilevel
 networks.
 
 ``` r
+
 mixed_census(A2, t(B1), B2, quad = TRUE)
 #>   000   100   001   010   020   200  11D0  11U0   120   210   220   002  01D1 
 #>     2     6     1     0     0     2     0     0     4     0     1     1     0 
@@ -493,6 +703,7 @@ all the other actors in the network. Therefore, we could estimate some
 of Ronald Burt’s measures.
 
 ``` r
+
 # First we will assign names to the matrix
 rownames(A1) <- letters[1:nrow(A1)]
 colnames(A1) <- letters[1:ncol(A1)]
@@ -520,6 +731,7 @@ Also, sometimes we might want to subset a group of actors surrounding an
 ego.
 
 ``` r
+
 ego_net(A1, ego = "e")
 #>   a b c d
 #> a 0 1 0 0
@@ -539,6 +751,7 @@ adding the tuning parameter `alpha=0.5` would determine the relative
 importance of the number of ties compared to tie weights.
 
 ``` r
+
 gen_degree(A3, digraph = FALSE, weighted = TRUE)
 #> [1] 3.872983 1.000000 4.000000 3.464102
 ```
@@ -547,6 +760,7 @@ Also, we could conduct some exploratory analysis using the normalized
 degree of an incidence matrix.
 
 ``` r
+
 gen_degree(B1, bipartite = TRUE, normalized = TRUE)
 #> $bipartiteL1
 #> [1] 0.3333333 0.6666667 0.3333333 0.3333333 0.6666667
@@ -558,6 +772,7 @@ gen_degree(B1, bipartite = TRUE, normalized = TRUE)
 This package also implements some analysis of dyads.
 
 ``` r
+
 # dyad census
 dyadic_census(A1)
 #>      Mutual Asymmetrics       Nulls 
@@ -565,7 +780,7 @@ dyadic_census(A1)
 
 # Katz and Powell reciprocity
 kp_reciprocity(A1)
-#> [1] 6.333333
+#> [1] 1
 
 # Z test of the number of arcs
 z_arctest(A1)
@@ -577,6 +792,7 @@ We can also check the triad census assuming conditional uniform
 distribution considering different types of dyads **(U\|MAN)**
 
 ``` r
+
 triad_uman(A1)
 #>    label OBS   EXP   VAR   STD
 #> 1    003   0 0.083 0.076 0.276
@@ -610,6 +826,7 @@ participating in this project you agree to abide by its terms.
 ### To-do list
 
 ``` r
+
 # library(todor)
 # todor::todor_package(c("TODO", "FIXME"))
 ```

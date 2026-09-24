@@ -86,6 +86,7 @@ Alejandro Espinosa-Rada
 ## Examples
 
 ``` r
+
 A <- matrix(c(
   0, 1, 1, 0,
   1, 0, 0, 0,
@@ -106,10 +107,9 @@ jaccard(A, B, directed = TRUE)
 #> [1] 0.8
 #> 
 #> $table
-#>       B
-#> A      0 1 <NA>
-#>   0    7 0    0
-#>   1    1 4    0
-#>   <NA> 0 0    0
+#>    
+#>     0 1
+#>   0 7 0
+#>   1 1 4
 #> 
 ```

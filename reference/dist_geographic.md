@@ -57,6 +57,7 @@ This function return a distance matrix.
 ## Examples
 
 ``` r
+
 set.seed(1234)
 x <- cbind(latitud = rnorm(5, -90), longitud = rnorm(5, 45))
 dist_geographic(x[, 1], x[, 2], method = "harvesine")

@@ -59,7 +59,7 @@ colnames(A) <- rownames(A)
 struc_balance(A)
 #> $table
 #>   sign1 sign2 sign3 number balance
-#> 1    -1    -1     1      3     --+
+#> 1    -1    -1     1      1     --+
 #> 
 #> $balance_score
 #> [1] 1
