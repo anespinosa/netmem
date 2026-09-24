@@ -14,7 +14,7 @@ neigh_inclusion(A, closed = TRUE, direction = c("dominated", "dominates"))
 \item{direction}{Whether \code{P[u, v] = 1} means that \code{u} is \code{dominated} by \code{v} (default, as in Schoch and Brandes, 2016) or that \code{u} \code{dominates} \code{v}}
 }
 \value{
-This function returns a binary dominance matrix \code{P}.
+This function returns a binary matrix \code{P} of the neighbourhood inclusion, where \code{P[u, v] = 1} when the neighbours of \code{u} are also neighbours of \code{v}, in the \code{direction} asked for.
 }
 \description{
 Neighbourhood-inclusion preorder of an undirected network (Brandes, 2016; Schoch and Brandes, 2016).

@@ -21,7 +21,7 @@ dir_inclusion(
 \item{direction}{Whether \code{P[u, v] = 1} means that \code{u} is \code{dominated} by \code{v} (default) or that \code{u} \code{dominates} \code{v}}
 }
 \value{
-This function returns a binary dominance matrix \code{P}.
+This function returns a binary matrix \code{P} of the criterion asked for in \code{type}, where \code{P[u, v] = 1} when the neighbourhoods of \code{u} are included in those of \code{v}, in the \code{direction} asked for.
 }
 \description{
 Neighbourhood-inclusion preorders for directed networks (Marmulla and Brandes, 2026), which

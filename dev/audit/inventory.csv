@@ -1,6 +1,7 @@
 "fn","file","tests","validation","stress"
 "adj_to_incidence","utilities.R",TRUE,FALSE,TRUE
 "adj_to_matrix","utilities.R",TRUE,FALSE,FALSE
+"aggregate_layers","multilayer.R",TRUE,FALSE,FALSE
 "alter_composition","categories.R",TRUE,TRUE,TRUE
 "alter_heterogeneity","categories.R",TRUE,TRUE,TRUE
 "alter_homophily","categories.R",TRUE,TRUE,TRUE
@@ -102,6 +103,7 @@
 "struc_balance","signed.R",TRUE,FALSE,FALSE
 "structural_holes","structural_holes.R",TRUE,TRUE,TRUE
 "structural_na","utilities.R",TRUE,FALSE,TRUE
+"supra_adjacency","multilayer.R",TRUE,FALSE,FALSE
 "threshold_diffusion","dynamics.R",TRUE,TRUE,TRUE
 "trans_coef","structure.R",TRUE,TRUE,TRUE
 "trans_matrix","structure.R",TRUE,FALSE,TRUE

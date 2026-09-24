@@ -12,7 +12,7 @@
 #' @param closed   Whether the neighbourhood of the dominating node is closed (i.e. includes the node itself)
 #' @param direction   Whether \code{P[u, v] = 1} means that \code{u} is \code{dominated} by \code{v} (default, as in Schoch and Brandes, 2016) or that \code{u} \code{dominates} \code{v}
 #'
-#' @return This function returns a binary dominance matrix \code{P}.
+#' @return This function returns a binary matrix \code{P} of the neighbourhood inclusion, where \code{P[u, v] = 1} when the neighbours of \code{u} are also neighbours of \code{v}, in the \code{direction} asked for.
 #'
 #' @references
 #'
@@ -639,7 +639,7 @@ dominance_layers <- function(D, reduction = FALSE, direction = c("dominated", "d
 #' @param strength   Whether the neighbourhoods are open (\code{strong}, default) or closed (\code{weak}). It is ignored for the medial criterion
 #' @param direction   Whether \code{P[u, v] = 1} means that \code{u} is \code{dominated} by \code{v} (default) or that \code{u} \code{dominates} \code{v}
 #'
-#' @return This function returns a binary dominance matrix \code{P}.
+#' @return This function returns a binary matrix \code{P} of the criterion asked for in \code{type}, where \code{P[u, v] = 1} when the neighbourhoods of \code{u} are included in those of \code{v}, in the \code{direction} asked for.
 #'
 #' @references
 #'
@@ -749,7 +749,7 @@ dir_inclusion <- function(A, type = c(
 #' @param benefit   Whether a larger value is better
 #' @param direction   Whether \code{P[u, v] = 1} means that \code{u} is \code{dominated} by \code{v} (default) or that \code{u} \code{dominates} \code{v}
 #'
-#' @return This function returns a binary dominance matrix \code{P}.
+#' @return This function returns a binary matrix \code{P} of the positional dominance, where \code{P[u, v] = 1} when every indirect relation of \code{u} is at most the one of \code{v}, in the \code{direction} asked for.
 #'
 #' @references
 #'

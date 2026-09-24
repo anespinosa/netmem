@@ -1,7 +1,7 @@
 # Audit of netmem 1.1-0
 
-September 2026. Branch `centrality-dominance`. Every exported function (112)
-was checked in three layers.
+September 2026. Branch `centrality-dominance`. Every exported function (114)
+was checked in four layers.
 
 1. **Stress** (`01_stress.R`): every function on awkward inputs (undirected,
    directed, valued, isolate, empty, two nodes, loop, no names, missing
@@ -13,18 +13,25 @@ was checked in three layers.
    netrankr, signnet, ape, geosphere, the Python package q-analysis) or,
    when there is none, with the definition itself: enumeration of every
    triple or path, hand-worked cases, or the tables of the publication.
-3. **Record**: this file, `inventory.csv` (`02_inventory.R`), the regression
-   tests in `tests/testthat/test_audit.R` and `test_coverage.R`, and the
-   validation scripts in `dev/validation`.
+3. **Documentation** (`03_documentation.R`): every exported function says what
+   it returns, in a sentence that is not copied from another function; the
+   arguments of the documentation and of the function are the same; the
+   cross-references point to topics that exist; and every DOI resolves and
+   belongs to the reference that cites it.
+4. **Record**: this file, `inventory.csv` (`02_inventory.R`),
+   `documentation.csv`, the regression tests in `tests/testthat/test_audit.R`
+   and `test_coverage.R`, and the validation scripts in `dev/validation`.
 
 ## Result
 
 | | Before | After |
 |---|---|---|
-| Exported functions with tests | 95 of 112 | 112 of 112 |
-| Tests | 568 | 673 |
+| Exported functions with tests | 95 of 112 | 114 of 114 |
+| Tests | 568 | 759 |
+| Coverage of the tests | 84.9% | 86.1% |
+| Problems in the documentation | 25 | 0 |
 | Stress calls ending in an obscure error, a crash or a hang | 25 | 0 |
-| Node-level results that change when the nodes are relabelled | several | 0 of 119 |
+| Node-level results that change when the nodes are relabelled | several | 0 of 125 |
 
 The remaining 59 errors of the stress layer are informative messages
 ("No label assigned to the rows", "The network has no ties", ...).
@@ -85,6 +92,33 @@ The remaining 59 errors of the stress layer are informative messages
    forbidden triads centred on each node.
 4. **`gen_degree`, `gen_density`**: the warning for symmetric matrices was
    removed.
+5. **`insertion_sort`**: moved to `dev/`. It was not used by any function of
+   the package.
+
+## An outside comparison
+
+netmem is one of the libraries in the benchmark of multilayer libraries of
+Panayiotou et al. (2024, *Applied Network Science*, \doi{10.1007/s41109-024-00686-4},
+scripts at <https://github.com/giorgospanay/sd-mln-engineering-challenges>).
+The paper leaves netmem out of the measurements because it has no native
+multilayer structure, and their `netmem-util.R` records three complaints. Two
+of them no longer hold:
+
+| Complaint of the benchmark | State in 1.1-0 |
+|---|---|
+| "Taking absurdly long time to generate network" (`ind_rand_matrix`) | The rewrite of `fixed_ties()` made it about 40 times faster: with 2000 nodes, 2.0 s before and 0.1 s now; with 5000 nodes, 32.7 s and 0.8 s. A case that looped forever was also fixed |
+| "plus unnecessary prints" | The prints were removed when 1.0-3 was prepared for CRAN, after they ran the benchmark (August 2023) |
+| "Native reading not available", aggregation "not available" | `supra_adjacency()` and `aggregate_layers()` arrange and aggregate the layers. Reading a file is still left to the user |
+
+The tests of `random_networks.R` went from covering half of the file (49.7%) to
+86.0%, and they check the properties that each model guarantees.
+
+What remains of the criticism is the memory of dense matrices: 200 MB for 5000
+nodes, and their case of 100,000 actor-layer pairs would need about 80 GB.
+`ind_rand_matrix(sparse = TRUE)` is a first answer, as it builds a sparse
+matrix without the dense one (0.2 MB for 10,000 nodes), and `supra_adjacency()`
+takes `sparse` as well, but the measures themselves still work on dense
+matrices.
 
 ## Verification of each function
 

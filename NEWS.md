@@ -190,6 +190,10 @@ version 1.0-3 runs without errors, but gives different results:
 
 ## Extensions of the existing functions
 
+* `ind_rand_matrix()` takes `sparse`, which draws the ties among the cells that
+  the model allows and returns a sparse matrix of the `Matrix` package, without
+  building the dense one. A network of 10,000 nodes takes 0.2 MB instead of
+  800 MB. It is available for one-mode and two-mode networks with `trials = 1`.
 * `edgelist_to_matrix()` orders the nodes as in `label` (and `label2` for
   two-mode networks), with the nodes that are not in the labels after them in
   alphabetical order. Before, the nodes were always in alphabetical order, so
@@ -230,6 +234,11 @@ version 1.0-3 runs without errors, but gives different results:
 
 ## New functions
 
+* `supra_adjacency()` arranges the layers of a multiplex network in a single
+  matrix of actor-layer pairs, with categorical, ordinal or no coupling between
+  the layers (De Domenico et al., 2013; Kivela et al., 2014), and
+  `aggregate_layers()` reduces the layers to a single matrix by sum, binary or
+  mean (Battiston et al., 2014).
 Centrality:
 
 * `closeness_centrality()`, `betweenness_centrality()` (Brandes' algorithm),
@@ -317,6 +326,15 @@ Citation networks:
 
 ## Notes
 
+* The documentation of every exported function is checked by
+  `dev/audit/03_documentation.R`: that each one says what it returns, that the
+  value is not copied from another function, that the arguments of the
+  documentation and of the function are the same, that the cross-references
+  point to topics that exist, and that every DOI resolves and belongs to the
+  reference that cites it. It corrected the value of `ind_rand_matrix()`, which
+  said that it returned a dyad census, and made the value of
+  `neigh_inclusion()`, `dir_inclusion()` and `pos_dominance()` say what their
+  matrices mean.
 * Two new vignettes: *Getting started with netmem*, with the standard analysis
   of a network, and *What netmem adds*, with the measures that are not
   available elsewhere (neighbourhood-inclusion dominance, overlapping

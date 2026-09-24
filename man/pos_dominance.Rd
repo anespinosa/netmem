@@ -21,7 +21,7 @@ pos_dominance(
 \item{direction}{Whether \code{P[u, v] = 1} means that \code{u} is \code{dominated} by \code{v} (default) or that \code{u} \code{dominates} \code{v}}
 }
 \value{
-This function returns a binary dominance matrix \code{P}.
+This function returns a binary matrix \code{P} of the positional dominance, where \code{P[u, v] = 1} when every indirect relation of \code{u} is at most the one of \code{v}, in the \code{direction} asked for.
 }
 \description{
 Dominance between the rows of a matrix of relations, which do not need to be the ties
