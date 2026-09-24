@@ -43,7 +43,7 @@ struc_balance <- function(A, B = NULL, score = c("triangle", "walk")) {
   if (nrow(A) != ncol(A)) stop("Matrix should be square")
   if (any(abs(A > 1), na.rm = TRUE)) warning("The matrix should be binary")
   if (!all(A[lower.tri(A)] == t(A)[lower.tri(A)], na.rm = TRUE)) warning("The network is directed. The underlying graph is used")
-  A[lower.tri(A)] <- t(A)[lower.tri(A)] # Symmetrize
+  A <- underlying_signed(A)
 
   if (!is.null(B)) {
     if (any(is.na(B) == TRUE)) {
@@ -60,7 +60,7 @@ struc_balance <- function(A, B = NULL, score = c("triangle", "walk")) {
     }
 
     if (!all(B[lower.tri(B)] == t(B)[lower.tri(B)], na.rm = TRUE)) warning("The network is directed. The underlying graph is used")
-    B[lower.tri(B)] <- t(B)[lower.tri(B)] # Symmetrize
+    B <- underlying_signed(B)
 
     if (!all(dim(A) == dim(B))) stop("Non-conformable arrays")
 
@@ -70,57 +70,34 @@ struc_balance <- function(A, B = NULL, score = c("triangle", "walk")) {
     Csign <- as.matrix(A)
   }
 
-  C <- ifelse(abs(Csign) >= 1, 1, 0)
-
-  triads <- do.call(rbind, clique_table(C, list_cliques = TRUE)$neighbours)
-  edgelist <- matrix_to_edgelist(C, valued = FALSE, digraph = TRUE, loops = FALSE)
-  sign <- c(Csign)[c(Csign) != 0]
-  edgesign <- cbind(edgelist, sign)
-  colnames(edgesign) <- c("from", "to", "sign")
-  edgesign
-
-  test1 <- list()
-  test2 <- list()
-  test3 <- list()
-  for (i in 1:nrow(triads)) {
-    test1[[i]] <- edgesign[, 3][which(paste(triads[, 1:2][i, ],
-      collapse = ""
-    ) == paste(
-      edgesign[, 1], edgesign[, 2],
-      sep = ""
-    ))]
-    test2[[i]] <- edgesign[, 3][which(paste(triads[, 2:3][i, ],
-      collapse = ""
-    ) == paste(
-      edgesign[, 1], edgesign[, 2],
-      sep = ""
-    ))]
-    test3[[i]] <- edgesign[, 3][which(paste(triads[, c(1, 3)][i, ],
-      collapse = ""
-    ) == paste(
-      edgesign[, 1], edgesign[, 2],
-      sep = ""
-    ))]
+  # Every triangle of the signed network, with the signs of its three ties
+  S <- sign(Csign)
+  diag(S) <- 0
+  n <- nrow(S)
+  signs <- NULL
+  for (i in seq_len(n - 2)) {
+    for (j in (i + 1):(n - 1)) {
+      if (S[i, j] == 0) next
+      for (k in (j + 1):n) {
+        if (S[i, k] != 0 && S[j, k] != 0) {
+          signs <- rbind(signs, sort(c(S[i, j], S[i, k], S[j, k])))
+        }
+      }
+    }
   }
-  triads <- cbind(
-    do.call(rbind, test1),
-    do.call(rbind, test2),
-    do.call(rbind, test3)
-  )
-  triads <- t(apply(triads, 1, sort))
-  triads <- as.data.frame(triads)
-  res <- stats::aggregate(
-    list(count = rep(1, nrow(triads))),
-    triads, length
-  )
-  colnames(res) <- c("sign1", "sign2", "sign3", "number")
-  for (i in 1:nrow(res)) {
-    res$balance[i] <- length(grep("-", res[i, ]))
+  if (is.null(signs)) stop("There are no triangles in the network")
+
+  # Number of triangles with each combination of signs; a triangle is balanced
+  # when it has an even number of negative ties
+  negatives <- rowSums(signs < 0)
+  res <- NULL
+  for (m in sort(unique(negatives))) {
+    res <- rbind(res, data.frame(
+      sign1 = signs[negatives == m, 1][1], sign2 = signs[negatives == m, 2][1],
+      sign3 = signs[negatives == m, 3][1], number = sum(negatives == m)
+    ))
   }
-  res$balance[res$balance == 0] <- "+++"
-  res$balance[res$balance == 1] <- "-++"
-  res$balance[res$balance == 2] <- "--+"
-  res$balance[res$balance == 3] <- "---"
+  res$balance <- c("+++", "-++", "--+", "---")[sort(unique(negatives)) + 1]
 
   score <- switch(method_used(score),
     "triangle" = 1,
@@ -227,7 +204,7 @@ posneg_index <- function(A, select = c("all", "in", "out")) {
   I <- diag(1, ncol(A))
   A <- pos - 2 * neg
 
-  if (select == 1) {
+  if (select == 3) {
     # all
     a <- solve(I - 1 / (2 * ncol(A) - 2) * A)
     return(rowSums(a))
@@ -239,7 +216,7 @@ posneg_index <- function(A, select = c("all", "in", "out")) {
     return(rowSums(a))
   }
 
-  if (select == 3) {
+  if (select == 1) {
     # out
     a <- solve(I - 1 / (4 * (ncol(A) - 1)^2) * A %*% t(A)) %*% (I + 1 / (2 * ncol(A) - 2) * A)
     return(rowSums(a))
@@ -249,3 +226,13 @@ posneg_index <- function(A, select = c("all", "in", "out")) {
 # TODO: structural equivalence (Lorrain and White, 1971), automorphic equivalence and regular equivalence (White and Reitz, 1983; Everett and Borgatti, 1995)
 # TODO: Bonacich and Lloyd (2004) eigenvector centrality
 # TODO: http://dx.doi.org/10.1016/j.socnet.2013.04.007
+
+# Underlying graph of a signed network: when the two directions of a pair
+# differ, the tie with the largest absolute value is kept, and the negative
+# one when both have the same absolute value
+underlying_signed <- function(A) {
+  S <- ifelse(abs(A) > abs(t(A)), A, t(A))
+  same <- abs(A) == abs(t(A))
+  S[same] <- pmin(A, t(A))[same]
+  return(S)
+}

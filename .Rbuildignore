@@ -22,3 +22,11 @@
 ^coverage\.xml$
 ^doc$
 ^Meta$
+^dev$
+^cran-comments\.md$
+^CRAN-SUBMISSION$
+^revdep$
+^README\.html$
+^netmem_.*\.pdf$
+^figure$
+^\.lintr$

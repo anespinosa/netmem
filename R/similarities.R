@@ -1,76 +1,152 @@
 #' Fractional approach
 #'
-#' Matrix transformation from incidence matrices to citation networks, fractional counting for co-citation or fractional counting for bibliographic coupling
+#' Citation, co-citation and bibliographic coupling networks with full or fractional counting (Batagelj, 2020).
 #'
-#' @param A1   From incidence matrix (e.g. paper and authors)
-#' @param A2   To incidence matrix (e.g. author to paper)
+#' @details
+#' \code{A1} is a citation network \eqn{Ci} between works, where \code{A1[p, q] = 1} when the work \eqn{p}
+#' cites the work \eqn{q}. With fractional counting each work has a total weight of one, which is divided
+#' equally among the works it cites: \eqn{Cin = D \cdot Ci}, where \eqn{D} is the diagonal matrix of one over
+#' the number of references of each work (one when it has none). Fractional counting prevents the works with
+#' many references, such as reviews, from dominating the result (Batagelj, 2020).
+#'
+#' \code{approach = "cocitation"}: \eqn{Ci^T Ci}, the number of works that cite both works, or with fractional
+#' counting \eqn{Cin^T Cin}, in which each citing work contributes a total of one.
+#'
+#' \code{approach = "bcoupling"}: \eqn{Ci \cdot Ci^T}, the number of works cited by both works. Fractional counting
+#' cannot be applied in the same way to bibliographic coupling (Batagelj, 2020: 631), so it gives
+#' \eqn{biC = Cin \cdot Ci^T}, the proportion of the references of \eqn{p} that it shares with \eqn{q}, which is
+#' not symmetric. \code{symmetric} turns it into a symmetric similarity: the \code{average}, the \code{minimum},
+#' the \code{maximum}, the \code{geometric} mean (the cosine of Salton), the \code{harmonic} mean, or the
+#' \code{jaccard} index, the shared references divided by the references of either work.
+#'
+#' \code{approach = "citation"}: the citations between the authors of the works, given the authorship matrix
+#' \eqn{WA} in \code{A2} (works in rows, authors in columns): \eqn{WA^T \cdot Ci \cdot WA}, the number of times the
+#' works of an author cite the works of another. With fractional counting each work is divided equally among its
+#' authors, \eqn{WAn^T \cdot Ci \cdot WAn}, so that the total of the network is the number of citations.
+#'
+#' Which count should be conserved guides the choice between the two protocols (Prathap and Mukherjee, 2020): full
+#' counting conserves the number of paths between the nodes, and fractional counting the number of nodes (works).
+#'
+#' @param A1   A citation network between works, where \code{A1[p, q] = 1} if the work p cites the work q
+#' @param A2   For \code{approach = "citation"}, the authorship matrix, with the works in rows and the authors in columns
 #' @param approach    Character string, \dQuote{citation}, \dQuote{cocitation} and \dQuote{bcoupling}
+#' @param fractional  Whether to use fractional counting (default) or full counting
+#' @param symmetric   For fractional bibliographic coupling, the symmetric similarity: \code{none} (default, the proportion of shared references), \code{average}, \code{minimum}, \code{maximum}, \code{geometric}, \code{harmonic} or \code{jaccard}
 #'
-#' @return Return a type of "citation network"
+#' @return Return the citation network between authors, the co-citation network or the bibliographic coupling network.
 #'
 #' @references
 #'
-#' Batagelj, V. (2020). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \doi{10.1016/j.socnet.2021.08.001}
+#' Batagelj, V. (2020). On fractional approach to analysis of linked networks. Scientometrics, 123(2), 621-633. \doi{10.1007/s11192-020-03383-y}
+#'
+#' Batagelj, V. (2022). Analysis of the Southern women network using fractional approach. Social Networks, 68, 229-236 \doi{10.1016/j.socnet.2021.08.001}
 #'
 #' Batagelj, V., & Cerinšek, M. (2013). On bibliographic networks. Scientometrics, 96(3), 845–864. \doi{10.1007/s11192-012-0940-1}
+#'
+#' Prathap, G., & Mukherjee, S. (2020). Letter to the Editor: Comments on the paper of Batagelj—on fractional approach to analysis of linked networks. Scientometrics, 124(3), 2717–2722. \doi{10.1007/s11192-020-03541-2}
 #'
 #' @author Alejandro Espinosa-Rada
 #'
 #' @examples
 #'
-#' A1 <- matrix(c(
-#'   1, 0, 0, 0,
-#'   0, 1, 0, 0,
-#'   0, 1, 1, 1,
-#'   0, 0, 0, 0,
-#'   0, 0, 0, 1
-#' ), byrow = TRUE, ncol = 4)
-#'
-#' A2 <- matrix(c(
-#'   1, 1, 1, 0, 0,
-#'   0, 0, 1, 0, 0,
-#'   0, 0, 1, 1, 0,
-#'   0, 0, 0, 1, 1
+#' # Five works: w1 cites w2 and w3, w4 cites w2, w3 and w5, w5 cites w3
+#' Ci <- matrix(c(
+#'   0, 1, 1, 0, 0,
+#'   0, 0, 0, 0, 0,
+#'   0, 0, 0, 0, 0,
+#'   0, 1, 1, 0, 1,
+#'   0, 0, 1, 0, 0
 #' ), byrow = TRUE, ncol = 5)
+#' rownames(Ci) <- colnames(Ci) <- paste0("w", 1:5)
 #'
-#' fractional_approach(A1, A2)
+#' # Authors of the works
+#' WA <- matrix(c(
+#'   1, 1, 0,
+#'   0, 1, 0,
+#'   0, 0, 1,
+#'   1, 0, 0,
+#'   0, 0, 1
+#' ), byrow = TRUE, ncol = 3)
+#' rownames(WA) <- rownames(Ci)
+#' colnames(WA) <- c("a1", "a2", "a3")
+#'
+#' fractional_approach(Ci, WA, approach = "citation")
+#' fractional_approach(Ci, approach = "cocitation")
+#' fractional_approach(Ci, approach = "bcoupling", symmetric = "geometric")
 #' @export
 
-fractional_approach <- function(A1, A2, approach = c("citation", "cocitation", "bcoupling")) {
-  A1 <- as.matrix(A1)
-  A2 <- as.matrix(A2)
+fractional_approach <- function(A1, A2 = NULL, approach = c("citation", "cocitation", "bcoupling"),
+                                fractional = TRUE,
+                                symmetric = c("none", "average", "minimum", "maximum", "geometric", "harmonic", "jaccard")) {
+  approach <- match.arg(approach)
+  symmetric <- match.arg(symmetric)
+  Ci <- as.matrix(A1)
+  if (any(is.na(Ci) == TRUE)) {
+    Ci <- ifelse(is.na(Ci), 0, Ci)
+  }
+  if (nrow(Ci) != ncol(Ci)) stop("A1 should be a square citation network between works")
 
-  similarity <- switch(similarity_option(approach),
-    "citation" = 1,
-    "cocitation" = 2,
-    "bcoupling" = 3
-  )
-
-  Ci <- A1 %*% A2
-  Ci <- t(Ci) %*% Ci
-
-  # Citation Networks
-  if (similarity == 1) {
-    return(Ci)
+  # Each row divided by its sum, or by one when the work has no ties
+  row_normalize <- function(M) {
+    total <- rowSums(M)
+    total[total == 0] <- 1
+    M / total
   }
 
-  # Co-citations
-  if (similarity == 2) {
-    D <- ifelse(rowSums(Ci) > 0, rowSums(Ci), 1)
-    D <- diag(1 / D)
-    Cin <- t(D %*% Ci)
-    coCit <- Cin %*% Ci
-    return(coCit)
+  # Citations between authors
+  if (approach == "citation") {
+    if (is.null(A2)) stop("The authorship matrix should be given in A2")
+    WA <- as.matrix(A2)
+    if (any(is.na(WA) == TRUE)) {
+      WA <- ifelse(is.na(WA), 0, WA)
+    }
+    if (nrow(WA) != nrow(Ci)) stop("A2 should have one row for each work of A1")
+    if (fractional) {
+      WA <- row_normalize(WA)
+    }
+    return(t(WA) %*% Ci %*% WA)
+  }
+
+  # Co-citation
+  if (approach == "cocitation") {
+    if (fractional) {
+      Cin <- row_normalize(Ci)
+      return(t(Cin) %*% Cin)
+    }
+    return(t(Ci) %*% Ci)
   }
 
   # Bibliographic coupling
-  if (similarity == 3) {
-    D <- ifelse(rowSums(Ci) > 0, rowSums(Ci), 1)
-    D <- diag(1 / D)
-    biCo <- Ci %*% t(Ci)
-    biC <- D %*% biCo
+  if (!fractional) {
+    return(Ci %*% t(Ci))
+  }
+  biC <- row_normalize(Ci) %*% t(Ci)
+  if (symmetric == "none") {
     return(biC)
   }
+  if (symmetric == "average") {
+    return((biC + t(biC)) / 2)
+  }
+  if (symmetric == "minimum") {
+    return(pmin(biC, t(biC)))
+  }
+  if (symmetric == "maximum") {
+    return(pmax(biC, t(biC)))
+  }
+  if (symmetric == "geometric") {
+    return(sqrt(biC * t(biC)))
+  }
+  if (symmetric == "harmonic") {
+    H <- 2 * biC * t(biC) / (biC + t(biC))
+    H[is.nan(H)] <- 0
+    return(H)
+  }
+  # Jaccard: shared references over the references of either work
+  shared <- Ci %*% t(Ci)
+  references <- rowSums(Ci)
+  J <- shared / (outer(references, references, "+") - shared)
+  J[is.nan(J)] <- 0
+  return(J)
 }
 
 #' Co‐occurrence
@@ -159,6 +235,7 @@ co_occurrence <- function(A, similarity = c("ochiai", "cosine"),
     ### Co-occurrence matrix based on minmax_overlap function/OCHIAI
     # COSINE:
     if (!projection) {
+      OVER <- minmax_overlap(A, row = FALSE)
       # OCHIAI:
       if (similarity == 1) {
         D <- colSums(A)
@@ -166,7 +243,6 @@ co_occurrence <- function(A, similarity = c("ochiai", "cosine"),
       }
 
       if (similarity == 2) {
-        OVER <- minmax_overlap(A, row = FALSE)
         OVERb <- OVER
         Di <- rowSums(OVERb^2)
         Dj <- colSums(OVERb^2)
@@ -299,30 +375,33 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
       if (ncol(A) != ncol(B)) {
         stop("The matrices have different dimensions")
       } else {
-        if (all(rownames(A) != rownames(B))) stop("The names of nodes do not match")
+        if (any(rownames(A) != rownames(B))) stop("The names of nodes do not match")
       }
       if (nrow(A) != nrow(B)) {
         stop("The matrices have different dimensions")
       } else {
-        if (all(colnames(B) != colnames(B))) stop("The names of nodes do not match")
+        if (any(colnames(A) != colnames(B))) stop("The names of nodes do not match")
       }
     }
 
-    t <- table(A, B, useNA = c("always"))
+    a <- c(A)
+    b <- c(B)
   } else {
     if (!directed) {
-      t <- table(A[lower.tri(A, diag = diag)], B[lower.tri(B, diag = diag)])
+      a <- A[lower.tri(A, diag = diag)]
+      b <- B[lower.tri(B, diag = diag)]
     } else {
       if (all(A[lower.tri(A)] == t(A)[lower.tri(A)])) message("The matrix is symmetric")
-      A <- c(A[lower.tri(A, diag = diag)], A[upper.tri(A, diag = diag)])
-      B <- c(B[lower.tri(B, diag = diag)], B[upper.tri(B, diag = diag)])
-      t <- table(A, B, useNA = c("always"))
+      a <- c(A[lower.tri(A, diag = diag)], A[upper.tri(A, diag = diag)])
+      b <- c(B[lower.tri(B, diag = diag)], B[upper.tri(B, diag = diag)])
     }
   }
-  n11 <- t[2, 2]
-  n10 <- t[2, 1]
-  n01 <- t[1, 2]
-  n00 <- t[1, 1]
+  # The table has both values even when a matrix has only zeros or only ones
+  t <- table(factor(a, levels = c(0, 1)), factor(b, levels = c(0, 1)), useNA = "ifany")
+  n11 <- t["1", "1"]
+  n10 <- t["1", "0"]
+  n01 <- t["0", "1"]
+  n00 <- t["0", "0"]
 
   if (coparticipation) {
     if (!bipartite) {
@@ -410,106 +489,67 @@ jaccard <- function(A, B, directed = TRUE, diag = FALSE,
 #'   0, 0, 0, 0, 2
 #' ), nrow = 5, ncol = 5, byrow = TRUE)
 #' dist_sim_matrix(A, method = "euclidean")
+#'
+#' # Several relations are compared at the same time, stacking the rows and the
+#' # columns of every matrix
+#' B <- matrix(c(
+#'   0, 1, 0, 0, 1,
+#'   1, 0, 0, 0, 1,
+#'   0, 0, 0, 1, 0,
+#'   0, 0, 1, 0, 0,
+#'   1, 1, 0, 0, 0
+#' ), nrow = 5, ncol = 5, byrow = TRUE)
+#' dist_sim_matrix(list(A, B), method = "euclidean")
 #' @export
-
-# TODO: Expand for more than one matrix
 
 dist_sim_matrix <- function(A, method = c("euclidean", "hamming", "jaccard"),
                             bipartite = FALSE) {
+  if (is.list(A)) {
+    # The profile of a node stacks its rows and its columns in every relation,
+    # so the nodes are compared across all of them at once
+    A <- lapply(A, as.matrix)
+    for (k in seq_along(A)) {
+      if (nrow(A[[k]]) != nrow(A[[1]])) stop("The matrices should have the same number of rows")
+    }
+    square <- sapply(A, function(m) nrow(m) == ncol(m))
+    profile <- do.call(cbind, c(A, lapply(A[square], t)))
+    rownames(profile) <- rownames(A[[1]])
+    A <- profile
+    bipartite <- TRUE # the profile is rectangular, the rows are compared
+  }
   A <- as.matrix(A)
   if (!bipartite) {
     if (ncol(A) != nrow(A)) message("The object is an incidence matrix. The `bipartite=TRUE` parameter should be specified.")
   }
 
-  method <- switch(sim_method(method),
-    "euclidean" = 1,
-    "hamming" = 2,
-    "jaccard" = 3
-  )
-  profile <- list()
-  profile2 <- list()
-
-  if (method == 1) { # euclidean
-
-    if (bipartite == TRUE) {
-      for (i in 1:nrow(A)) {
-        for (j in i:nrow(A)) {
-          profile[[j]] <- sqrt(sum((A[i, ] - A[j, ])^2))
-        }
-        profile2[[i]] <- unlist(profile)
-      }
-      m1 <- do.call(rbind, profile2)
-      m1[lower.tri(m1)] <- t(m1)[lower.tri(m1)] # Symmetrize
-      return(m1)
-    } else {
-      for (i in 1:nrow(A)) {
-        for (j in 1:ncol(A)) {
-          profile[[j]] <- sqrt(sum((A[i, ] - A[j, ])^2))
-        }
-        profile2[[i]] <- unlist(profile)
-      }
-      m1 <- do.call(rbind, profile2)
-      return(m1)
-    }
+  method <- sim_method(method)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
   }
 
-  if (method == 2) { # hamming
-
-    if (bipartite == TRUE) {
-      for (i in 1:nrow(A)) {
-        for (j in i:ncol(A)) {
-          profile[[j]] <- sum(A[i, ] != A[j, ])
-        }
-        profile2[[i]] <- unlist(profile)
+  # The rows are compared pair by pair: the Euclidean distance, the Hamming
+  # distance (the number of different cells) or the Jaccard distance, one minus
+  # the proportion of shared ties among the ties of either row (zero for two
+  # rows without ties)
+  n <- nrow(A)
+  D <- matrix(0, n, n, dimnames = list(rownames(A), rownames(A)))
+  for (i in seq_len(n)) {
+    for (j in seq_len(n)) {
+      a <- A[i, ]
+      b <- A[j, ]
+      if (method == "euclidean") {
+        D[i, j] <- sqrt(sum((a - b)^2))
       }
-      m1 <- do.call(rbind, profile2)
-      m1[lower.tri(m1)] <- t(m1)[lower.tri(m1)] # Symmetrize
-      return(m1)
-    } else {
-      for (i in 1:nrow(A)) {
-        for (j in 1:ncol(A)) {
-          profile[[j]] <- sum(A[i, ] != A[j, ])
-        }
-        profile2[[i]] <- unlist(profile)
+      if (method == "hamming") {
+        D[i, j] <- sum(a != b)
       }
-      m1 <- do.call(rbind, profile2)
-      return(m1)
+      if (method == "jaccard") {
+        union <- sum(a != 0 | b != 0)
+        D[i, j] <- if (union == 0) 0 else 1 - sum(a != 0 & b != 0) / union
+      }
     }
   }
-
-  if (method == 3) { # jaccard
-    if (bipartite == TRUE) {
-      for (i in 1:nrow(A)) {
-        for (j in i:nrow(A)) {
-          t <- table(A[i, ], A[j, ])
-          n11 <- t[2, 2]
-          n10 <- t[2, 1]
-          n01 <- t[1, 2]
-          n00 <- t[1, 1]
-          profile[[j]] <- n11 / (n11 + n01 + n10)
-        }
-        profile2[[i]] <- unlist(profile)
-      }
-      m1 <- do.call(rbind, profile2)
-      m1[lower.tri(m1)] <- t(m1)[lower.tri(m1)] # Symmetrize
-
-      return(1 - m1)
-    } else {
-      for (i in 1:nrow(A)) {
-        for (j in 1:ncol(A)) {
-          t <- table(A[i, ], A[j, ])
-          n11 <- t[2, 2]
-          n10 <- t[2, 1]
-          n01 <- t[1, 2]
-          n00 <- t[1, 1]
-          profile[[j]] <- n11 / (n11 + n01 + n10)
-        }
-        profile2[[i]] <- unlist(profile)
-      }
-      m1 <- do.call(rbind, profile2)
-      return(1 - m1)
-    }
-  }
+  return(D)
 }
 
 sim_method <- function(arg, choices, several.ok = FALSE) {

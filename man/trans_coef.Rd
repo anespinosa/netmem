@@ -6,14 +6,14 @@
 \usage{
 trans_coef(
   A,
-  method = c("weakcensus", "global", "mean", "local"),
+  method = c("weakcensus", "global", "mean", "local", "barrat"),
   select = c("all", "in", "out")
 )
 }
 \arguments{
 \item{A}{A matrix}
 
-\item{method}{Whether to calculate the \code{weakcensus}, \code{global} transitivity ratio, the \code{mean} transitivity or the \code{local} transitivity.}
+\item{method}{Whether to calculate the \code{weakcensus}, \code{global} transitivity ratio, the \code{mean} transitivity, the \code{local} transitivity or the weighted transitivity of \code{barrat}.}
 
 \item{select}{Whether to consider \code{all}, \code{in} or \code{out} ties for the local transitivity.}
 }
@@ -36,8 +36,21 @@ rownames(A) <- letters[1:ncol(A)]
 colnames(A) <- rownames(A)
 
 trans_coef(A, method = "local")
+
+# The weighted transitivity of Barrat et al. (2004) weighs each triangle
+# by the strength of the two ties of the node
+W <- matrix(c(
+  0, 4, 0, 2, 0,
+  4, 0, 1, 3, 0,
+  0, 1, 0, 0, 0,
+  2, 3, 0, 0, 5,
+  0, 0, 0, 5, 0
+), byrow = TRUE, ncol = 5)
+trans_coef(W, method = "barrat")
 }
 \references{
+Barrat, A., Barthelemy, M., Pastor-Satorras, R. and Vespignani, A. (2004). The architecture of complex weighted networks. Proceedings of the National Academy of Sciences, 101(11), 3747–3752. \doi{10.1073/pnas.0400087101}
+
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 }
 \author{

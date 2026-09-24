@@ -101,7 +101,6 @@ matrix_report <- function(A) {
 #'
 #' @return This function transform the matrix into an edgelist
 #'
-#' @importFrom stats aggregate
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -115,58 +114,40 @@ matrix_report <- function(A) {
 #' @export
 
 matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE) {
-  M <- A
+  M <- as.matrix(A)
+  if (any(is.na(M) == TRUE)) {
+    M <- ifelse(is.na(M), 0, M)
+  }
   if (is.null(colnames(M))) {
     colnames(M) <- 1:ncol(M)
   }
   if (is.null(rownames(M))) {
     rownames(M) <- 1:nrow(M)
   }
+  # An undirected tie is present when either of the two cells is, and it is
+  # listed once, from the upper triangle
+  undirected <- !digraph && nrow(M) == ncol(M)
+  if (undirected) {
+    M <- ifelse(abs(M) >= abs(t(M)), M, t(M))
+  }
+
   edge <- NULL
-
-  if (digraph) {
-    for (i in 1:nrow(M)) {
-      for (j in 1:ncol(M)) {
-        if (M[i, j] != 0) {
-          edge <- c(edge, rep(c(dimnames(M)[[1]][i], dimnames(M)[[2]][j])))
-        }
+  for (i in 1:nrow(M)) {
+    for (j in 1:ncol(M)) {
+      if (M[i, j] == 0) next
+      if (undirected && j < i) next
+      if (!loops && rownames(M)[i] == colnames(M)[j]) next
+      if (valued) {
+        edge <- rbind(edge, c(rownames(M)[i], colnames(M)[j], M[i, j]))
+      } else {
+        edge <- rbind(edge, c(rownames(M)[i], colnames(M)[j]))
       }
     }
-    edge <- matrix(edge, byrow = TRUE, ncol = 2)
-  } else {
-    for (i in 1:nrow(M)) {
-      for (j in i:ncol(M)) {
-        if (M[i, j] != 0) {
-          edge <- c(edge, rep(c(dimnames(M)[[1]][i], dimnames(M)[[2]][j])))
-        }
-      }
-    }
-    edge <- matrix(edge, byrow = TRUE, ncol = 2)
   }
-
-  if (valued) {
-    edge <- NULL
-    for (i in 1:nrow(M)) {
-      for (j in 1:ncol(M)) {
-        if (M[i, j] != 0) {
-          edge <- c(edge, rep(c(
-            dimnames(M)[[1]][i],
-            dimnames(M)[[2]][j]
-          ), M[i, j]))
-        }
-      }
-    }
-    edge <- matrix(edge, byrow = TRUE, ncol = 2)
-    df <- as.data.frame(edge)
-    edge <- as.matrix(aggregate(
-      list(valued = rep(1, nrow(df))),
-      df, length
-    ))
-    colnames(edge) <- NULL
+  if (is.null(edge)) {
+    return(matrix(character(0), ncol = if (valued) 3 else 2))
   }
-  if (loops == FALSE) {
-    edge <- edge[edge[, 1] != edge[, 2], ]
-  }
+  colnames(edge) <- NULL
   return(edge)
 }
 
@@ -174,9 +155,20 @@ matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE
 #'
 #' @param E   An edge list
 #' @param digraph   Whether the matrix is directed or not
-#' @param label  A vector with the names of the nodes
-#' @param label2   A vector with the names of a different set of nodes
+#' @param label  A vector with the names of the nodes, which gives their order in the matrix and adds the nodes without ties
+#' @param label2   A vector with the names of the nodes of the second mode, with the same role as \code{label}, when \code{bipartite = TRUE}
 #' @param bipartite  Whether the matrix is bipartite
+#' @param valued  Whether the third column of the edgelist has the value of the tie
+#' @param loops  Whether to keep the ties of a node with itself
+#' @param rule  For \code{digraph = FALSE}, whether an undirected tie is kept when it is listed in either order (\code{weak}, default) or only when it is listed in both orders (\code{strong}), as in \code{sna::symmetrize}
+#'
+#' @details
+#' With \code{digraph = FALSE} each undirected tie is placed in both cells of the matrix, so the number of
+#' ties is the number of cells of one triangle (or half the sum of a binary matrix). A tie listed in both
+#' orders is a single tie.
+#'
+#' The rows and the columns follow the order of \code{label}. The nodes that are not in \code{label}, or all the
+#' nodes when it is not given, are added in alphabetical order.
 #'
 #' @return This function transform the edgelist into a matrix
 #'
@@ -198,13 +190,29 @@ matrix_to_edgelist <- function(A, digraph = FALSE, valued = FALSE, loops = FALSE
 #' colnames(A) <- rownames(A)
 #' E <- matrix_to_edgelist(A)
 #' edgelist_to_matrix(E, label = c("i"), digraph = FALSE)
+#'
+#' # With a third column, the ties keep their value
+#' V <- rbind(
+#'   c("a", "b", 3),
+#'   c("b", "c", 1),
+#'   c("c", "a", 7)
+#' )
+#' edgelist_to_matrix(V, valued = TRUE)
 #' @export
 
-# TODO: add valued matrix
-# TODO: check whether `label2` is doing the same as `label`
-
 edgelist_to_matrix <- function(E, digraph = TRUE, label = NULL,
-                               label2 = NULL, bipartite = FALSE) {
+                               label2 = NULL, bipartite = FALSE,
+                               valued = FALSE, loops = FALSE,
+                               rule = c("weak", "strong")) {
+  rule <- match.arg(rule)
+  E <- as.matrix(E)
+  if (nrow(E) == 0 && is.null(label)) stop("The edgelist has no ties; give the names of the nodes in `label`")
+  if (valued & ncol(E) < 3) stop("The edgelist should have a third column with the value of the ties")
+  if (valued) {
+    values <- as.numeric(E[, 3])
+  } else {
+    values <- rep(1, nrow(E))
+  }
   if (bipartite) {
     if (!is.null(label)) {
       nodes1 <- unique(c(E[, 1], label))
@@ -221,35 +229,49 @@ edgelist_to_matrix <- function(E, digraph = TRUE, label = NULL,
       dimnames = list(nodes1, nodes2)
     )
 
-    for (i in 1:nrow(E)) {
-      temp1 <- which(rownames(empty) %in% E[i, ])
-      temp2 <- which(colnames(empty) %in% E[i, ])
-      empty[temp1, temp2] <- 1 # valued
+    for (i in seq_len(nrow(E))) {
+      empty[match(E[i, 1], rownames(empty)), match(E[i, 2], colnames(empty))] <- values[i]
     }
   } else {
     if (!is.null(label)) {
-      nodes <- unique(c(unlist(E)))
-      nodes <- unique(c(nodes, label))
+      nodes <- unique(c(E[, 1], E[, 2], label))
     } else {
-      nodes <- unique(c(unlist(E)))
+      nodes <- unique(c(E[, 1], E[, 2]))
     }
     empty <- matrix(0,
       nrow = length(nodes), ncol = length(nodes),
       dimnames = list(nodes, nodes)
     )
-    for (i in 1:nrow(E)) {
-      temp <- which(rownames(empty) %in% E[i, ])
-      empty[temp[1], temp[2]] <- 1 # valued
+    for (i in seq_len(nrow(E))) {
+      # The names are matched one by one, so that the direction of the tie is
+      # the one of the edgelist
+      empty[match(E[i, 1], rownames(empty)), match(E[i, 2], colnames(empty))] <- values[i]
+    }
+    if (!loops) {
+      diag(empty) <- 0
     }
   }
 
-  A <- empty[
-    order(rownames(empty)),
-    order(colnames(empty))
-  ]
+  # The nodes follow the order of the labels, and the nodes that are not in the
+  # labels are added after them in alphabetical order
+  if (bipartite) {
+    rows <- c(intersect(label, rownames(empty)), sort(setdiff(rownames(empty), label)))
+    cols <- c(intersect(label2, colnames(empty)), sort(setdiff(colnames(empty), label2)))
+  } else {
+    rows <- c(intersect(label, rownames(empty)), sort(setdiff(rownames(empty), label)))
+    cols <- rows
+  }
+  A <- empty[rows, cols, drop = FALSE]
 
+  # An undirected tie is placed in both cells. With the weak rule it is kept
+  # when it is listed in either order (the largest value if in both); with the
+  # strong rule only when it is listed in both orders (the smallest value)
   if (!digraph && !bipartite) {
-    A[lower.tri(A)] <- t(A)[lower.tri(A)]
+    if (rule == "weak") {
+      A <- ifelse(abs(A) >= abs(t(A)), A, t(A))
+    } else {
+      A <- ifelse(A != 0 & t(A) != 0, ifelse(abs(A) <= abs(t(A)), A, t(A)), 0)
+    }
   }
   return(A)
 }
@@ -280,9 +302,20 @@ edgelist_to_matrix <- function(E, digraph = TRUE, label = NULL,
 #' @export
 
 matrix_adjlist <- function(A) {
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  if (is.null(rownames(A))) {
+    rownames(A) <- as.character(1:nrow(A))
+  }
+  if (is.null(colnames(A))) {
+    colnames(A) <- as.character(1:ncol(A))
+  }
+  # Every tie with a value other than zero, including weak and negative ties
   adj_list <- list()
   for (i in 1:nrow(A)) {
-    adj_list[[i]] <- names(A[i, ][A[i, ] >= 1])
+    adj_list[[i]] <- colnames(A)[A[i, ] != 0]
     names(adj_list)[i] <- rownames(A)[i]
   }
   return(adj_list)
@@ -318,19 +351,11 @@ adj_to_matrix <- function(A, type = c("adjacency", "incidence", "weighted"),
     "weighted" = 3
   )
 
+  # The adjacency matrix is the weighted matrix made binary: ego is tied to
+  # every node named in any of its lines
   if (type == 1) {
-    EMPTY <- matrix(NA, nrow = NROW(A), ncol = NROW(A), byrow = TRUE)
-    rownames(EMPTY) <- A[, 1]
-    colnames(EMPTY) <- A[, 1]
-
-    # SAME A
-    for (i in 1:NROW(A)) {
-      EMPTY[i, ] <- names(EMPTY[i, ]) %in% A[i, ]
-    }
-    A <- abs(EMPTY)
-    if (!loops) {
-      diag(A) <- 0
-    }
+    A <- adj_to_matrix(A, type = "weighted", loops = loops)
+    A <- 1 * (A > 0)
   }
 
   if (type == 2) {
@@ -491,21 +516,22 @@ minmax_overlap <- function(A, row = TRUE, min = TRUE) {
   if (!row) {
     A <- t(A)
   }
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  # Sum over the columns of the smallest (or largest) value of each pair of rows
   sim.jac <- matrix(0, nrow = nrow(A), ncol = nrow(A))
   rownames(sim.jac) <- rownames(A)
   colnames(sim.jac) <- rownames(A)
-  pairs <- t(combn(1:nrow(A), 2))
-  for (i in 1:nrow(pairs)) {
-    if (min) {
-      num <- sum(sapply(1:ncol(A), function(x) (min(A[pairs[i, 1], x], A[pairs[i, 2], x]))))
-    } else {
-      num <- sum(sapply(1:ncol(A), function(x) (max(A[pairs[i, 1], x], A[pairs[i, 2], x]))))
+  for (i in seq_len(nrow(A))) {
+    for (j in seq_len(nrow(A))) {
+      if (min) {
+        sim.jac[i, j] <- sum(pmin(A[i, ], A[j, ]))
+      } else {
+        sim.jac[i, j] <- sum(pmax(A[i, ], A[j, ]))
+      }
     }
-    sim.jac[pairs[i, 1], pairs[i, 2]] <- num
-    sim.jac[pairs[i, 2], pairs[i, 1]] <- num
   }
-  sim.jac[which(is.na(sim.jac))] <- 0
-  diag(sim.jac) <- rowSums(A)
   return(sim.jac)
 }
 
@@ -519,7 +545,8 @@ minmax_overlap <- function(A, row = TRUE, min = TRUE) {
 #' @param addEgo  Whether to retain ego in the submatrix or not
 #' @param select   Whether to consider all sender and receiver ties of ego (\code{all}), only incoming ties (\code{in}), or outgoing ties (\code{out}). By default, \code{all}.
 #'
-#' @return This function returns redundancy, effective size and efficiency measures (Burt, 1992).
+#' @return This function returns the submatrix of the alters of ego, with ego in the last row and column when \code{addEgo = TRUE}.
+#' An isolate gives an empty matrix (or a 1 x 1 matrix with ego).
 #'
 #' @references
 #'
@@ -547,12 +574,16 @@ minmax_overlap <- function(A, row = TRUE, min = TRUE) {
 
 ego_net <- function(A, ego = NULL, bipartite = FALSE, addEgo = FALSE,
                     select = c("all", "in", "out")) {
+  if (is.null(ego)) stop("Provide the name of ego")
   if (is.numeric(ego)) stop("Label of the name of ego should be in character format")
   if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
   if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
   if (!(ego %in% sort(unique(c(rownames(A), colnames(A)))))) stop("Ego name does not match with the names of the enlisted nodes")
 
   A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
   ego <- as.character(ego)
   select <- switch(node_direction(select),
     "out" = 1,
@@ -600,28 +631,18 @@ ego_net <- function(A, ego = NULL, bipartite = FALSE, addEgo = FALSE,
     name <- unique(c(nameOut, nameIn))
   }
 
-  if (addEgo) {
-    subA <- A[name, name]
-    # A[ego,][A[ego,]!=0]
-    addEGO <- rbind(subA, A[ego, ][c(name)])
-    # c(A[,ego][A[,ego]!=0],0)
-    addEGO <- cbind(addEGO, A[, ego][c(name, ego)])
-    name <- c(name, ego)
-    rownames(addEGO) <- name
-    colnames(addEGO) <- name
-
-    return(addEGO)
-  } else {
-    if (length(name) == 1) {
-      return(matrix(c(name), ncol = 1, nrow = 1))
-    }
-    if (length(name) == 0) {
-      message(paste("actor", ego, "has no neighbour"))
-      return(0)
-    } else {
-      (A[name, name])
-    }
+  # A loop does not make ego its own alter
+  name <- setdiff(name, ego)
+  if (length(name) == 0) {
+    message(paste("actor", ego, "has no neighbour"))
   }
+  # The submatrix of the alters, with ego in the last row and column
+  if (addEgo) {
+    keep <- c(name, ego)
+  } else {
+    keep <- name
+  }
+  return(A[keep, keep, drop = FALSE])
 }
 
 node_direction <- function(arg, choices, several.ok = FALSE) {
@@ -708,6 +729,12 @@ expand_matrix <- function(A, label = NULL, loops = FALSE, normalize = FALSE) {
 #'
 #' @return Return a meta matrix for multilevel networks
 #'
+#' @details
+#' The meta matrix places the network of each level on the diagonal and the ties between two levels in both
+#' triangles, as an incidence matrix and its transpose:
+#' \deqn{\begin{pmatrix} A_1 & B_1 & B_3^T \\ B_1^T & A_2 & B_2 \\ B_3 & B_2^T & A_3 \end{pmatrix}}
+#' The matrices that are not given are zero. The names of the nodes are kept when every level has them.
+#'
 #' @references
 #'
 #' Carley, K. M. (2002). Smart agents and organizations of the future. In: Leah Lievrouw & Sonia Livingstone (Eds.), The Handbook of New Media (pp. 206-220). Thousand Oaks, CA, Sage.
@@ -780,102 +807,56 @@ meta_matrix <- function(A1, B1,
                         A2 = NULL, B2 = NULL,
                         A3 = NULL, B3 = NULL) {
   A1 <- as.matrix(A1)
-
-  if (!is.null(A3)) {
-    if (is.null(B1)) stop("Is not available the bipartite network between levels")
+  B1 <- as.matrix(B1)
+  if (nrow(A1) != ncol(A1)) stop("Matrix should be square")
+  if (nrow(A1) != nrow(B1)) stop("Non-conformable arrays")
+  n1 <- nrow(A1)
+  n2 <- ncol(B1)
+  # A level without ties among its nodes is a matrix of zeros
+  if (is.null(A2)) {
+    A2 <- matrix(0, n2, n2)
   }
-  if (!is.null(B1)) {
-    if (!nrow(A1) == nrow(B1)) stop("Non-conformable arrays")
-    if (nrow(B1) == ncol(B1)) warning("Matrix should be rectangular")
+  A2 <- as.matrix(A2)
+  if (nrow(A2) != ncol(A2)) stop("Matrix should be square")
+  if (nrow(A2) != n2) stop("Non-conformable arrays")
 
-    M1 <- cbind(A1, B1)
-    M1b <- cbind(
-      t(B1),
-      matrix(0,
-        nrow = (ncol(M1) - nrow(B1)), byrow = TRUE,
-        ncol = (ncol(M1) - nrow(A1))
-      )
-    )
-
-    colnames(M1b) <- c(rownames(M1), rownames(M1b))
-
-    meta_matrix <- rbind(M1, M1b)
-  }
-
-  if (!is.null(A2)) {
-    if (is.null(B1)) stop("Multilevel networks require at least one bipartite network between levels")
-    if (!nrow(A2) == ncol(A2)) stop("Matrix should be square")
-
-    if (!ncol(B1) == nrow(A2)) stop("Non-conformable arrays")
-    M2 <- cbind(A1, B1)
-    M2b <- cbind(
-      t(B1), A2
-    )
-    meta_matrix <- rbind(M2, M2b)
+  # The ties between two levels are placed in both triangles, as an incidence
+  # matrix and its transpose (Krackhardt and Carley, 1998)
+  if (is.null(B2) && is.null(A3) && is.null(B3)) {
+    meta_matrix <- rbind(cbind(A1, B1), cbind(t(B1), A2))
+    level_names <- list(rownames(A1), colnames(B1))
   } else {
-    A2 <- matrix(0, byrow = TRUE, ncol = ncol(B1), nrow = ncol(B1))
-
-    rownames(A2) <- colnames(B1)
-    colnames(A2) <- rownames(A2)
-  }
-
-  if (!is.null(B2)) {
-    if (is.null(B1)) stop("Is not available the first bipartite network between lower and medium levels")
-    if (nrow(B2) == ncol(B2)) warning("Matrix should be rectangular")
-    if (!nrow(A2) == nrow(B2)) stop("Non-conformable arrays")
-
-
-    M3 <- cbind(
-      meta_matrix,
-      rbind(matrix(0,
-        nrow = nrow(A1), byrow = TRUE,
-        ncol = ncol(B2)
-      ), B2)
-    )
-    M3b <- matrix(0,
-      nrow = ncol(B2), byrow = TRUE,
-      ncol = ncol(M3)
-    )
-    rownames(M3b) <- colnames(B2)
-    meta_matrix <- rbind(M3, M3b)
-  }
-
-  if (!is.null(A3)) {
-    if (!nrow(A3) == ncol(A3)) stop("Matrix should be square")
-    if (!ncol(B2) == nrow(A3)) stop("Non-conformable arrays")
-
-    meta_matrix <- rbind(
-      M3,
-      cbind(matrix(0,
-        nrow = ncol(A3), byrow = TRUE,
-        ncol = ncol(M3) - ncol(A3)
-      ), A3)
-    )
-  }
-  if (!is.null(B3)) {
-    if (is.null(B2)) {
-      B2 <- matrix(0, byrow = TRUE, ncol = ncol(B1), nrow = nrow(B3))
+    if (!is.null(B2)) {
+      n3 <- ncol(as.matrix(B2))
+    } else if (!is.null(A3)) {
+      n3 <- nrow(as.matrix(A3))
+    } else {
+      n3 <- nrow(as.matrix(B3))
     }
-
-    if (!nrow(B3) == ncol(A3)) stop("Non-conformable arrays")
-    if (!ncol(B3) == nrow(A1)) stop("Non-conformable arrays")
-
-    M4 <- cbind(
-      rbind(M2, M2b),
-      rbind(
-        t(B3),
-        matrix(0, nrow = ncol(A2), ncol = nrow(B3), byrow = TRUE)
-      )
+    if (is.null(B2)) B2 <- matrix(0, n2, n3)
+    if (is.null(A3)) A3 <- matrix(0, n3, n3)
+    if (is.null(B3)) B3 <- matrix(0, n3, n1)
+    B2 <- as.matrix(B2)
+    A3 <- as.matrix(A3)
+    B3 <- as.matrix(B3)
+    if (nrow(B2) != n2 || ncol(B2) != n3) stop("Non-conformable arrays")
+    if (nrow(A3) != n3 || ncol(A3) != n3) stop("Non-conformable arrays")
+    if (nrow(B3) != n3 || ncol(B3) != n1) stop("Non-conformable arrays")
+    meta_matrix <- rbind(
+      cbind(A1, B1, t(B3)),
+      cbind(t(B1), A2, B2),
+      cbind(B3, t(B2), A3)
     )
-
-    M4a <- cbind(matrix(0,
-      nrow = ncol(A3), byrow = TRUE,
-      ncol = ncol(M3) - ncol(A3)
-    ), A3)
-
-    meta_matrix <- rbind(M4, M4a)
+    level_names <- list(rownames(A1), colnames(B1), colnames(B2))
   }
 
+  # The names of the nodes, when every level has them
+  if (!any(sapply(level_names, is.null))) {
+    labels <- unlist(level_names)
+    dimnames(meta_matrix) <- list(labels, labels)
+  } else {
+    dimnames(meta_matrix) <- NULL
+  }
   return(meta_matrix)
 }
 
@@ -945,9 +926,10 @@ structural_na <- function(A, label = NULL, row_labels = NULL, col_labels = NULL,
 
     if (is.null(label)) stop("Label must be provided for symmetric matrices.")
 
-    # Validate input dimensions
-    if (length(label) != dim(A)[1]) {
-      warning("Provided labels do not match the dimensions of the matrix.")
+    # The labels add the unobserved nodes; a node of A that is not in the labels
+    # would be dropped
+    if (!all(rownames(A) %in% label)) {
+      warning("Some nodes of the matrix are not in the labels and are dropped.")
     }
 
     # Create a new matrix with the desired dimensions and fill with NA
@@ -980,12 +962,13 @@ structural_na <- function(A, label = NULL, row_labels = NULL, col_labels = NULL,
 #' @param core  Whether to add actors at distance one from ego
 #'
 #' @return This function return a list of second-zone subgraphs using as a focal actor the second-mode of the multilevel network.
+#' Each subgraph is the binary adjacency matrix of the meta-matrix of \code{A} and \code{X} restricted to the
+#' nodes of the zone, without loops. When \code{core = TRUE}, each matrix has an attribute \code{core}, a named
+#' vector that is one for the actors at distance one from the focal node and zero otherwise.
 #'
 #' @references
 #'
 #' Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD](https://research.manchester.ac.uk/en/studentTheses/a-network-approach-for-the-sociological-study-of-science-and-know). The University of Manchester.
-#'
-#' @import igraph
 #'
 #' @author Alejandro Espinosa-Rada
 #'
@@ -1037,7 +1020,6 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
   M2 <- cbind(t(X), zero)
   gM <- rbind(M1, M2)
   A1 <- gM
-  gM <- igraph::graph.adjacency(gM)
   label <- colnames(X)
   subgraphs <- list()
   zone1 <- list()
@@ -1062,11 +1044,16 @@ zone_sample <- function(A, X, ego = TRUE, core = FALSE) {
       nei <- c(nei, members_zone1, outInst)
     }
     nei <- unique(nei)
-    subgraphs[[i]] <- igraph::delete.vertices(gM, !(V(gM)$name %in% nei))
-    subgraphs[[i]] <- igraph::simplify(subgraphs[[i]])
+    # The nodes keep the order of the meta-matrix, and the valued ties and the
+    # loops are reduced to a binary matrix without loops
+    keep <- rownames(gM) %in% nei
+    S <- ifelse(gM[keep, keep, drop = FALSE] != 0, 1, 0)
+    diag(S) <- 0
     if (core == TRUE) {
-      V(subgraphs[[i]])$core <- ifelse(V(subgraphs[[i]])$name %in% names(zone1[[i]]), 1, 0)
+      attr(S, "core") <- ifelse(rownames(S) %in% names(zone1[[i]]), 1, 0)
+      names(attr(S, "core")) <- rownames(S)
     }
+    subgraphs[[i]] <- S
   }
 
   return(subgraphs)
@@ -1128,19 +1115,48 @@ hypergraph <- function(A, dual = TRUE, both = TRUE) {
 
 #' Simplicial complexes
 #'
-#' incidence matrix of simplexes or cliques
+#' Incidence matrix of the nodes of a network and the simplices of its clique complex or of its
+#' neighbourhood complex.
 #'
-#' @param A   A symmetric matrix object.
-#' @param zero_simplex   Whether to include the zero simple.
-#' @param projection  Whether to return the links between actors (i.e., rows) through their shared linking events (i.e., columns).
+#' @details
+#' A simplex is a set of nodes, and a simplicial complex a collection of simplices that contains every
+#' face of its simplices (Atkin, 1974). The complex is represented by its maximal simplices, as the faces
+#' are implied by the simplices that contain them.
 #'
-#' @return This function return an incidence matrix of actors participating in simplices or simplicial complexes
+#' With \code{complex = "clique"} (default), the simplices are the maximal cliques of the underlying
+#' undirected network, so that a clique of four nodes is a single simplex of dimension 3. The isolated
+#' nodes are cliques of a single node, and they are included as simplices of dimension 0 when
+#' \code{zero_simplex = TRUE}.
+#'
+#' With \code{complex = "neighbourhood"}, each node is the simplex of its neighbours, the rows of
+#' \code{A} (the out-neighbours of a directed network), and with \code{closed = TRUE} the node is also a
+#' vertex of its own simplex (Raj et al., 2024). The nodes without neighbours do not form a simplex
+#' unless the neighbourhoods are closed.
+#'
+#' The rows of the result are the nodes and the columns the simplices, named after their nodes
+#' (\code{a-b-c}) for the clique complex, and after the node whose neighbourhood they are (\code{N(a)}
+#' or \code{N[a]}) for the neighbourhood complex. \code{q_analysis(t(S), simplicial_complex = TRUE)} is
+#' the Q-analysis of the simplices, and \code{q_analysis(S, simplicial_complex = TRUE)} that of the
+#' conjugate complex, in which the nodes are connected through the simplices they share.
+#'
+#' @param A   A square matrix of a network, with names.
+#' @param zero_simplex   Whether to include the isolated nodes as simplices of dimension 0, for \code{complex = "clique"}.
+#' @param projection  Whether to return the links between the simplices through their shared nodes, and between the nodes through their shared simplices.
+#' @param complex   The complex: the maximal cliques (\code{clique}, default) or the neighbourhoods (\code{neighbourhood}).
+#' @param closed   Whether the neighbourhoods include the node itself, for \code{complex = "neighbourhood"}.
+#' @param valued   Whether the projections count the shared nodes or simplices instead of indicating whether there are any.
+#'
+#' @return This function returns the incidence matrix of the nodes (rows) and the simplices (columns). With
+#' \code{projection = TRUE}, a list with the incidence matrix (\code{simplex}), the projection of the simplices
+#' (\code{projection1}) and the projection of the nodes (\code{projection2}).
 #'
 #' @references
 #'
 #' Atkin, R. H. (1974). Mathematical structure in human affairs. New York: Crane, Rusak.
 #'
 #' Freeman, L. C. (1980). Q-analysis and the structure of friendship networks. International Journal of Man-Machine Studies, 12(4), 367–378. \doi{10.1016/S0020-7373(80)80021-6}
+#'
+#' Raj, U., Banerjee, A., Ray, S. and Bhattacharya, S. (2024). Structure of higher-order interactions in social-ecological networks through Q-analysis of their neighbourhood and clique complex. PLOS ONE, 19(8), e0306409. \doi{10.1371/journal.pone.0306409}
 #'
 #' Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.
 #'
@@ -1160,44 +1176,62 @@ hypergraph <- function(A, dual = TRUE, both = TRUE) {
 #' ), byrow = TRUE, ncol = 9)
 #' rownames(A) <- letters[1:nrow(A)]
 #' colnames(A) <- rownames(A)
+#'
+#' simplicial_complexes(A)
 #' simplicial_complexes(A, zero_simplex = FALSE)
+#' simplicial_complexes(A, complex = "neighbourhood", closed = TRUE)
+#' simplicial_complexes(A, projection = TRUE, valued = TRUE)$projection2
 #' @export
 
-simplicial_complexes <- function(A, zero_simplex = FALSE, projection = FALSE) {
+simplicial_complexes <- function(A, zero_simplex = TRUE, projection = FALSE,
+                                 complex = c("clique", "neighbourhood"), closed = FALSE,
+                                 valued = FALSE) {
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  complex <- match.arg(complex)
   if (is.null(rownames(A))) stop("No label assigned to the rows of the matrix")
   if (is.null(colnames(A))) stop("No label assigned to the columns of the matrix")
-  if (ncol(A) != nrow(A)) warning("Matrix should be square")
+  if (ncol(A) != nrow(A)) stop("Matrix should be square")
+  A[A > 0] <- 1
 
-  clique <- clique_table(A)$table
-  edge <- matrix_to_edgelist(A, digraph = FALSE)
-  d <- edge
-  n <- length(unique(clique[, 2]))
-  edge <- cbind(d, (n + 1):(nrow(d) + n))
-  edge <- rbind(edge[, c(1, 3)], edge[, c(2, 3)])
-  n <- max(as.numeric(edge[, 2]))
-
-  if (zero_simplex) {
-    zero_simplex <- cbind(rownames(A), (n + 1):(nrow(d) + n))
-    simplex <- rbind(clique, edge, zero_simplex)
-    simplex <- edgelist_to_matrix(simplex, bipartite = TRUE)
-    colnames(simplex) <- 1:ncol(simplex)
+  if (complex == "clique") {
+    cliques <- clique_max(A, min = 1)
+    # The isolated nodes are the only maximal cliques of a single node
+    if (!zero_simplex) {
+      cliques <- cliques[lengths(cliques) > 1]
+    }
+    S <- matrix(0, nrow(A), length(cliques), dimnames = list(rownames(A), NULL))
+    for (i in seq_along(cliques)) {
+      S[cliques[[i]], i] <- 1
+    }
+    colnames(S) <- sapply(cliques, paste, collapse = "-")
   } else {
-    simplex <- rbind(clique, edge)
-    simplex <- edgelist_to_matrix(simplex, bipartite = TRUE)
-    colnames(simplex) <- 1:ncol(simplex)
+    # Column v holds the neighbours of v
+    S <- t(A)
+    diag(S) <- 1 * closed
+    if (closed) {
+      colnames(S) <- paste0("N[", rownames(A), "]")
+    } else {
+      colnames(S) <- paste0("N(", rownames(A), ")")
+    }
+    S <- S[, colSums(S) > 0, drop = FALSE]
   }
+
   if (projection) {
-    proj1 <- t(simplex) %*% simplex
-    proj1 <- ifelse(proj1 >= 1, 1, 0)
+    # Simplices linked by their shared nodes, and nodes by their shared simplices
+    proj1 <- t(S) %*% S
+    proj2 <- S %*% t(S)
+    if (!valued) {
+      proj1 <- ifelse(proj1 >= 1, 1, 0)
+      proj2 <- ifelse(proj2 >= 1, 1, 0)
+    }
     diag(proj1) <- 0
-
-    proj2 <- simplex %*% t(simplex)
-    proj2 <- ifelse(proj2 >= 1, 1, 0)
     diag(proj2) <- 0
-
-    return(list(simplex = simplex, projection1 = proj1, projection2 = proj2))
+    return(list(simplex = S, projection1 = proj1, projection2 = proj2))
   } else {
-    return(simplex)
+    return(S)
   }
 }
 
@@ -1207,9 +1241,9 @@ simplicial_complexes <- function(A, zero_simplex = FALSE, projection = FALSE) {
 #'
 #' @param A   A matrix
 #' @param maximum   Whether to extract the maximum component
-#' @param position   Whether to extract the component in the ith size position
+#' @param position   The position of the size of the component, from the largest (1). Used when \code{maximum = FALSE}
 #'
-#' @return A matrix or a list of matrices with the required components
+#' @return The matrix of the component, or a list with the matrices of the components when several have the same size
 #'
 #' @references
 #'
@@ -1227,41 +1261,30 @@ simplicial_complexes <- function(A, zero_simplex = FALSE, projection = FALSE) {
 #' @export
 
 extract_component <- function(A, maximum = TRUE, position = NULL) {
+  A <- as.matrix(A)
   temp <- components_id(A)
   if (maximum) {
     position <- 1
   }
-  if (!is.null(position)) {
-    if (!is.numeric(position)) stop("The position should be a number")
-    if (max(as.numeric(names(temp$size))) < position) stop(paste("The maximum number of components is", max(as.numeric(names(temp$size)))))
-    if (position < 0) stop("Please specify a number greater than 0")
-    id_comp <- sort(temp$size, decreasing = TRUE)[position]
+  if (is.null(position)) stop("Give the position of the component, or maximum = TRUE")
+  if (!is.numeric(position)) stop("The position should be a number")
+  if (position < 1) stop("Please specify a number greater than 0")
 
-    same_size <- c(temp$size == as.numeric(id_comp))
-    if (sum(same_size == TRUE) > 1) {
-      same_size <- as.numeric(names(which(same_size == TRUE)))
-      components <- list()
-      for (i in same_size) {
-        component_temp <- which(temp$components == same_size[i])
-        if (length(component_temp) == 1) {
-          components[[i]] <- matrix(0, ncol = 1, nrow = 1)
-          rownames(components[[i]]) <- rownames(A)[component_temp]
-          colnames(components[[i]]) <- colnames(A)[component_temp]
-        } else {
-          components[[i]] <- A[component_temp, component_temp]
-        }
-      }
-    } else {
-      max_comp <- which(temp$components == names(id_comp))
-      if (length(max_comp) == 1) {
-        components <- matrix(0, ncol = 1, nrow = 1)
-        rownames(components) <- rownames(A)[max_comp]
-        colnames(components) <- colnames(A)[max_comp]
-      } else {
-        components <- A[max_comp, max_comp]
-      }
-    }
+  # The distinct sizes of the components, from the largest; position i is the
+  # i-th largest size, and all the components of that size are returned
+  sizes <- sort(unique(as.numeric(temp$size)), decreasing = TRUE)
+  if (position > length(sizes)) stop(paste("The components have only", length(sizes), "different sizes"))
+  ids <- as.numeric(names(temp$size))[as.numeric(temp$size) == sizes[position]]
+
+  components <- list()
+  for (k in seq_along(ids)) {
+    members <- which(temp$components == ids[k])
+    components[[k]] <- A[members, members, drop = FALSE]
   }
+  if (length(components) == 1) {
+    return(components[[1]])
+  }
+  names(components) <- paste("component", ids)
   return(components)
 }
 
@@ -1292,19 +1315,13 @@ extract_component <- function(A, maximum = TRUE, position = NULL) {
 #' @export
 
 power_function <- function(A, n) {
-  return(powA(A, n))
-}
-
-powA <- function(A, n) {
-  if (n == 1) {
-    return(A)
+  if (n < 1) stop("n should be a positive integer")
+  # A loop instead of recursion, which reached the limit of nested expressions for large n
+  P <- A
+  for (i in seq_len(n - 1)) {
+    P <- P %*% A
   }
-  if (n == 2) {
-    return(A %*% A)
-  }
-  if (n > 2) {
-    return(A %*% powA(A, n - 1))
-  }
+  return(P)
 }
 
 #' Permutation matrix
@@ -1495,8 +1512,21 @@ cumulativeSumMatrices <- function(matrixList) {
 #' @export
 
 adj_to_incidence <- function(A, loops = TRUE, directed = TRUE, weighted = TRUE) {
+  A <- as.matrix(A)
+  if (any(is.na(A) == TRUE)) {
+    A <- ifelse(is.na(A), 0, A)
+  }
+  if (nrow(A) != ncol(A)) stop("Matrix should be square")
   # Get the number of nodes
   n <- nrow(A)
+  if (is.null(rownames(A))) {
+    rownames(A) <- as.character(1:n)
+  }
+
+  # An undirected tie is present when either of the two cells is
+  if (!directed) {
+    A <- pmax(A, t(A))
+  }
 
   # Identify edges (i -> j) from adjacency matrix
   edges <- which(A != 0, arr.ind = TRUE)
@@ -1514,11 +1544,16 @@ adj_to_incidence <- function(A, loops = TRUE, directed = TRUE, weighted = TRUE) 
   # Number of edges
   num_edges <- nrow(edges)
 
-  # Initialize incidence matrix (n x num_edges)
-  incidence_matrix <- matrix(0, n, num_edges)
+  # Initialize incidence matrix (n x num_edges), with the edges named after
+  # their nodes
+  separator <- if (directed) "->" else "-"
+  incidence_matrix <- matrix(0, n, num_edges, dimnames = list(
+    rownames(A),
+    paste(rownames(A)[edges[, 1]], rownames(A)[edges[, 2]], sep = separator)
+  ))
 
   # Populate incidence matrix
-  for (e in 1:num_edges) {
+  for (e in seq_len(num_edges)) {
     i <- edges[e, 1] # Source node
     j <- edges[e, 2] # Target node
     weight <- ifelse(weighted, A[i, j], 1) # Use weights or binary

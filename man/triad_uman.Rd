@@ -4,7 +4,7 @@
 \alias{triad_uman}
 \title{Triad census analysis assuming U|MAN}
 \usage{
-triad_uman(A, ztest = FALSE, covar = FALSE)
+triad_uman(A, ztest = FALSE, covar = FALSE, l = NULL)
 }
 \arguments{
 \item{A}{A symmetric matrix object}
@@ -12,11 +12,14 @@ triad_uman(A, ztest = FALSE, covar = FALSE)
 \item{ztest}{Return Z and p-value}
 
 \item{covar}{Return the covariance matrix for triadic analysis}
+
+\item{l}{Optional vector with the sixteen coefficients of a linear combination of the triad census (e.g. a transitivity weighting vector). The observed value, its expectation, standard deviation and a z-test are returned}
 }
 \value{
 This function gives the counts of the triad census, the expected counts,
 assuming that U|MAN distribution (Holland and Leinhardt, 1975, 1976) is operating,
-and the standard deviations of these counts.
+and the standard deviations of these counts. The covariance matrix and the test of a
+linear combination of the census are returned when requested.
 }
 \description{
 Considering the triad census of Davis and Leinhardt (1972) for vector A, B, and C:
@@ -60,6 +63,10 @@ data(krackhardt_friends)
 triad_uman(krackhardt_friends)
 \donttest{
 triad_uman(krackhardt_friends, ztest = TRUE, covar = TRUE)
+
+# Transitivity: 030T, 120D, 120U and 300 are transitive triads
+l <- c(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1)
+triad_uman(krackhardt_friends, l = l)$z_test
 }
 
 }

@@ -4,16 +4,30 @@
 \alias{components_id}
 \title{Components}
 \usage{
-components_id(A)
+components_id(A, mode = c("weak", "strong"), bipartite = FALSE)
 }
 \arguments{
-\item{A}{A matrix}
+\item{A}{A square matrix, or an incidence matrix if \code{bipartite = TRUE}}
+
+\item{mode}{Whether the components are \code{weak} (default) or \code{strong}}
+
+\item{bipartite}{Whether the matrix is an incidence matrix of a two-mode network}
 }
 \value{
-A vector assigning an id the components that each of the nodes of the matrix belongs
+A vector with the component of each node, and the size of the components.
 }
 \description{
-This function assigns an id to the components that each of the nodes of the matrix belongs
+Components of a network: the groups of nodes that can reach each other.
+}
+\details{
+In a \code{weak} component the nodes are connected when the direction of the ties is
+ignored. In a \code{strong} component every node can reach every other node following the
+direction of the ties, so a strong component is contained in a weak one. For undirected
+networks both are the same.
+
+For two-mode networks, the nodes of both sets are placed in the same network before looking
+for the components, so a component contains the nodes of the first mode and the ones of the
+second mode that they share.
 }
 \examples{
 
@@ -27,6 +41,17 @@ A <- matrix(c(
 rownames(A) <- letters[1:ncol(A)]
 colnames(A) <- rownames(A)
 components_id(A)
+
+# In a chain of citations every node is in the same weak component,
+# but each of them is its own strong component
+B <- matrix(c(
+  0, 1, 0, 0,
+  0, 0, 1, 0,
+  0, 0, 0, 1,
+  0, 0, 0, 0
+), byrow = TRUE, ncol = 4)
+components_id(B)
+components_id(B, mode = "strong")
 }
 \references{
 Wasserman, S. and Faust, K. (1994). Social network analysis: Methods and applications. Cambridge University Press.

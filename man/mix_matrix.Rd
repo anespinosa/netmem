@@ -4,15 +4,17 @@
 \alias{mix_matrix}
 \title{Mixing matrix}
 \usage{
-mix_matrix(A, att = NULL)
+mix_matrix(A, att = NULL, digraph = TRUE)
 }
 \arguments{
 \item{A}{A symmetric matrix object}
 
 \item{att}{Categorical attribute of the nodes}
+
+\item{digraph}{Whether the matrix is directed. A symmetric matrix is always treated as undirected}
 }
 \value{
-This function returns a mixing matrix.
+This function returns a mixing matrix
 }
 \description{
 Create a mixing matrix from node attributes. The mixing matrix is a two-dimensional
@@ -21,6 +23,8 @@ This matrix allowed identifying segregation and homophily at the network level.
 }
 \details{
 Values in the diagonal are the number of ties within groups, and off-diagonal are the number of relations between groups.
+For directed networks the entries are the arcs between the groups. For undirected networks every edge is counted
+once, so the entries outside the diagonal are half of the edges between the two groups.
 }
 \examples{
 

@@ -24,7 +24,8 @@ ego_net(
 \item{select}{Whether to consider all sender and receiver ties of ego (\code{all}), only incoming ties (\code{in}), or outgoing ties (\code{out}). By default, \code{all}.}
 }
 \value{
-This function returns redundancy, effective size and efficiency measures (Burt, 1992).
+This function returns the submatrix of the alters of ego, with ego in the last row and column when \code{addEgo = TRUE}.
+An isolate gives an empty matrix (or a 1 x 1 matrix with ego).
 }
 \description{
 Submatrix of ego's neighbourhoods

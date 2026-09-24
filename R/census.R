@@ -78,19 +78,42 @@ dyadic_census <- function(G, directed = TRUE, loops = FALSE) {
 #'
 #' This function counts the different subgraphs of three nodes in a multiplex directed and undirected network.
 #'
-#' @param A   A directed matrix object.
-#' @param B   An undirected matrix object.
+#' @details
+#' Each triple of nodes is classified by its type in the first (directed) network, one of the 16 types of the
+#' triad census (Holland and Leinhardt, 1976), and by the position of the edges of the second (undirected) network
+#' in that triad (Espinosa-Rada, 2021: Figure 12). Each type of the first network is drawn in fixed positions,
+#' bottom left, top and bottom right, and the edges of the second network are named by where they fall: 102a
+#' (bottom left to top), 102b (bottom left to bottom right) and 102c (top to bottom right); the two-paths by their
+#' centre, 201a (bottom left), 201b (bottom right) and 201c (top). Positions that are equivalent by the symmetry
+#' of the triad of the first network form a single class, such as \code{021U_102ac}, as the two edges between the
+#' top and the bottom nodes are equivalent when both bottom nodes send a tie to the top one.
 #'
-#' @return This function gives the counts of the mixed multiplex triad census for a directed and an undirected network.
+#' With \code{merge = "overlap"}, the classes of the same type of the first network that give the same triad when
+#' both networks are overlapped are also merged, as most groups of Figure 12 do (for instance, \code{102_003-102a}:
+#' an edge of the second network on a mutual tie of the first adds nothing to the overlapped triad).
+#'
+#' The counts of each type of the first network add up to its triad census.
+#'
+#' Up to version 1.0-3 the function added counts of the two networks instead of counting the triples of each
+#' class, so its results were wrong.
+#'
+#' @param A   A directed matrix object.
+#' @param B   An undirected matrix object. A directed matrix is replaced by its underlying graph.
+#' @param merge   Whether to merge the classes that give the same overlapped triad (\code{overlap}) or not (\code{none}, default).
+#'
+#' @return This function gives the number of triples in each class, named by the type of the first network and the position of the edges of the second.
 #'
 #' @references
+#'
+#' Batagelj, V. and Mrvar, A. (2001). A subquadratic triad census algorithm for large sparse networks with small maximum degree. Social Networks, 23(3), 237–243. \doi{10.1016/S0378-8733(01)00035-1}
 #'
 #' Espinosa-Rada, A. (2021). A Network Approach for the Sociological Study of Science: Modelling Dynamic Multilevel Networks. [PhD](https://research.manchester.ac.uk/en/studentTheses/a-network-approach-for-the-sociological-study-of-science-and-know). The University of Manchester.
 #'
 #' Espinosa-Rada, A., Bellotti, E., Everett, M., & Stadtfeld, C. (2024). Co-evolution of a socio-cognitive scientific network: A case study of citation dynamics among astronomers. Social Networks, 78, 92–108. \doi{10.1016/j.socnet.2023.11.008}
 #'
-#' @author Alejandro Espinosa-Rada
+#' Holland, P. W. and Leinhardt, S. (1976). Local structure in social networks. Sociological Methodology, 7, 1–45. \doi{10.2307/270703}
 #'
+#' @author Alejandro Espinosa-Rada
 #'
 #' @examples
 #'
@@ -135,129 +158,160 @@ dyadic_census <- function(G, directed = TRUE, loops = FALSE) {
 #' @export
 #'
 
-multiplex_census <- function(A, B) {
-  # TODO: Experimental version, please use with caution
-
-  if (!all(A <= 1)) warning(paste("Measure only implemented for binary networks,", "the `first` network", "would be binarized for the triad census"))
+multiplex_census <- function(A, B, merge = c("none", "overlap")) {
+  merge <- match.arg(merge)
   A <- as.matrix(A)
-  if (!dim(A)[1] == dim(A)[2]) stop("Matrix should be square")
-  A <- ifelse(A > 0, 1, 0)
-
-  if (!all(B <= 1)) warning(paste("Measure only implemented for binary networks,", "the `second` network", "would be binarized for the triad census")) # deparse(quote(B))
   B <- as.matrix(B)
+  A <- ifelse(is.na(A), 0, A)
+  B <- ifelse(is.na(B), 0, B)
+  if (!dim(A)[1] == dim(A)[2]) stop("Matrix should be square")
   if (!dim(B)[1] == dim(B)[2]) stop("Matrix should be square")
+  if (nrow(A) != nrow(B)) stop("Both networks should have the same nodes")
+  if (nrow(A) < 3) stop("The triad census needs at least three nodes")
+  if (!all(A <= 1)) warning("Measure only implemented for binary networks, the first network is binarized")
+  if (!all(B <= 1)) warning("Measure only implemented for binary networks, the second network is binarized")
+  A <- ifelse(A > 0, 1, 0)
   B <- ifelse(B > 0, 1, 0)
+  diag(A) <- 0
+  diag(B) <- 0
+  if (!all(B == t(B))) warning("The second network is directed, the underlying graph is used")
+  B <- pmax(B, t(B))
 
-  if (!all(B[lower.tri(B)] == t(B)[lower.tri(B)])) warning(paste("Measure only implemented for a directed and an undirected network.", "For the `second` network,", "the underlying graph is used"))
-  B[lower.tri(B)] <- t(B)[lower.tri(B)]
+  # The class of each of the 64 x 8 combinations of the six possible arcs of
+  # the first network and the three possible edges of the second
+  table <- multiplex_classes(merge)
 
-  if (any(is.na(A) == TRUE)) {
-    A <- ifelse(is.na(A), 0, A)
-  }
-  if (any(is.na(B) == TRUE)) {
-    B <- ifelse(is.na(B), 0, B)
-  }
+  triples <- t(utils::combn(nrow(A), 3))
+  i <- triples[, 1]
+  j <- triples[, 2]
+  k <- triples[, 3]
+  code_a <- A[cbind(i, j)] + 2 * A[cbind(j, i)] + 4 * A[cbind(i, k)] +
+    8 * A[cbind(k, i)] + 16 * A[cbind(j, k)] + 32 * A[cbind(k, j)]
+  code_b <- B[cbind(i, j)] + 2 * B[cbind(i, k)] + 4 * B[cbind(j, k)]
+  class <- table$class[code_a * 8 + code_b + 1]
 
-  E <- ifelse((A + t(A)) > 0, 1, 0)
-  Eb <- ifelse(E == 0, 1, 0)
-  diag(Eb) <- 0
-  M <- ifelse((A + t(A)) > 1, 1, 0)
-  C <- A - M
-  t201 <- sum(M %*% M * Eb)
-  t021D <- sum(t(C) %*% C * Eb)
-  t021U <- sum(C %*% t(C) * Eb)
+  census <- table(factor(class, levels = unique(table$class[order(table$order)])))
+  census <- setNames(as.numeric(census), names(census))
+  return(census)
+}
 
-  E2 <- ifelse((B + t(B)) > 0, 1, 0)
-  Eb2 <- ifelse(E2 == 0, 1, 0)
-  diag(Eb2) <- 0
-  M2 <- ifelse((B + t(B)) > 1, 1, 0)
-  C2 <- B - M
-  t201b <- sum(M %*% M * Eb)
-  t021Db <- sum(t(C2) %*% C2 * Eb2)
-  t021Ub <- sum(C2 %*% t(C2) * Eb2)
-
-  D <- (A + B)
-  D <- ifelse(D >= 1, 1, 0)
-  E3 <- ifelse((D + t(D)) > 0, 1, 0)
-  Eb3 <- ifelse(E3 == 0, 1, 0)
-  diag(Eb3) <- 0
-  M3 <- ifelse((D + t(D)) > 1, 1, 0)
-  C3 <- D - M3
-  t201d <- sum(M3 %*% M3 * Eb3)
-  t021Dd <- sum(t(C3) %*% C3 * Eb3)
-  t021Ud <- sum(C3 %*% t(C3) * Eb3)
-
-  res <- c(
-    "003_003" = sum(diag(Eb3 %*% Eb3 %*% Eb3)) / 6,
-    "003_102" = sum(diag(Eb %*% Eb %*% Eb)) / 6 + sum((Eb2 %*% Eb2 * M2)) / 2,
-    "003_201" = sum(diag(Eb %*% Eb %*% Eb)) / 6 + sum(M2 %*% M2 * Eb2) / 2,
-    "003_300" = sum(diag(Eb %*% Eb %*% Eb)) / 6 + sum(diag(M2 %*% M2 %*% M2)) / 6,
-    "012_003" = sum((Eb %*% Eb) * (C + t(C))) / 2 + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "012_102a" = sum((Eb %*% Eb) * (C + t(C))) / 2 + sum((Eb3 %*% Eb3 * M3)) / 2,
-    "012_102b" = sum((Eb %*% Eb) * (C + t(C))) / 2 + (sum(t(D) %*% D * Eb3) - t201d - t021Dd) / 2,
-    "012_102c" = sum((Eb %*% Eb) * (C + t(C))) / 2 + (sum(D %*% t(D) * Eb3) - t201d - t021Ud) / 2,
-    "012_201b" = sum((Eb %*% Eb) * (C + t(C))) / 2 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "012_201ac" = sum((Eb %*% Eb) * (C + t(C))) / 2 + sum(M3 %*% M3 * Eb3) / 2,
-    "012_300" = sum((Eb %*% Eb) * (C + t(C))) / 2 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "021u_003" = sum(C %*% t(C) * Eb) / 2 + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "021u_102ac" = sum(C %*% t(C) * Eb) / 2 + (sum(D %*% t(D) * Eb3) - t201d - t021Ud) / 2,
-    "021u_102b" = sum(C %*% t(C) * Eb) / 2 + sum(C3 %*% t(C3) * M3) / 2,
-    "021u_201ab" = sum(C %*% t(C) * Eb) / 2 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "021u_201c" = sum(C %*% t(C) * Eb) / 2 + sum(M3 %*% M3 * Eb3) / 2,
-    "021u_300" = sum(C %*% t(C) * Eb) / 2 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "021d_003" = sum(t(C) %*% C * Eb) / 2 + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "021d_102ac" = sum(t(C) %*% C * Eb) / 2 + (sum(t(D) %*% D * Eb3) - t201d - t021Dd) / 2,
-    "021d_120b" = sum(t(C) %*% C * Eb) / 2 + sum(t(C3) %*% C3 * M3) / 2,
-    "021d_201ab" = sum(t(C) %*% C * Eb) / 2 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "021d_201c" = sum(t(C) %*% C * Eb) / 2 + sum(M3 %*% M3 * Eb3) / 2,
-    "021d_300" = sum(t(C) %*% C * Eb) / 2 + sum(diag(M2 %*% M2 %*% M2)) / 6,
-    "102_003_102a" = sum((Eb %*% Eb * M)) / 2 + sum((Eb3 %*% Eb3 * M3)) / 2,
-    "102_102bc_201ac" = sum((Eb %*% Eb * M)) / 2 + sum(M3 %*% M3 * Eb3) / 2,
-    "102_300" = sum((Eb %*% Eb * M)) / 2 + sum(diag(M2 %*% M2 %*% M2)) / 6,
-    "021c_003" = sum(C %*% C * Eb) + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "021c_102a" = sum(C %*% C * Eb) + (sum(t(D) %*% D * Eb3) - t201d - t021Dd) / 2,
-    "021c_103b" = sum(C %*% C * Eb) + sum(C3 %*% C3 * M3),
-    "021c_102c" = sum(C %*% C * Eb) + (sum(D %*% t(D) * Eb3) - t201d - t021Ud) / 2,
-    "021c_210ab" = sum(C %*% C * Eb) + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "021c_201c" = sum(C %*% C * Eb) + sum(M3 %*% M3 * Eb3) / 2,
-    "021c_300" = sum(C %*% C * Eb) + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "030t_003" = sum((C %*% C) * C) + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "030t_102ab" = sum((C %*% C) * C) + sum(C3 %*% C3 * M3),
-    "030t_102b" = sum((C %*% C) * C) + sum(C3 %*% t(C3) * M3) / 2,
-    "030t_102c" = sum((C %*% C) * C) + sum(t(C3) %*% C3 * M3) / 2,
-    "030t_210ab" = sum((C %*% C) * C) + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "030t_201c_300" = sum((C %*% C) * C) + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "030c_003" = sum(diag(C %*% C %*% C)) / 3 + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "030c_102abc" = sum(diag(C %*% C %*% C)) / 3 + sum(C3 %*% C3 * M3),
-    "030c_201abc" = sum(diag(C %*% C %*% C)) / 3 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "030c_300" = sum(diag(C %*% C %*% C)) / 3 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "111d_003" = (sum(A %*% t(A) * Eb) - t201 - t021U) / 2 + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "111d_102a_201a" = (sum(A %*% t(A) * Eb) - t201 - t021U) / 2 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "111d_102b" = (sum(D %*% t(D) * Eb3) - t201d - t021Ud) / 2,
-    "111d_102c_201b" = (sum(A %*% t(A) * Eb) - t201 - t021U) / 2 + sum(M3 %*% M3 * Eb3) / 2,
-    "111d_201c_300" = (sum(A %*% t(A) * Eb) - t201 - t021U) / 2 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "111u_003" = (sum(t(A) %*% A * Eb) - t201 - t021D) / 2 + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "111u_102a_201a" = (sum(t(A) %*% A * Eb) - t201 - t021D) / 2 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "111u_102bc_201b" = (sum(t(A) %*% A * Eb) - t201 - t021D) / 2 + sum(M3 %*% M3 * Eb3) / 2,
-    "111u_201c_300" = (sum(t(A) %*% A * Eb) - t201 - t021D) / 2 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "120u_003_102b" = sum(C %*% t(C) * M) / 2 + sum(C3 %*% t(C3) * M3) / 2,
-    "120u_102ab_201ab" = sum(C %*% t(C) * M) / 2 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "120u_201c_300" = sum(C %*% t(C) * M) / 2 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "120d_003_120b" = sum(t(C) %*% C * M) / 2 + sum(t(C3) %*% C3 * M3) / 2,
-    "120d_102ab_201ab" = sum(t(C) %*% C * M) / 2 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "120d_201c_300" = sum(t(C) %*% C * M) / 2 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "201_003" = sum(M %*% M * Eb) / 2 + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "201_102ac_201ab" = sum(M %*% M * Eb) / 2 + sum(M3 %*% M3 * Eb3) / 2,
-    "201_102c_201bc_300" = sum(M %*% M * Eb) / 2 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "120c_003" = sum(C %*% C * M) + sum(diag(Eb2 %*% Eb2 %*% Eb2)) / 6,
-    "120c_120c" = sum(C %*% C * M) + sum(C3 %*% C3 * M3),
-    "120c_210" = sum(C %*% C * M) + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "120c_300" = sum(C %*% C * M) + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "210_003_210" = sum(M %*% M * (C + t(C))) / 2 + sum(M3 %*% M3 * (C3 + t(C3))) / 2,
-    "210_300" = sum(M %*% M * (C + t(C))) / 2 + sum(diag(M3 %*% M3 %*% M3)) / 6,
-    "300_003_300" = sum(diag(M %*% M %*% M)) / 6 + sum(diag(M3 %*% M3 %*% M3)) / 6
+# Classes of the mixed multiplex triad census (Espinosa-Rada, 2021: Figure 12).
+# Each type of triad of the first network is drawn in fixed positions: 1 at the
+# bottom left, 2 at the top and 3 at the bottom right. The edges of the second
+# network are named by their position: 102a (1-2), 102b (1-3), 102c (2-3), and
+# the two-paths by their centre: 201a (1), 201b (3), 201c (2). Positions that
+# the symmetries of the first triad make equivalent are merged (e.g. 102ac).
+# With merge = "overlap", the classes of a type of the first network that give
+# the same triad when both networks are overlapped are also merged.
+multiplex_classes <- function(merge = "none") {
+  drawings <- list(
+    "003" = NULL,
+    "012" = rbind(c(1, 2)),
+    "102" = rbind(c(1, 2), c(2, 1)),
+    "021D" = rbind(c(2, 1), c(2, 3)),
+    "021U" = rbind(c(1, 2), c(3, 2)),
+    "021C" = rbind(c(1, 2), c(2, 3)),
+    "111D" = rbind(c(1, 3), c(3, 1), c(2, 3)),
+    "111U" = rbind(c(1, 3), c(3, 1), c(3, 2)),
+    "030T" = rbind(c(1, 2), c(3, 2), c(1, 3)),
+    "030C" = rbind(c(2, 1), c(1, 3), c(3, 2)),
+    "201" = rbind(c(1, 2), c(2, 1), c(1, 3), c(3, 1)),
+    "120D" = rbind(c(2, 1), c(2, 3), c(1, 3), c(3, 1)),
+    "120U" = rbind(c(1, 2), c(3, 2), c(1, 3), c(3, 1)),
+    "120C" = rbind(c(1, 2), c(2, 3), c(1, 3), c(3, 1)),
+    "210" = rbind(c(1, 2), c(2, 3), c(3, 2), c(1, 3), c(3, 1)),
+    "300" = rbind(c(1, 2), c(2, 1), c(1, 3), c(3, 1), c(2, 3), c(3, 2))
   )
-  return(floor(res / 2))
+  types <- names(drawings)
+  perms <- rbind(c(1, 2, 3), c(1, 3, 2), c(2, 1, 3), c(2, 3, 1), c(3, 1, 2), c(3, 2, 1))
+  drawn <- lapply(drawings, function(arcs) {
+    M <- matrix(0, 3, 3)
+    if (!is.null(arcs)) M[arcs] <- 1
+    M
+  })
+
+  # Name of the edges of the second network in the drawn positions
+  red_label <- function(E) {
+    e <- c(E[1, 2], E[1, 3], E[2, 3])
+    if (sum(e) == 0) return("003")
+    if (sum(e) == 3) return("300")
+    if (sum(e) == 1) return(paste0("102", c("a", "b", "c")[e == 1]))
+    # The centre of a two-path is the node opposite the missing edge
+    paste0("201", c("b", "c", "a")[e == 0])
+  }
+
+  classes <- NULL
+  for (code_a in 0:63) {
+    arcs <- as.integer(intToBits(code_a))[1:6]
+    A <- matrix(0, 3, 3)
+    A[1, 2] <- arcs[1]
+    A[2, 1] <- arcs[2]
+    A[1, 3] <- arcs[3]
+    A[3, 1] <- arcs[4]
+    A[2, 3] <- arcs[5]
+    A[3, 2] <- arcs[6]
+    # The type of the triad, and the ways of placing its nodes in the drawing
+    type <- NULL
+    placements <- NULL
+    for (t in types) {
+      for (p in seq_len(nrow(perms))) {
+        if (all(A[perms[p, ], perms[p, ]] == drawn[[t]])) {
+          type <- t
+          placements <- c(placements, p)
+        }
+      }
+      if (!is.null(type)) break
+    }
+    for (code_b in 0:7) {
+      edges <- as.integer(intToBits(code_b))[1:3]
+      E <- matrix(0, 3, 3)
+      E[1, 2] <- E[2, 1] <- edges[1]
+      E[1, 3] <- E[3, 1] <- edges[2]
+      E[2, 3] <- E[3, 2] <- edges[3]
+      orbit <- sort(unique(sapply(placements, function(p) red_label(E[perms[p, ], perms[p, ]]))))
+      stem <- unique(substr(orbit, 1, 3))
+      positions <- paste(substring(orbit, 4), collapse = "")
+      red <- if (stem %in% c("003", "300") || nchar(positions) == 3) stem else paste0(stem, positions)
+      # Type of the triad when both networks are overlapped
+      O <- pmax(A, E)
+      code_o <- O[1, 2] + 2 * O[2, 1] + 4 * O[1, 3] + 8 * O[3, 1] + 16 * O[2, 3] + 32 * O[3, 2]
+      classes <- rbind(classes, data.frame(
+        code = code_a * 8 + code_b, first = type, second = red,
+        overlap = code_o, stringsAsFactors = FALSE
+      ))
+    }
+  }
+  overlap_type <- sapply(classes$overlap, function(code) {
+    A <- matrix(0, 3, 3)
+    arcs <- as.integer(intToBits(code))[1:6]
+    A[1, 2] <- arcs[1]
+    A[2, 1] <- arcs[2]
+    A[1, 3] <- arcs[3]
+    A[3, 1] <- arcs[4]
+    A[2, 3] <- arcs[5]
+    A[3, 2] <- arcs[6]
+    for (t in types) {
+      for (p in seq_len(nrow(perms))) {
+        if (all(A[perms[p, ], perms[p, ]] == drawn[[t]])) return(t)
+      }
+    }
+  })
+  classes$overlap <- overlap_type
+  classes$class <- paste(classes$first, classes$second, sep = "_")
+  if (merge == "overlap") {
+    for (t in types) {
+      for (o in unique(classes$overlap[classes$first == t])) {
+        members <- classes$first == t & classes$overlap == o
+        seconds <- unique(classes$second[members][order(classes$code[members])])
+        classes$class[members] <- paste(t, paste(sort(seconds), collapse = "-"), sep = "_")
+      }
+    }
+  }
+  # The classes are listed by the type of the first network, then by the
+  # number of edges of the second
+  edges_second <- as.numeric(substr(classes$second, 1, 1))
+  classes$order <- match(classes$first, types) * 100 + edges_second * 10 + nchar(classes$second)
+  return(classes[order(classes$code), ])
 }
 
 #' Multilevel triad and quadrilateral census
@@ -395,7 +449,7 @@ mixed_census <- function(A1, B1, B2 = NULL, quad = FALSE) {
       "022" = sum(onemode.reciprocal * bipartite.null * bipartite.twopath2) / 2,
       "101N" = sum(onemode.null * bipartite.onestep1 * bipartite.onestep22) / 2 + sum(onemode.null * bipartite.onestep2 * bipartite.onestep12) / 2,
       "101P" = sum(onemode.null * bipartite.onestep1 * bipartite.onestep12) / 2 + sum(onemode.null * bipartite.onestep2 * bipartite.onestep22) / 2,
-      "201" = sum(onemode.null * bipartite.twopath * bipartite.onestep12) * sum(onemode.null * bipartite.twopath * bipartite.onestep22),
+      "201" = sum(onemode.null * bipartite.twopath * bipartite.onestep12) / 2 + sum(onemode.null * bipartite.twopath * bipartite.onestep22) / 2,
       "102" = sum(onemode.null * bipartite.onestep1 * bipartite.twopath2) / 2 + sum(onemode.null * bipartite.onestep2 * bipartite.twopath2) / 2,
       "202" = sum(onemode.null * bipartite.twopath * bipartite.twopath2) / 2,
       "11D1W" = sum(onemode.forward * bipartite.onestep1 * bipartite.onestep12) / 2 + sum(onemode.backward * bipartite.onestep2 * bipartite.onestep22) / 2,

@@ -7,7 +7,7 @@
 eb_constraint(A, ego = NULL, digraph = FALSE, weighted = FALSE)
 }
 \arguments{
-\item{A}{A symmetric matrix object}
+\item{A}{A matrix object}
 
 \item{ego}{Name of ego in the matrix}
 
@@ -20,7 +20,25 @@ This function returns term 1, 2 and 3, the normalization and the maximum value o
 and the constraint of Burt (1992).
 }
 \description{
-Everett and Borgatti specification of the constraint measure for binary matrices
+Everett and Borgatti specification of the constraint measure for binary, directed and valued matrices
+}
+\details{
+The constraint of Burt (1992) is computed in the ego network, from the proportion \eqn{p_{ij}} of the ties of
+each node \eqn{i} that go to \eqn{j}, and is split in the three terms of Everett and Borgatti (2020: Eq. 2):
+\deqn{\sum_j p_{ij}^2 + 2 \sum_j p_{ij} \sum_q p_{iq} p_{qj} + \sum_j \left(\sum_q p_{iq} p_{qj}\right)^2}
+For binary undirected networks, the first term is one over the number of alters \eqn{N}.
+
+Burt (1992) uses the ties in both directions, \eqn{p_{ij} \propto a_{ij} + a_{ji}}, so the constraint of a directed
+network is that of the undirected valued network \eqn{A + A^T}, in which a reciprocated tie counts twice and an
+unreciprocated tie once (Everett and Borgatti, 2020: 53).
+
+The normalization is \eqn{(c - 1/N) / (c_{max} - 1/N)}, where \eqn{1/N} is the minimum and \eqn{c_{max}}
+the maximum constraint of an ego with \eqn{N} alters. The maximum is reached in a complete ego network or in a
+shadow ego network, in which one alter is tied to all the others and there are no other ties among alters
+(Everett and Borgatti, 2020: Eq. 4, 6, 7, 8 and 9). For valued networks the maximum depends on the smallest
+(\eqn{m}) and the largest (\eqn{M}) value of the ties in the ego network, and binary networks are the case
+\eqn{m = M = 1}. The maximum is a conjecture of Everett and Borgatti, checked by enumerating ego networks.
+An ego with a single alter has a normalized constraint of one.
 }
 \examples{
 
@@ -36,6 +54,16 @@ A <- matrix(c(
 rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 eb_constraint(A, ego = "f")
+
+# Directed network: f -> a is not reciprocated
+D <- A
+D["a", "f"] <- 0
+eb_constraint(D, ego = "f", digraph = TRUE)
+
+# Valued network
+W <- A
+W["f", "a"] <- W["a", "f"] <- 3
+eb_constraint(W, ego = "f", weighted = TRUE)
 }
 \references{
 Burt, R.S., 1992. Structural Holes: the Social Structure of Competition. Harvard University Press, Cambridge.

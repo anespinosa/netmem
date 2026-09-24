@@ -11,10 +11,10 @@ extract_component(A, maximum = TRUE, position = NULL)
 
 \item{maximum}{Whether to extract the maximum component}
 
-\item{position}{Whether to extract the component in the ith size position}
+\item{position}{The position of the size of the component, from the largest (1). Used when \code{maximum = FALSE}}
 }
 \value{
-A matrix or a list of matrices with the required components
+The matrix of the component, or a list with the matrices of the components when several have the same size
 }
 \description{
 This function extract the matrix of different components

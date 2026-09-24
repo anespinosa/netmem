@@ -7,11 +7,11 @@
 ei_index(A, mixed = TRUE, att = NULL)
 }
 \arguments{
-\item{A}{A symmetric matrix object}
+\item{A}{A symmetric matrix object, or a mixing matrix if no attribute is given}
 
-\item{mixed}{Whether the matrix provided is already a mixed matrix or not}
+\item{mixed}{Whether the matrix provided is already a mixing matrix. It is only used when no attribute is given}
 
-\item{att}{Categorical attribute of the nodes}
+\item{att}{Categorical attribute of the nodes. When it is given, the mixing matrix is computed from \code{A}}
 }
 \value{
 Numerical value of the E-I index.
@@ -31,5 +31,14 @@ rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- letters[1:ncol(A)]
 
 att <- rbinom(sqrt(n), 3, 0.5)
-ei_index(A, mixed = FALSE, att = att)
+ei_index(A, att = att)
+
+# All the ties are within the groups, so the index is -1
+B <- matrix(0, 6, 6)
+B[1:3, 1:3] <- 1
+B[4:6, 4:6] <- 1
+diag(B) <- 0
+rownames(B) <- letters[1:6]
+colnames(B) <- rownames(B)
+ei_index(B, att = c(1, 1, 1, 2, 2, 2))
 }

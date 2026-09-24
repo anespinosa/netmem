@@ -9,7 +9,10 @@ edgelist_to_matrix(
   digraph = TRUE,
   label = NULL,
   label2 = NULL,
-  bipartite = FALSE
+  bipartite = FALSE,
+  valued = FALSE,
+  loops = FALSE,
+  rule = c("weak", "strong")
 )
 }
 \arguments{
@@ -17,17 +20,31 @@ edgelist_to_matrix(
 
 \item{digraph}{Whether the matrix is directed or not}
 
-\item{label}{A vector with the names of the nodes}
+\item{label}{A vector with the names of the nodes, which gives their order in the matrix and adds the nodes without ties}
 
-\item{label2}{A vector with the names of a different set of nodes}
+\item{label2}{A vector with the names of the nodes of the second mode, with the same role as \code{label}, when \code{bipartite = TRUE}}
 
 \item{bipartite}{Whether the matrix is bipartite}
+
+\item{valued}{Whether the third column of the edgelist has the value of the tie}
+
+\item{loops}{Whether to keep the ties of a node with itself}
+
+\item{rule}{For \code{digraph = FALSE}, whether an undirected tie is kept when it is listed in either order (\code{weak}, default) or only when it is listed in both orders (\code{strong}), as in \code{sna::symmetrize}}
 }
 \value{
 This function transform the edgelist into a matrix
 }
 \description{
 Transform an edgelist to a matrix
+}
+\details{
+With \code{digraph = FALSE} each undirected tie is placed in both cells of the matrix, so the number of
+ties is the number of cells of one triangle (or half the sum of a binary matrix). A tie listed in both
+orders is a single tie.
+
+The rows and the columns follow the order of \code{label}. The nodes that are not in \code{label}, or all the
+nodes when it is not given, are added in alphabetical order.
 }
 \examples{
 A <- matrix(c(
@@ -45,6 +62,14 @@ rownames(A) <- letters[1:nrow(A)]
 colnames(A) <- rownames(A)
 E <- matrix_to_edgelist(A)
 edgelist_to_matrix(E, label = c("i"), digraph = FALSE)
+
+# With a third column, the ties keep their value
+V <- rbind(
+  c("a", "b", 3),
+  c("b", "c", 1),
+  c("c", "a", 7)
+)
+edgelist_to_matrix(V, valued = TRUE)
 }
 \author{
 Alejandro Espinosa-Rada
